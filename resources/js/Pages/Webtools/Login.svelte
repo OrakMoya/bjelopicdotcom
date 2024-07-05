@@ -3,7 +3,8 @@
 </script>
 
 <script>
-    import { useForm } from "@inertiajs/svelte";
+    import { useForm, page } from "@inertiajs/svelte";
+    import { Toaster, toast } from "svelte-sonner";
     import Button from "../Shared/Components/Button.svelte";
     import CardRoot from "../Shared/Components/CardRoot.svelte";
     import CardTitle from "../Shared/Components/CardTitle.svelte";
@@ -17,10 +18,22 @@
     });
 
     function handleSubmit() {
-        console.log($form.email);
-        console.log("submitted");
+        $form.post("/webtools/login");
     }
+
+    /**
+     * @param {{ errors: { email: string | import("svelte").ComponentType; }; }} props
+     */
+    function processRefresh(props) {
+        if (JSON.stringify(props.errors) !== "{}") {
+            toast.error(props.errors.email);
+        }
+    }
+
+    $: processRefresh($page.props);
 </script>
+
+<Toaster theme="dark" richColors />
 
 <main class="max-w-screen-lg mx-auto p-4">
     <div class="w-fit mx-auto">

@@ -13,13 +13,21 @@ class LoginController extends Controller
     {
         $validated = $request->validated();
 
-        if (Auth::attempt($validated, $request->remember_me)) {
+        if (Auth::attempt($validated, $request->remember)) {
             $request->session()->regenerate();
-            return redirect()->intended('webtools');
+            return redirect('/webtools');
         }
 
         return back()->withErrors([
             'email' => 'Incorrect email or password'
         ])->onlyInput('email');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }
