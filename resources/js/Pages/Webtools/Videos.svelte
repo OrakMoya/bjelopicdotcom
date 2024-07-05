@@ -4,7 +4,8 @@
 
 <script>
     import { PlusIcon } from "lucide-svelte";
-    import * as Dialog from "../../Components/Dialog";
+    import {Button} from "$lib/components/ui/button";
+    import * as Dialog from "$lib/components/ui/dialog";
 </script>
 
 <main class="max-w-screen-lg mx-auto p-4">

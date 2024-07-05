@@ -1,0 +1,8 @@
+{
+    "compilerOptions":{
+        "paths":{
+            "$lib":["./resources/js"],
+            "$lib/*":["./resources/js/*"]
+        }
+    }
+}
