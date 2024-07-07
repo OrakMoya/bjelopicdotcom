@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string('subject');
             $table->string('poster_path')->nullable();
             $table->string('preview_path')->nullable();
-            $table->string('thumbnail_path');
+            $table->string('thumbnail_path')->nullable();
             $table->string('link');
             $table->date('publication_date');
 
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->uuid();
 
 
             $table->timestamps();

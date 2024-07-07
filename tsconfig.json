@@ -1,5 +1,6 @@
 {
     "compilerOptions":{
+        "baseUrl": ".",
         "paths":{
             "$lib":["./resources/js"],
             "$lib/*":["./resources/js/*"]

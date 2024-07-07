@@ -16,8 +16,9 @@
     },
     "dependencies": {
         "@inertiajs/svelte": "^1.2.0",
+        "@internationalized/date": "^3.5.4",
         "@sveltejs/vite-plugin-svelte": "^3.1.1",
-        "bits-ui": "^0.21.11",
+        "bits-ui": "^0.21.12",
         "clsx": "^2.1.1",
         "lucide-svelte": "^0.399.0",
         "svelte-preprocess": "^6.0.1",

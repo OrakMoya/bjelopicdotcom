@@ -3,7 +3,7 @@
 </script>
 
 <script>
-    import GridBoxButton from "../Shared/GridBoxButton.svelte";
+    import GridBoxButton from "$lib/components/ui/GridBoxButton.svelte";
     import { Film, Earth } from "lucide-svelte";
 </script>
 
