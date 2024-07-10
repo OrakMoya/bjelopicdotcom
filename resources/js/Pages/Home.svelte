@@ -21,12 +21,9 @@
         class="absolute top-0 left-0 overflow-clip w-screen h-full flex justify-center items-center"
     >
         <div class="brightness-50 w-full h-full object-cover">
-            <video
-                class="w-full h-full object-cover"
-                src="/hero.mp4"
-                autoplay
-                loop
-            />
+            <video class="w-full h-full object-cover" autoplay loop muted>
+                <source src="/hero.mp4" type="video/mp4" />
+            </video>
         </div>
     </div>
     <section
