@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('thumbnail_path')->nullable();
             $table->string('link');
             $table->date('publication_date');
+            $table->string('collection')->nullable();
 
             $table->foreignId('user_id')->references('id')->on('users');
             $table->uuid();

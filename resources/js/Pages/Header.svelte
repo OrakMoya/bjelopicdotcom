@@ -1,4 +1,5 @@
 <script>
+    import TheBjeloPic from "$lib/components/ui/TheBjeloPIC.svelte";
     import { Link } from "@inertiajs/svelte";
 
     let subtitles = [

@@ -31,7 +31,7 @@ class CreateVideoRequest extends FormRequest
             'publication_date' => ['required', 'date'],
             'thumbnail' => ['required', File::image()->min('100kb')->max('8mb'), Rule::dimensions()->ratio(16 / 9)],
             'preview' => ['nullable', 'mimetypes:video/mpeg', 'dimensions:ratio=16/9'],
-            'poster' => ['nullable', File::image()->min('500kb')->max('8mb'), Rule::dimensions()->maxWidth(707)->maxHeight(1000)->ratio(707 / 1000)],
+            'poster' => ['nullable', File::image()->min('500kb')->max('8mb'), Rule::dimensions()->maxWidth(2121)->maxHeight(3000)->ratio(707 / 1000)],
             'link' => ['required']
         ];
     }

@@ -10,5 +10,6 @@ Route::middleware(['auth', 'web'])->group(function(){
     Route::get('/videos', [WebtoolsVideosController::class, 'show']);
 
     Route::post('/videos/create', [WebtoolsVideosController::class, 'createVideo']);
+    Route::post('/videos/update', [WebtoolsVideosController::class, 'updateVideo']);
 });
 

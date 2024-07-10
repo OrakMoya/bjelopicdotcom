@@ -3,10 +3,11 @@
 </script>
 
 <header class="bg-black p-4 border-b border-b-neutral-800">
-    <div
-        class="max-w-screen-lg gap-y-2 gap-x-2 mx-auto flex justify-start items-center flex-col md:flex-row"
-    >
-        <Link href="/webtools">
+    <div>
+        <Link
+            href="/webtools"
+            class="max-w-screen-lg gap-y-2 sm:gap-x-2 mx-auto flex items-center justify-center md:justify-start"
+        >
             <div class="h-20 flex gap-x-4 items-center">
                 <img
                     class="h-full object-contain"
@@ -14,7 +15,10 @@
                     alt="BjeloPIC"
                 />
             </div>
+            <span
+                class="text-white text-[32px] sm:text-[36px] relative bottom-[2px] italic"
+                >Webtools</span
+            >
         </Link>
-        <span class="text-white text-[36px] relative bottom-[2px] italic">Webtools</span>
     </div>
 </header>
