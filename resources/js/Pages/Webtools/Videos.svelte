@@ -15,7 +15,7 @@
     import { Input } from "$lib/components/ui/input";
     import { Label } from "$lib/components/ui/label";
     import * as Tabs from "$lib/components/ui/tabs";
-    import { useForm } from "@inertiajs/svelte";
+    import { useForm, router } from "@inertiajs/svelte";
     import { Textarea } from "$lib/components/ui/textarea";
     import { CalendarIcon } from "lucide-svelte";
     import * as Popover from "$lib/components/ui/popover";
@@ -30,7 +30,7 @@
     import { ScrollArea } from "$lib/components/ui/scroll-area";
     import * as Accordion from "$lib/components/ui/accordion";
     import * as Command from "$lib/components/ui/command";
-    import { document } from "postcss";
+    import * as AlertDialog from "$lib/components/ui/alert-dialog";
 
     let new_video_form = useForm({
         id: null,
@@ -45,11 +45,7 @@
         collection: "",
     });
 
-    let collections = [
-        {
-            name: "DokuART Najavne Špice",
-        },
-    ];
+    export let collections;
 
     const df = new DateFormatter("en-US", {
         dateStyle: "long",
@@ -70,7 +66,18 @@
         }
         $new_video_form.publication_date = previous_date;
     }
-    function deleteVideo() {}
+    function deleteVideo(id) {
+        router.visit("/webtools/videos/delete", {
+            method: "post",
+            data: {
+                id: id,
+            },
+            onSuccess: () => {
+                deleteVideoDialogOpen = false;
+                new_video_dialog_open = false;
+            },
+        });
+    }
 
     function closeAndFocusTrigger(triggerId) {
         collections_open = false;
@@ -114,6 +121,7 @@
     let new_collection_open = false;
     let new_collection_name;
     let currently_edited_video;
+    let deleteVideoDialogOpen = false;
 </script>
 
 <main class="max-w-screen-lg mx-auto p-4">
@@ -271,7 +279,7 @@
                                                         <Command.Group>
                                                             {#each collections as collection}
                                                                 <Command.Item
-                                                                    value={collection.name}
+                                                                    value={collection}
                                                                     onSelect={(
                                                                         currentValue,
                                                                     ) => {
@@ -281,7 +289,7 @@
                                                                             ids.trigger,
                                                                         );
                                                                     }}
-                                                                    >{collection.name}</Command.Item
+                                                                    >{collection}</Command.Item
                                                                 >
                                                             {/each}
                                                         </Command.Group>
@@ -319,13 +327,13 @@
                                                         class="flex gap-x-2"
                                                         disabled={collections.find(
                                                             (element) =>
-                                                                element.name ===
+                                                                element ===
                                                                 new_collection_name,
                                                         )}
                                                         on:submit|preventDefault={() => {
-                                                            collections.push({
-                                                                name: new_collection_name,
-                                                            });
+                                                            collections.push(
+                                                                new_collection_name,
+                                                            );
                                                             new_collection_open = false;
                                                             $new_video_form.collection =
                                                                 new_collection_name;
@@ -341,7 +349,7 @@
                                                             type="submit"
                                                             disabled={collections.find(
                                                                 (element) =>
-                                                                    element.name ===
+                                                                    element ===
                                                                     new_collection_name,
                                                             )}>Add</Button
                                                         >
@@ -491,13 +499,53 @@
                         </Tabs.Content>
                     </Tabs.Root>
                     <Dialog.Footer>
-                        <div class="flex justify-between flex-row-reverse">
+                        <div
+                            class="flex justify-between flex-row-reverse w-full"
+                        >
                             <Button on:click={processSubmit}>Save</Button>
                             {#if currently_edited_video}
-                                <Button
-                                    on:click={deleteVideo}
-                                    variant="destructive">Delete</Button
-                                >
+                                <div>
+                                    <AlertDialog.Root
+                                        bind:open={deleteVideoDialogOpen}
+                                    >
+                                        <AlertDialog.Trigger
+                                            asChild
+                                            let:builder
+                                        >
+                                            <Button
+                                                builders={[builder]}
+                                                variant="destructive"
+                                                >Delete</Button
+                                            >
+                                        </AlertDialog.Trigger>
+                                        <AlertDialog.Content>
+                                            <AlertDialog.Header>
+                                                <AlertDialog.Title
+                                                    >Are you absolutely sure?</AlertDialog.Title
+                                                >
+                                            </AlertDialog.Header>
+                                            <AlertDialog.Footer>
+                                                <AlertDialog.Cancel
+                                                    >Cancel</AlertDialog.Cancel
+                                                >
+                                                <AlertDialog.Action
+                                                    asChild
+                                                    let:builder
+                                                >
+                                                    <Button
+                                                        on:click={() =>
+                                                            deleteVideo(
+                                                                currently_edited_video.id,
+                                                            )}
+                                                        builders={[builder]}
+                                                        variant="destructive"
+                                                        >Delete</Button
+                                                    ></AlertDialog.Action
+                                                >
+                                            </AlertDialog.Footer>
+                                        </AlertDialog.Content>
+                                    </AlertDialog.Root>
+                                </div>
                             {/if}
                         </div>
                     </Dialog.Footer>

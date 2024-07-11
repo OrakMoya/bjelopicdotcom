@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateVideoRequest;
+use App\Http\Requests\DeleteVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
 use App\Models\Video;
 use Illuminate\Http\RedirectResponse;
@@ -24,7 +25,9 @@ class WebtoolsVideosController extends Controller
             if ($video->poster_path)
                 $video->poster_path = Storage::url($video->poster_path);
         }
-        return Inertia::render('Webtools/Videos', ['videos' => $videos]);
+        $collections = Video::select('collection')->distinct()->whereNotNull('collection')->pluck('collection')->toArray();
+
+        return Inertia::render('Webtools/Videos', ['videos' => $videos, 'collections' => $collections]);
     }
 
     public function createVideo(CreateVideoRequest $request): RedirectResponse
@@ -37,8 +40,10 @@ class WebtoolsVideosController extends Controller
             'publication_date' => $request->publication_date,
             'link' => $request->link,
             'user_id' => Auth::id(),
-            'uuid' => Str::uuid()
+            'uuid' => Str::uuid(),
+            'collection' => $request->collection,
         ]);
+
 
         $thumbnail = $request->thumbnail;
         $path = Storage::putFile('public/videos/' . $video->uuid, $thumbnail);
@@ -66,14 +71,15 @@ class WebtoolsVideosController extends Controller
                 'publication_date' => $request->publication_date,
                 'link' => $request->link,
                 'user_id' => Auth::id(),
-                'uuid' => Str::uuid()
+                'uuid' => Str::uuid(),
+                'collection' => $request->collection,
             ]
         );
 
         if ($request->thumbnail) {
             Storage::delete($video->thumbnail_path);
             $thumbnail = $request->thumbnail;
-            $path = Storage::put('public/videos' . $video->uuid, $thumbnail);
+            $path = Storage::put('public/videos/' . $video->uuid, $thumbnail);
             $video->thumbnail_path = $path;
         }
 
@@ -81,7 +87,7 @@ class WebtoolsVideosController extends Controller
             if ($video->preview_path)
                 Storage::delete($video->preview_path);
             $preview = $request->preview;
-            $path = Storage::put('public/videos' . $video->uuid, $preview);
+            $path = Storage::put('public/videos/' . $video->uuid, $preview);
             $video->preview_path = $path;
         }
 
@@ -89,11 +95,22 @@ class WebtoolsVideosController extends Controller
             if ($video->poster_path)
                 Storage::delete($video->poster_path);
             $poster = $request->poster;
-            $path = Storage::put('public/videos' . $video->uuid, $poster);
+            $path = Storage::put('public/videos/' . $video->uuid, $poster);
             $video->poster_path = $path;
         }
 
         $video->save();
         return redirect()->back()->with('status', 'Post saved!');
+    }
+
+    public function deleteVideo(DeleteVideoRequest $deleteVideoRequest)
+    {
+        $video = Video::find($deleteVideoRequest->id);
+
+        if (Storage::directoryExists('public/videos/' . $video->uuid))
+            Storage::deleteDirectory('public/videos/' . $video->uuid);
+
+        $video->delete();
+        return redirect()->back()->with('status', 'Video deleted!');
     }
 }

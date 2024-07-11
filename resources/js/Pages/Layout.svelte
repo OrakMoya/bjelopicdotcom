@@ -3,8 +3,8 @@
     import Footer from "./Footer.svelte";
 </script>
 
-<div class="flex flex-col h-screen">
-
+<div class="flex flex-col h-screen font-sans">
+    <Header />
     <div class="flex-grow bg-black text-white">
         <slot />
     </div>

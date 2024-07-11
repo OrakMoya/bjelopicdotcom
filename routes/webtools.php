@@ -11,5 +11,6 @@ Route::middleware(['auth', 'web'])->group(function(){
 
     Route::post('/videos/create', [WebtoolsVideosController::class, 'createVideo']);
     Route::post('/videos/update', [WebtoolsVideosController::class, 'updateVideo']);
+    Route::post('/videos/delete', [WebtoolsVideosController::class, 'deleteVideo']);
 });
 
