@@ -56,7 +56,7 @@
                         }}
                     />
                     <div
-                        class="flex fixed min-h-96 w-full pl-8 py-4 pr-20 bg-black border-t bordet-l-neutral-800"
+                        class="flex fixed w-full pl-8 py-4 pr-20 bg-black border-t bordet-l-neutral-800"
                         style="bottom: {header_height}px;"
                         transition:fly={{
                             y: menubar_height + header_height + 50,
@@ -65,7 +65,7 @@
                         }}
                         bind:clientHeight={menubar_height}
                     >
-                        <LayoutLinks />
+                        <LayoutLinks class="flex-col-reverse" />
                     </div>
                 </div>
             {:else if menubar_open}
@@ -80,8 +80,9 @@
                         on:click={() => (menubar_open = false)}
                     />
                     <div
-                        class="flex fixed right-0 h-full min-w-72 pl-8 py-4 pr-20 bg-black border-l border-l-neutral-800"
+                        class="flex fixed right-0 min-w-72 pl-8 py-4 pr-20 bg-black border-l border-l-neutral-800"
                         bind:clientWidth={menubar_width}
+                        style="height: calc(100vh - {header_height}px);"
                         transition:fly={{
                             x: menubar_width + 50,
                             opacity: 1,
@@ -99,7 +100,10 @@
 
     <div class="flex flex-grow bg-black text-white">
         {#if innerWidth >= screensize_xl}
-            <div class="min-w-72 px-8 py-6 border-r border-r-neutral-800">
+            <div
+                class="min-w-72 px-8 py-6 border-r border-r-neutral-800"
+                style="height: calc(100vh - {header_height}px);"
+            >
                 <LayoutLinks />
             </div>
         {/if}

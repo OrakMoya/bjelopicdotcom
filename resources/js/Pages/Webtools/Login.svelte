@@ -9,6 +9,7 @@
     import { Label } from "$lib/components/ui/label";
     import * as Card from "$lib/components/ui/card";
     import { Button } from "$lib/components/ui/button";
+    import { Checkbox } from "$lib/components/ui/checkbox";
 
     let form = useForm({
         email: null,
@@ -52,6 +53,10 @@
                     required
                     name="password"
                 />
+                <div class="flex gap-x-2 items-center mt-2">
+                    <Checkbox bind:checked={$form.remember} id="rememberme" />
+                    <Label for="rememberme">Remember me</Label>
+                </div>
             </Card.Content>
             <Card.Footer>
                 <Button variant="outline" type="submit">Login</Button>
