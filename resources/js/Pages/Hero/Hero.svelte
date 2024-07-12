@@ -12,13 +12,14 @@
     import { fade } from "svelte/transition";
     import TheSubtitle from "$lib/components/ui/TheSubtitle.svelte";
 
+    export let videos;
+
     const autoscroll = AutoScroll({
         speed: 0.3,
         startDelay: 0,
         stopOnMouseEnter: true,
     });
 
-    export let videos;
     /**
      * @type {number}
      */
@@ -29,7 +30,6 @@
      */
     let carousel_api;
 
-    let screensize_md = 768;
     let innerWidth = 0;
     /**
      * @type {number}
@@ -50,10 +50,13 @@
     let autoscroll_resume_delay = 3000;
 
     $: if (carousel_api) {
+        // Stop scroll on mobile touch down
         carousel_api.on("pointerDown", () => {
             autoscroll.stop();
             clearTimeout(autoplay_resume_timeout_id);
         });
+
+        // Resume scroll on mobile touch up
         carousel_api.on("pointerUp", () => {
             if (!carousel_hovered)
                 autoplay_resume_timeout_id = setTimeout(
@@ -108,11 +111,15 @@
         <div class="basis-1/3 flex place-items-end">
             <div class="flex flex-col items-center">
                 <TheBjeloPic
-                    class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-6"
+                    class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-8 sm:mb-10"
                 />
-                <div class="flex justify-evenly items-center align-middle w-full gap-x-2 px-3">
+                <div
+                    class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 px-3 mb-2 sm:mb-5"
+                >
                     <div class="border-b border-white w-full h-min"></div>
-                    <TheSubtitle class="font-semibold uppercase text-xs transition-all duration-500 md:text-sm w-fit text-nowrap" />
+                    <TheSubtitle
+                        class="font-semibold uppercase text-xs transition-all duration-500 md:text-sm w-fit text-nowrap"
+                    />
                     <div class="border-b border-white w-full h-min"></div>
                 </div>
             </div>

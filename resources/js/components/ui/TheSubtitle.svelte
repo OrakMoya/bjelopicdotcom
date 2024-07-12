@@ -1,6 +1,6 @@
 <script>
     let subtitles = [
-        "Producenti ORIGINALNIH BJELOVARSKIH BLOCKBUSTERA",
+        'Producenti "ORIGINALNIH BJELOVARSKIH BLOCKBUSTERA"',
         "Jednostavno superiorniji",
         "NK Bjelovar nam još nije isplatio",
     ];

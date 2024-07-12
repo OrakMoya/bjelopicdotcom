@@ -1,6 +1,8 @@
 <script>
     import { AspectRatio } from "bits-ui";
     export let videos;
+
+    let screensize_md = 768;
 </script>
 
 {#each videos as video, i}
