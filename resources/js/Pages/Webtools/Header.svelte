@@ -1,24 +1,52 @@
 <script>
     import { Link } from "@inertiajs/svelte";
+    import { fly } from "svelte/transition";
+    let screensize_md = 768;
+    let innerWidth = 0;
+    let scrollY = 0;
+    let previous_scrollY = 1;
+    let header_shown = true;
+    export let clientHeight = 0;
+    export let dontHide = false;
+
+    /**
+     * @param {number} scrollY
+     */
+    function setHeaderVisibility(scrollY) {
+        header_shown = innerWidth > screensize_md || scrollY < previous_scrollY;
+        previous_scrollY = scrollY;
+    }
+
+    $: setHeaderVisibility(scrollY);
 </script>
 
-<header class="bg-black p-4 border-b border-b-neutral-800">
-    <div>
-        <Link
-            href="/webtools"
-            class="max-w-screen-lg gap-y-2 sm:gap-x-2 mx-auto flex items-center justify-center md:justify-start"
-        >
-            <div class="h-20 flex gap-x-4 items-center">
-                <img
-                    class="h-full object-contain"
-                    src="/bjelopic_banner.png"
-                    alt="BjeloPIC"
-                />
-            </div>
-            <span
-                class="text-white text-[32px] sm:text-[36px] relative bottom-[2px] italic"
-                >Webtools</span
+<svelte:window bind:innerWidth bind:scrollY />
+
+{#if header_shown || dontHide}
+    <header bind:clientHeight
+        class="bg-black w-full p-4 border-t md:border-t-0 md:border-b border-neutral-800 fixed bottom-0 md:relative {$$restProps.class}"
+        transition:fly={{ y: 90, opacity: 100 }}
+    >
+        <div class="flex w-full justify-between">
+            <Link
+                href="/webtools"
+                class="max-w-screen-lg gap-y-2 md:gap-x-2 flex items-center justify-start gap-x-4"
             >
-        </Link>
-    </div>
-</header>
+                <div class="h-12 md:h-20 flex gap-x-4 items-center">
+                    <img
+                        class="h-full object-contain"
+                        src={innerWidth < screensize_md
+                            ? "/bjelopic_logo.png"
+                            : "/bjelopic_banner.png"}
+                        alt="BjeloPIC"
+                    />
+                </div>
+                <span
+                    class="text-white text-2xl md:text-[36px] relative bottom-[2px] italic"
+                    >Webtools</span
+                >
+            </Link>
+            <slot />
+        </div>
+    </header>
+{/if}

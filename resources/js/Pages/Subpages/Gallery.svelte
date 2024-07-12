@@ -5,6 +5,10 @@
     let screensize_md = 768;
 </script>
 
+<svelte:head>
+    <title>Gallery - BjeloPIC</title>
+</svelte:head>
+
 {#each videos as video, i}
     <section class={i % 2 ? "bg-bjelopic-neutral-8" : "bg-bjelopic-neutral-7"}>
         <div

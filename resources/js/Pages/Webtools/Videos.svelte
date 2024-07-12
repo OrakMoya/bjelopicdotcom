@@ -6,6 +6,7 @@
     import {
         BadgeXIcon,
         CrossIcon,
+        EyeIcon,
         PencilIcon,
         PlusIcon,
         TrashIcon,
@@ -124,21 +125,9 @@
     let deleteVideoDialogOpen = false;
 </script>
 
-<main class="max-w-screen-lg mx-auto p-4">
-    <div class="flex justify-end mb-4">
+<main class="max-w-screen-xl mx-auto p-4 px-4 md:px-8 w-full overflow-scroll-y">
+    <div class="flex justify-end">
         <Dialog.Root bind:open={new_video_dialog_open}>
-            <Dialog.Trigger class="px-2 py-2" asChild let:builder>
-                <Button
-                    builders={[builder]}
-                    on:click={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        assignVideoFormValues(null);
-                    }}
-                >
-                    <PlusIcon class="w-4 h-4" />
-                </Button>
-            </Dialog.Trigger>
             <form on:submit|preventDefault={processSubmit}>
                 <Dialog.Content>
                     <Dialog.Header>
@@ -413,7 +402,7 @@
                                 />
                                 <label
                                     for="new-video-preview"
-                                    class="hover:brightness-110 transition"
+                                    class="md:hover:brightness-110 transition"
                                 >
                                     <AspectRatio.Root
                                         ratio={16 / 9}
@@ -421,7 +410,7 @@
                                     >
                                         {#if $new_video_form.preview || (currently_edited_video && currently_edited_video.preview_path)}
                                             <Button
-                                                class="absolute top-0 left-0 m-2 opacity-25 hover:opacity-100 transition-opacity"
+                                                class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
                                                 on:click={(e) => {
                                                     $new_video_form.preview =
                                                         null;
@@ -462,7 +451,7 @@
                                 />
                                 <label
                                     for="new-video-poster"
-                                    class="hover:brightness-110 transition"
+                                    class="md:hover:brightness-110 transition"
                                 >
                                     <AspectRatio.Root
                                         ratio={707 / 1000}
@@ -470,7 +459,7 @@
                                     >
                                         {#if $new_video_form.poster || (currently_edited_video && currently_edited_video.poster_path)}
                                             <Button
-                                                class="absolute top-0 left-0 m-2 opacity-25 hover:opacity-100 transition-opacity"
+                                                class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
                                                 on:click={(e) => {
                                                     $new_video_form.poster =
                                                         null;
@@ -553,38 +542,67 @@
             </form>
         </Dialog.Root>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-4">
+    <div
+        class="grid grid-cols-1 max-w-96 mx-auto md:max-w-none md:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-6 gap-y-4 md:gap-y-6 w-full"
+    >
+        <button
+            class="bg-bjelopic-neutral-8 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white transition-colors"
+            on:click={() => {
+                assignVideoFormValues(null);
+                new_video_dialog_open = true;
+            }}
+        >
+            <AspectRatio.Root ratio={2.35}>
+                <div class=" w-full h-full flex justify-center items-center">
+                    <PlusIcon class="w-12 h-12" />
+                </div>
+            </AspectRatio.Root>
+        </button>
         {#each videos as video}
-            <div
-                class="flex flex-col box-content w-full rounded-t-md overflow-clip hover:scale-[101%] transition duration-500 hover:drop-shadow-glow hover:z-10"
+            <button
+                class="text-left"
+                on:click={() => {
+                    assignVideoFormValues(video.id);
+                    new_video_dialog_open = true;
+                }}
             >
-                <img src={video.thumbnail_path} alt="{video.title} thumbnail" />
                 <div
-                    class="px-2 py-1 border rounded-b-md border-neutral-800 bg-neutral-900 border-t-0"
+                    class="flex flex-col box-content w-full rounded-t-md overflow-clip md:hover:scale-[101%] transition duration-500 md:hover:drop-shadow-glow hover:z-10"
                 >
-                    <span
-                        class="text-lg block w-full text-nowrap overflow-hidden text-ellipsis"
-                        >{video.title}</span
+                    <AspectRatio.Root ratio={16 / 9}>
+                        <img
+                            src={video.thumbnail_path}
+                            alt="{video.title} thumbnail"
+                        />
+                    </AspectRatio.Root>
+                    <div
+                        class="px-2 py-1 md:py-2 border rounded-b-md border-neutral-800 bg-neutral-900 border-t-0"
                     >
-                    <div class="flex justify-between items-center align-middle">
-                        <span class="text-neutral-500"
-                            >{video.subject} ({new Date(
-                                video.publication_date,
-                            ).getFullYear()})</span
+                        <span
+                            class="text-lg md:text-xl block w-full text-nowrap overflow-hidden text-ellipsis"
+                            >{video.title}</span
                         >
-                        <button
-                            class="p-0"
-                            on:click={() => {
-                                assignVideoFormValues(video.id);
-                                new_video_dialog_open = true;
-                            }}
-                            ><PencilIcon
-                                class="w-4 h-4 text-neutral-500 hover:text-white transition"
-                            /></button
+                        <div
+                            class="flex justify-between items-center align-middle"
                         >
+                            <span class="text-neutral-500"
+                                >{video.subject} ({new Date(
+                                    video.publication_date,
+                                ).getFullYear()})</span
+                            >
+                            <a
+                                href={video.link}
+                                target="_blank"
+                                on:click|stopPropagation={() => {}}
+                                class="mr-1"
+                                ><EyeIcon
+                                    class="w-6 h-6 text-neutral-500 hover:text-white transition"
+                                /></a
+                            >
+                        </div>
                     </div>
                 </div>
-            </div>
+            </button>
         {/each}
     </div>
 </main>
