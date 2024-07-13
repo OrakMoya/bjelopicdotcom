@@ -42,21 +42,23 @@
             >
         </Header>
         <div>
+            {#if menubar_open}
+                <!-- svelte-ignore a11y-interartive-supports-focus -->
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <!-- svelte-ignore a11y-no-static-element-interactions -->
+                <div
+                    transition:fade={{ duration: 300 }}
+                    class="w-screen h-screen fixed bg-black/80 z-30"
+                    on:click={() => (menubar_open = false)}
+                    on:scroll|stopPropagation|preventDefault={(e) => {
+                        console.log("scroll");
+                    }}
+                />
+            {/if}
             {#if innerWidth < screensize_md && menubar_open}
                 <div class="h-full relative w-full z-30">
-                    <!-- svelte-ignore a11y-interartive-supports-focus -->
-                    <!-- svelte-ignore a11y-click-events-have-key-events -->
-                    <!-- svelte-ignore a11y-no-static-element-interactions -->
                     <div
-                        transition:fade={{ duration: 300 }}
-                        class="w-screen h-screen fixed bg-black/80"
-                        on:click={() => (menubar_open = false)}
-                        on:scroll|stopPropagation|preventDefault={(e) => {
-                            console.log("scroll");
-                        }}
-                    />
-                    <div
-                        class="flex fixed w-full pl-8 py-4 pr-20 bg-black border-t bordet-l-neutral-800"
+                        class="flex fixed w-full pl-8 py-4 pr-20 bg-black border-t border-l-neutral-800 rounded-tl-xl rounded-tr-xl"
                         style="bottom: {header_height}px;"
                         transition:fly={{
                             y: menubar_height + header_height + 50,
@@ -70,15 +72,6 @@
                 </div>
             {:else if menubar_open}
                 <div class="h-full relative w-full z-30">
-                    <!-- svelte-ignore a11y-interartive-supports-focus -->
-                    <!-- svelte-ignore a11y-click-events-have-key-events -->
-                    <!-- svelte-ignore a11y-no-static-element-interactions -->
-                    <div
-                        transition:fade={{ duration: 300 }}
-                        class="w-screen fixed bg-black/80"
-                        style="height: calc(100vh - {header_height}px);"
-                        on:click={() => (menubar_open = false)}
-                    />
                     <div
                         class="flex fixed right-0 min-w-72 pl-8 py-4 pr-20 bg-black border-l border-l-neutral-800"
                         bind:clientWidth={menubar_width}
@@ -106,7 +99,19 @@
             >
                 <LayoutLinks />
             </div>
+            <style>
+            html {
+                overflow: hidden;
+            }
+            </style>
+            <div
+                class="overflow-y-scroll overflow-x-clip w-full"
+                style="height: calc(100vh - {header_height}px);"
+            >
+                <slot />
+            </div>
+        {:else}
+            <slot />
         {/if}
-        <slot />
     </div>
 </div>

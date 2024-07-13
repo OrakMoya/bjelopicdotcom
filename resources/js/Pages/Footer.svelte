@@ -38,20 +38,20 @@
                 >
                     <Accordion.Item value="info_links" class="border-0">
                         <Accordion.Trigger class="py-2">
-                            <h2 class="text-xl font-bold">Informacije</h2>
+                            <h2 class="text-lg font-bold">Informacije</h2>
                         </Accordion.Trigger>
                         <Accordion.Content>
-                            <div class="flex flex-col text-lg gap-y-2">
+                            <div class="flex flex-col gap-y-2">
                                 <FooterInfoLinks />
                             </div>
                         </Accordion.Content>
                     </Accordion.Item>
                     <Accordion.Item value="socials" class="border-0">
                         <Accordion.Trigger class="py-2">
-                            <h2 class="text-xl font-bold">Društvene mreže</h2>
+                            <h2 class="text-lg font-bold">Društvene mreže</h2>
                         </Accordion.Trigger>
                         <Accordion.Content>
-                            <div class="flex flex-col text-lg gap-y-2">
+                            <div class="flex flex-col gap-y-2">
                                 <FooterSocials />
                             </div>
                         </Accordion.Content>

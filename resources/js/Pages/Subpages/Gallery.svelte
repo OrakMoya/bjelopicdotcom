@@ -1,6 +1,7 @@
 <script>
     import { AspectRatio } from "bits-ui";
     export let videos;
+    export let by_collection;
 
     let screensize_md = 768;
 </script>
@@ -9,34 +10,45 @@
     <title>Gallery - BjeloPIC</title>
 </svelte:head>
 
-{#each videos as video, i}
-    <section class={i % 2 ? "bg-bjelopic-neutral-8" : "bg-bjelopic-neutral-7"}>
+{#each by_collection as collection, i}
+    <section
+        class="{i % 2 ? 'bg-bjelopic-neutral-8' : 'bg-bjelopic-neutral-7'} pt-4 pb-8"
+    >
         <div
-            class="max-w-screen-xl text-center md:text-left mx-auto flex flex-col-reverse items-center md:items-start md:flex-row p-4 gap-x-2 {i % 2
-                ? 'md:flex-row-reverse md:text-right'
+            class="flex max-w-screen-lg mx-auto px-8 flex-col-reverse items-center {collection.length <
+            2
+                ? i % 2
+                    ? 'md:flex-row-reverse md:items-start'
+                    : 'md:flex-row md:items-start'
                 : ''}"
         >
-            <div class="w-full md:w-3/5 p-2">
-                <AspectRatio.Root ratio={16 / 9}>
-                    <img
-                        class="w-full h-full"
-                        src={video.thumbnail_path}
-                        alt="{video.title} thumbnail"
-                    />
-                </AspectRatio.Root>
+            <div
+                class="{collection.length > 1
+                    ? 'w-full'
+                    : 'w-3/5'} flex flex-wrap items-center justify-center"
+            >
+                {#each collection as video, j}
+                    <div
+                        class="{(collection.length % 2 != 0 &&
+                            j == collection.length - 1) ||
+                        collection.length < 2
+                            ? 'sm:basis-4/5 md:basis-full'
+                            : 'basis-full sm:basis-4/5 md:basis-1/2'} p-2"
+                    >
+                        <AspectRatio.Root ratio={16 / 9}>
+                            <img
+                                class="w-full h-full object-cover"
+                                src={video.thumbnail_path}
+                                alt="{video.title} thumbnail"
+                            />
+                        </AspectRatio.Root>
+                    </div>
+                {/each}
             </div>
-            <div class="flex flex-col p-2">
-                <span class="font-semibold text-2xl lg:text-3xl"
-                    ><span class="text-bjelopic-blue-1"
-                        >{video.subject} -
-                    </span>{video.title}
-                    <span class="text-bjelopic-blue-1"
-                        >({new Date(
-                            video.publication_date,
-                        ).getUTCFullYear()})</span
-                    ></span
-                >
-                <p>{video.description}</p>
+            <div class="font-bold text-2xl">
+                {collection[0].collection
+                    ? collection[0].collection
+                    : collection[0].title}
             </div>
         </div>
     </section>
