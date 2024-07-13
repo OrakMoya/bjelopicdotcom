@@ -19,8 +19,14 @@ const config = {
         },
         extend: {
             dropShadow: {
-                glow: [
-                    "0 0px 40px rgba(255,255,255,0.2)"
+                "glow-sm": [
+                    "0 0px 15px rgba(255,255,255,0.1)",
+                ],
+                "glow-md": [
+                    "0 0px 30px rgba(255,255,255,0.2)",
+                ],
+                "glow-lg": [
+                    "0 0px 40px rgba(255,255,255,0.2)",
                 ]
             },
             colors: {

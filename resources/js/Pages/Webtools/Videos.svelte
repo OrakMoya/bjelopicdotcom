@@ -245,7 +245,7 @@
                                                         variant="outline"
                                                         role="combobox"
                                                         aria-expanded={collections_open}
-                                                        class="w-[280px] justify-between {$new_video_form.collection
+                                                        class="w-[222px] justify-between {$new_video_form.collection
                                                             ? ''
                                                             : 'text-muted-foreground'}"
                                                     >
@@ -255,7 +255,7 @@
                                                     </Button>
                                                 </Popover.Trigger>
                                                 <Popover.Content
-                                                    class="w-[280px] p-0"
+                                                    class="w-[222px] p-0"
                                                 >
                                                     <Command.Root>
                                                         <Command.Input
@@ -296,6 +296,7 @@
                                                     /></Button
                                                 >
                                             {/if}
+
                                             <Popover.Root
                                                 bind:open={new_collection_open}
                                             >
@@ -304,14 +305,14 @@
                                                     let:builder
                                                 >
                                                     <Button
-                                                        variant="ghost"
+                                                        variant="outline"
                                                         builders={[builder]}
                                                         ><PlusIcon
                                                             class="w-4 h-4"
                                                         /></Button
                                                     >
                                                 </Popover.Trigger>
-                                                <Popover.Content>
+                                                <Popover.Content class="drop-shadow-md">
                                                     <form
                                                         class="flex gap-x-2"
                                                         disabled={collections.find(

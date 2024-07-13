@@ -12,7 +12,7 @@
     @vite(['resources/css/app.css'])
     @inertiaHead
   </head>
-  <body class="dark">
+  <body class="dark overflow-x-clip">
     @inertia
   </body>
 </html

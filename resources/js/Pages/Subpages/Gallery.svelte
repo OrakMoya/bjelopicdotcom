@@ -12,11 +12,11 @@
 {#each videos as video, i}
     <section class={i % 2 ? "bg-bjelopic-neutral-8" : "bg-bjelopic-neutral-7"}>
         <div
-            class="max-w-screen-xl mx-auto flex p-4 gap-x-2 {i % 2
-                ? 'flex-row-reverse'
+            class="max-w-screen-xl text-center md:text-left mx-auto flex flex-col-reverse items-center md:items-start md:flex-row p-4 gap-x-2 {i % 2
+                ? 'md:flex-row-reverse md:text-right'
                 : ''}"
         >
-            <div class="w-3/5 p-2">
+            <div class="w-full md:w-3/5 p-2">
                 <AspectRatio.Root ratio={16 / 9}>
                     <img
                         class="w-full h-full"

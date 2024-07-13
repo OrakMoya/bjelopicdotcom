@@ -9,7 +9,6 @@
     let innerWidth = 0;
     let innerHeight = 0;
     let md = 768;
-
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -70,4 +69,7 @@
             {/if}
         </div>
     </div>
+    <span class="font-semibold block w-fit mx-auto my-4"
+        >&copy; BjeloPIC | Sva prava pridržana
+    </span>
 </footer>
