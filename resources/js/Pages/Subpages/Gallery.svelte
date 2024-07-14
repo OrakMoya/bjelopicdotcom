@@ -42,7 +42,9 @@
         class=" mx-auto {i % 2
             ? 'bg-bjelopic-neutral-8'
             : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
-        on:click={() => (selected_video_uuid = "")}
+        on:click={() => {
+            selected_video_uuid = "";
+        }}
         role="none"
     >
         <div class="max-w-screen-lg mx-auto px-4">
@@ -53,7 +55,9 @@
                     <div
                         class="h-[1px] relative top-[2px] bg-white w-full"
                     ></div>
-                    <div class="whitespace-nowrap font-bold text-2xl md:text-4xl">
+                    <div
+                        class="whitespace-nowrap font-bold text-2xl md:text-4xl"
+                    >
                         {collection.collection}
                         <span class="text-bjelopic-blue-1"
                             >({new Date(
@@ -77,10 +81,12 @@
                             <!-- svelte-ignore a11y-no-static-element-interactions -->
                             <button
                                 class="w-full block"
-                                on:click|stopPropagation|preventDefault={() => {
+                                on:click={(e) => {
                                     if (selected_video_uuid === video.uuid) {
                                         return;
                                     }
+                                    e.preventDefault();
+                                    e.stopImmediatePropagation();
                                     selected_video_uuid = video.uuid;
                                 }}
                                 on:mouseenter={() => {
@@ -90,7 +96,7 @@
                                 on:mouseleave={(e) => {
                                     hovered = false;
                                     if (e.buttons) {
-                                        e.stopPropagation();
+                                        e.stopImmediatePropagation();
                                         e.preventDefault();
                                         return;
                                     }
@@ -126,10 +132,12 @@
                         <!-- svelte-ignore a11y-no-static-element-interactions -->
                         <button
                             class="w-full basis-3/5 block"
-                            on:click|stopPropagation|preventDefault={(e) => {
+                            on:click={(e) => {
                                 if (selected_video_uuid === video.uuid) {
                                     return;
                                 }
+                                e.preventDefault();
+                                e.stopImmediatePropagation();
 
                                 selected_video_uuid = video.uuid;
                             }}
@@ -140,7 +148,7 @@
                             on:mouseleave={(e) => {
                                 hovered = false;
                                 if (e.buttons) {
-                                    e.stopPropagation();
+                                    e.stopImmediatePropagation();
                                     e.preventDefault();
                                     return;
                                 }
@@ -177,7 +185,9 @@
                                 ).getUTCFullYear()})
                             </span>
                             {#if video.category}
-                                <span class="md:text-lg mb-2">{video.category}</span>
+                                <span class="md:text-lg mb-2"
+                                    >{video.category}</span
+                                >
                             {/if}
                         </div>
                     </div>
