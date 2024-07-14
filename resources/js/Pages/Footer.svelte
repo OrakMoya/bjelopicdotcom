@@ -23,12 +23,12 @@
             class="flex flex-col items-center md:items-start gap-y-1 md:basis-1/2"
         >
             <Link href="/">
-                <TheBjeloPicLogo class="w-8 h-8" />
+                <TheBjeloPicLogo class="w-10 h-10 md:w-8 md:h-8" />
             </Link>
             <Link href="/" class="mb-1">
-                <TheBjeloPic class="text-2xl" />
+                <TheBjeloPic class="text-3xl md:text-2xl" />
             </Link>
-            <span>Bjelovarski filmski studio</span>
+            <span class="text-lg md:text-base">Bjelovarski filmski studio</span>
         </div>
         <div class="w-full max-w-96 md:basis-1/2 flex">
             {#if innerWidth < md}

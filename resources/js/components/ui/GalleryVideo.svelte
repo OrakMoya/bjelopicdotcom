@@ -25,7 +25,7 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
     class="{focused
-        ? 'scale-[102%]'
+        ? 'scale-[104%]'
         : ''} transition-all duration-300 w-full h-full"
 >
     <div class="w-full h-full overflow-hidden relative {$$restProps.class}">
