@@ -43,6 +43,7 @@
             ? 'bg-bjelopic-neutral-8'
             : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
         on:click={() => (selected_video_uuid = "")}
+        on:mouseenter={() => (selected_video_uuid = "")}
         role="none"
     >
         <div class="max-w-screen-lg mx-auto px-4">
