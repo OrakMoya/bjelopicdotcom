@@ -42,7 +42,6 @@
             ? 'bg-bjelopic-neutral-8'
             : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
         on:click={() => (selected_video_uuid = "")}
-        on:mouseenter={() => (selected_video_uuid = "")}
         role="none"
     >
         <div class="max-w-screen-lg mx-auto px-4">
@@ -65,7 +64,13 @@
                         class="h-[1px] relative top-[2px] bg-white w-full"
                     ></div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4"
+                    on:mouseenter={() => {
+                        selected_video_uuid = "";
+                    }}
+                    role="none"
+                >
                     {#each collection.videos as video}
                         <div class="drop-shadow" id={video.uuid}>
                             <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -82,6 +87,14 @@
                                 }}
                                 on:mouseenter={() => {
                                     selected_video_uuid = video.uuid;
+                                }}
+                                on:mouseleave={(e) => {
+                                    if (e.buttons) {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        return;
+                                    }
+                                    selected_video_uuid = "";
                                 }}
                             >
                                 <AspectRatio.Root ratio={16 / 9}>
@@ -103,6 +116,7 @@
             {:else}
                 {#each collection.videos as video}
                     <div
+                        role="none"
                         id={video.uuid}
                         class="w-full flex-col-reverse text-center flex gap-x-4 {i %
                         2
@@ -123,6 +137,14 @@
                             }}
                             on:mouseenter={() => {
                                 selected_video_uuid = video.uuid;
+                            }}
+                            on:mouseleave={(e) => {
+                                if (e.buttons) {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    return;
+                                }
+                                selected_video_uuid = "";
                             }}
                         >
                             <AspectRatio.Root ratio={16 / 9}>
