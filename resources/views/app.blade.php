@@ -9,13 +9,11 @@
      <link rel="icon" type="image/x-icon" href="/favicon48.ico">
      <link rel="icon" type="image/x-icon" href="/favicon64.ico">
 
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     @vite('resources/js/app.js')
     @vite(['resources/css/app.css'])
     @inertiaHead
+    @googlefonts
   </head>
   <body class="dark overflow-x-clip">
     @inertia
