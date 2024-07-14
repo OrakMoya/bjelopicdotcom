@@ -11,6 +11,7 @@
     export let href = "";
     export let poster_src = "";
     export let title = "";
+    export let year = "";
     let poster_shown = false;
     let screensize_md = 768;
     let innerWidth = 0;
@@ -67,9 +68,9 @@
             <div
                 bind:clientHeight={menubar_height}
                 transition:fly={{ opacity: 1, y: menubar_height }}
-                class="absolute w-full bottom-0 bg-black/80 p-2 text-left"
+                class="absolute font-semibold w-full bottom-0 bg-black/80 p-2 text-left"
             >
-                {title}
+                {title} <span class="text-bjelopic-blue-1">({year})</span>
             </div>
         {/if}
         {#if !poster_shown && poster_src && focused}

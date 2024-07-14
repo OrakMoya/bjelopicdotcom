@@ -60,11 +60,6 @@
                         class="whitespace-normal w-auto max-w-[570px] font-bold text-2xl md:text-4xl text-center"
                     >
                         {collection.collection}
-                        <span class="text-bjelopic-blue-1"
-                            >({new Date(
-                                collection.videos[0].publication_date,
-                            ).getUTCFullYear()})</span
-                        >
                     </div>
                     <div
                         class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
@@ -105,8 +100,9 @@
                             >
                                 <AspectRatio.Root ratio={16 / 9}>
                                     <GalleryVideo
-                                        title={video.title}
-                                        class="rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip"
+                                        title="{video.title}"
+                year={new Date(video.publication_date).getUTCFullYear()}
+                                        class="rounded-md transition-all overflow-clip"
                                         href={video.link}
                                         this_id={video.uuid}
                                         selected_id={selected_video_uuid}
