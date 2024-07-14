@@ -44,6 +44,7 @@
         link: null,
         publication_date: null,
         collection: "",
+        category: null,
     });
 
     export let collections;
@@ -97,6 +98,7 @@
             $new_video_form.description = video.description;
             $new_video_form.subject = video.subject;
             $new_video_form.link = video.link;
+            $new_video_form.category = video.category;
             $new_video_form.publication_date = parseDate(
                 video.publication_date,
             );
@@ -104,6 +106,7 @@
         } else {
             currently_edited_video = null;
             $new_video_form.id = null;
+            $new_video_form.category = null;
             $new_video_form.title = null;
             $new_video_form.description = null;
             $new_video_form.subject = null;
@@ -152,7 +155,10 @@
                             <Tabs.Trigger value="info">Info</Tabs.Trigger>
                             <Tabs.Trigger value="media">Media</Tabs.Trigger>
                         </Tabs.List>
-                        <Tabs.Content value="info">
+                        <Tabs.Content
+                            value="info"
+                            class="h-[450px] overflow-x-clip overflow-y-scroll"
+                        >
                             <Label for="new-video-title">Title*</Label>
                             <Input
                                 id="new-video-title"
@@ -168,6 +174,14 @@
                                 id="new-video-description"
                                 required
                                 bind:value={$new_video_form.description}
+                            />
+
+                            <Label for="new-video-category">Category*</Label>
+                            <Input
+                                type="text"
+                                id="new-video-category"
+                                required
+                                bind:value={$new_video_form.category}
                             />
 
                             <Label for="new-video-subject">Subject*</Label>
@@ -312,7 +326,9 @@
                                                         /></Button
                                                     >
                                                 </Popover.Trigger>
-                                                <Popover.Content class="drop-shadow-md">
+                                                <Popover.Content
+                                                    class="drop-shadow-md"
+                                                >
                                                     <form
                                                         class="flex gap-x-2"
                                                         disabled={collections.find(
@@ -352,140 +368,139 @@
                             </Accordion.Root>
                         </Tabs.Content>
 
-                        <Tabs.Content value="media">
-                            <ScrollArea class="h-[500px]">
-                                <Label for="new-video-thumbnail"
-                                    >Thumbnail (16:9)*</Label
+                        <Tabs.Content
+                            value="media"
+                            class="h-[450px] overflow-x-clip overflow-y-scroll"
+                        >
+                            <Label for="new-video-thumbnail"
+                                >Thumbnail (16:9)*</Label
+                            >
+                            <input
+                                type="file"
+                                class="hidden"
+                                id="new-video-thumbnail"
+                                required
+                                accept="image/*"
+                                on:input={(e) =>
+                                    ($new_video_form.thumbnail =
+                                        e.target.files[0])}
+                            />
+                            <label
+                                for="new-video-thumbnail"
+                                class="hover:brightness-110 transition"
+                            >
+                                <AspectRatio.Root
+                                    ratio={16 / 9}
+                                    class="bg-muted rounded-md overflow-clip"
                                 >
-                                <input
-                                    type="file"
-                                    class="hidden"
-                                    id="new-video-thumbnail"
-                                    required
-                                    accept="image/*"
-                                    on:input={(e) =>
-                                        ($new_video_form.thumbnail =
-                                            e.target.files[0])}
-                                />
-                                <label
-                                    for="new-video-thumbnail"
-                                    class="hover:brightness-110 transition"
-                                >
-                                    <AspectRatio.Root
-                                        ratio={16 / 9}
-                                        class="bg-muted rounded-md overflow-clip"
-                                    >
-                                        {#if $new_video_form.thumbnail || currently_edited_video}
-                                            <img
-                                                src={currently_edited_video &&
-                                                !$new_video_form.thumbnail
-                                                    ? currently_edited_video.thumbnail_path
-                                                    : URL.createObjectURL(
-                                                          $new_video_form.thumbnail,
-                                                      )}
-                                                alt="New video thumbnail"
-                                            />
-                                        {/if}
-                                    </AspectRatio.Root>
-                                </label>
+                                    {#if $new_video_form.thumbnail || currently_edited_video}
+                                        <img
+                                            src={currently_edited_video &&
+                                            !$new_video_form.thumbnail
+                                                ? currently_edited_video.thumbnail_path
+                                                : URL.createObjectURL(
+                                                      $new_video_form.thumbnail,
+                                                  )}
+                                            alt="New video thumbnail"
+                                        />
+                                    {/if}
+                                </AspectRatio.Root>
+                            </label>
 
-                                <Label for="new-video-preview"
-                                    >Preview (.mp4, 16:9)</Label
+                            <Label for="new-video-preview"
+                                >Preview (.mp4, 16:9)</Label
+                            >
+                            <input
+                                type="file"
+                                class="hidden"
+                                id="new-video-preview"
+                                accept="video/mp4"
+                                on:input={(e) =>
+                                    ($new_video_form.preview =
+                                        e.target.files[0])}
+                            />
+                            <label
+                                for="new-video-preview"
+                                class="md:hover:brightness-110 transition"
+                            >
+                                <AspectRatio.Root
+                                    ratio={16 / 9}
+                                    class="bg-muted rounded-md overflow-clip"
                                 >
-                                <input
-                                    type="file"
-                                    class="hidden"
-                                    id="new-video-preview"
-                                    accept="video/mp4"
-                                    on:input={(e) =>
-                                        ($new_video_form.preview =
-                                            e.target.files[0])}
-                                />
-                                <label
-                                    for="new-video-preview"
-                                    class="md:hover:brightness-110 transition"
-                                >
-                                    <AspectRatio.Root
-                                        ratio={16 / 9}
-                                        class="bg-muted rounded-md overflow-clip"
-                                    >
-                                        {#if $new_video_form.preview || (currently_edited_video && currently_edited_video.preview_path)}
-                                            <Button
-                                                class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
-                                                on:click={(e) => {
-                                                    $new_video_form.preview =
-                                                        null;
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                }}
-                                                ><TrashIcon
-                                                    class="w-4 h-4"
-                                                /></Button
-                                            >
-                                            <!-- svelte-ignore a11y-media-has-caption -->
-                                            <video
-                                                class="w-full h-full object-contain"
-                                                src={currently_edited_video &&
-                                                !$new_video_form.preview
-                                                    ? currently_edited_video.preview_path
-                                                    : URL.createObjectURL(
-                                                          $new_video_form.preview,
-                                                      )}
-                                                alt="New video thumbnail"
-                                                controls
-                                            />
-                                        {/if}
-                                    </AspectRatio.Root>
-                                </label>
+                                    {#if $new_video_form.preview || (currently_edited_video && currently_edited_video.preview_path)}
+                                        <Button
+                                            class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
+                                            on:click={(e) => {
+                                                $new_video_form.preview = null;
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                            }}
+                                            ><TrashIcon
+                                                class="w-4 h-4"
+                                            /></Button
+                                        >
+                                        <!-- svelte-ignore a11y-media-has-caption -->
+                                        <video
+                                            class="w-full h-full object-contain"
+                                            src={currently_edited_video &&
+                                            !$new_video_form.preview
+                                                ? currently_edited_video.preview_path
+                                                : URL.createObjectURL(
+                                                      $new_video_form.preview,
+                                                  )}
+                                            alt="New video thumbnail"
+                                            controls
+                                        />
+                                    {/if}
+                                </AspectRatio.Root>
+                            </label>
 
-                                <Label for="new-video-poster"
-                                    >Poster (707:1000)</Label
+                            <Label for="new-video-poster"
+                                >Poster (707:1000)</Label
+                            >
+                            <input
+                                type="file"
+                                class="hidden"
+                                id="new-video-poster"
+                                accept="image/*"
+                                on:input={(e) =>
+                                    ($new_video_form.poster =
+                                        e.target.files[0])}
+                            />
+                            <label
+                                for="new-video-poster"
+                                class="md:hover:brightness-110 transition"
+                            >
+                                <AspectRatio.Root
+                                    ratio={707 / 1000}
+                                    class="bg-muted rounded-md overflow-clip"
                                 >
-                                <input
-                                    type="file"
-                                    class="hidden"
-                                    id="new-video-poster"
-                                    accept="image/*"
-                                    on:input={(e) =>
-                                        ($new_video_form.poster =
-                                            e.target.files[0])}
-                                />
-                                <label
-                                    for="new-video-poster"
-                                    class="md:hover:brightness-110 transition"
-                                >
-                                    <AspectRatio.Root
-                                        ratio={707 / 1000}
-                                        class="bg-muted rounded-md overflow-clip"
-                                    >
-                                        {#if $new_video_form.poster || (currently_edited_video && currently_edited_video.poster_path)}
-                                            <Button
-                                                class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
-                                                on:click={(e) => {
-                                                    $new_video_form.poster =
-                                                        null;
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                }}
-                                                ><TrashIcon
-                                                    class="w-4 h-4"
-                                                /></Button
-                                            >
-                                            <!-- svelte-ignore a11y-media-has-caption -->
-                                            <img
-                                                class="w-full h-full object-cover"
-                                                src={currently_edited_video &&
-                                                !$new_video_form.poster
-                                                    ? currently_edited_video.poster_path
-                                                    : URL.createObjectURL(
-                                                          $new_video_form.poster,
-                                                      )}
-                                                alt="New video poster"
-                                            />
-                                        {/if}
-                                    </AspectRatio.Root>
-                                </label>
-                            </ScrollArea>
+                                    {#if $new_video_form.poster || (currently_edited_video && currently_edited_video.poster_path)}
+                                        <Button
+                                            class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
+                                            on:click={(e) => {
+                                                $new_video_form.poster = null;
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                            }}
+                                            ><TrashIcon
+                                                class="w-4 h-4"
+                                            /></Button
+                                        >
+                                        <!-- svelte-ignore a11y-media-has-caption -->
+                                        <img
+                                            class="w-full h-full object-cover"
+                                            src={currently_edited_video &&
+                                            !$new_video_form.poster
+                                                ? currently_edited_video.poster_path
+                                                : URL.createObjectURL(
+                                                      $new_video_form.poster,
+                                                  )}
+                                            alt="New video poster"
+                                        />
+                                    {/if}
+                                </AspectRatio.Root>
+                            </label>
                         </Tabs.Content>
                     </Tabs.Root>
                     <Dialog.Footer>
@@ -580,7 +595,7 @@
                         class="px-2 py-1 md:py-2 border rounded-b-md border-neutral-800 bg-neutral-900 border-t-0"
                     >
                         <span
-                            class="text-lg md:text-xl block w-full text-nowrap overflow-hidden text-ellipsis"
+                            class="text-lg md:text-xl block w-full whitespace-nowrap overflow-hidden text-ellipsis"
                             >{video.title}</span
                         >
                         <div

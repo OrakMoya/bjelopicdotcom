@@ -42,6 +42,7 @@ class WebtoolsVideosController extends Controller
             'user_id' => Auth::id(),
             'uuid' => Str::uuid(),
             'collection' => $request->collection,
+            'category' => $request->category,
         ]);
 
 
@@ -73,6 +74,7 @@ class WebtoolsVideosController extends Controller
                 'user_id' => Auth::id(),
                 'uuid' => Str::uuid(),
                 'collection' => $request->collection,
+                'category' => $request->category,
             ]
         );
 

@@ -3,6 +3,7 @@
 </script>
 
 <script>
+    import { Link } from "@inertiajs/svelte";
     import { AspectRatio } from "bits-ui";
     import * as Carousel from "$lib/components/ui/carousel";
     import TheBjeloPic from "$lib/components/ui/TheBjeloPIC.svelte";
@@ -119,7 +120,7 @@
                 >
                     <div class="border-b border-white w-full h-min"></div>
                     <TheSubtitle
-                        class="font-semibold uppercase text-xs transition-all duration-500 md:text-sm w-fit text-nowrap"
+                        class="font-semibold  uppercase text-xs transition-all duration-500 md:text-sm w-fit whitespace-nowrap tracking-tighter"
                     />
                     <div class="bg-white w-full h-[1px]"></div>
                 </div>
@@ -166,8 +167,8 @@
                                         "
                                     >
                                         <AspectRatio.Root ratio={16 / 9}>
-                                            <a
-                                                href={video.link}
+                                            <Link
+                                                href="/gallery?focus={video.uuid}"
                                                 target="_blank"
                                             >
                                                 <img
@@ -175,7 +176,7 @@
                                                     class="w-full h-full rounded-md overflow-clip relative z-50 md:hover:drop-shadow-lg transition duration-300"
                                                     alt="{video.title} thumbnail"
                                                 />
-                                            </a>
+                                            </Link>
                                         </AspectRatio.Root>
                                     </div>
                                 </div>

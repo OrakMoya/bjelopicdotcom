@@ -18,9 +18,9 @@
         </Link>
         <div class="text-center">
             <span
-                class=" text-center text-xs md:text-lg lg:text-xl text-white uppercase font-semibold"
+                class=" text-center text-xs sm:text-base md:text-lg lg:text-xl text-white uppercase font-semibold"
             >
-                <TheSubtitle />
+                <TheSubtitle class="tracking-tight whitespace-nowrap" />
             </span>
         </div>
     </div>
