@@ -77,13 +77,10 @@
                             <!-- svelte-ignore a11y-no-static-element-interactions -->
                             <button
                                 class="w-full block"
-                                on:click={(e) => {
+                                on:click|stopPropagation|preventDefault={() => {
                                     if (selected_video_uuid === video.uuid) {
                                         return;
                                     }
-                                    e.stopPropagation();
-                                    e.preventDefault();
-
                                     selected_video_uuid = video.uuid;
                                 }}
                                 on:mouseenter={() => {
@@ -129,12 +126,10 @@
                         <!-- svelte-ignore a11y-no-static-element-interactions -->
                         <button
                             class="w-full basis-3/5 block"
-                            on:click={(e) => {
+                            on:click|stopPropagation|preventDefault={(e) => {
                                 if (selected_video_uuid === video.uuid) {
                                     return;
                                 }
-                                e.stopPropagation();
-                                e.preventDefault();
 
                                 selected_video_uuid = video.uuid;
                             }}
