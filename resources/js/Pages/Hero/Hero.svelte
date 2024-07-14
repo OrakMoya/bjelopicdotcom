@@ -146,7 +146,7 @@
                 <Carousel.Content class="overflow-visible">
                     {#each videos as video}
                         <Carousel.Item
-                            class=" basis-auto z-0 relative md:hover:z-10 overflow-visible p-0"
+                            class=" basis-auto z-0 relative md:hover:z-10 overflow-visible p-0 outline outline-black outline-1"
                         >
                             <FilmReel
                                 width={innerWidth < screensize_md ? 16 : 24}
