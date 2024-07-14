@@ -29,13 +29,13 @@
         ? 'scale-[104%]'
         : ''} transition-all duration-300 w-full h-full"
 >
-    <div class="w-full h-full overflow-hidden relative {$$restProps.class}">
+    <div class="w-full h-full overflow-hidden relative bg-black {$$restProps.class}">
         {#if focused && preview_src}
-            <div transition:fade class="absolute w-full h-full top-0">
+            <div transition:fade class="absolute flex items-center align-middle w-full h-full top-0">
                 <a
                     {href}
                     target="_blank"
-                    class="block"
+                    class="block object-cover"
                     transition:fade={{ duration }}
                 >
                     <video muted autoplay transition:fade>
@@ -52,7 +52,7 @@
                         class="block absolute"
                         transition:fade={{ duration }}
                     >
-                        <img src={thumbnail_src} {alt} />
+                        <img src={thumbnail_src} {alt} class="object-cover" />
                     </a>
                 {:else}
                     <img
