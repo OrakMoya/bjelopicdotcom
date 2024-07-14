@@ -258,7 +258,7 @@
                                                         variant="outline"
                                                         role="combobox"
                                                         aria-expanded={collections_open}
-                                                        class="w-[222px] justify-between {$new_video_form.collection
+                                                        class="w-[222px] overflow-hidden justify-between {$new_video_form.collection
                                                             ? ''
                                                             : 'text-muted-foreground'}"
                                                     >
