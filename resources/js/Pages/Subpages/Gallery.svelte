@@ -127,7 +127,7 @@
                     >
                         <!-- svelte-ignore a11y-no-static-element-interactions -->
                         <button
-                            class="w-full block"
+                            class="w-full block basis-2/3"
                             on:click={(e) => {
                                 e.stopPropagation();
                                 if (selected_video_uuid === video.uuid) {
@@ -165,7 +165,7 @@
                             </AspectRatio.Root>
                         </button>
                         <div
-                            class="w-full basis-2/5 flex flex-col justify-center md:justify-start"
+                            class="w-full basis-1/3 flex flex-col justify-center md:justify-start"
                         >
                             <span
                                 class="text-bjelopic-blue-1 font-semibold text-2xl md:text-4xl"
