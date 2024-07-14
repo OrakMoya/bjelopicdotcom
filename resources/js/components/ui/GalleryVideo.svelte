@@ -71,19 +71,15 @@
         {/if}
 
         {#if focused && poster_src && poster_shown}
-            <div
-                class="w-full h-fit flex justify-end drop-shadow-lg"
+            <button
+                class="w-1/3 p-4 z-10 hover:cursor-pointer block absolute right-0 top-0"
+                on:click|stopPropagation={() => (poster_shown = false)}
                 transition:fly={{ x: 100 }}
             >
-                <button
-                    class="w-1/3 p-4 relative z-10 hover:cursor-pointer block"
-                    on:click|stopPropagation={() => (poster_shown = false)}
-                >
-                    <AspectRatio.Root ratio={707 / 1000}>
-                        <img src={poster_src} alt="" />
-                    </AspectRatio.Root>
-                </button>
-            </div>
+                <AspectRatio.Root ratio={707 / 1000}>
+                    <img src={poster_src} alt="" />
+                </AspectRatio.Root>
+            </button>
         {/if}
     </div>
 </div>
