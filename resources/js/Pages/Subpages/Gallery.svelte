@@ -43,6 +43,7 @@
             ? 'bg-bjelopic-neutral-8'
             : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
         on:click={() => {
+            console.log("exec gore");
             selected_video_uuid = "";
         }}
         role="none"
@@ -82,11 +83,12 @@
                             <button
                                 class="w-full block"
                                 on:click={(e) => {
+                                    console.log("exec dolje 1");
+                                    e.stopImmediatePropagation();
                                     if (selected_video_uuid === video.uuid) {
                                         return;
                                     }
                                     e.preventDefault();
-                                    e.stopImmediatePropagation();
                                     selected_video_uuid = video.uuid;
                                 }}
                                 on:mouseenter={() => {
@@ -133,12 +135,12 @@
                         <button
                             class="w-full basis-3/5 block"
                             on:click={(e) => {
+                                console.log("exec dolje 2");
+                                e.stopImmediatePropagation();
                                 if (selected_video_uuid === video.uuid) {
                                     return;
                                 }
                                 e.preventDefault();
-                                e.stopImmediatePropagation();
-
                                 selected_video_uuid = video.uuid;
                             }}
                             on:mouseenter={() => {
