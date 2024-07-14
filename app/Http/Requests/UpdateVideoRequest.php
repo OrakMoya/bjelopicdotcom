@@ -32,7 +32,7 @@ class UpdateVideoRequest extends FormRequest
             'publication_date' => ['required', 'date'],
             'thumbnail' => ['nullable', File::image()->min('10kb')->max('8mb'), Rule::dimensions()->ratio(16 / 9)],
             'preview' => ['nullable', 'mimetypes:video/mp4'],
-            'poster' => ['nullable', File::image()->min('500kb')->max('8mb'), Rule::dimensions()->maxWidth(2121)->maxHeight(3000)->ratio(707 / 1000)],
+            'poster' => ['nullable', File::image()->min('10kb')->max('8mb'), Rule::dimensions()->maxHeight(4000)->ratio(707 / 1000)],
             'link' => ['required'],
             'collection' => ['nullable', 'min:3', 'max:100'],
             'category' => ['required', 'min:3', 'max:100']
