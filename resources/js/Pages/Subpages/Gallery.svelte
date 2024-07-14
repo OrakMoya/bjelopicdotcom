@@ -142,7 +142,7 @@
                             class="w-full basis-2/5 flex flex-col justify-center md:justify-start"
                         >
                             <span
-                                class="text-bjelopic-blue-1 font-semibold text-3xl"
+                                class="text-bjelopic-blue-1 font-semibold text-4xl"
                             >
                                 {#if video.subject === "BjeloPIC"}
                                     <TheBjeloPic />
