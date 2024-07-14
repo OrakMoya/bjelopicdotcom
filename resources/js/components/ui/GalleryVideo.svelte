@@ -76,7 +76,7 @@
         {#if !focused}
             <div
                 class="w-full h-full absolute"
-                on:mousedown={() => {}}
+                on:mousedown|preventDefault|stopPropagation={() => {}}
             ></div>
         {/if}
     </div>
