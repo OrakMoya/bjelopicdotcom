@@ -25,13 +25,18 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
     class="{focused
-        ? 'scale-[105%]'
+        ? 'scale-[102%]'
         : ''} transition-all duration-300 w-full h-full"
 >
     <div class="w-full h-full overflow-hidden relative {$$restProps.class}">
         {#if focused && preview_src}
             <div transition:fade class="absolute w-full h-full top-0">
-                <a {href} target="_blank" class="block" transition:fade={{duration}}>
+                <a
+                    {href}
+                    target="_blank"
+                    class="block"
+                    transition:fade={{ duration }}
+                >
                     <video muted autoplay transition:fade>
                         <source src={preview_src} />
                     </video>
@@ -44,7 +49,7 @@
                         {href}
                         target="_blank"
                         class="block absolute"
-                        transition:fade={{duration}}
+                        transition:fade={{ duration }}
                     >
                         <img src={thumbnail_src} {alt} />
                     </a>
@@ -53,7 +58,7 @@
                         src={thumbnail_src}
                         {alt}
                         class="absolute"
-                        transition:fade={{duration}}
+                        transition:fade={{ duration }}
                     />
                 {/if}
             </div>
@@ -71,7 +76,8 @@
             <button
                 transition:fly={{ x: 50 }}
                 class="absolute top-[15%] transition-all hover:pr-4 right-0 bg-black/80 rounded-tl-2xl rounded-bl-2xl p-2 z-10 block"
-                on:click|stopPropagation={() => (poster_shown = true)}
+                on:click|preventDefault|stopPropagation={() =>
+                    (poster_shown = true)}
             >
                 <ChevronLeft class="w-6 h-6" />
             </button>
@@ -80,7 +86,8 @@
         {#if focused && poster_src && poster_shown}
             <button
                 class="w-1/3 p-4 z-10 hover:cursor-pointer block absolute right-0 top-0"
-                on:click|stopPropagation={() => (poster_shown = false)}
+                on:click|preventDefault|stopPropagation={() =>
+                    (poster_shown = false)}
                 transition:fly={{ x: 100 }}
             >
                 <AspectRatio.Root ratio={707 / 1000}>

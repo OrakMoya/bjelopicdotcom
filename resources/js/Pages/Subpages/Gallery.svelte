@@ -7,7 +7,7 @@
     export let videos;
     export let by_collection;
     export let focus = "";
-    let hovered = false;
+    let touch_event = false;
 
     let selected_video_uuid = focus;
 
@@ -42,7 +42,7 @@
         class=" mx-auto {i % 2
             ? 'bg-bjelopic-neutral-8'
             : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
-        on:click={() => {
+        on:click={(e) => {
             console.log("exec gore");
             selected_video_uuid = "";
         }}
@@ -72,9 +72,6 @@
                 </div>
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4"
-                    on:mouseenter={() => {
-                        if (!hovered) selected_video_uuid = "";
-                    }}
                     role="none"
                 >
                     {#each collection.videos as video}
@@ -83,26 +80,27 @@
                             <button
                                 class="w-full block"
                                 on:click={(e) => {
-                                    console.log("exec dolje 1");
-                                    e.stopImmediatePropagation();
+                                    e.stopPropagation();
                                     if (selected_video_uuid === video.uuid) {
                                         return;
                                     }
                                     e.preventDefault();
                                     selected_video_uuid = video.uuid;
                                 }}
-                                on:mouseenter={() => {
-                                    hovered = true;
-                                    selected_video_uuid = video.uuid;
+                                on:pointerleave={(e) => {
+                                    if (e.pointerType == "touch") return;
+                                    e.stopImmediatePropagation();
+                                    e.preventDefault();
+                                    selected_video_uuid = "";
                                 }}
-                                on:mouseleave={(e) => {
-                                    hovered = false;
-                                    if (e.buttons) {
-                                        e.stopImmediatePropagation();
-                                        e.preventDefault();
+                                on:pointerenter={(e) => {
+                                    if (e.pointerType == "touch") return;
+                                    if (selected_video_uuid === video.uuid) {
                                         return;
                                     }
-                                    selected_video_uuid = "";
+                                    e.stopImmediatePropagation();
+                                    e.preventDefault();
+                                    selected_video_uuid = video.uuid;
                                 }}
                             >
                                 <AspectRatio.Root ratio={16 / 9}>
@@ -133,28 +131,29 @@
                     >
                         <!-- svelte-ignore a11y-no-static-element-interactions -->
                         <button
-                            class="w-full basis-3/5 block"
+                            class="w-full block"
                             on:click={(e) => {
-                                console.log("exec dolje 2");
-                                e.stopImmediatePropagation();
+                                e.stopPropagation();
                                 if (selected_video_uuid === video.uuid) {
                                     return;
                                 }
                                 e.preventDefault();
                                 selected_video_uuid = video.uuid;
                             }}
-                            on:mouseenter={() => {
-                                selected_video_uuid = video.uuid;
-                                hovered = true;
+                            on:pointerleave={(e) => {
+                                if (e.pointerType == "touch") return;
+                                e.stopImmediatePropagation();
+                                e.preventDefault();
+                                selected_video_uuid = "";
                             }}
-                            on:mouseleave={(e) => {
-                                hovered = false;
-                                if (e.buttons) {
-                                    e.stopImmediatePropagation();
-                                    e.preventDefault();
+                            on:pointerenter={(e) => {
+                                if (e.pointerType == "touch") return;
+                                if (selected_video_uuid === video.uuid) {
                                     return;
                                 }
-                                selected_video_uuid = "";
+                                e.stopImmediatePropagation();
+                                e.preventDefault();
+                                selected_video_uuid = video.uuid;
                             }}
                         >
                             <AspectRatio.Root ratio={16 / 9}>
