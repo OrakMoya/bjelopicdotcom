@@ -32,6 +32,9 @@
             <div transition:fade class="absolute w-full h-full top-0">
                 <a
                     {href}
+                    on:click={(e) => {
+                        if (!focused) e.preventDefault();
+                    }}
                     target="_blank"
                     class={!focused ? "pointer-events-none cursor-default" : ""}
                 >
@@ -44,6 +47,9 @@
             <div transition:fade class="absolute w-full h-full">
                 <a
                     {href}
+                    on:click={(e) => {
+                        if (!focused) e.preventDefault();
+                    }}
                     target="_blank"
                     class={!focused ? "pointer-events-none cursor-default" : ""}
                 >
