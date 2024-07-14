@@ -7,6 +7,7 @@
     export let videos;
     export let by_collection;
     export let focus = "";
+    let hovered = false;
 
     let selected_video_uuid = focus;
 
@@ -52,7 +53,7 @@
                     <div
                         class="h-[1px] relative top-[2px] bg-white w-full"
                     ></div>
-                    <div class="whitespace-nowrap font-bold text-4xl">
+                    <div class="whitespace-nowrap font-bold text-2xl md:text-4xl">
                         {collection.collection}
                         <span class="text-bjelopic-blue-1"
                             >({new Date(
@@ -67,7 +68,7 @@
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4"
                     on:mouseenter={() => {
-                        selected_video_uuid = "";
+                        if (!hovered) selected_video_uuid = "";
                     }}
                     role="none"
                 >
@@ -86,9 +87,11 @@
                                     selected_video_uuid = video.uuid;
                                 }}
                                 on:mouseenter={() => {
+                                    hovered = true;
                                     selected_video_uuid = video.uuid;
                                 }}
                                 on:mouseleave={(e) => {
+                                    hovered = false;
                                     if (e.buttons) {
                                         e.stopPropagation();
                                         e.preventDefault();
@@ -137,8 +140,10 @@
                             }}
                             on:mouseenter={() => {
                                 selected_video_uuid = video.uuid;
+                                hovered = true;
                             }}
                             on:mouseleave={(e) => {
+                                hovered = false;
                                 if (e.buttons) {
                                     e.stopPropagation();
                                     e.preventDefault();
@@ -163,7 +168,7 @@
                             class="w-full basis-2/5 flex flex-col justify-center md:justify-start"
                         >
                             <span
-                                class="text-bjelopic-blue-1 font-semibold text-4xl"
+                                class="text-bjelopic-blue-1 font-semibold text-2xl md:text-4xl"
                             >
                                 {#if video.subject === "BjeloPIC"}
                                     <TheBjeloPic />
@@ -177,7 +182,7 @@
                                 ).getUTCFullYear()})
                             </span>
                             {#if video.category}
-                                <span class="text-lg">{video.category}</span>
+                                <span class="md:text-lg mb-2">{video.category}</span>
                             {/if}
                         </div>
                     </div>

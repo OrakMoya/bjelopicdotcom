@@ -30,14 +30,7 @@
     <div class="w-full h-full overflow-hidden relative {$$restProps.class}">
         {#if focused && preview_src}
             <div transition:fade class="absolute w-full h-full top-0">
-                <a
-                    {href}
-                    on:click={(e) => {
-                        if (!focused) e.preventDefault();
-                    }}
-                    target="_blank"
-                    class={!focused ? "pointer-events-none cursor-default" : ""}
-                >
+                <a {href} target="_blank">
                     <video muted autoplay transition:fade>
                         <source src={preview_src} />
                     </video>
@@ -45,14 +38,7 @@
             </div>
         {:else}
             <div transition:fade class="absolute w-full h-full">
-                <a
-                    {href}
-                    on:click={(e) => {
-                        if (!focused) e.preventDefault();
-                    }}
-                    target="_blank"
-                    class={!focused ? "pointer-events-none cursor-default" : ""}
-                >
+                <a {href} target="_blank">
                     <img src={thumbnail_src} {alt} transition:fade />
                 </a>
             </div>
@@ -86,6 +72,12 @@
                     <img src={poster_src} alt="" />
                 </AspectRatio.Root>
             </button>
+        {/if}
+        {#if !focused}
+            <div
+                class="w-full h-full absolute"
+                on:mousedown={() => {}}
+            ></div>
         {/if}
     </div>
 </div>
