@@ -51,13 +51,13 @@
         <div class="max-w-screen-lg mx-auto px-4">
             {#if collection.videos[0].collection}
                 <div
-                    class="flex w-full md:w-2/3 justify-center mb-4 items-center gap-x-4 mx-auto transition-all duration-500"
+                    class="flex w-full justify-center mb-4 items-center gap-x-4 mx-auto transition-all duration-500"
                 >
                     <div
-                        class="h-[1px] relative top-[2px] bg-white grow"
+                        class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
                     ></div>
                     <div
-                        class="whitespace-normal w-max font-bold text-2xl md:text-4xl text-center"
+                        class="whitespace-normal w-auto max-w-[570px] font-bold text-2xl md:text-4xl text-center"
                     >
                         {collection.collection}
                         <span class="text-bjelopic-blue-1"
@@ -67,7 +67,7 @@
                         >
                     </div>
                     <div
-                        class="h-[1px] relative top-[2px] bg-white grow dark"
+                        class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
                     ></div>
                 </div>
                 <div
