@@ -14,11 +14,10 @@
     let poster_shown = false;
     let screensize_md = 768;
     let innerWidth = 0;
-    let symbolic_href = "javascript:void(0);";
     let menubar_height = 0;
+    let duration = preview_src ? 100 : 0;
     $: focused = this_id === selected_id;
     $: poster_shown = focused && poster_shown;
-    $: symbolic_href = focused ? href : "javascript:void(0);";
 </script>
 
 <svelte:window bind:innerWidth />
@@ -32,7 +31,7 @@
     <div class="w-full h-full overflow-hidden relative {$$restProps.class}">
         {#if focused && preview_src}
             <div transition:fade class="absolute w-full h-full top-0">
-                <a href={symbolic_href} target="_blank">
+                <a {href} target="_blank" class="block" transition:fade={{duration}}>
                     <video muted autoplay transition:fade>
                         <source src={preview_src} />
                     </video>
@@ -40,14 +39,23 @@
             </div>
         {:else}
             <div transition:fade class="absolute w-full h-full">
-                <a
-                    href={symbolic_href}
-                    target="_blank"
-                    class="block"
-                    transition:fade
-                >
-                    <img src={thumbnail_src} {alt} />
-                </a>
+                {#if focused}
+                    <a
+                        {href}
+                        target="_blank"
+                        class="block absolute"
+                        transition:fade={{duration}}
+                    >
+                        <img src={thumbnail_src} {alt} />
+                    </a>
+                {:else}
+                    <img
+                        src={thumbnail_src}
+                        {alt}
+                        class="absolute"
+                        transition:fade={{duration}}
+                    />
+                {/if}
             </div>
         {/if}
         {#if focused && title}
