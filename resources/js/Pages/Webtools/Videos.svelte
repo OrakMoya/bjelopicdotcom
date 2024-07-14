@@ -89,7 +89,6 @@
     }
 
     function assignVideoFormValues(id) {
-        console.log(id);
         if (id) {
             let video = videos.find((element) => element.id === id);
             currently_edited_video = video;

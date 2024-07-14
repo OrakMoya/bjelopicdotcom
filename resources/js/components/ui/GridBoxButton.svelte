@@ -4,8 +4,6 @@
     import { fly } from "svelte/transition";
     export let href = "";
     export let subtext = "";
-
-    console.log(href);
 </script>
 
 <Link {href}>

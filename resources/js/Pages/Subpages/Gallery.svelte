@@ -9,7 +9,6 @@
     export let focus = "";
 
     let selected_video_uuid = focus;
-    console.log(focus);
 
     Promise.all(
         Array.from(document.images)

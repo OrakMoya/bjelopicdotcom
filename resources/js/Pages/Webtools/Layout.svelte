@@ -14,7 +14,6 @@
     let menubar_width = 0;
     let header_height = 0;
     let menubar_height = 0;
-    $: console.log(header_height);
 </script>
 
 {#if menubar_open}
@@ -50,9 +49,6 @@
                     transition:fade={{ duration: 300 }}
                     class="w-screen h-screen fixed bg-black/80 z-30"
                     on:click={() => (menubar_open = false)}
-                    on:scroll|stopPropagation|preventDefault={(e) => {
-                        console.log("scroll");
-                    }}
                 />
             {/if}
             {#if innerWidth < screensize_md && menubar_open}
@@ -100,9 +96,9 @@
                 <LayoutLinks />
             </div>
             <style>
-            html {
-                overflow: hidden;
-            }
+                html {
+                    overflow: hidden;
+                }
             </style>
             <div
                 class="overflow-y-scroll overflow-x-clip w-full"
