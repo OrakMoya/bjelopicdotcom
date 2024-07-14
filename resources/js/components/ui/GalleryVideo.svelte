@@ -30,18 +30,22 @@
     <div class="w-full h-full overflow-hidden relative {$$restProps.class}">
         {#if focused && preview_src}
             <div transition:fade class="absolute w-full h-full top-0">
-                <a {href} target="_blank">
-                    <video muted autoplay transition:fade>
-                        <source src={preview_src} />
-                    </video>
-                </a>
+                <video muted autoplay transition:fade>
+                    <source src={preview_src} />
+                </video>
             </div>
         {:else}
             <div transition:fade class="absolute w-full h-full">
-                <a {href} target="_blank">
-                    <img src={thumbnail_src} {alt} transition:fade />
-                </a>
+                <img src={thumbnail_src} {alt} />
             </div>
+        {/if}
+        {#if focused}
+            <!-- svelte-ignore a11y-missing-content -->
+            <a
+                {href}
+                target="_blank"
+                class="absolute w-full h-full top-0 left-0"
+            />
         {/if}
         {#if focused && title}
             <div
@@ -72,12 +76,6 @@
                     <img src={poster_src} alt="" />
                 </AspectRatio.Root>
             </button>
-        {/if}
-        {#if !focused}
-            <div
-                class="w-full h-full absolute"
-                on:mousedown|preventDefault|stopPropagation={() => {}}
-            ></div>
         {/if}
     </div>
 </div>
