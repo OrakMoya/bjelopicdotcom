@@ -13,7 +13,6 @@
         font-weight:400;
         src: url(/public/BjeloPIC-NotoBased.woff) format('woff');
     }
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght:0,100..900;1,100..900&display=swap');
     :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
