@@ -1,19 +1,25 @@
 <script>
     import Header from "./Header.svelte";
     import LayoutLinks from "./LayoutLinks.svelte";
-    import * as Drawer from "$lib/components/ui/drawer";
-    import * as Sheet from "$lib/components/ui/sheet";
-    import { Button } from "$lib/components/ui/button";
     import { Menu } from "lucide-svelte";
-    import { fly, fade } from "svelte/transition";
+    import { fly, fade, scale } from "svelte/transition";
+    import { page } from "@inertiajs/svelte";
     let screensize_xl = 1280;
     let screensize_md = 768;
+    let screensize_sm = 640;
     let innerWidth = 0;
+    let innerHeight = 0;
     let menubar_open = false;
     $: if (innerWidth > screensize_xl) menubar_open = false;
     let menubar_width = 0;
     let header_height = 0;
     let menubar_height = 0;
+    let append_absolute = false;
+
+    const anim_duration = 300;
+    let duration = anim_duration;
+    $: duration = innerWidth < screensize_xl ? anim_duration : 0;
+    $: append_absolute = innerWidth < screensize_xl ? append_absolute : false;
 </script>
 
 {#if menubar_open}
@@ -24,7 +30,7 @@
     </style>
 {/if}
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="flex flex-col h-screen">
     {#if innerWidth < screensize_xl}
@@ -87,27 +93,48 @@
         <Header />
     {/if}
 
+    <style>
+        html {
+            overflow: hidden;
+        }
+    </style>
+
     <div class="flex flex-grow bg-black text-white">
-        {#if innerWidth >= screensize_xl}
-            <div
-                class="min-w-72 px-8 py-6 border-r border-r-neutral-800"
-                style="height: calc(100vh - {header_height}px);"
-            >
-                <LayoutLinks />
+        <div
+            class="min-w-72 px-8 py-6 border-r border-r-neutral-800 {innerWidth <
+            screensize_xl
+                ? 'hidden'
+                : ''}"
+            style="height: calc(100vh - {header_height}px);"
+        >
+            <LayoutLinks />
+        </div>
+        <div
+            style="height: calc(100vh - {header_height}px);"
+            class="overflow-y-scroll overflow-x-clip w-full {innerWidth <
+            screensize_xl
+                ? 'overflow-visible h-auto'
+                : ''}"
+        >
+            <div class="w-full h-full relative">
+                {#key $page}
+                    <div
+                        class="{append_absolute
+                            ? 'absolute top-0'
+                            : ''} w-full h-full bg-black"
+                        in:fly={{ y: innerHeight, duration: duration }}
+                        out:scale={{ duration: duration, start: 0.9 }}
+                        on:introstart={() => {
+                            append_absolute = true;
+                        }}
+                        on:introend={() => {
+                            append_absolute = false;
+                        }}
+                    >
+                        <slot />
+                    </div>
+                {/key}
             </div>
-            <style>
-                html {
-                    overflow: hidden;
-                }
-            </style>
-            <div
-                class="overflow-y-scroll overflow-x-clip w-full"
-                style="height: calc(100vh - {header_height}px);"
-            >
-                <slot />
-            </div>
-        {:else}
-            <slot />
-        {/if}
+        </div>
     </div>
 </div>
