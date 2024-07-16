@@ -14,7 +14,7 @@ class HeroController extends Controller
     public function show(): Response
     {
         $videos = Video::select(['title', 'thumbnail_path', 'link', 'uuid'])
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('publication_date', 'DESC')->get();
         foreach ($videos as $video) {
             $video->thumbnail_path = Storage::url($video->thumbnail_path);
 

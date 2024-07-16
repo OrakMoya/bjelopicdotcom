@@ -17,7 +17,7 @@ class WebtoolsVideosController extends Controller
 {
     public function show(): Response
     {
-        $videos = Video::all();
+        $videos = Video::query()->orderBy('created_at', 'DESC', 'publication_date', 'DESC');
         foreach ($videos as $video) {
             $video->thumbnail_path = Storage::url($video->thumbnail_path);
             if ($video->preview_path)
@@ -54,6 +54,13 @@ class WebtoolsVideosController extends Controller
             $poster = $request->poster;
             $path = Storage::putFile('public/videos/' . $video->uuid, $poster);
             $video->poster_path = $path;
+        }
+        if ($request->preview) {
+            if ($video->preview_path)
+                Storage::delete($video->preview_path);
+            $preview = $request->preview;
+            $path = Storage::put('public/videos/' . $video->uuid, $preview);
+            $video->preview_path = $path;
         }
 
         $video->save();
