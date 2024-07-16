@@ -15,6 +15,7 @@
     let header_height = 0;
     let menubar_height = 0;
     let append_absolute = false;
+    let scrollY = 0;
 
     const anim_duration = 300;
     let duration = anim_duration;
@@ -30,7 +31,7 @@
     </style>
 {/if}
 
-<svelte:window bind:innerWidth bind:innerHeight />
+<svelte:window bind:innerWidth bind:innerHeight bind:scrollY />
 
 <div class="flex flex-col h-screen">
     {#if innerWidth < screensize_xl}
@@ -93,11 +94,13 @@
         <Header />
     {/if}
 
-    <style>
-        html {
-            overflow: hidden;
-        }
-    </style>
+    {#if innerWidth >= screensize_xl || append_absolute}
+        <style>
+            body {
+                overflow: hidden;
+            }
+        </style>
+    {/if}
 
     <div class="flex flex-grow bg-black text-white">
         <div
@@ -110,18 +113,20 @@
             <LayoutLinks />
         </div>
         <div
-            style="height: calc(100vh - {header_height}px);"
-            class="overflow-y-scroll overflow-x-clip w-full {innerWidth <
-            screensize_xl
-                ? 'overflow-visible h-auto'
-                : ''}"
+            style="{innerWidth < screensize_xl
+                ? 'height: calc(100vh - {header_height}px);'
+                : ''} "
+            class=" overflow-x-clip w-full
+            {innerWidth < screensize_xl ? 'overflow-visible h-auto' : ''}
+            {append_absolute ? 'overflow-y-hidden' : 'overflow-y-scroll'}"
         >
             <div class="w-full h-full relative">
-                {#key $page}
+                {#key $page.url}
                     <div
                         class="{append_absolute
-                            ? 'absolute top-0'
+                            ? 'absolute overflow-hidden'
                             : ''} w-full h-full bg-black"
+                        style="top: 0px;"
                         in:fly={{ y: innerHeight, duration: duration }}
                         out:scale={{ duration: duration, start: 0.9 }}
                         on:introstart={() => {
@@ -130,6 +135,8 @@
                         on:introend={() => {
                             append_absolute = false;
                         }}
+                        on:outrostart={() => (append_absolute = true)}
+                        on:outroend={() => (append_absolute = false)}
                     >
                         <slot />
                     </div>
