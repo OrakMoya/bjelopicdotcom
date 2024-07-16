@@ -17,7 +17,7 @@ class WebtoolsVideosController extends Controller
 {
     public function show(): Response
     {
-        $videos = Video::query()->orderBy('created_at', 'DESC', 'publication_date', 'DESC');
+        $videos = Video::query()->orderBy('created_at', 'DESC')->orderBy('publication_date', 'DESC')->get();
         foreach ($videos as $video) {
             $video->thumbnail_path = Storage::url($video->thumbnail_path);
             if ($video->preview_path)
