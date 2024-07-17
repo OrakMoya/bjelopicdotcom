@@ -19,6 +19,7 @@
         "@internationalized/date": "^3.5.4",
         "@sveltejs/vite-plugin-svelte": "^3.1.1",
         "bits-ui": "^0.21.12",
+        "chart.js": "^4.4.3",
         "clsx": "^2.1.1",
         "cmdk-sv": "^0.0.17",
         "embla-carousel-auto-scroll": "^8.1.6",

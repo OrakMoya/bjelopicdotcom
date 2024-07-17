@@ -41,7 +41,7 @@
                             <h2 class="text-lg font-bold">Informacije</h2>
                         </Accordion.Trigger>
                         <Accordion.Content>
-                            <div class="flex flex-col gap-y-2">
+                            <div class="flex flex-col gap-y-2 text-lg">
                                 <FooterInfoLinks />
                             </div>
                         </Accordion.Content>
@@ -51,7 +51,7 @@
                             <h2 class="text-lg font-bold">Društvene mreže</h2>
                         </Accordion.Trigger>
                         <Accordion.Content>
-                            <div class="flex flex-col gap-y-2">
+                            <div class="flex flex-col gap-y-2 text-lg">
                                 <FooterSocials />
                             </div>
                         </Accordion.Content>

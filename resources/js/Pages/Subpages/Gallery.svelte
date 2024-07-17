@@ -2,12 +2,9 @@
     import GalleryVideo from "$lib/components/ui/GalleryVideo.svelte";
     import TheBjeloPic from "$lib/components/ui/TheBjeloPIC.svelte";
     import { AspectRatio } from "bits-ui";
-    import { onMount } from "svelte";
 
-    export let videos;
     export let by_collection;
     export let focus = "";
-    let touch_event = false;
 
     let selected_video_uuid = focus;
 
@@ -42,16 +39,13 @@
         class=" mx-auto {i % 2
             ? 'bg-bjelopic-neutral-8'
             : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
-        on:click={(e) => {
-            console.log("exec gore");
-            selected_video_uuid = "";
-        }}
+        on:click={() => (selected_video_uuid = "")}
         role="none"
     >
         <div class="max-w-screen-lg mx-auto px-4">
             {#if collection.videos[0].collection}
                 <div
-                    class="flex w-full justify-center mb-4 items-center gap-x-4 mx-auto transition-all duration-500"
+                    class="flex w-full justify-center mb-4 items-center gap-x-4 mx-auto transition-all duration-500 drop-shadow"
                 >
                     <div
                         class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
@@ -70,7 +64,7 @@
                     role="none"
                 >
                     {#each collection.videos as video}
-                        <div class="drop-shadow" id={video.uuid}>
+                        <div class="drop-shadow-lg" id={video.uuid}>
                             <!-- svelte-ignore a11y-no-static-element-interactions -->
                             <button
                                 class="w-full block"
@@ -89,8 +83,10 @@
                                     selected_video_uuid = "";
                                 }}
                                 on:pointerenter={(e) => {
-                                    if (e.pointerType == "touch") return;
-                                    if (selected_video_uuid === video.uuid) {
+                                    if (
+                                        selected_video_uuid === video.uuid ||
+                                        e.pointerType == "touch"
+                                    ) {
                                         return;
                                     }
                                     e.stopImmediatePropagation();
@@ -100,8 +96,10 @@
                             >
                                 <AspectRatio.Root ratio={16 / 9}>
                                     <GalleryVideo
-                                        title="{video.title}"
-                year={new Date(video.publication_date).getUTCFullYear()}
+                                        title={video.title}
+                                        year={new Date(video.publication_date)
+                                            .getUTCFullYear()
+                                            .toString()}
                                         class="rounded-md transition-all overflow-clip"
                                         href={video.link}
                                         this_id={video.uuid}
@@ -143,8 +141,10 @@
                                 selected_video_uuid = "";
                             }}
                             on:pointerenter={(e) => {
-                                if (e.pointerType == "touch") return;
-                                if (selected_video_uuid === video.uuid) {
+                                if (
+                                    selected_video_uuid === video.uuid ||
+                                    e.pointerType == "touch"
+                                ) {
                                     return;
                                 }
                                 e.stopImmediatePropagation();
@@ -165,7 +165,7 @@
                             </AspectRatio.Root>
                         </button>
                         <div
-                            class="w-full basis-2/5 flex flex-col justify-center md:justify-start"
+                            class="w-full basis-2/5 flex flex-col justify-center md:justify-start drop-shadow"
                         >
                             <span
                                 class="text-bjelopic-blue-1 font-semibold text-2xl md:text-4xl"

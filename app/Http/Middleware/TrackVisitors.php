@@ -17,11 +17,12 @@ class TrackVisitors
      */
     public function handle(Request $request, Closure $next): Response
     {
-        Visitor::updateOrCreate([
-            'ip_address' => $request->ip(),
-            'user_agent' => $request->userAgent(),
-            'visited_at' => Carbon::now()->toDateTimeString()
-        ]);
+        if (filter_var($request->ip(), FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE))
+            Visitor::updateOrCreate([
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'visited_at' => Carbon::now()->toDateTimeString()
+            ]);
         return $next($request);
     }
 }

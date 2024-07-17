@@ -29,9 +29,14 @@
         ? 'scale-[104%]'
         : ''} transition-all duration-300 w-full h-full"
 >
-    <div class="w-full h-full overflow-hidden relative bg-black {$$restProps.class}">
+    <div
+        class="w-full h-full overflow-hidden relative bg-black {$$restProps.class}"
+    >
         {#if focused && preview_src}
-            <div transition:fade class="absolute flex items-center align-middle w-full h-full top-0">
+            <div
+                transition:fade
+                class="absolute flex items-center align-middle w-full h-full top-0"
+            >
                 <a
                     {href}
                     target="_blank"
