@@ -13,6 +13,7 @@
     $: if (innerWidth > screensize_xl) menubar_open = false;
     let menubar_width = 0;
     let header_height = 0;
+    let effective_header_height = header_height;
     let menubar_height = 0;
     let append_absolute = false;
     let scrollY = 0;
@@ -21,6 +22,8 @@
     let duration = anim_duration;
     $: duration = innerWidth < screensize_xl ? anim_duration : 0;
     $: append_absolute = innerWidth < screensize_xl ? append_absolute : false;
+    $: effective_header_height =
+        header_height - scrollY < 0 ? 0 : header_height - scrollY;
 </script>
 
 {#if menubar_open}
@@ -54,7 +57,7 @@
                 <!-- svelte-ignore a11y-no-static-element-interactions -->
                 <div
                     transition:fade={{ duration: 300 }}
-                    class="w-screen h-screen fixed bg-black/80 z-30"
+                    class="w-screen h-screen fixed bg-black/80 z-30 top-0"
                     on:click={() => (menubar_open = false)}
                 />
             {/if}
@@ -78,7 +81,7 @@
                     <div
                         class="flex fixed right-0 min-w-72 pl-8 py-4 pr-20 bg-black border-l border-l-neutral-800"
                         bind:clientWidth={menubar_width}
-                        style="height: calc(100vh - {header_height}px);"
+                        style="height: calc(100vh - {effective_header_height}px); top: {effective_header_height}px;"
                         transition:fly={{
                             x: menubar_width + 50,
                             opacity: 1,
@@ -96,7 +99,7 @@
 
     {#if innerWidth >= screensize_xl || append_absolute}
         <style>
-            body {
+            html {
                 overflow: hidden;
             }
         </style>
@@ -113,8 +116,8 @@
             <LayoutLinks />
         </div>
         <div
-            style="{innerWidth < screensize_xl
-                ? 'height: calc(100vh - {header_height}px);'
+            style="{innerWidth >= screensize_xl
+                ? 'height: calc(100vh - ' + header_height + 'px);'
                 : ''} "
             class=" overflow-x-clip w-full
             {innerWidth < screensize_xl ? 'overflow-visible h-auto' : ''}
