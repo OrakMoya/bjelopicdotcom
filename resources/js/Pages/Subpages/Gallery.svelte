@@ -168,7 +168,7 @@
                             class="w-full basis-2/5 flex flex-col justify-center md:justify-start drop-shadow"
                         >
                             <span
-                                class="text-bjelopic-blue-1 font-semibold text-2xl md:text-4xl"
+                                class="text-bjelopic-blue-1 font-semibold text-2xl md:text-3xl"
                             >
                                 {#if video.subject === "BjeloPIC"}
                                     <TheBjeloPic />
@@ -186,6 +186,23 @@
                                     >{video.category}</span
                                 >
                             {/if}
+                            <div
+                                class="flex justify-center md:justify-start {i %
+                                    2 ==
+                                0
+                                    ? 'flex-row'
+                                    : 'flex-row-reverse'} mb-2 flex-wrap gap-x-2 gap-y-2"
+                            >
+                                {#each video.roles as role}
+                                    <div
+                                        class="bg-bjelopic-orange-3 rounded-lg py-1 px-2"
+                                    >
+                                        <span class="drop-shadow text-base"
+                                            >{role}</span
+                                        >
+                                    </div>
+                                {/each}
+                            </div>
                         </div>
                     </div>
                 {/each}

@@ -32,6 +32,24 @@
     import * as Accordion from "$lib/components/ui/accordion";
     import * as Command from "$lib/components/ui/command";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
+    import { Checkbox } from "$lib/components/ui/checkbox";
+
+    /**
+     * @type {any[]}
+     */
+    export let videos;
+    export let collections;
+    export let available_roles;
+
+    let new_video_dialog_open = false;
+    let collections_open = false;
+    let new_collection_open = false;
+    let new_collection_name = "";
+    /**
+     * @type {{ thumbnail_path: string | null | undefined; preview_path: string | null | undefined; poster_path: string | null | undefined; id: any; } | null}
+     */
+    let currently_edited_video;
+    let deleteVideoDialogOpen = false;
 
     let new_video_form = useForm({
         id: null,
@@ -39,15 +57,16 @@
         description: null,
         subject: null,
         poster: null,
+        poster_deleted: false,
         preview: null,
+        preview_deleted: false,
         thumbnail: null,
         link: null,
         publication_date: null,
         collection: "",
         category: null,
+        roles: [],
     });
-
-    export let collections;
 
     const df = new DateFormatter("en-US", {
         dateStyle: "long",
@@ -55,8 +74,10 @@
 
     function processSubmit() {
         let previous_date = $new_video_form.publication_date;
-        $new_video_form.publication_date =
-            $new_video_form.publication_date.toString();
+        if ($new_video_form.publication_date) {
+            $new_video_form.publication_date =
+                $new_video_form.publication_date.toString();
+        }
         if (currently_edited_video) {
             $new_video_form.post("/webtools/videos/update", {
                 onSuccess: () => (new_video_dialog_open = false),
@@ -68,7 +89,11 @@
         }
         $new_video_form.publication_date = previous_date;
     }
-    function deleteVideo(id) {
+
+    /**
+     * @param {number} id
+     */
+    function deleteVideoAction(id) {
         router.visit("/webtools/videos/delete", {
             method: "post",
             data: {
@@ -81,6 +106,9 @@
         });
     }
 
+    /**
+     * @param {string} triggerId
+     */
     function closeAndFocusTrigger(triggerId) {
         collections_open = false;
         tick().then(() => {
@@ -88,6 +116,9 @@
         });
     }
 
+    /**
+     * @param {number|null} id
+     */
     function assignVideoFormValues(id) {
         if (id) {
             let video = videos.find((element) => element.id === id);
@@ -102,6 +133,7 @@
                 video.publication_date,
             );
             $new_video_form.collection = video.collection;
+            $new_video_form.roles = video.roles;
         } else {
             currently_edited_video = null;
             $new_video_form.id = null;
@@ -112,22 +144,18 @@
             $new_video_form.link = null;
             $new_video_form.publication_date = null;
             $new_video_form.collection = null;
+            $new_video_form.roles = [];
         }
         $new_video_form.poster = null;
+        $new_video_form.poster_deleted = false;
         $new_video_form.preview = null;
+        $new_video_form.preview_deleted = false;
         $new_video_form.thumbnail = null;
     }
-
-    export let videos;
-    let new_video_dialog_open = false;
-    let collections_open = false;
-    let new_collection_open = false;
-    let new_collection_name;
-    let currently_edited_video;
-    let deleteVideoDialogOpen = false;
 </script>
 
 <main class="max-w-screen-xl mx-auto p-4 px-4 md:px-8 w-full overflow-scroll-y">
+    <!-- New/edit video dialog -->
     <div class="flex justify-end">
         <Dialog.Root bind:open={new_video_dialog_open}>
             <form on:submit|preventDefault={processSubmit}>
@@ -149,6 +177,7 @@
                         </Dialog.Title>
                     </Dialog.Header>
 
+                    <!-- Dialog Tabs -->
                     <Tabs.Root>
                         <Tabs.List class="grid grid-cols-2 w-full">
                             <Tabs.Trigger value="info">Info</Tabs.Trigger>
@@ -233,12 +262,13 @@
                                 bind:value={$new_video_form.link}
                             />
 
-                            <Accordion.Root>
+                            <Accordion.Root multiple class="mt-4">
+                                <!-- Assign category -->
                                 <Accordion.Item
                                     value="collections"
                                     class="border-0"
                                 >
-                                    <Accordion.Trigger
+                                    <Accordion.Trigger class="py-2"
                                         >Collection</Accordion.Trigger
                                     >
                                     <Accordion.Content>
@@ -364,6 +394,56 @@
                                         </div>
                                     </Accordion.Content>
                                 </Accordion.Item>
+
+                                <!-- Assign roles -->
+                                <Accordion.Item value="roles" class="border-0">
+                                    <Accordion.Trigger class="py-2"
+                                        >Roles</Accordion.Trigger
+                                    >
+                                    <Accordion.Content>
+                                        <div class="flex flex-col space-y-2">
+                                            {#each available_roles as role}
+                                                {@const checked =
+                                                    $new_video_form.roles.includes(
+                                                        role.role,
+                                                    )}
+                                                <div
+                                                    class="flex gap-x-2 align-middle items-center"
+                                                >
+                                                    <Checkbox
+                                                        {checked}
+                                                        id="{role.id}-{role.role}"
+                                                        onCheckedChange={(
+                                                            v,
+                                                        ) => {
+                                                            if (v) {
+                                                                $new_video_form.roles =
+                                                                    [
+                                                                        ...$new_video_form.roles,
+                                                                        role.role,
+                                                                    ];
+                                                            } else
+                                                                $new_video_form.roles =
+                                                                    $new_video_form.roles.filter(
+                                                                        (
+                                                                            /** @type {string} */ item,
+                                                                        ) =>
+                                                                            item !==
+                                                                            role.role,
+                                                                    );
+                                                        }}
+                                                    />
+                                                    <Label
+                                                        class="hover:cursor-pointer"
+                                                        for="{role.id}-{role.role}"
+                                                    >
+                                                        {role.role}
+                                                    </Label>
+                                                </div>
+                                            {/each}
+                                        </div>
+                                    </Accordion.Content>
+                                </Accordion.Item>
                             </Accordion.Root>
                         </Tabs.Content>
 
@@ -426,11 +506,12 @@
                                     ratio={16 / 9}
                                     class="bg-muted rounded-md overflow-clip"
                                 >
-                                    {#if $new_video_form.preview || (currently_edited_video && currently_edited_video.preview_path)}
+                                    {#if $new_video_form.preview || (currently_edited_video && currently_edited_video.preview_path && !$new_video_form.preview_deleted)}
                                         <Button
-                                            class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
+                                            class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity "
                                             on:click={(e) => {
                                                 $new_video_form.preview = null;
+                                                $new_video_form.preview_deleted = true;
                                                 e.preventDefault();
                                                 e.stopPropagation();
                                             }}
@@ -474,7 +555,7 @@
                                     ratio={707 / 1000}
                                     class="bg-muted rounded-md overflow-clip"
                                 >
-                                    {#if $new_video_form.poster || (currently_edited_video && currently_edited_video.poster_path)}
+                                    {#if $new_video_form.poster || (currently_edited_video && currently_edited_video.poster_path && !$new_video_form.poster_deleted)}
                                         <Button
                                             class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
                                             on:click={(e) => {
@@ -502,6 +583,7 @@
                             </label>
                         </Tabs.Content>
                     </Tabs.Root>
+
                     <Dialog.Footer>
                         <div
                             class="flex justify-between flex-row-reverse w-full"
@@ -538,7 +620,7 @@
                                                 >
                                                     <Button
                                                         on:click={() =>
-                                                            deleteVideo(
+                                                            deleteVideoAction(
                                                                 currently_edited_video.id,
                                                             )}
                                                         builders={[builder]}
@@ -582,7 +664,7 @@
                 }}
             >
                 <div
-                    class="flex flex-col box-content w-full rounded-t-md overflow-clip md:hover:scale-[101%] transition duration-500 md:hover:drop-shadow-glow hover:z-10"
+                    class="flex flex-col box-content w-full rounded-md overflow-clip md:hover:scale-[101%] transition duration-500 md:hover:drop-shadow-glow hover:z-10 border border-neutral-800"
                 >
                     <AspectRatio.Root ratio={16 / 9}>
                         <img
@@ -590,9 +672,7 @@
                             alt="{video.title} thumbnail"
                         />
                     </AspectRatio.Root>
-                    <div
-                        class="px-2 py-1 md:py-2 border rounded-b-md border-neutral-800 bg-neutral-900 border-t-0"
-                    >
+                    <div class="px-2 py-1 md:py-2 bg-neutral-900 border-t-0">
                         <span
                             class="text-lg md:text-xl block w-full whitespace-nowrap overflow-hidden text-ellipsis"
                             >{video.title}</span

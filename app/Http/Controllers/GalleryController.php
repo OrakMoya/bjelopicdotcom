@@ -14,6 +14,7 @@ class GalleryController extends Controller
     {
         $videos = Video::select(
             [
+                'id',
                 'uuid',
                 'title',
                 'description',
@@ -37,6 +38,11 @@ class GalleryController extends Controller
                 $video->preview_path = Storage::url($video->preview_path);
             if ($video->poster_path)
                 $video->poster_path = Storage::url($video->poster_path);
+            $roles = [];
+            foreach ($video->videoRoles()->orderBy('role', 'DESC')->get() as $videoRole) {
+                array_push($roles, $videoRole->role);
+            }
+            $video->roles = $roles;
 
             $pushed = false;
             if ($video->collection) {
@@ -57,6 +63,8 @@ class GalleryController extends Controller
                     ]
                 ]);
             }
+            unset($video->id);
+            unset($video->videoRoles);
         }
 
         // Sort by publication date descending
@@ -72,6 +80,6 @@ class GalleryController extends Controller
         $focus = $_GET['focus'] ?? '';
 
 
-        return Inertia::render('Subpages/Gallery', ['videos' => $videos, 'by_collection' => $videos_by_collection, 'focus' => $focus]);
+        return Inertia::render('Subpages/Gallery', ['by_collection' => $videos_by_collection, 'focus' => $focus]);
     }
 }
