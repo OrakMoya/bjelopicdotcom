@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Laravel\Telescope\IncomingEntry;
@@ -57,10 +58,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     protected function gate(): void
     {
         Gate::define('viewTelescope', function ($user) {
-            $emails = env('TELESCOPE_EMAILS', '');
-            $emails = explode(',', $emails);
-            Log::info($emails);
-
+            $emails = Config::get('app.telescope_emails', '');
             return in_array($user->email, $emails);
         });
     }
