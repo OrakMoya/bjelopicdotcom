@@ -17,6 +17,7 @@
     let menubar_height = 0;
     let append_absolute = false;
     let scrollY = 0;
+    export let show_telescope = false;
 
     const anim_duration = 300;
     let duration = anim_duration;
@@ -75,7 +76,10 @@
                         }}
                         bind:clientHeight={menubar_height}
                     >
-                        <LayoutLinks class="flex-col-reverse" />
+                        <LayoutLinks
+                            {show_telescope}
+                            class="flex-col-reverse"
+                        />
                     </div>
                 </div>
             {:else if menubar_open}
@@ -91,7 +95,7 @@
                             duration: 400,
                         }}
                     >
-                        <LayoutLinks />
+                        <LayoutLinks {show_telescope} />
                     </div>
                 </div>
             {/if}
@@ -118,7 +122,7 @@
                 : ''}"
             style="height: calc(100vh - {header_height}px);"
         >
-            <LayoutLinks />
+            <LayoutLinks {show_telescope} />
         </div>
 
         <!-- Widest page layout is fixed. Page element inside has overflow scroll -->
