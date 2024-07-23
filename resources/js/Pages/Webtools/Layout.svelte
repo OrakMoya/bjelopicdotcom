@@ -4,6 +4,7 @@
     import { Menu } from "lucide-svelte";
     import { fly, fade, scale } from "svelte/transition";
     import { page } from "@inertiajs/svelte";
+    import MassToaster from "$lib/components/ui/MassToaster.svelte";
     let screensize_xl = 1280;
     let screensize_md = 768;
     let screensize_sm = 640;
@@ -17,11 +18,13 @@
     let menubar_height = 0;
     let append_absolute = false;
     let scrollY = 0;
-    export let show_telescope = false;
+    let logged_in = $page.props.logged_in;
 
     const anim_duration = 300;
     let duration = anim_duration;
     $: duration = innerWidth < screensize_xl ? anim_duration : 0;
+    $: logged_in = $page.props.logged_in;
+    $: menubar_open = menubar_open && logged_in;
     $: append_absolute = innerWidth < screensize_xl ? append_absolute : false;
     $: effective_header_height =
         header_height - scrollY < 0 ? 0 : header_height - scrollY;
@@ -37,6 +40,8 @@
 
 <svelte:window bind:innerWidth bind:innerHeight bind:scrollY />
 
+<MassToaster />
+
 <div class="flex flex-col h-screen">
     {#if innerWidth < screensize_xl}
         <Header
@@ -44,12 +49,15 @@
             class="z-40"
             bind:clientHeight={header_height}
         >
-            <button
-                class="mx-4"
-                on:click|preventDefault|stopPropagation={() => {
-                    menubar_open = !menubar_open;
-                }}><Menu class="w-8 h-8" /></button
-            >
+            {#if logged_in}
+                <button
+                    transition:fade={{duration:anim_duration}}
+                    class="mx-4"
+                    on:click|preventDefault|stopPropagation={() => {
+                        menubar_open = !menubar_open;
+                    }}><Menu class="w-8 h-8" /></button
+                >
+            {/if}
         </Header>
         <div>
             {#if menubar_open}
@@ -76,10 +84,7 @@
                         }}
                         bind:clientHeight={menubar_height}
                     >
-                        <LayoutLinks
-                            {show_telescope}
-                            class="flex-col-reverse"
-                        />
+                        <LayoutLinks class="flex-col-reverse" />
                     </div>
                 </div>
             {:else if menubar_open}
@@ -95,7 +100,7 @@
                             duration: 400,
                         }}
                     >
-                        <LayoutLinks {show_telescope} />
+                        <LayoutLinks />
                     </div>
                 </div>
             {/if}
@@ -122,7 +127,7 @@
                 : ''}"
             style="height: calc(100vh - {header_height}px);"
         >
-            <LayoutLinks {show_telescope} />
+            <LayoutLinks />
         </div>
 
         <!-- Widest page layout is fixed. Page element inside has overflow scroll -->

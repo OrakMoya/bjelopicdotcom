@@ -16,7 +16,7 @@ class LoginController extends Controller
         if (Auth::attempt($validated, $request->remember)) {
             $request->session()->regenerate();
 
-            return redirect('/webtools');
+            return redirect('/webtools')->with('status', 'Logged in');
         }
 
         return back()->withErrors([
@@ -24,12 +24,12 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/webtools/login')->with('status', 'Logged out');
     }
 }

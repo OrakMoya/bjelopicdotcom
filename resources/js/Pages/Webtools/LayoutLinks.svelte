@@ -1,7 +1,11 @@
 <script>
     import NavLink from "$lib/components/ui/NavLink.svelte";
     import { SquareArrowOutUpRight } from "lucide-svelte";
-    export let show_telescope = false;
+    import {page} from '@inertiajs/svelte';
+
+
+    let show_telescope = false;
+    $: show_telescope = $page.props.show_telescope;
 </script>
 
 <div class="flex flex-col text-2xl gap-y-2 {$$restProps.class} h-full">

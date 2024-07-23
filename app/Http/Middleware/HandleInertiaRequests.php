@@ -39,7 +39,8 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'status' => $request->session()->get('status'),
-            'show_telescope' => (Auth::check() ? in_array(Auth::user()->email, Config::get('app.telescope_emails')) : false) || Config::get('app.environment') == 'local'
+            'show_telescope' => (Auth::check() ? in_array(Auth::user()->email, Config::get('app.telescope_emails')) : false) || Config::get('app.environment') == 'local',
+            'logged_in' => Auth::check(),
         ]);
     }
 }

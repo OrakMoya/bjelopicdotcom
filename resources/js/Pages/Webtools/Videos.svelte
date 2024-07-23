@@ -3,14 +3,7 @@
 </script>
 
 <script>
-    import {
-        BadgeXIcon,
-        CrossIcon,
-        EyeIcon,
-        PencilIcon,
-        PlusIcon,
-        TrashIcon,
-    } from "lucide-svelte";
+    import { BadgeXIcon, EyeIcon, PlusIcon, TrashIcon } from "lucide-svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Input } from "$lib/components/ui/input";
@@ -28,7 +21,6 @@
     } from "@internationalized/date";
     import { Calendar } from "$lib/components/ui/calendar";
     import { AspectRatio } from "bits-ui";
-    import { ScrollArea } from "$lib/components/ui/scroll-area";
     import * as Accordion from "$lib/components/ui/accordion";
     import * as Command from "$lib/components/ui/command";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
