@@ -4,11 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\Telescope;
 use Laravel\Telescope\TelescopeApplicationServiceProvider;
-use Schedule;
 
 class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 {
@@ -18,8 +16,6 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     public function register(): void
     {
         Telescope::night();
-
-        Schedule::command('telescope:prune')->dailyAt('06:00');
 
         $this->hideSensitiveRequestDetails();
 
