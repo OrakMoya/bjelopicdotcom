@@ -11,7 +11,6 @@ class WebtoolsDashboardController extends Controller
 {
     public function show(): Response
     {
-
         // Select unique visitors for every day of past 1 month of days
         $database_result =
             Visitor::select(
