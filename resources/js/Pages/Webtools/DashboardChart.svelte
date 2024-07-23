@@ -45,4 +45,6 @@
     });
 </script>
 
-<canvas bind:this={canvas} class="w-full h-full" />
+<div class="w-full h-full">
+    <canvas bind:this={canvas} />
+</div>

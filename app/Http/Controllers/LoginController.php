@@ -15,11 +15,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($validated, $request->remember)) {
             $request->session()->regenerate();
+
             return redirect('/webtools');
         }
 
         return back()->withErrors([
-            'email' => 'Incorrect email or password'
+            'email' => 'Incorrect email or password',
         ])->onlyInput('email');
     }
 
@@ -28,6 +29,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect('/');
     }
 }

@@ -17,9 +17,9 @@ class VisitorFactory extends Factory
     public function definition(): array
     {
         return [
-            'ip_address' =>  fake()->ipv4(),
+            'ip_address' => fake()->ipv4(),
             'user_agent' => fake()->userAgent(),
-            'visited_at' => fake()->dateTimeBetween('-2 months')
+            'visited_at' => fake()->dateTimeBetween('-2 months'),
         ];
     }
 }

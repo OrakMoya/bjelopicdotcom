@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -25,19 +24,22 @@ class GalleryController extends Controller
                 'thumbnail_path',
                 'collection',
                 'category',
-                'link'
+                'link',
             ]
         )->orderBy('publication_date', 'DESC')->get();
 
         $videos_by_collection = [];
 
         foreach ($videos as $video) {
-            if ($video->thumbnail_path)
+            if ($video->thumbnail_path) {
                 $video->thumbnail_path = Storage::url($video->thumbnail_path);
-            if ($video->preview_path)
+            }
+            if ($video->preview_path) {
                 $video->preview_path = Storage::url($video->preview_path);
-            if ($video->poster_path)
+            }
+            if ($video->poster_path) {
                 $video->poster_path = Storage::url($video->poster_path);
+            }
             $roles = [];
             foreach ($video->videoRoles()->orderBy('role', 'DESC')->get() as $videoRole) {
                 array_push($roles, $videoRole->role);
@@ -54,13 +56,13 @@ class GalleryController extends Controller
                     }
                 }
             }
-            if (!$pushed) {
+            if (! $pushed) {
                 array_push($videos_by_collection, [
                     'collection' => $video->collection,
                     'description' => $video->description,
                     'videos' => [
-                        $video
-                    ]
+                        $video,
+                    ],
                 ]);
             }
             unset($video->id);
@@ -78,7 +80,6 @@ class GalleryController extends Controller
         });
 
         $focus = $_GET['focus'] ?? '';
-
 
         return Inertia::render('Subpages/Gallery', ['by_collection' => $videos_by_collection, 'focus' => $focus]);
     }

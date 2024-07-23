@@ -31,7 +31,7 @@ class CreateUser extends Command
             [
                 'name' => $this->argument('name'),
                 'email' => $this->argument('email'),
-                'password' => Hash::make($this->argument('password'))
+                'password' => Hash::make($this->argument('password')),
             ]
         );
     }

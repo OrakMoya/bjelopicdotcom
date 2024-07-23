@@ -61,7 +61,9 @@
                     on:click={() => (menubar_open = false)}
                 />
             {/if}
+
             {#if innerWidth < screensize_md && menubar_open}
+                <!-- Mobile collapsing menu -->
                 <div class="h-full relative w-full z-30">
                     <div
                         class="flex fixed w-full pl-8 py-4 pr-20 bg-black border-t border-l-neutral-800 rounded-tl-xl rounded-tr-xl"
@@ -77,6 +79,7 @@
                     </div>
                 </div>
             {:else if menubar_open}
+                <!-- Right side collapsing menu -->
                 <div class="h-full relative w-full z-30">
                     <div
                         class="flex fixed right-0 min-w-72 pl-8 py-4 pr-20 bg-black border-l border-l-neutral-800"
@@ -94,10 +97,12 @@
             {/if}
         </div>
     {:else}
+        <!-- Header for left side fixed menu -->
         <Header />
     {/if}
 
     {#if innerWidth >= screensize_xl || append_absolute}
+        <!-- Disable scroll while menu is open -->
         <style>
             html {
                 overflow: hidden;
@@ -115,6 +120,8 @@
         >
             <LayoutLinks />
         </div>
+
+        <!-- Widest page layout is fixed. Page element inside has overflow scroll -->
         <div
             style="{innerWidth >= screensize_xl
                 ? 'height: calc(100vh - ' + header_height + 'px);'

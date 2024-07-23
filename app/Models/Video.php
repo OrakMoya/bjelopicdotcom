@@ -21,32 +21,33 @@ class Video extends Model
         'user_id',
         'uuid',
         'collection',
-        'category'
+        'category',
     ];
-
 
     public function setThumbnail(UploadedFile $thumbnail): Video
     {
         Storage::delete($this->thumbnail_path);
-        $path = Storage::put('public/videos/' . $this->uuid, $thumbnail);
+        $path = Storage::put('public/videos/'.$this->uuid, $thumbnail);
         $this->thumbnail_path = $path;
         $this->save();
+
         return $this;
     }
 
     public function setPreview(UploadedFile $preview): Video
     {
-        if ($this->preview_path)
+        if ($this->preview_path) {
             Storage::delete($this->preview_path);
-        $path = Storage::put('public/videos/' . $this->uuid, $preview);
+        }
+        $path = Storage::put('public/videos/'.$this->uuid, $preview);
         $this->preview_path = $path;
         $this->save();
+
         return $this;
     }
 
     /**
      * Deletes current video's preview
-     * @return Video
      */
     public function deletePreview(): Video
     {
@@ -55,22 +56,24 @@ class Video extends Model
             $this->preview_path = null;
         }
         $this->save();
+
         return $this;
     }
 
     public function setPoster(UploadedFile $poster): Video
     {
-        if ($this->poster_path)
+        if ($this->poster_path) {
             Storage::delete($this->poster_path);
-        $path = Storage::putFile('public/videos/' . $this->uuid, $poster);
+        }
+        $path = Storage::putFile('public/videos/'.$this->uuid, $poster);
         $this->poster_path = $path;
         $this->save();
+
         return $this;
     }
 
     /**
      * Deletes current video's poster
-     * @return Video
      */
     public function deletePoster(): Video
     {
@@ -79,9 +82,9 @@ class Video extends Model
             $this->poster_path = null;
         }
         $this->save();
+
         return $this;
     }
-
 
     public function setRoles($roles): Video
     {
@@ -91,9 +94,9 @@ class Video extends Model
             array_push($role_ids, $videoRole->id);
         }
         $this->videoRoles()->sync($role_ids);
+
         return $this;
     }
-
 
     public function videoRoles(): BelongsToMany
     {

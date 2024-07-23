@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class VideoRole extends Model
 {
     use HasFactory;
-    protected $table = "videoroles";
+
+    protected $table = 'videoroles';
 
     public function videos(): BelongsToMany
     {

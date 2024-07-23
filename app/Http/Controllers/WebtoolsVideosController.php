@@ -21,10 +21,12 @@ class WebtoolsVideosController extends Controller
         $videos = Video::query()->orderBy('publication_date', 'DESC')->get();
         foreach ($videos as &$video) {
             $video->thumbnail_path = Storage::url($video->thumbnail_path);
-            if ($video->preview_path)
+            if ($video->preview_path) {
                 $video->preview_path = Storage::url($video->preview_path);
-            if ($video->poster_path)
+            }
+            if ($video->poster_path) {
                 $video->poster_path = Storage::url($video->poster_path);
+            }
 
             $roles = [];
             foreach ($video->videoRoles()->orderBy('role', 'DESC')->get() as $videoRole) {
@@ -34,7 +36,6 @@ class WebtoolsVideosController extends Controller
         }
         $collections = Video::select('collection')->distinct()->whereNotNull('collection')->pluck('collection')->toArray();
         $available_roles = VideoRole::query()->select('id', 'role')->get();
-
 
         return Inertia::render('Webtools/Videos', ['videos' => $videos, 'collections' => $collections, 'available_roles' => $available_roles]);
     }
@@ -54,18 +55,19 @@ class WebtoolsVideosController extends Controller
             'category' => $request->category,
         ]);
 
-
         $thumbnail = $request->thumbnail;
-        $path = Storage::putFile('public/videos/' . $video->uuid, $thumbnail);
+        $path = Storage::putFile('public/videos/'.$video->uuid, $thumbnail);
         $video->thumbnail_path = $path;
 
-
-        if ($request->thumbnail)
+        if ($request->thumbnail) {
             $video->setThumbnail($request->thumbnail);
-        if ($request->preview)
+        }
+        if ($request->preview) {
             $video->setPreview($request->preview);
-        if ($request->poster)
+        }
+        if ($request->poster) {
             $video->setPoster($request->poster);
+        }
 
         $video->save();
 
@@ -89,18 +91,22 @@ class WebtoolsVideosController extends Controller
             ]
         );
 
-        if ($request->thumbnail)
+        if ($request->thumbnail) {
             $video->setThumbnail($request->thumbnail);
-        if ($request->preview)
+        }
+        if ($request->preview) {
             $video->setPreview($request->preview);
-        if ($request->poster)
+        }
+        if ($request->poster) {
             $video->setPoster($request->poster);
+        }
 
-        if ($request->roles)
+        if ($request->roles) {
             $video->setRoles($request->roles);
-
+        }
 
         $video->save();
+
         return redirect()->back()->with('status', 'Post saved!');
     }
 
@@ -108,10 +114,12 @@ class WebtoolsVideosController extends Controller
     {
         $video = Video::find($deleteVideoRequest->id);
 
-        if (Storage::directoryExists('public/videos/' . $video->uuid))
-            Storage::deleteDirectory('public/videos/' . $video->uuid);
+        if (Storage::directoryExists('public/videos/'.$video->uuid)) {
+            Storage::deleteDirectory('public/videos/'.$video->uuid);
+        }
 
         $video->delete();
+
         return redirect()->back()->with('status', 'Video deleted!');
     }
 }

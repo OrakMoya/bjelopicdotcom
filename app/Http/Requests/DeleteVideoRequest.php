@@ -23,7 +23,7 @@ class DeleteVideoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', 'exists:videos']
+            'id' => ['required', 'exists:videos'],
         ];
     }
 }
