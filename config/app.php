@@ -123,6 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'telescope_emails' => explode(env('TELESCOPE_EMAILS'), ','),
+    'telescope_emails' => explode(',', env('TELESCOPE_EMAILS', '')),
 
 ];
