@@ -136,8 +136,8 @@
                 ? 'height: calc(100vh - ' + header_height + 'px);'
                 : ''} "
             class=" overflow-x-clip w-full
-            {innerWidth < screensize_xl ? 'overflow-visible h-auto' : ''}
-            {append_absolute ? 'overflow-y-hidden' : 'overflow-y-scroll'}"
+            {innerWidth < screensize_xl ? 'overflow-visible h-auto' : 'overflow-y-scroll'}
+            {append_absolute ? 'overflow-y-hidden' : ''}"
         >
             <div class="w-full h-full relative">
                 {#key $page.url}
