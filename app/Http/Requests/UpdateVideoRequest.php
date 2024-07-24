@@ -28,7 +28,7 @@ class UpdateVideoRequest extends FormRequest
             'id' => ['required', 'exists:videos'],
             'title' => ['required', 'min:3', 'max:50'],
             'subject' => ['required', 'min:2', 'max:100'],
-            'description' => ['required', 'min:5', 'max:1000'],
+            'description' => ['nullable', 'min:5', 'max:1000'],
             'publication_date' => ['required', 'date'],
             'thumbnail' => ['nullable', File::image()->min('10kb')->max('8mb'), Rule::dimensions()->ratio(16 / 9)],
             'preview' => ['nullable', 'mimetypes:video/mp4'],

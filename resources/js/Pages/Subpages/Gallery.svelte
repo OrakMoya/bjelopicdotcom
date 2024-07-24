@@ -2,9 +2,11 @@
     import GalleryVideo from "$lib/components/ui/GalleryVideo.svelte";
     import TheBjeloPic from "$lib/components/ui/TheBjeloPIC.svelte";
     import { AspectRatio } from "bits-ui";
+    import GalleryVideoDescription from "./GalleryVideoDescription.svelte";
 
     export let by_collection;
     export let focus = "";
+    let innerHeight = 0;
 
     let selected_video_uuid = focus;
 
@@ -19,12 +21,9 @@
             ),
     ).then(() => {
         if (focus) {
-            const yOffset = -30;
-
             const el = document.getElementById(focus);
             if (el) {
-                const y = el.getBoundingClientRect().top + yOffset;
-                window.scrollTo({ top: y, behavior: "smooth" });
+                el.scrollIntoView({ block: "center", behavior: "smooth" });
             }
         }
     });
@@ -34,6 +33,8 @@
     <title>Gallery - BjeloPIC</title>
 </svelte:head>
 
+<svelte:window bind:innerHeight />
+
 {#each by_collection as collection, i}
     <section
         class=" mx-auto {i % 2
@@ -42,7 +43,7 @@
         on:click={() => (selected_video_uuid = "")}
         role="none"
     >
-        <div class="max-w-screen-lg mx-auto px-4">
+        <div class="max-w-screen-xl mx-auto px-4">
             {#if collection.videos[0].collection}
                 <div
                     class="flex w-full justify-center mb-4 items-center gap-x-4 mx-auto transition-all duration-500 drop-shadow"
@@ -195,13 +196,18 @@
                             >
                                 {#each video.roles as role}
                                     <div
-                                        class="bg-bjelopic-orange-3 rounded-lg py-1 px-2"
+                                        class="bg-bjelopic-orange-3 rounded-sm text-sm px-1"
                                     >
                                         <span class="drop-shadow text-base"
                                             >{role}</span
                                         >
                                     </div>
                                 {/each}
+                            </div>
+                            <div>
+                                <GalleryVideoDescription>
+                                    {video.description}
+                                </GalleryVideoDescription>
                             </div>
                         </div>
                     </div>

@@ -45,7 +45,7 @@ class WebtoolsVideosController extends Controller
 
         $video = Video::updateOrCreate([
             'title' => $request->title,
-            'description' => $request->description,
+            'description' => $request->description ? $request->description : '',
             'subject' => $request->subject,
             'publication_date' => $request->publication_date,
             'link' => $request->link,
@@ -56,7 +56,7 @@ class WebtoolsVideosController extends Controller
         ]);
 
         $thumbnail = $request->thumbnail;
-        $path = Storage::putFile('public/videos/'.$video->uuid, $thumbnail);
+        $path = Storage::putFile('public/videos/' . $video->uuid, $thumbnail);
         $video->thumbnail_path = $path;
 
         if ($request->thumbnail) {
@@ -80,7 +80,7 @@ class WebtoolsVideosController extends Controller
             ['id' => $request->id],
             [
                 'title' => $request->title,
-                'description' => $request->description,
+                'description' => $request->description ? $request->description : '',
                 'subject' => $request->subject,
                 'publication_date' => $request->publication_date,
                 'link' => $request->link,
@@ -114,8 +114,8 @@ class WebtoolsVideosController extends Controller
     {
         $video = Video::find($deleteVideoRequest->id);
 
-        if (Storage::directoryExists('public/videos/'.$video->uuid)) {
-            Storage::deleteDirectory('public/videos/'.$video->uuid);
+        if (Storage::directoryExists('public/videos/' . $video->uuid)) {
+            Storage::deleteDirectory('public/videos/' . $video->uuid);
         }
 
         $video->delete();

@@ -43,7 +43,7 @@
                     class="block object-cover"
                     transition:fade={{ duration }}
                 >
-                    <video muted autoplay loop transition:fade>
+                    <video muted autoplay loop transition:fade class="w-full h-full object-cover">
                         <source src={preview_src} />
                     </video>
                 </a>

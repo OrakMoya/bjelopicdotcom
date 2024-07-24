@@ -188,11 +188,10 @@
                             />
 
                             <Label for="new-video-description"
-                                >Description*</Label
+                                >Description</Label
                             >
                             <Textarea
                                 id="new-video-description"
-                                required
                                 bind:value={$new_video_form.description}
                             />
 
