@@ -51,7 +51,7 @@
         >
             {#if logged_in}
                 <button
-                    transition:fade={{duration:anim_duration}}
+                    transition:fade={{ duration: anim_duration }}
                     class="mx-4"
                     on:click|preventDefault|stopPropagation={() => {
                         menubar_open = !menubar_open;
@@ -120,15 +120,17 @@
     {/if}
 
     <div class="flex flex-grow bg-black text-white">
-        <div
-            class="min-w-72 px-8 py-6 border-r border-r-neutral-800 {innerWidth <
-            screensize_xl
-                ? 'hidden'
-                : ''}"
-            style="height: calc(100vh - {header_height}px);"
-        >
-            <LayoutLinks />
-        </div>
+        {#if $page.props.logged_in}
+            <div
+                class="min-w-72 px-8 py-6 border-r border-r-neutral-800 {innerWidth <
+                screensize_xl
+                    ? 'hidden'
+                    : ''}"
+                style="height: calc(100vh - {header_height}px);"
+            >
+                <LayoutLinks />
+            </div>
+        {/if}
 
         <!-- Widest page layout is fixed. Page element inside has overflow scroll -->
         <div
@@ -136,7 +138,9 @@
                 ? 'height: calc(100vh - ' + header_height + 'px);'
                 : ''} "
             class=" overflow-x-clip w-full
-            {innerWidth < screensize_xl ? 'overflow-visible h-auto' : 'overflow-y-scroll'}
+            {innerWidth < screensize_xl
+                ? 'overflow-visible h-auto'
+                : 'overflow-y-scroll'}
             {append_absolute ? 'overflow-y-hidden' : ''}"
         >
             <div class="w-full h-full relative">
