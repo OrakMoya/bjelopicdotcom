@@ -1,6 +1,6 @@
 <script>
 </script>
 
-<div class="">
+<div class="md:hidden lg:block ">
     <slot />
 </div>

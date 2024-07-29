@@ -1,11 +1,13 @@
 <script>
     import GalleryVideo from "$lib/components/ui/GalleryVideo.svelte";
-    import TheBjeloPic from "$lib/components/ui/TheBjeloPIC.svelte";
+    import TheBjeloPIC from "$lib/components/ui/TheBjeloPIC.svelte";
     import { AspectRatio } from "bits-ui";
     import GalleryVideoDescription from "./GalleryVideoDescription.svelte";
 
     export let by_collection;
-    export let focus = "";
+    const params = new URLSearchParams(window.location.search);
+    const focus = params.get("focus");
+    console.log(focus);
     let innerHeight = 0;
 
     let selected_video_uuid = focus;
@@ -101,7 +103,7 @@
                                         year={new Date(video.publication_date)
                                             .getUTCFullYear()
                                             .toString()}
-                                        class="rounded-md transition-all overflow-clip"
+                                        class="rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip"
                                         href={video.link}
                                         this_id={video.uuid}
                                         selected_id={selected_video_uuid}
@@ -166,13 +168,13 @@
                             </AspectRatio.Root>
                         </button>
                         <div
-                            class="w-full basis-2/5 flex flex-col justify-center md:justify-start drop-shadow"
+                            class="w-full basis-2/5 flex flex-col gap-y-1 justify-center md:justify-start drop-shadow mb-2 md:mb-0"
                         >
                             <span
-                                class="text-bjelopic-blue-1 font-semibold text-2xl md:text-3xl"
+                                class="text-bjelopic-blue-1 font-semibold text-2xl lg:text-3xl"
                             >
                                 {#if video.subject === "BjeloPIC"}
-                                    <TheBjeloPic />
+                                    <TheBjeloPIC />
                                 {:else}
                                     {video.subject}
                                 {/if} -
@@ -183,7 +185,7 @@
                                 ).getUTCFullYear()})
                             </span>
                             {#if video.category}
-                                <span class="md:text-lg mb-2"
+                                <span class="lg:text-lg mb-2"
                                     >{video.category}</span
                                 >
                             {/if}
@@ -196,11 +198,9 @@
                             >
                                 {#each video.roles as role}
                                     <div
-                                        class="bg-bjelopic-orange-3 rounded-sm text-sm px-1"
+                                        class="bg-bjelopic-orange-3 rounded-sm text-sm lg:text-base px-1"
                                     >
-                                        <span class="drop-shadow text-base"
-                                            >{role}</span
-                                        >
+                                        <span class="drop-shadow">{role}</span>
                                     </div>
                                 {/each}
                             </div>

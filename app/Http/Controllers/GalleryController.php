@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class GalleryController extends Controller
 {
-    public function show(): Response
+    public function show(Request $request): Response
     {
         $videos = Video::select(
             [
@@ -79,8 +80,6 @@ class GalleryController extends Controller
             return $a['videos'][0]->publication_date < $b['videos'][0]->publication_date;
         });
 
-        $focus = $_GET['focus'] ?? '';
-
-        return Inertia::render('Subpages/Gallery', ['by_collection' => $videos_by_collection, 'focus' => $focus]);
+        return Inertia::render('Subpages/Gallery', ['by_collection' => $videos_by_collection]);
     }
 }

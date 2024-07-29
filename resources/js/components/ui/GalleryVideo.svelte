@@ -6,7 +6,8 @@
     export let preview_src = null;
     export let thumbnail_src = null;
     export let alt = "";
-    export let selected_id = "";
+    /** @type {string|null} */
+    export let selected_id;
     export let this_id = "";
     export let href = "";
     export let poster_src = "";
@@ -26,7 +27,7 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
     class="{focused
-        ? 'scale-[104%]'
+        ? 'scale-[104%] md:scale-[102%]'
         : ''} transition-all duration-300 w-full h-full"
 >
     <div
@@ -40,7 +41,7 @@
                 <a
                     {href}
                     target="_blank"
-                    class="block object-cover"
+                    class="block w-full h-full object-cover"
                     transition:fade={{ duration }}
                 >
                     <video muted autoplay loop transition:fade class="w-full h-full object-cover">
