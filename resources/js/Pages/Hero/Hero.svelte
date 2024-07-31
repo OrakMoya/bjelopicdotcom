@@ -172,8 +172,8 @@
                                                 target="_blank"
                                             >
                                                 <img
-                                                    src={video.thumbnail_path}
-                                                    class="w-full h-full rounded-md overflow-clip relative z-50 md:hover:drop-shadow-lg transition duration-300"
+                                                    src={video.thumbnail_url}
+                                                    class="w-full h-full rounded-md overflow-clip relative z-50 md:hover:drop-shadow-lg transition duration-300 object-cover"
                                                     alt="{video.title} thumbnail"
                                                 />
                                             </Link>

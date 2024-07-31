@@ -38,7 +38,7 @@
     let new_collection_open = false;
     let new_collection_name = "";
     /**
-     * @type {{ thumbnail_path: string | null | undefined; preview_path: string | null | undefined; poster_path: string | null | undefined; id: any; } | null}
+     * @type {{ thumbnail_url: string | null | undefined; preview_url: string | null | undefined; poster_url: string | null | undefined; id: number; } | null}
      */
     let currently_edited_video;
     let deleteVideoDialogOpen = false;
@@ -71,31 +71,29 @@
                 $new_video_form.publication_date.toString();
         }
         if (currently_edited_video) {
-            $new_video_form.post("/webtools/videos/update", {
-                onSuccess: () => (new_video_dialog_open = false),
-            });
+            $new_video_form.patch(
+                "/webtools/videos/" + currently_edited_video.id,
+                {
+                    onSuccess: () => (new_video_dialog_open = false),
+                },
+            );
         } else {
-            $new_video_form.post("/webtools/videos/create", {
+            $new_video_form.post("/webtools/videos", {
                 onSuccess: () => (new_video_dialog_open = false),
             });
         }
         $new_video_form.publication_date = previous_date;
     }
 
-    /**
-     * @param {number} id
-     */
-    function deleteVideoAction(id) {
-        router.visit("/webtools/videos/delete", {
-            method: "post",
-            data: {
-                id: id,
-            },
-            onSuccess: () => {
-                deleteVideoDialogOpen = false;
-                new_video_dialog_open = false;
-            },
-        });
+    function processDelete() {
+        if (currently_edited_video) {
+            router.delete("/webtools/videos/" + currently_edited_video.id, {
+                onSuccess: () => {
+                    deleteVideoDialogOpen = false;
+                    new_video_dialog_open = false;
+                },
+            });
+        }
     }
 
     /**
@@ -467,7 +465,7 @@
                                         <img
                                             src={currently_edited_video &&
                                             !$new_video_form.thumbnail
-                                                ? currently_edited_video.thumbnail_path
+                                                ? currently_edited_video.thumbnail_url
                                                 : URL.createObjectURL(
                                                       $new_video_form.thumbnail,
                                                   )}
@@ -497,7 +495,7 @@
                                     ratio={16 / 9}
                                     class="bg-muted rounded-md overflow-clip"
                                 >
-                                    {#if $new_video_form.preview || (currently_edited_video && currently_edited_video.preview_path && !$new_video_form.preview_deleted)}
+                                    {#if $new_video_form.preview || (currently_edited_video && currently_edited_video.preview_url && !$new_video_form.preview_deleted)}
                                         <Button
                                             class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity "
                                             on:click={(e) => {
@@ -515,7 +513,7 @@
                                             class="w-full h-full object-contain"
                                             src={currently_edited_video &&
                                             !$new_video_form.preview
-                                                ? currently_edited_video.preview_path
+                                                ? currently_edited_video.preview_url
                                                 : URL.createObjectURL(
                                                       $new_video_form.preview,
                                                   )}
@@ -546,7 +544,7 @@
                                     ratio={707 / 1000}
                                     class="bg-muted rounded-md overflow-clip"
                                 >
-                                    {#if $new_video_form.poster || (currently_edited_video && currently_edited_video.poster_path && !$new_video_form.poster_deleted)}
+                                    {#if $new_video_form.poster || (currently_edited_video && currently_edited_video.poster_url && !$new_video_form.poster_deleted)}
                                         <Button
                                             class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
                                             on:click={(e) => {
@@ -563,7 +561,7 @@
                                             class="w-full h-full object-cover"
                                             src={currently_edited_video &&
                                             !$new_video_form.poster
-                                                ? currently_edited_video.poster_path
+                                                ? currently_edited_video.poster_url
                                                 : URL.createObjectURL(
                                                       $new_video_form.poster,
                                                   )}
@@ -610,10 +608,7 @@
                                                     let:builder
                                                 >
                                                     <Button
-                                                        on:click={() =>
-                                                            deleteVideoAction(
-                                                                currently_edited_video.id,
-                                                            )}
+                                                        on:click={processDelete}
                                                         builders={[builder]}
                                                         variant="destructive"
                                                         >Delete</Button
@@ -659,7 +654,7 @@
                 >
                     <AspectRatio.Root ratio={16 / 9}>
                         <img
-                            src={video.thumbnail_path}
+                            src={video.thumbnail_url}
                             alt="{video.title} thumbnail"
                         />
                     </AspectRatio.Root>

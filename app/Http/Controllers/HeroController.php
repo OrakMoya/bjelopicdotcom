@@ -14,15 +14,7 @@ class HeroController extends Controller
         $videos = Video::select(['title', 'thumbnail_path', 'link', 'uuid'])
             ->orderBy('publication_date', 'DESC')->get();
         foreach ($videos as $video) {
-            $video->thumbnail_path = Storage::url($video->thumbnail_path);
-
-            if ($video->poster_path) {
-                $video->poster_path = Storage::url($video->poster_path);
-            }
-
-            if ($video->preview_path) {
-                $video->preview_path = Storage::url($video->preview_path);
-            }
+            $video->encodeURLs();
         }
 
         return Inertia::render('Hero/Hero', ['videos' => $videos]);

@@ -55,16 +55,16 @@
                     <a
                         {href}
                         target="_blank"
-                        class="block absolute"
+                        class="block absolute w-full h-full"
                         transition:fade={{ duration }}
                     >
-                        <img src={thumbnail_src} {alt} class="object-cover" />
+                        <img src={thumbnail_src} {alt} class="object-cover w-full h-full" />
                     </a>
                 {:else}
                     <img
                         src={thumbnail_src}
                         {alt}
-                        class="absolute"
+                        class="absolute w-full h-full object-cover"
                         transition:fade={{ duration }}
                     />
                 {/if}

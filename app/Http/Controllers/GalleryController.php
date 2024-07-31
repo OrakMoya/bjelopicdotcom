@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class GalleryController extends Controller
 {
-    public function show(Request $request): Response
+    public function show(): Response
     {
         $videos = Video::select(
             [
@@ -27,24 +25,18 @@ class GalleryController extends Controller
                 'category',
                 'link',
             ]
-        )->orderBy('publication_date', 'DESC')->get();
+        )->with('videoRoles')->orderBy('publication_date', 'DESC')->get();
 
         $videos_by_collection = [];
 
         foreach ($videos as $video) {
-            if ($video->thumbnail_path) {
-                $video->thumbnail_path = Storage::url($video->thumbnail_path);
-            }
-            if ($video->preview_path) {
-                $video->preview_path = Storage::url($video->preview_path);
-            }
-            if ($video->poster_path) {
-                $video->poster_path = Storage::url($video->poster_path);
-            }
+            $video->encodeURLs();
+
             $roles = [];
-            foreach ($video->videoRoles()->orderBy('role', 'DESC')->get() as $videoRole) {
+            foreach ($video->videoRoles as $videoRole) {
                 array_push($roles, $videoRole->role);
             }
+            sort($roles);
             $video->roles = $roles;
 
             $pushed = false;
@@ -73,11 +65,11 @@ class GalleryController extends Controller
         // Sort by publication date descending
         foreach ($videos_by_collection as &$videos_in_collection) {
             usort($videos_in_collection['videos'], function (Video $a, Video $b) {
-                return $a->publication_date < $b->publication_date;
+                return (int)($a->publication_date < $b->publication_date);
             });
         }
         usort($videos_by_collection, function ($a, $b) {
-            return $a['videos'][0]->publication_date < $b['videos'][0]->publication_date;
+            return (int)($a['videos'][0]->publication_date < $b['videos'][0]->publication_date);
         });
 
         return Inertia::render('Subpages/Gallery', ['by_collection' => $videos_by_collection]);

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateVideoRequest;
+use App\Http\Requests\CreateOrUpdateVideoRequest;
 use App\Http\Requests\DeleteVideoRequest;
-use App\Http\Requests\UpdateVideoRequest;
 use App\Models\Video;
 use App\Models\VideoRole;
 use Illuminate\Http\RedirectResponse;
@@ -16,32 +15,29 @@ use Inertia\Response;
 
 class WebtoolsVideosController extends Controller
 {
-    public function show(): Response
+    public function index(): Response
     {
-        $videos = Video::query()->orderBy('publication_date', 'DESC')->get();
+        $videos = Video::query()->with('videoRoles')->orderBy('publication_date', 'DESC')->get();
         foreach ($videos as &$video) {
-            $video->thumbnail_path = Storage::url($video->thumbnail_path);
-            if ($video->preview_path) {
-                $video->preview_path = Storage::url($video->preview_path);
-            }
-            if ($video->poster_path) {
-                $video->poster_path = Storage::url($video->poster_path);
-            }
+            $video->encodeURLs();
 
             $roles = [];
-            foreach ($video->videoRoles()->orderBy('role', 'DESC')->get() as $videoRole) {
+            foreach ($video->videoRoles as $videoRole) {
                 array_push($roles, $videoRole->role);
             }
+            sort($roles);
             $video->roles = $roles;
         }
+
         $collections = Video::select('collection')->distinct()->whereNotNull('collection')->pluck('collection')->toArray();
         $available_roles = VideoRole::query()->select('id', 'role')->get();
 
         return Inertia::render('Webtools/Videos', ['videos' => $videos, 'collections' => $collections, 'available_roles' => $available_roles]);
     }
 
-    public function createVideo(CreateVideoRequest $request): RedirectResponse
+    public function store(CreateOrUpdateVideoRequest $request): RedirectResponse
     {
+        $request->validate(['thumbnail' => 'required']);
 
         $video = Video::updateOrCreate([
             'title' => $request->title,
@@ -60,24 +56,28 @@ class WebtoolsVideosController extends Controller
         $video->thumbnail_path = $path;
 
         if ($request->thumbnail) {
-            $video->setThumbnail($request->thumbnail);
+            $video->storeThumbnail($request->thumbnail);
         }
         if ($request->preview) {
-            $video->setPreview($request->preview);
+            $video->storePreview($request->preview);
         }
         if ($request->poster) {
-            $video->setPoster($request->poster);
+            $video->storePoster($request->poster);
+        }
+
+
+        if ($request->roles) {
+            $video->storeRoles($request->roles);
         }
 
         $video->save();
 
-        return redirect()->back()->with('status', 'Post saved!');
+        return redirect()->back()->with('status', 'Video saved!');
     }
 
-    public function updateVideo(UpdateVideoRequest $request)
+    public function update(CreateOrUpdateVideoRequest $request, Video $video)
     {
-        $video = Video::updateOrCreate(
-            ['id' => $request->id],
+        $video->update(
             [
                 'title' => $request->title,
                 'description' => $request->description ? $request->description : '',
@@ -92,28 +92,26 @@ class WebtoolsVideosController extends Controller
         );
 
         if ($request->thumbnail) {
-            $video->setThumbnail($request->thumbnail);
+            $video->storeThumbnail($request->thumbnail);
         }
         if ($request->preview) {
-            $video->setPreview($request->preview);
+            $video->storePreview($request->preview);
         }
         if ($request->poster) {
-            $video->setPoster($request->poster);
+            $video->storePoster($request->poster);
         }
 
         if ($request->roles) {
-            $video->setRoles($request->roles);
+            $video->storeRoles($request->roles);
         }
 
         $video->save();
 
-        return redirect()->back()->with('status', 'Post saved!');
+        return redirect()->back()->with('status', 'Video saved!');
     }
 
-    public function deleteVideo(DeleteVideoRequest $deleteVideoRequest)
+    public function destroy(Video $video)
     {
-        $video = Video::find($deleteVideoRequest->id);
-
         if (Storage::directoryExists('public/videos/' . $video->uuid)) {
             Storage::deleteDirectory('public/videos/' . $video->uuid);
         }

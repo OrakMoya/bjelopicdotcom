@@ -107,9 +107,9 @@
                                         href={video.link}
                                         this_id={video.uuid}
                                         selected_id={selected_video_uuid}
-                                        thumbnail_src={video.thumbnail_path}
-                                        preview_src={video.preview_path}
-                                        poster_src={video.poster_path}
+                                        thumbnail_src={video.thumbnail_url}
+                                        preview_src={video.preview_url}
+                                        poster_src={video.poster_url}
                                     />
                                 </AspectRatio.Root>
                             </button>
@@ -161,9 +161,9 @@
                                     href={video.link}
                                     this_id={video.uuid}
                                     selected_id={selected_video_uuid}
-                                    thumbnail_src={video.thumbnail_path}
-                                    preview_src={video.preview_path}
-                                    poster_src={video.poster_path}
+                                    thumbnail_src={video.thumbnail_url}
+                                    preview_src={video.preview_url}
+                                    poster_src={video.poster_url}
                                 />
                             </AspectRatio.Root>
                         </button>

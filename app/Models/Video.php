@@ -24,22 +24,32 @@ class Video extends Model
         'category',
     ];
 
-    public function setThumbnail(UploadedFile $thumbnail): Video
+    public function encodeURLs()
+    {
+        if ($this->thumbnail_path)
+            $this->attributes['thumbnail_url'] = Storage::url($this->thumbnail_path);
+        if ($this->preview_path)
+            $this->attributes['preview_url'] = Storage::url($this->preview_path);
+        if ($this->poster_path)
+            $this->attributes['poster_url'] = Storage::url($this->poster_path);
+    }
+
+    public function storeThumbnail(UploadedFile $thumbnail): Video
     {
         Storage::delete($this->thumbnail_path);
-        $path = Storage::put('public/videos/'.$this->uuid, $thumbnail);
+        $path = Storage::put('public/videos/' . $this->uuid, $thumbnail);
         $this->thumbnail_path = $path;
         $this->save();
 
         return $this;
     }
 
-    public function setPreview(UploadedFile $preview): Video
+    public function storePreview(UploadedFile $preview): Video
     {
         if ($this->preview_path) {
             Storage::delete($this->preview_path);
         }
-        $path = Storage::put('public/videos/'.$this->uuid, $preview);
+        $path = Storage::put('public/videos/' . $this->uuid, $preview);
         $this->preview_path = $path;
         $this->save();
 
@@ -60,12 +70,12 @@ class Video extends Model
         return $this;
     }
 
-    public function setPoster(UploadedFile $poster): Video
+    public function storePoster(UploadedFile $poster): Video
     {
         if ($this->poster_path) {
             Storage::delete($this->poster_path);
         }
-        $path = Storage::putFile('public/videos/'.$this->uuid, $poster);
+        $path = Storage::putFile('public/videos/' . $this->uuid, $poster);
         $this->poster_path = $path;
         $this->save();
 
@@ -86,7 +96,7 @@ class Video extends Model
         return $this;
     }
 
-    public function setRoles($roles): Video
+    public function storeRoles($roles): Video
     {
         $role_ids = [];
         foreach ($roles as $role_name) {
@@ -100,6 +110,6 @@ class Video extends Model
 
     public function videoRoles(): BelongsToMany
     {
-        return $this->belongsToMany(VideoRole::class, 'video_videoroles', 'video_id', 'videorole_id');
+        return $this->belongsToMany(VideoRole::class, 'video_videorole', 'video_id', 'videorole_id');
     }
 }

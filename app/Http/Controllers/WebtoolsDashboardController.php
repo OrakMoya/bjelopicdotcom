@@ -8,8 +8,9 @@ use Inertia\Inertia;
 use Inertia\Response;
 
 class WebtoolsDashboardController extends Controller
+
 {
-    public function show(): Response
+    public function index(): Response
     {
         // Select unique visitors for every day of past 1 month of days
         $database_result =

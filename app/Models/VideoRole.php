@@ -14,6 +14,6 @@ class VideoRole extends Model
 
     public function videos(): BelongsToMany
     {
-        return $this->belongsToMany(Video::class, 'video_videoroles', 'videorole_id', 'video_id');
+        return $this->belongsToMany(Video::class, 'video_videorole', 'videorole_id', 'video_id');
     }
 }

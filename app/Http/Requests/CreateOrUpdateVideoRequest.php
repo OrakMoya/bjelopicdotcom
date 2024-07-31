@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 
-class UpdateVideoRequest extends FormRequest
+class CreateOrUpdateVideoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,6 @@ class UpdateVideoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', 'exists:videos'],
             'title' => ['required', 'min:3', 'max:50'],
             'subject' => ['required', 'min:2', 'max:100'],
             'description' => ['nullable', 'min:5', 'max:1000'],
