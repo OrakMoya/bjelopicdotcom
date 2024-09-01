@@ -124,5 +124,7 @@ return [
     ],
 
     'telescope_emails' => explode(',', env('TELESCOPE_EMAILS', '')),
+    'sqid_alphabet' => env('SQID_ALPHABET'),
+    'sqid_minimum_length' => env('SQID_MINIMUM_LENGTH'),
 
 ];
