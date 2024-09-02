@@ -75,7 +75,7 @@
                 <!-- Mobile collapsing menu -->
                 <div class="h-full relative w-full z-30">
                     <div
-                        class="flex fixed w-full pl-8 py-4 pr-20 bg-black border-t border-l-neutral-800 rounded-tl-xl rounded-tr-xl"
+                        class="flex fixed w-full pl-8 py-4 pr-20 bg-black outline outline-1 outline-neutral-800 rounded-tl-xl rounded-tr-xl"
                         style="bottom: {header_height}px;"
                         transition:fly={{
                             y: menubar_height + header_height + 50,
