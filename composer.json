@@ -1,9 +1,9 @@
 {
-    "name": "laravel/laravel",
+    "name": "orakmoya/bjelopicdotcom",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
-    "license": "MIT",
+    "description": "BjeloPIC official website",
+    "keywords": ["laravel", "bjelopic"],
+    "license": "GPL3",
     "require": {
         "php": "^8.2",
         "barryvdh/laravel-ide-helper": "^3.1",
