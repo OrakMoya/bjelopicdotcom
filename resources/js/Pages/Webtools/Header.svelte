@@ -24,7 +24,8 @@
 
 {#if header_shown || dontHide}
     <header bind:clientHeight
-        class="bg-black w-full p-4 border-t md:border-t-0 md:border-b border-neutral-800 fixed bottom-0 md:relative {$$restProps.class}"
+        class="{dontHide ? 'bg-black' : 'bg-black/75'} md:bg-black w-full p-4 border-t md:border-t-0 md:border-b border-neutral-800 fixed bottom-0 md:relative {$$restProps.class}"
+        style="{header_shown && !dontHide ? 'backdrop-filter: blur(20px)' : ''}"
         transition:fly={{ y: 90, opacity: 100 }}
     >
         <div class="flex w-full justify-between">

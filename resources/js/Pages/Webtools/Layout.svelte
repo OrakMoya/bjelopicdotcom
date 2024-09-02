@@ -151,7 +151,7 @@
                             : ''} w-full h-full bg-black"
                         style="top: 0px;"
                         in:fly={{ y: innerHeight, duration: duration }}
-                        out:scale={{ duration: duration, start: 0.9 }}
+                        out:fade={{ delay: duration, duration: 0 }}
                         on:introstart={() => {
                             append_absolute = true;
                         }}
