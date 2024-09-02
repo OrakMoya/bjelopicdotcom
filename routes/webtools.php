@@ -11,6 +11,6 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::resource('/videos', WebtoolsVideosController::class, ['except' => ['edit', 'show']] );
     Route::get('/videos', [WebtoolsVideosController::class, 'index']);
 
-    Route::resource('/uploads', WebtoolsTemporaryUploadController::class, ['except' => ['edit', 'show']] );
+    Route::resource('/uploads', WebtoolsTemporaryUploadController::class, ['except' => ['edit', 'show', 'create']] );
 
 });

@@ -17,7 +17,6 @@
             toast.error(errors[Object.keys(errors)[0]]);
         }
     }
-    console.log("mount");
 
     $: process($page.props);
 </script>

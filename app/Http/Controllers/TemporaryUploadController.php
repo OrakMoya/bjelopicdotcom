@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TemporaryFile;
+use App\Models\TemporaryUpload;
 use App\Utility\Sqid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,20 +24,20 @@ class TemporaryUploadController extends Controller
      */
     public function show(string $sqid): Response
     {
-        $temporary_file = TemporaryFile::find(Sqid::decode($sqid))->first();
-        if (!$temporary_file) abort(404);
+        $temporaryUpload = TemporaryUpload::find(Sqid::decode($sqid))->first();
+        if (!$temporaryUpload) abort(404);
 
-        $temporary_file['size'] = $this->human_filesize(Storage::disk('local')->size($temporary_file->path));
-        $temporary_file['sqid'] = $sqid;
-        return Inertia::render('TemporaryUpload', ['temporary_file' => $temporary_file]);
+        $temporaryUpload['size'] = $this->human_filesize(Storage::disk('local')->size($temporaryUpload->path));
+        $temporaryUpload['sqid'] = $sqid;
+        return Inertia::render('ViewTemporaryUpload', ['temporary_upload' => $temporaryUpload]);
     }
 
 
     public function download(string $sqid): StreamedResponse
     {
-        $temporary_file = TemporaryFile::find(Sqid::decode($sqid))->first();
-        if (!$temporary_file) abort(404);
+        $temporaryUpload = TemporaryUpload::find(Sqid::decode($sqid))->first();
+        if (!$temporaryUpload) abort(404);
 
-        return Storage::disk('local')->download($temporary_file->path, $temporary_file->original_name);
+        return Storage::disk('local')->download($temporaryUpload->path, $temporaryUpload->original_name);
     }
 }

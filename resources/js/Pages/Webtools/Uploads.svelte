@@ -10,54 +10,132 @@
     import { Link, useForm, router } from "@inertiajs/svelte";
     import { Input } from "$lib/components/ui/input";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
-    import {toast} from "svelte-sonner";
+    import { toast } from "svelte-sonner";
+    import DatePicker from "$lib/components/ui/datepicker/DatePicker.svelte";
+    import { Label } from "$lib/components/ui/label";
+    import { Checkbox } from "$lib/components/ui/checkbox";
+    import {
+        CalendarDate,
+        getLocalTimeZone,
+        today,
+    } from "@internationalized/date";
+    /**
+     * @typedef {import ('@internationalized/date').DateValue} DateValue
+     */
 
-    let open = false;
+    let new_temporary_upload_dialog_open = false;
+    let delete_temporary_upload_dialog_open = false;
     let screensize_md = 768;
     let innerWidth = 0;
     let form = useForm({
         file: null,
-        expiry_datetime: null,
+        expiry_date: today(getLocalTimeZone()).add({ days: 1 }),
+        expiry_hours: 12,
+        expiry_minutes: 0,
+        expiry_seconds: 0,
+        expires: true,
     });
 
     function processUpload() {
-        $form.post("/webtools/uploads");
-        open = false;
+        $form
+            .transform((data) => ({
+                ...data,
+                expiry_date: data.expiry_date.toString(),
+            }))
+            .post("/webtools/uploads", {
+                preserveState: true,
+                onSuccess: () => {
+                    $form.reset();
+                    new_temporary_upload_dialog_open = false;
+                },
+            });
     }
 
-    export let uploads;
-    console.log(uploads);
+    export let temporary_uploads;
 </script>
 
 <svelte:window bind:innerWidth />
 
 <main class="max-w-screen-xl mx-auto p-4">
-    <Dialog.Root bind:open>
+    <Dialog.Root bind:open={new_temporary_upload_dialog_open}>
         <Dialog.Content class="text-white">
             <Dialog.Header>
                 <Dialog.Title>Upload</Dialog.Title>
             </Dialog.Header>
+            <form
+                on:submit|preventDefault={processUpload}
+                class="flex flex-col gap-y-2"
+            >
+                <Input
+                    class="mb-2"
+                    type="file"
+                    required
+                    on:input={(e) => ($form.file = e.target.files[0])}
+                />
 
-            <Input
-                type="file"
-                required
-                on:input={(e) => ($form.file = e.target.files[0])}
-            />
-
-            <Dialog.Footer>
-                <div class="flex gap-4">
-                    <Button
-                        variant="destructive"
-                        on:click={() => (open = false)}>Cancel</Button
-                    >
-                    <Button on:click={processUpload}>Upload</Button>
+                <div class="flex items-center gap-x-2 text-sm">
+                    <Checkbox bind:checked={$form.expires} id="expires" />
+                    <Label for="expires">
+                        {#if $form.expires}
+                            <span>Expires on</span>
+                        {:else}
+                            <span>Never expires</span>
+                        {/if}
+                    </Label>
                 </div>
-            </Dialog.Footer>
+                <div
+                    class="flex flex-wrap sm:items-center gap-y-2 gap-x-2 w-full sm:w-fit {$form.expires
+                        ? ''
+                        : 'text-neutral-500'}"
+                >
+                    <DatePicker
+                        bind:value={$form.expiry_date}
+                        disabled={!$form.expires}
+                    />
+                    <div class="flex items-center gap-x-2 ">
+                        <span
+                            class={$form.expiry_date ? "" : "text-neutral-500"}
+                            >@</span
+                        >
+                        <Input
+                            class="w-20"
+                            type="number"
+                            bind:value={$form.expiry_hours}
+                            readonly={!$form.expires || !$form.expiry_date}
+                            on:input={() => {
+                                $form.expiry_hours = Math.min(
+                                    Math.max($form.expiry_hours, 0),
+                                    23,
+                                );
+                            }}
+                        />
+                        <span
+                            class={$form.expiry_date ? "" : "text-neutral-500"}
+                            >hours</span
+                        >
+                    </div>
+                </div>
+
+                <Dialog.Footer class="mt-3">
+                    <div class="flex gap-4">
+                        <Button
+                            variant="destructive"
+                            on:click={() =>
+                                (new_temporary_upload_dialog_open = false)}
+                            >Cancel</Button
+                        >
+                        <Button type="submit" disabled={$form.processing}
+                            >Upload</Button
+                        >
+                    </div>
+                </Dialog.Footer>
+            </form>
         </Dialog.Content>
     </Dialog.Root>
+
     <section class="border border-neutral-800 rounded-xl overflow-clip">
         <Table.Root>
-            {#if uploads.length === 0}
+            {#if temporary_uploads.length === 0}
                 <Table.Caption>Empty...</Table.Caption>
             {/if}
             <Table.Header>
@@ -67,25 +145,31 @@
                     <Table.Head>Link</Table.Head>
                     <Table.Head>Expires on</Table.Head>
                     <Table.Head class="w-8 text-white">
-                        <Button on:click={() => (open = true)} variant="ghost">
+                        <Button
+                            on:click={() =>
+                                (new_temporary_upload_dialog_open = true)}
+                            variant="ghost"
+                        >
                             <PlusIcon class="w-4 h-4" />
                         </Button>
                     </Table.Head>
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                {#each uploads as upload}
+                {#each temporary_uploads as upload}
                     <Table.Row>
                         <Table.Cell>{upload.user.name}</Table.Cell>
                         <Table.Cell>{upload.original_name}</Table.Cell>
-                        <Table.Cell
-                        >
-                            <button class="p-2 hover:text-neutral-400 transition duration-200" on:click={()=>{
-                                let host = window.location.host;
-                                let full_url = host + "/f/"+upload.sqid;
-                                navigator.clipboard.writeText(full_url);
-                                toast("Copied!");
-                            }}>
+                        <Table.Cell>
+                            <button
+                                class="p-2 hover:text-neutral-400 transition duration-200"
+                                on:click={() => {
+                                    let host = window.location.host;
+                                    let full_url = host + "/f/" + upload.sqid;
+                                    navigator.clipboard.writeText(full_url);
+                                    toast("Copied!");
+                                }}
+                            >
                                 <CopyIcon class="w-5 h-5" />
                             </button>
                         </Table.Cell>
@@ -97,7 +181,9 @@
                             {/if}
                         </Table.Cell>
                         <Table.Cell>
-                            <AlertDialog.Root>
+                            <AlertDialog.Root
+                                bind:open={delete_temporary_upload_dialog_open}
+                            >
                                 <AlertDialog.Trigger asChild let:builder>
                                     <Button
                                         builders={[builder]}
@@ -117,21 +203,19 @@
                                         <AlertDialog.Cancel
                                             >Cancel</AlertDialog.Cancel
                                         >
-                                        <AlertDialog.Action asChild let:builder>
-                                            <Button
-                                                builders={[builder]}
-                                                on:click={() =>
-                                                    router.visit(
-                                                        "/webtools/uploads/" +
-                                                            upload.id,
-                                                        {
-                                                            method: "delete",
-                                                        },
-                                                    )}
-                                                variant="destructive"
-                                                >Delete</Button
-                                            >
-                                        </AlertDialog.Action>
+                                        <Button
+                                            on:click={() =>
+                                                router.visit(
+                                                    "/webtools/uploads/" +
+                                                        upload.id,
+                                                    {
+                                                        method: "delete",
+                                                        onSuccess: () =>
+                                                            (delete_temporary_upload_dialog_open = false),
+                                                    },
+                                                )}
+                                            variant="destructive">Delete</Button
+                                        >
                                     </AlertDialog.Footer>
                                 </AlertDialog.Content>
                             </AlertDialog.Root>

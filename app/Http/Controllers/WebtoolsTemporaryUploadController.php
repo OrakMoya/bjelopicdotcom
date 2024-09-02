@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TemporaryFile;
+use App\Http\Requests\CreateTemporaryUploadRequest;
+use App\Models\TemporaryUpload;
 use App\Utility\Sqid;
 use Auth;
 use Illuminate\Http\Request;
@@ -18,29 +19,38 @@ class WebtoolsTemporaryUploadController extends Controller
      */
     public function index(): Response
     {
-        $uploads = TemporaryFile::select(['id', 'user_id', 'original_name', 'expiry_datetime'])->with('user')->get();
-        foreach ($uploads as $upload) {
+        $temporaryUploads = TemporaryUpload::select(['id', 'user_id', 'original_name', 'expiry_datetime'])
+            ->with('user')
+            ->get();
+        foreach ($temporaryUploads as $upload) {
             $upload['user'] = $upload->user;
             $upload['sqid'] = Sqid::encode($upload->id);
         }
-        return Inertia::render('Webtools/Uploads', ['uploads' => $uploads]);
+        return Inertia::render('Webtools/Uploads', ['temporary_uploads' => $temporaryUploads]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateTemporaryUploadRequest $request)
     {
         $file = $request->file('file');
 
-        $temporary_file = TemporaryFile::updateOrCreate([
-            'user_id' => Auth::id(),
-            'original_name' => $file->getClientOriginalName(),
-            'expiry_datetime' => null,
-        ]);
+        $expiry_datetime = null;
+        if ($request->expires) {
+            $expiry_datetime = $request->expiry_date . ' ' .
+                sprintf("%02d", $request->expiry_hours) . ':' .
+                sprintf("%02d", $request->expiry_minutes) . ':' .
+                sprintf("%02d", $request->expiry_seconds);
+        }
 
-        $temporary_file->path = Storage::disk('local')->put('uploads',  $file);
-        $temporary_file->save();
+
+        $temporaryUpload = new TemporaryUpload();
+        $temporaryUpload->user_id=Auth::id();
+        $temporaryUpload->original_name = $file->getClientOriginalName();
+        $temporaryUpload->expiry_datetime = $expiry_datetime;
+        $temporaryUpload->path = Storage::disk('local')->put('uploads',  $file);
+        $temporaryUpload->save();
 
 
         return redirect()->back()->with('status', 'Success!');
@@ -59,7 +69,7 @@ class WebtoolsTemporaryUploadController extends Controller
      */
     public function destroy(string $id)
     {
-        $temporaryFile = TemporaryFile::find($id);
+        $temporaryFile = TemporaryUpload::find($id);
         Storage::disk('local')->delete($temporaryFile->path);
         $temporaryFile->delete();
 

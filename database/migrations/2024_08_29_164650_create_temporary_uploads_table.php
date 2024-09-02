@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('file_uploads', function (Blueprint $table) {
+        Schema::create('temporary_uploads', function (Blueprint $table) {
             $table->id();
 
             $table->string('original_name');
