@@ -56,6 +56,10 @@
 
 <svelte:window bind:innerWidth />
 
+<svelte:head>
+    <title>Uploads - Webtools</title>
+</svelte:head>
+
 <main class="max-w-screen-xl mx-auto p-4">
     <Dialog.Root bind:open={new_temporary_upload_dialog_open}>
         <Dialog.Content class="text-white">
@@ -164,8 +168,9 @@
                             <button
                                 class="p-2 hover:text-neutral-400 transition duration-200"
                                 on:click={() => {
+                                    let protocol = window.location.protocol;
                                     let host = window.location.host;
-                                    let full_url = host + "/f/" + upload.sqid;
+                                    let full_url = protocol + "//" + host + "/f/" + upload.sqid;
                                     navigator.clipboard.writeText(full_url);
                                     toast("Copied!");
                                 }}

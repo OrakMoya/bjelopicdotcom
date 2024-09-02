@@ -144,6 +144,11 @@
     }
 </script>
 
+
+<svelte:head>
+    <title>Videos - Webtools</title>
+</svelte:head>
+
 <main class="max-w-screen-xl mx-auto p-4 px-4 md:px-8 w-full overflow-scroll-y">
     <!-- New/edit video dialog -->
     <div class="flex justify-end">

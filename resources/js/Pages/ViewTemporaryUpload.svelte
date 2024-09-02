@@ -5,6 +5,10 @@
     export let temporary_upload;
 </script>
 
+<svelte:head>
+    <title>{temporary_upload.original_name.substring(0, 12)} - BjeloPIC</title>
+</svelte:head>
+
 <main
     class="max-w-screen-lg mx-auto h-full flex flex-col items-center justify-center p-4 gap-y-2"
 >
@@ -30,7 +34,8 @@
             </div>
         </div>
         <a href="/f/{temporary_upload.sqid}/download" class="w-full sm:w-fit">
-            <Button class="bg-bjelopic-red-1 w-full py-8 text-base sm:py-4 sm:text-sm sm:w-fit text-white hover:bg-bjelopic-red-2"
+            <Button
+                class="bg-bjelopic-red-1 w-full py-8 text-base sm:py-4 sm:text-sm sm:w-fit text-white hover:bg-bjelopic-red-2"
                 >Download</Button
             >
         </a>
