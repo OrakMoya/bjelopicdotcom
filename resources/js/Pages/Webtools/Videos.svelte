@@ -71,14 +71,11 @@
                 $new_video_form.publication_date.toString();
         }
         if (currently_edited_video) {
-            router.visit(
-                "/webtools/videos/" + currently_edited_video.id,
-                {
+            $new_video_form
+                .transform((/** @type {any} */ data) => ({ ...data, _method: "patch" }))
+                .post("/webtools/videos/" + currently_edited_video.id, {
                     onSuccess: () => (new_video_dialog_open = false),
-                    data: {...$new_video_form.data(), '_method': 'patch'},
-                    method: 'post',
-                },
-            );
+                });
         } else {
             $new_video_form.post("/webtools/videos", {
                 onSuccess: () => (new_video_dialog_open = false),
