@@ -71,11 +71,12 @@
                 $new_video_form.publication_date.toString();
         }
         if (currently_edited_video) {
-            console.log($new_video_form);
-            $new_video_form.patch(
+            router.visit(
                 "/webtools/videos/" + currently_edited_video.id,
                 {
                     onSuccess: () => (new_video_dialog_open = false),
+                    data: {...$new_video_form.data(), '_method': 'patch'},
+                    method: 'post',
                 },
             );
         } else {
