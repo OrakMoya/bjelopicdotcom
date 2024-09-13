@@ -96,9 +96,14 @@ class WebtoolsVideosController extends Controller
         }
         if ($request->preview) {
             $video->storePreview($request->preview);
+        } else if($request->preview_deleted) {
+            $video->deletePreview();
         }
+
         if ($request->poster) {
             $video->storePoster($request->poster);
+        } else if($request->poster_deleted) {
+            $video->deletePoster();
         }
 
         if ($request->roles) {

@@ -71,6 +71,7 @@
                 $new_video_form.publication_date.toString();
         }
         if (currently_edited_video) {
+            console.log($new_video_form);
             $new_video_form.patch(
                 "/webtools/videos/" + currently_edited_video.id,
                 {
@@ -143,7 +144,6 @@
         $new_video_form.thumbnail = null;
     }
 </script>
-
 
 <svelte:head>
     <title>Videos - Webtools</title>
@@ -501,30 +501,33 @@
                                     class="bg-muted rounded-md overflow-clip"
                                 >
                                     {#if $new_video_form.preview || (currently_edited_video && currently_edited_video.preview_url && !$new_video_form.preview_deleted)}
-                                        <Button
-                                            class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity "
-                                            on:click={(e) => {
-                                                $new_video_form.preview = null;
-                                                $new_video_form.preview_deleted = true;
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                            }}
-                                            ><TrashIcon
-                                                class="w-4 h-4"
-                                            /></Button
-                                        >
-                                        <!-- svelte-ignore a11y-media-has-caption -->
-                                        <video
-                                            class="w-full h-full object-contain"
-                                            src={currently_edited_video &&
-                                            !$new_video_form.preview
-                                                ? currently_edited_video.preview_url
-                                                : URL.createObjectURL(
-                                                      $new_video_form.preview,
-                                                  )}
-                                            alt="New video thumbnail"
-                                            controls
-                                        />
+                                        <div class="w-full h-full bg-black">
+                                            <!-- svelte-ignore a11y-media-has-caption -->
+                                            <video
+                                                class="w-full h-full object-contain"
+                                                src={currently_edited_video &&
+                                                !$new_video_form.preview
+                                                    ? currently_edited_video.preview_url
+                                                    : URL.createObjectURL(
+                                                          $new_video_form.preview,
+                                                      )}
+                                                alt="New video thumbnail"
+                                                controls
+                                            />
+                                            <Button
+                                                class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity "
+                                                on:click={(e) => {
+                                                    $new_video_form.preview =
+                                                        null;
+                                                    $new_video_form.preview_deleted = true;
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                }}
+                                                ><TrashIcon
+                                                    class="w-4 h-4"
+                                                /></Button
+                                            >
+                                        </div>
                                     {/if}
                                 </AspectRatio.Root>
                             </label>
@@ -550,17 +553,6 @@
                                     class="bg-muted rounded-md overflow-clip"
                                 >
                                     {#if $new_video_form.poster || (currently_edited_video && currently_edited_video.poster_url && !$new_video_form.poster_deleted)}
-                                        <Button
-                                            class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
-                                            on:click={(e) => {
-                                                $new_video_form.poster = null;
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                            }}
-                                            ><TrashIcon
-                                                class="w-4 h-4"
-                                            /></Button
-                                        >
                                         <!-- svelte-ignore a11y-media-has-caption -->
                                         <img
                                             class="w-full h-full object-cover"
@@ -572,6 +564,18 @@
                                                   )}
                                             alt="New video poster"
                                         />
+                                        <Button
+                                            class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
+                                            on:click={(e) => {
+                                                $new_video_form.poster = null;
+                                                $new_video_form.poster_deleted = true;
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                            }}
+                                            ><TrashIcon
+                                                class="w-4 h-4"
+                                            /></Button
+                                        >
                                     {/if}
                                 </AspectRatio.Root>
                             </label>
