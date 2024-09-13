@@ -219,6 +219,11 @@ return [
     |
     */
 
-    'max_execution_time' => 30,
+    'max_execution_time' => 0,
+    'swoole' => [
+        'options' => [
+            'package_max_length' => 100 * 1024 * 1024 * 1024,
+        ],
+    ],
 
 ];
