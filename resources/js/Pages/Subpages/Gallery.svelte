@@ -62,6 +62,15 @@
                         class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
                     ></div>
                 </div>
+                <div class="flex justify-center items-center gap-x-2 mb-6">
+                    {#each collection.videos[0].roles as role}
+                        <div
+                            class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm lg:text-base px-1 py-[0.5px]"
+                        >
+                            <span class="drop-shadow">{role}</span>
+                        </div>
+                    {/each}
+                </div>
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4"
                     role="none"
@@ -198,7 +207,7 @@
                             >
                                 {#each video.roles as role}
                                     <div
-                                        class="bg-bjelopic-orange-3 rounded-sm text-sm lg:text-base px-1"
+                                        class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm lg:text-base px-1 py-[0.5px]"
                                     >
                                         <span class="drop-shadow">{role}</span>
                                     </div>

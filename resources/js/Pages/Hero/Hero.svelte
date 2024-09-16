@@ -12,6 +12,7 @@
     import { ChevronDown } from "lucide-svelte";
     import { fade } from "svelte/transition";
     import TheSubtitle from "$lib/components/ui/TheSubtitle.svelte";
+    import { Button as button } from "$lib/components/ui/button";
 
     export let videos;
 
@@ -116,7 +117,7 @@
                     class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-4 sm:mb-6"
                 />
                 <div
-                    class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3 mb-2 sm:mb-5"
+                    class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3 "
                 >
                     <div class="border-b border-white w-full h-min"></div>
                     <TheSubtitle
@@ -125,6 +126,10 @@
                     <div class="bg-white w-full h-[1px]"></div>
                 </div>
             </div>
+        </div>
+        <div class="grid grid-cols-2 gap-x-4 my-1 text-sm sm:text-base ">
+            <a href="mailto:info@bjelopic.com" class="px-4 py-2 rounded-xl bg-bjelopic-orange-3 transition duration-300 text-white hover:bg-bjelopic-orange-2 drop-shadow-md text-center"><span class="drop-shadow"> Kontaktirajte nas</span></a>
+            <Link href="/gallery" class="px-4 py-2 rounded-xl bg-black/50 drop-shadow-md transition duration-300 border border-neutral-700 text-white text-center hover:bg-neutral-800/75">Naši radovi</Link>
         </div>
         <div
             class="flex w-screen basis-1/3 overflow-x-clip overflow-y-visible drop-shadow-glow-sm {carousel_hovered
