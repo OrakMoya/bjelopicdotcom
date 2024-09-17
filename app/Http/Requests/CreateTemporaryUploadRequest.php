@@ -23,12 +23,19 @@ class CreateTemporaryUploadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'required',
             'expiry_date' => 'nullable|required_if:expires,true|date',
             'expiry_hours' => 'nullable|required_if:expires,true|integer|between:0,23',
             'expiry_minutes' => 'nullable|required_if:expires,true|integer|between:0,59',
             'expiry_seconds' => 'nullable|required_if:expires,true|integer|between:0,59',
             'expires' => 'required|boolean',
+            'resumable_identifier' => 'required|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'resumable_identifier' => 'A file is required',
         ];
     }
 }

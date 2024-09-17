@@ -15,7 +15,7 @@
     });
 
     export let value: DateValue | undefined = undefined;
-    export let disabled: boolean;
+    export let disabled: boolean = false;
 </script>
 
 <Popover.Root openFocus>

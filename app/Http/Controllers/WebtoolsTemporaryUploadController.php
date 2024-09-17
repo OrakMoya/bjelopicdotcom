@@ -4,22 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTemporaryUploadRequest;
 use App\Models\TemporaryUpload;
+use App\Services\TemporaryUploadService;
 use App\Utility\Sqid;
 use Auth;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class WebtoolsTemporaryUploadController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index(): Response
     {
-        $temporaryUploads = TemporaryUpload::select(['id', 'user_id', 'original_name', 'expiry_datetime'])
+
+        $temporaryUploads = TemporaryUpload::select(['id', 'user_id', 'original_name', 'expiry_datetime', 'ready'])
+            ->where('ready', '=', '1')
             ->with('user')
             ->get();
         foreach ($temporaryUploads as $upload) {
@@ -32,42 +39,19 @@ class WebtoolsTemporaryUploadController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateTemporaryUploadRequest $request)
+    public function store(CreateTemporaryUploadRequest $request, TemporaryUploadService $temporaryUploadService)
     {
-        $file = $request->file('file');
-
-        $expiry_datetime = null;
-        if ($request->expires) {
-            $expiry_datetime = $request->expiry_date . ' ' .
-                sprintf("%02d", $request->expiry_hours) . ':' .
-                sprintf("%02d", $request->expiry_minutes) . ':' .
-                sprintf("%02d", $request->expiry_seconds);
-        }
+        $temporaryUpload = $temporaryUploadService->createTemporaryUploadEntry($request->validated());
 
 
-        $temporaryUpload = new TemporaryUpload();
-        $temporaryUpload->user_id=Auth::id();
-        $temporaryUpload->original_name = $file->getClientOriginalName();
-        $temporaryUpload->expiry_datetime = $expiry_datetime;
-        $temporaryUpload->path = Storage::disk('local')->put('uploads',  $file);
-        $temporaryUpload->save();
-
-
-        return redirect()->back()->with('status', 'Success!');
+        return response()->json($temporaryUpload->id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id): void
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id):  RedirectResponse
     {
         $temporaryFile = TemporaryUpload::find($id);
         Storage::disk('local')->delete($temporaryFile->path);

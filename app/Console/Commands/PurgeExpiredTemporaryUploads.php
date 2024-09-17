@@ -8,21 +8,21 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-class PruneTemporaryUploads extends Command
+class PurgeExpiredTemporaryUploads extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:prune-temporary-uploads';
+    protected $signature = 'app:purge-expired-temporary-uploads';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Deletes expired temporary uploads';
 
     /**
      * Execute the console command.
