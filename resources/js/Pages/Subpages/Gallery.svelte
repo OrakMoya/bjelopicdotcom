@@ -62,7 +62,7 @@
                         class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
                     ></div>
                 </div>
-                <div class="flex justify-center items-center gap-x-2 mb-6">
+                <div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 mb-6">
                     {#each collection.videos[0].roles as role}
                         <div
                             class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm lg:text-base px-1 py-[0.5px]"
