@@ -6,11 +6,17 @@
     import { Button } from "$lib/components/ui/button";
     import { getLocalTimeZone, today } from "@internationalized/date";
     import { toast } from "svelte-sonner";
+    import { Checkbox } from "$lib/components/ui/checkbox";
+    import { Label } from "$lib/components/ui/label";
+    import * as Dialog from "$lib/components/ui/dialog";
 
     const csrf_token = document
         .querySelector('meta[name="csrf-token"]')
         ?.getAttribute("content");
     const headers = new Headers();
+    const screensize_md = 768;
+
+    let innerWidth = 0;
 
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
@@ -56,7 +62,7 @@
         const response = await result.json();
         if (typeof response === "number") {
             resumable.opts.query.temporaryUploadId = response;
-            resumable.opts.target += "/" + response
+            resumable.opts.target += "/" + response;
 
             resumable.on("complete", () => {
                 toast.success("Done!");
@@ -67,47 +73,146 @@
             });
             resumable.on("uploadStart", () => (uploading = true));
             resumable.upload();
+            dialogOpen = false;
         } else {
             toast.error(response.message);
         }
     }
+    let datePicker;
+    let dialogOpen = false;
 </script>
 
+<svelte:window bind:innerWidth />
+
 <div class="flex flex-col mb-4">
-    <form
-        class="flex items-center gap-x-4 mb-1 {uploading ? 'text-neutral-800' : ''}"
-        on:submit|preventDefault={processSubmit}
-    >
-        <Input
-            type="file"
-            disabled={uploading}
-            on:input={(e) => {
-                resumable.files = [];
-                resumable.addFile(e.target.files[0]);
-            }}
-        />
-        <DatePicker disabled={uploading} bind:value={formData.expiry_date} />
-        <span> @ </span>
-        <Input
-            disabled={uploading}
-            type="number"
-            bind:value={formData.expiry_hours}
-            class="w-fit"
-            on:input={() => {
-                formData.expiry_hours = Math.min(
-                    Math.max(formData.expiry_hours, 0),
-                    23,
-                );
-            }}
-        />
-        <Button disabled={uploading} type="submit">Submit</Button>
-    </form>
-    {#if uploading}
-        <div class="w-full h-1">
-            <div
-                class="bg-bjelopic-red-1 rounded h-1 transition-all duration-1000"
-                style="width: {progress * 100}%;"
-            ></div>
-        </div>
+    {#if innerWidth < screensize_md}
+        <Dialog.Root bind:open={dialogOpen}>
+            <Dialog.Trigger asChild let:builder>
+                {#if !uploading}
+                    <Button builders={[builder]} disabled={uploading}>
+                        Upload
+                    </Button>
+                {:else}
+                    <div
+                        class="flex px-4 py-2 items-center text-sm justify-center bg-neutral-500 text-black rounded-md relative overflow-clip h-10"
+                    >
+                        <div
+                            class="absolute bottom-0 left-0 h-full bg-white opacity-100 transition-all duration-500"
+                            style="width: {progress * 100}%;"
+                        ></div>
+                        <span class="z-10"> Uploading </span>
+                    </div>
+                {/if}
+            </Dialog.Trigger>
+            <Dialog.Content>
+                <Dialog.Header>
+                    <Dialog.Title>Upload</Dialog.Title>
+                </Dialog.Header>
+                <form
+                    class="flex flex-col items-left md:items-center gap-x-4 gap-y-2 mb-1}"
+                    on:submit|preventDefault={processSubmit}
+                >
+                    <Input
+                        type="file"
+                        disabled={uploading}
+                        on:input={(e) => {
+                            resumable.files = [];
+                            resumable.addFile(e.target.files[0]);
+                        }}
+                    />
+                    <div class="flex items-center gap-x-2">
+                        <Checkbox
+                            bind:checked={formData.expires}
+                            id="expires-box"
+                        />
+                        <Label for="expires-box">Expires</Label>
+                    </div>
+                    <div
+                        class="flex flex-row flex-wrap items-center justify-left gap-x-4 gap-y-2 {!formData.expires
+                            ? 'text-neutral-800'
+                            : ''}"
+                    >
+                        <DatePicker
+                            disabled={uploading || !formData.expires}
+                            bind:value={formData.expiry_date}
+                        />
+                        <div class="flex items-center gap-x-2">
+                            <span> @ </span>
+                            <Input
+                                disabled={uploading || !formData.expires}
+                                type="number"
+                                bind:value={formData.expiry_hours}
+                                class="w-28"
+                                on:input={() => {
+                                    formData.expiry_hours = Math.min(
+                                        Math.max(formData.expiry_hours, 0),
+                                        23,
+                                    );
+                                }}
+                            />
+                            <span>h</span>
+                        </div>
+                    </div>
+                    <Dialog.Footer>
+                        <Button disabled={uploading} type="submit"
+                            >Submit</Button
+                        >
+                    </Dialog.Footer>
+                </form>
+            </Dialog.Content>
+        </Dialog.Root>
     {/if}
+    <div class={innerWidth < screensize_md ? "hidden" : ""}>
+        <form
+            class="flex items-center gap-x-4 mb-1}"
+            on:submit|preventDefault={processSubmit}
+        >
+            <Input
+                type="file"
+                disabled={uploading}
+                on:input={(e) => {
+                    resumable.files = [];
+                    resumable.addFile(e.target.files[0]);
+                }}
+            />
+            <div class="flex items-center gap-x-2">
+                <Checkbox bind:checked={formData.expires} id="expires-box" />
+                <Label for="expires-box">Expires</Label>
+            </div>
+            <DatePicker
+                disabled={uploading || !formData.expires}
+                bind:value={formData.expiry_date}
+            />
+            <span class={!formData.expires ? "text-neutral-800" : ""}> @ </span>
+            <div class="flex items-center gap-x-2">
+                <Input
+                    disabled={uploading || !formData.expires}
+                    type="number"
+                    bind:value={formData.expiry_hours}
+                    class="w-20"
+                    on:input={() => {
+                        formData.expiry_hours = Math.min(
+                            Math.max(formData.expiry_hours, 0),
+                            23,
+                        );
+                    }}
+                />
+            </div>
+            {#if !uploading}
+                <Button type="submit" disabled={!resumable.files.length}
+                    >Upload</Button
+                >
+            {:else}
+                <div
+                    class="flex px-4 py-2 items-center text-sm justify-center bg-neutral-500 text-black rounded-md relative overflow-clip h-10"
+                >
+                    <div
+                        class="absolute bottom-0 left-0 h-full bg-white opacity-100 transition-all duration-500"
+                        style="width: {progress * 100}%;"
+                    ></div>
+                    <span class="z-10"> Uploading </span>
+                </div>
+            {/if}
+        </form>
+    </div>
 </div>

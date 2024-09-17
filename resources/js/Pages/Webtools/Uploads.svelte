@@ -6,16 +6,18 @@
     import * as Table from "$lib/components/ui/table";
     import { Button } from "$lib/components/ui/button";
     import { CopyIcon, TrashIcon } from "lucide-svelte";
-    import {  router } from "@inertiajs/svelte";
+    import { router } from "@inertiajs/svelte";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import { toast } from "svelte-sonner";
     import TemporaryUploadDialog from "./TemporaryUploadDialog.svelte";
-    import {page} from "@inertiajs/svelte";
+    import { page } from "@inertiajs/svelte";
 
     let innerWidth = 0;
     let delete_temporary_upload_dialog_open = false;
 
     export let temporary_uploads;
+
+    let delete_canidate_temporary_upload_id = -1;
 </script>
 
 <svelte:window bind:innerWidth />
@@ -26,8 +28,28 @@
 
 <main class="max-w-screen-xl mx-auto p-4">
     {#key $page}
-    <TemporaryUploadDialog />
+        <TemporaryUploadDialog />
     {/key}
+    <AlertDialog.Root bind:open={delete_temporary_upload_dialog_open}>
+        <AlertDialog.Trigger asChild let:builder></AlertDialog.Trigger>
+        <AlertDialog.Content>
+            <AlertDialog.Header>
+                <AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+            </AlertDialog.Header>
+            <AlertDialog.Footer>
+                <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+                <Button
+                    on:click={() =>
+                        router.visit("/webtools/uploads/" + delete_canidate_temporary_upload_id, {
+                            method: "delete",
+                            onSuccess: () =>
+                                (delete_temporary_upload_dialog_open = false),
+                        })}
+                    variant="destructive">Delete</Button
+                >
+            </AlertDialog.Footer>
+        </AlertDialog.Content>
+    </AlertDialog.Root>
 
     <section class="border border-neutral-800 rounded-xl overflow-clip">
         <Table.Root>
@@ -40,8 +62,7 @@
                     <Table.Head>File name</Table.Head>
                     <Table.Head>Link</Table.Head>
                     <Table.Head>Expires on</Table.Head>
-                    <Table.Head class="w-8">
-                    </Table.Head>
+                    <Table.Head class="w-8"></Table.Head>
                 </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -55,7 +76,12 @@
                                 on:click={() => {
                                     let protocol = window.location.protocol;
                                     let host = window.location.host;
-                                    let full_url = protocol + "//" + host + "/f/" + upload.sqid;
+                                    let full_url =
+                                        protocol +
+                                        "//" +
+                                        host +
+                                        "/f/" +
+                                        upload.sqid;
                                     navigator.clipboard.writeText(full_url);
                                     toast("Copied!");
                                 }}
@@ -71,44 +97,16 @@
                             {/if}
                         </Table.Cell>
                         <Table.Cell>
-                            <AlertDialog.Root
-                                bind:open={delete_temporary_upload_dialog_open}
+                            <Button
+                                on:click={() => {
+                                    delete_canidate_temporary_upload_id = upload.id;
+                                    delete_temporary_upload_dialog_open = true;
+                                }}
+                                variant="ghost"
+                                class="text-red-500"
                             >
-                                <AlertDialog.Trigger asChild let:builder>
-                                    <Button
-                                        builders={[builder]}
-                                        variant="ghost"
-                                        class="text-red-500"
-                                    >
-                                        <TrashIcon class="w-4 h-4" />
-                                    </Button>
-                                </AlertDialog.Trigger>
-                                <AlertDialog.Content>
-                                    <AlertDialog.Header>
-                                        <AlertDialog.Title
-                                            >Are you absolutely sure?</AlertDialog.Title
-                                        >
-                                    </AlertDialog.Header>
-                                    <AlertDialog.Footer>
-                                        <AlertDialog.Cancel
-                                            >Cancel</AlertDialog.Cancel
-                                        >
-                                        <Button
-                                            on:click={() =>
-                                                router.visit(
-                                                    "/webtools/uploads/" +
-                                                        upload.id,
-                                                    {
-                                                        method: "delete",
-                                                        onSuccess: () =>
-                                                            (delete_temporary_upload_dialog_open = false),
-                                                    },
-                                                )}
-                                            variant="destructive">Delete</Button
-                                        >
-                                    </AlertDialog.Footer>
-                                </AlertDialog.Content>
-                            </AlertDialog.Root>
+                                <TrashIcon class="w-4 h-4" />
+                            </Button>
                         </Table.Cell>
                     </Table.Row>
                 {/each}
