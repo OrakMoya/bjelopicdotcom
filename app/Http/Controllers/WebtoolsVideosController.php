@@ -6,6 +6,7 @@ use App\Http\Requests\CreateOrUpdateVideoRequest;
 use App\Http\Requests\DeleteVideoRequest;
 use App\Models\Video;
 use App\Models\VideoRole;
+use App\Services\VideoService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -35,82 +36,18 @@ class WebtoolsVideosController extends Controller
         return Inertia::render('Webtools/Videos', ['videos' => $videos, 'collections' => $collections, 'available_roles' => $available_roles]);
     }
 
-    public function store(CreateOrUpdateVideoRequest $request): RedirectResponse
+    public function store(CreateOrUpdateVideoRequest $request, VideoService $videoService): RedirectResponse
     {
         $request->validate(['thumbnail' => 'required']);
 
-        $video = Video::updateOrCreate([
-            'title' => $request->title,
-            'description' => $request->description ? $request->description : '',
-            'subject' => $request->subject,
-            'publication_date' => $request->publication_date,
-            'link' => $request->link,
-            'user_id' => Auth::id(),
-            'uuid' => Str::uuid(),
-            'collection' => $request->collection,
-            'category' => $request->category,
-        ]);
-
-        $thumbnail = $request->thumbnail;
-        $path = Storage::putFile('public/videos/' . $video->uuid, $thumbnail);
-        $video->thumbnail_path = $path;
-
-        if ($request->thumbnail) {
-            $video->storeThumbnail($request->thumbnail);
-        }
-        if ($request->preview) {
-            $video->storePreview($request->preview);
-        }
-        if ($request->poster) {
-            $video->storePoster($request->poster);
-        }
-
-
-        if ($request->roles) {
-            $video->storeRoles($request->roles);
-        }
-
-        $video->save();
+        $videoService->createVideo($request->validated());
 
         return redirect()->back()->with('status', 'Video saved!');
     }
 
-    public function update(CreateOrUpdateVideoRequest $request, Video $video)
+    public function update(CreateOrUpdateVideoRequest $request, Video $video, VideoService $videoService)
     {
-        $video->update(
-            [
-                'title' => $request->title,
-                'description' => $request->description ? $request->description : '',
-                'subject' => $request->subject,
-                'publication_date' => $request->publication_date,
-                'link' => $request->link,
-                'user_id' => Auth::id(),
-                'uuid' => Str::uuid(),
-                'collection' => $request->collection,
-                'category' => $request->category,
-            ]
-        );
-
-        if ($request->thumbnail) {
-            $video->storeThumbnail($request->thumbnail);
-        }
-        if ($request->preview) {
-            $video->storePreview($request->preview);
-        } else if($request->preview_deleted) {
-            $video->deletePreview();
-        }
-
-        if ($request->poster) {
-            $video->storePoster($request->poster);
-        } else if($request->poster_deleted) {
-            $video->deletePoster();
-        }
-
-        if ($request->roles) {
-            $video->storeRoles($request->roles);
-        }
-
-        $video->save();
+        $videoService->updateVideo($video, $request->validated());
 
         return redirect()->back()->with('status', 'Video saved!');
     }

@@ -29,7 +29,7 @@ class CreateOrUpdateVideoRequest extends FormRequest
             'subject' => ['required', 'min:2', 'max:100'],
             'description' => ['nullable', 'min:5', 'max:1000'],
             'publication_date' => ['required', 'date'],
-            'thumbnail' => ['nullable', File::image()->min('10kb')->max('8mb'), Rule::dimensions()->ratio(16 / 9)],
+            'thumbnail' => ['nullable', File::image()->min('10kb')->max('8mb')],
             'preview' => ['nullable', 'mimetypes:video/mp4'],
             'preview_deleted' => ['nullable', 'boolean'],
             'poster' => ['nullable', File::image()->min('10kb')->max('8mb'), Rule::dimensions()->maxHeight(4000)->ratio(707 / 1000)],
@@ -37,6 +37,7 @@ class CreateOrUpdateVideoRequest extends FormRequest
             'link' => ['required'],
             'collection' => ['nullable', 'min:3', 'max:100'],
             'category' => ['required', 'min:3', 'max:100'],
+            'roles' => ['nullable', 'array']
         ];
     }
 }

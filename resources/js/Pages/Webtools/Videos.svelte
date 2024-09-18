@@ -466,6 +466,7 @@
                                 >
                                     {#if $new_video_form.thumbnail || currently_edited_video}
                                         <img
+                                            class="w-full h-full object-cover"
                                             src={currently_edited_video &&
                                             !$new_video_form.thumbnail
                                                 ? currently_edited_video.thumbnail_url
@@ -659,8 +660,9 @@
                 <div
                     class="flex flex-col box-content w-full rounded-md overflow-clip md:hover:scale-[101%] transition duration-500 md:hover:drop-shadow-glow hover:z-10 border border-neutral-800"
                 >
-                    <AspectRatio.Root ratio={16 / 9}>
+                    <AspectRatio.Root ratio={16 / 9} class="overflow-clip">
                         <img
+                            class="w-full h-full object-cover"
                             src={video.thumbnail_url}
                             alt="{video.title} thumbnail"
                         />
