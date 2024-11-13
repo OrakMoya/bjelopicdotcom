@@ -70,6 +70,6 @@
         </div>
     </div>
     <span class="font-semibold block w-fit mx-auto my-4"
-        >&copy; BjeloPIC | Sva prava pridržana
+        >&copy; BjeloPIC {(new Date()).getFullYear()} | Sva prava pridržana
     </span>
 </footer>
