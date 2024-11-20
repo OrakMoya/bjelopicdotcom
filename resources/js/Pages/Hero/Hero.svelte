@@ -81,7 +81,7 @@
         <div class="basis-1/3 flex place-items-end">
             <div class="flex flex-col items-center">
                 <TheBjeloPic
-                    class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-4 sm:mb-6"
+                    class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-4 sm:mb-6 text-center relative right-1"
                 />
                 <div
                     class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3"

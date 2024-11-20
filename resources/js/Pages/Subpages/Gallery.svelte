@@ -47,8 +47,9 @@
     >
         <div class="max-w-screen-xl mx-auto px-4">
             {#if collection.videos[0].collection}
+                {@const firstVideo = collection.videos[0]}
                 <div
-                    class="flex w-full justify-center mb-4 items-center gap-x-4 mx-auto transition-all duration-500 drop-shadow"
+                    class="flex w-full justify-center items-center gap-x-4 mx-auto transition-all duration-500 drop-shadow"
                 >
                     <div
                         class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
@@ -62,8 +63,19 @@
                         class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
                     ></div>
                 </div>
-                <div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 mb-6">
-                    {#each collection.videos[0].roles as role}
+                <div
+                    class="flex justify-center mb-2 text-lg lg:text-xl text-bjelopic-blue-1 font-semibold"
+                >
+                    {#if firstVideo.subject === "BjeloPIC"}
+                        <TheBjeloPIC />
+                    {:else}
+                        {firstVideo.subject}
+                    {/if}
+                </div>
+                <div
+                    class="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 mb-6"
+                >
+                    {#each firstVideo.roles as role}
                         <div
                             class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm lg:text-base px-1 py-[0.5px]"
                         >
@@ -189,7 +201,8 @@
                                 {/if} -
                                 <span class="text-white">
                                     {video.title}
-                                </span>({new Date(
+                                </span>
+                                ({new Date(
                                     video.publication_date,
                                 ).getUTCFullYear()})
                             </span>

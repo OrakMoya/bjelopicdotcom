@@ -1,11 +1,11 @@
 <script>
-    import { run, preventDefault, stopPropagation } from 'svelte/legacy';
+    import { run, preventDefault, stopPropagation } from "svelte/legacy";
 
     import { fade, fly } from "svelte/transition";
     import { onMount } from "svelte";
     import { AspectRatio } from "bits-ui";
     import { ChevronLeft } from "lucide-svelte";
-    
+
     /**
      * @typedef {Object} Props
      * @property {any} [preview_src]
@@ -51,21 +51,26 @@
         ? 'scale-[104%] md:scale-[102%]'
         : ''} transition-all duration-300 w-full h-full"
 >
-    <div
-        class="w-full h-full overflow-hidden relative bg-black {rest.class}"
-    >
+    <div class="w-full h-full overflow-hidden relative bg-black {rest.class}">
         {#if focused && preview_src}
             <div
                 transition:fade
                 class="absolute flex items-center align-middle w-full h-full top-0"
             >
                 <a
+                    aria-label="View video"
                     {href}
                     target="_blank"
                     class="block w-full h-full object-cover"
                     transition:fade={{ duration }}
                 >
-                    <video muted autoplay loop transition:fade class="w-full h-full object-cover">
+                    <video
+                        muted
+                        autoplay
+                        loop
+                        transition:fade
+                        class="w-full h-full object-cover"
+                    >
                         <source src={preview_src} />
                     </video>
                 </a>
@@ -79,7 +84,11 @@
                         class="block absolute w-full h-full"
                         transition:fade={{ duration }}
                     >
-                        <img src={thumbnail_src} {alt} class="object-cover w-full h-full" />
+                        <img
+                            src={thumbnail_src}
+                            {alt}
+                            class="object-cover w-full h-full"
+                        />
                     </a>
                 {:else}
                     <img
@@ -97,15 +106,18 @@
                 transition:fly={{ opacity: 1, y: menubar_height }}
                 class="absolute font-semibold w-full bottom-0 bg-black/80 p-2 text-left"
             >
-                {title} <span class="text-bjelopic-blue-1">({year})</span>
+                {title} <span class="text-bjelopic-blue-1"> ({year})</span>
             </div>
         {/if}
         {#if !poster_shown && poster_src && focused}
             <button
                 transition:fly={{ x: 50 }}
                 class="absolute top-[15%] transition-all hover:pr-4 right-0 bg-black/80 rounded-tl-2xl rounded-bl-2xl p-2 z-10 block"
-                onclick={stopPropagation(preventDefault(() =>
-                    (poster_shown = true)))}
+                onclick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    poster_shown = true;
+                }}
             >
                 <ChevronLeft class="w-6 h-6" />
             </button>
@@ -114,8 +126,11 @@
         {#if focused && poster_src && poster_shown}
             <button
                 class="w-1/3 p-4 z-10 hover:cursor-pointer block absolute right-0 top-0"
-                onclick={stopPropagation(preventDefault(() =>
-                    (poster_shown = false)))}
+                onclick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    poster_shown = false;
+                }}
                 transition:fly={{ x: 100 }}
             >
                 <AspectRatio.Root ratio={707 / 1000}>
