@@ -3,38 +3,21 @@
 </script>
 
 <script>
-    import { run } from 'svelte/legacy';
-
-    import { Link } from "@inertiajs/svelte";
-    import { AspectRatio } from "bits-ui";
-    import * as Carousel from "$lib/components/ui/carousel";
     import TheBjeloPic from "$lib/components/ui/TheBjeloPIC.svelte";
-    import AutoScroll from "embla-carousel-auto-scroll";
-    import FilmReel from "$lib/components/ui/FilmReel.svelte";
     import { ChevronDown } from "lucide-svelte";
     import { fade } from "svelte/transition";
     import TheSubtitle from "$lib/components/ui/TheSubtitle.svelte";
-    import { Button as button } from "$lib/components/ui/button";
-    import { onMount } from "svelte";
+    import HeroCarousel from "./HeroCarousel.svelte";
+    import HeroLinks from "./HeroLinks.svelte";
+    /** @import {HeroGalleryVideo} from "$lib/types" */
 
+    /**
+     * @typedef {object} Props
+     * @prop {HeroGalleryVideo[]} videos
+     */
+
+    /** @type {Props} */
     let { videos } = $props();
-
-
-    const autoscroll = AutoScroll({
-        speed: 0.3,
-        startDelay: 0,
-        stopOnMouseEnter: true,
-    });
-
-    /**
-     * @type {number}
-     */
-    let autoplay_resume_timeout_id = $state(0);
-    let carousel_hovered = $state(false);
-    /**
-     * @type {any}
-     */
-    let carousel_api = $state();
 
     let innerWidth = $state(0);
     /**
@@ -43,39 +26,15 @@
     let innerHeight = $state(0);
     let scrollY = $state(0);
     let window_scrolled = $state(false);
-    let screensize_md = 768;
-    run(() => {
+    let arrows_shown = $state(false);
+
+    $effect(() => {
         if (scrollY && !window_scrolled) {
             window_scrolled = true;
         }
     });
-    let arrows_shown = $state(false);
 
     setTimeout(() => (arrows_shown = true), 4000);
-    let carousel_opts = {
-        loop: true,
-        dragFree: true,
-    };
-    let autoscroll_resume_delay = 3000;
-
-    onMount(() => {
-        if (carousel_api) {
-            // Stop scroll on mobile touch down
-            carousel_api.on("pointerDown", () => {
-                autoscroll.stop();
-                clearTimeout(autoplay_resume_timeout_id);
-            });
-
-            // Resume scroll on mobile touch up
-            carousel_api.on("pointerUp", () => {
-                if (!carousel_hovered)
-                    autoplay_resume_timeout_id = setTimeout(
-                        () => autoscroll.play(),
-                        autoscroll_resume_delay,
-                    );
-            });
-        }
-    });
 </script>
 
 <svelte:head>
@@ -125,7 +84,7 @@
                     class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-4 sm:mb-6"
                 />
                 <div
-                    class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3 "
+                    class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3"
                 >
                     <div class="border-b border-white w-full h-min"></div>
                     <TheSubtitle
@@ -135,72 +94,9 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-x-4 my-1 text-sm sm:text-base ">
-            <a href="mailto:info@bjelopic.com" class="px-4 py-2 rounded-xl bg-bjelopic-red-2 transition duration-300 text-white hover:bg-bjelopic-red-1 drop-shadow-md text-center"><span class="drop-shadow"> Kontaktirajte nas</span></a>
-            <Link href="/gallery" class="px-4 py-2 rounded-xl bg-black/50 drop-shadow-md transition duration-300 border border-neutral-700 text-white text-center hover:bg-neutral-800/75">Naši radovi</Link>
-        </div>
-        <div
-            class="flex w-screen basis-1/3 overflow-x-clip overflow-y-visible drop-shadow-glow-sm {carousel_hovered
-                ? 'md:drop-shadow-none'
-                : ''} transition duration-300"
-        >
-            <Carousel.Root
-                setApi={(emblaApi) => (carousel_api = emblaApi)}
-                onmouseleave={() =>
-                    (autoplay_resume_timeout_id = setTimeout(
-                        () => autoscroll.play(),
-                        autoscroll_resume_delay,
-                    ))}
-                onmouseenter={() => clearTimeout(autoplay_resume_timeout_id)}
-                plugins={[autoscroll]}
-                opts={carousel_opts}
-                class="w-auto max-w-full mx-auto overflow-visible"
-            >
-                <Carousel.Content class="overflow-visible">
-                    {#each videos as video}
-                        <Carousel.Item
-                            class=" basis-auto z-0 relative md:hover:z-10 overflow-visible p-0 outline outline-black outline-1"
-                        >
-                            <FilmReel
-                                width={innerWidth < screensize_md ? 16 : 24}
-                            />
-                            <div class="overflow-visible">
-                                <!-- svelte-ignore a11y_no_static_element_interactions -->
-                                <div
-                                    onmouseenter={() =>
-                                        (carousel_hovered = true)}
-                                    onmouseleave={() =>
-                                        (carousel_hovered = false)}
-                                    class="p-1 w-48 md:w-72 bg-black overflow-visible"
-                                >
-                                    <div
-                                        class="w-full h-full relative transition md:hover:drop-shadow-glow-md md:hover:scale-105 {carousel_hovered
-                                            ? 'md:brightness-50'
-                                            : ''} md:hover:brightness-100 overflow-visible
-                                        "
-                                    >
-                                        <AspectRatio.Root ratio={16 / 9}>
-                                            <Link
-                                                href="/gallery?focus={video.uuid}"
-                                                target="_blank"
-                                            >
-                                                <img
-                                                    src={video.thumbnail_url}
-                                                    class="w-full h-full rounded-md overflow-clip relative z-50 md:hover:drop-shadow-lg transition duration-300 object-cover"
-                                                    alt="{video.title} thumbnail"
-                                                />
-                                            </Link>
-                                        </AspectRatio.Root>
-                                    </div>
-                                </div>
-                                <FilmReel
-                                    width={innerWidth < screensize_md ? 16 : 24}
-                                />
-                            </div>
-                        </Carousel.Item>
-                    {/each}
-                </Carousel.Content>
-            </Carousel.Root>
-        </div>
+
+            <HeroLinks />
+
+        <HeroCarousel {videos} />
     </section>
 </main>

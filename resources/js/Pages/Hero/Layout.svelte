@@ -1,10 +1,9 @@
-<script lang="ts">
+<script>
     import Footer from "../Footer.svelte";
-    interface Props {
-        children?: import('svelte').Snippet;
-    }
+    /** @import {Snippet} from "svelte" */
 
-    let { children }: Props = $props();
+    /** @type {{children: Snippet}} */
+    let { children } = $props();
 </script>
 
 <div class="flex flex-col h-screen font-sans">

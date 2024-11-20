@@ -8,7 +8,7 @@
 
     let innerWidth = $state(0);
     let innerHeight = $state(0);
-    let md = 768;
+    const screensize_md = 768;
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -31,9 +31,9 @@
             <span class="text-lg md:text-base">Bjelovarski filmski studio</span>
         </div>
         <div class="w-full max-w-96 md:basis-1/2 flex">
-            {#if innerWidth < md}
+            {#if innerWidth < screensize_md}
                 <Accordion.Root
-                    multiple
+                    type="multiple"
                     class="flex flex-col justify-center w-full"
                 >
                     <Accordion.Item value="info_links" class="border-0">
@@ -70,6 +70,6 @@
         </div>
     </div>
     <span class="font-semibold block w-fit mx-auto my-4"
-        >&copy; BjeloPIC {(new Date()).getFullYear()} | Sva prava pridržana
+        >&copy; BjeloPIC {new Date().getFullYear()} | Sva prava pridržana
     </span>
 </footer>
