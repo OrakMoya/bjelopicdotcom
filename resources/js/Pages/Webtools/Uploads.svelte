@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Cannot read properties of undefined (reading 'end') -->
 <script context="module">
     export { default as layout } from "./Layout.svelte";
 </script>
@@ -31,7 +32,7 @@
         <TemporaryUploadDialog />
     {/key}
     <AlertDialog.Root bind:open={delete_temporary_upload_dialog_open}>
-        <AlertDialog.Trigger asChild let:builder></AlertDialog.Trigger>
+        <AlertDialog.Trigger></AlertDialog.Trigger>
         <AlertDialog.Content>
             <AlertDialog.Header>
                 <AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>

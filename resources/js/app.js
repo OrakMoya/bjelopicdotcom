@@ -1,7 +1,8 @@
+import { createInertiaApp } from '@inertiajs/svelte';
 import './bootstrap';
 
-import { createInertiaApp } from '@inertiajs/svelte';
 import Layout from "./Pages/Layout.svelte";
+import { mount } from 'svelte'
 
 createInertiaApp({
     resolve: name => {
@@ -10,6 +11,6 @@ createInertiaApp({
         return { default: page.default, layout: page.layout || Layout }
     },
     setup({ el, App, props }) {
-        new App({ target: el, props, hydrate: true, })
+        mount(App, { target: el, props, hydrate: true })
     },
 })

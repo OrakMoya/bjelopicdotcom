@@ -1,13 +1,21 @@
-<script>
+<script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import { Link } from "@inertiajs/svelte";
     import { fly } from "svelte/transition";
     let screensize_md = 768;
-    let innerWidth = 0;
-    let scrollY = 0;
+    let innerWidth = $state(0);
+    let scrollY = $state(0);
     let previous_scrollY = 1;
-    let header_shown = true;
-    export let clientHeight = 0;
-    export let dontHide = false;
+    let header_shown = $state(true);
+    interface Props {
+        clientHeight?: number;
+        dontHide?: boolean;
+        children?: import('svelte').Snippet;
+        [key: string]: any
+    }
+
+    let { clientHeight = $bindable(0), dontHide = false, children, ...rest }: Props = $props();
 
     /**
      * @param {number} scrollY
@@ -17,14 +25,16 @@
         previous_scrollY = scrollY;
     }
 
-    $: setHeaderVisibility(scrollY);
+    run(() => {
+        setHeaderVisibility(scrollY);
+    });
 </script>
 
 <svelte:window bind:innerWidth bind:scrollY />
 
 {#if header_shown || dontHide}
     <header bind:clientHeight
-        class="{dontHide ? 'bg-black' : 'bg-black/75'} md:bg-black w-full p-4 border-t md:border-t-0 md:border-b border-neutral-800 fixed bottom-0 md:relative {$$restProps.class}"
+        class="{dontHide ? 'bg-black' : 'bg-black/75'} md:bg-black w-full p-4 border-t md:border-t-0 md:border-b border-neutral-800 fixed bottom-0 md:relative {rest.class}"
         style="{header_shown && !dontHide ? 'backdrop-filter: blur(20px)' : ''}"
         transition:fly={{ y: 90, opacity: 100 }}
     >
@@ -47,7 +57,7 @@
                     >Webtools</span
                 >
             </Link>
-            <slot />
+            {@render children?.()}
         </div>
     </header>
 {/if}

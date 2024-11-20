@@ -1,16 +1,16 @@
-<script>
+<script lang="ts">
     import GalleryVideo from "$lib/components/ui/GalleryVideo.svelte";
     import TheBjeloPIC from "$lib/components/ui/TheBjeloPIC.svelte";
     import { AspectRatio } from "bits-ui";
     import GalleryVideoDescription from "./GalleryVideoDescription.svelte";
 
-    export let by_collection;
+    let { by_collection } = $props();
     const params = new URLSearchParams(window.location.search);
     const focus = params.get("focus");
     console.log(focus);
-    let innerHeight = 0;
+    let innerHeight = $state(0);
 
-    let selected_video_uuid = focus;
+    let selected_video_uuid = $state(focus);
 
     Promise.all(
         Array.from(document.images)
@@ -42,7 +42,7 @@
         class=" mx-auto {i % 2
             ? 'bg-bjelopic-neutral-8'
             : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
-        on:click={() => (selected_video_uuid = "")}
+        onclick={() => (selected_video_uuid = "")}
         role="none"
     >
         <div class="max-w-screen-xl mx-auto px-4">
@@ -77,10 +77,10 @@
                 >
                     {#each collection.videos as video}
                         <div class="drop-shadow-lg" id={video.uuid}>
-                            <!-- svelte-ignore a11y-no-static-element-interactions -->
+                            <!-- svelte-ignore a11y_no_static_element_interactions -->
                             <button
                                 class="w-full block"
-                                on:click={(e) => {
+                                onclick={(e) => {
                                     e.stopPropagation();
                                     if (selected_video_uuid === video.uuid) {
                                         return;
@@ -88,13 +88,13 @@
                                     e.preventDefault();
                                     selected_video_uuid = video.uuid;
                                 }}
-                                on:pointerleave={(e) => {
+                                onpointerleave={(e) => {
                                     if (e.pointerType == "touch") return;
                                     e.stopImmediatePropagation();
                                     e.preventDefault();
                                     selected_video_uuid = "";
                                 }}
-                                on:pointerenter={(e) => {
+                                onpointerenter={(e) => {
                                     if (
                                         selected_video_uuid === video.uuid ||
                                         e.pointerType == "touch"
@@ -135,10 +135,10 @@
                             ? 'md:flex-row-reverse md:text-right'
                             : 'md:flex-row md:text-left'}"
                     >
-                        <!-- svelte-ignore a11y-no-static-element-interactions -->
+                        <!-- svelte-ignore a11y_no_static_element_interactions -->
                         <button
                             class="w-full block basis-3/5"
-                            on:click={(e) => {
+                            onclick={(e) => {
                                 e.stopPropagation();
                                 if (selected_video_uuid === video.uuid) {
                                     return;
@@ -146,13 +146,13 @@
                                 e.preventDefault();
                                 selected_video_uuid = video.uuid;
                             }}
-                            on:pointerleave={(e) => {
+                            onpointerleave={(e) => {
                                 if (e.pointerType == "touch") return;
                                 e.stopImmediatePropagation();
                                 e.preventDefault();
                                 selected_video_uuid = "";
                             }}
-                            on:pointerenter={(e) => {
+                            onpointerenter={(e) => {
                                 if (
                                     selected_video_uuid === video.uuid ||
                                     e.pointerType == "touch"

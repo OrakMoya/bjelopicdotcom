@@ -1,10 +1,20 @@
-<script>
+<script lang="ts">
     import { Link, page } from "@inertiajs/svelte";
-    let hrefLink = "/";
-    let methodName = "get";
-    export let xhr = true;
+    interface Props {
+        href?: string;
+        method?: string;
+        xhr?: boolean;
+        children?: import('svelte').Snippet;
+    }
 
-    export { hrefLink as href, methodName as method };
+    let {
+        href: hrefLink = "/",
+        method: methodName = "get",
+        xhr = true,
+        children
+    }: Props = $props();
+
+    
 </script>
 
 {#if xhr}
@@ -13,7 +23,7 @@
         class=" {$page.url.endsWith(hrefLink)
             ? 'font-bold'
             : 'font-light hover:font-normal'}"
-        method={methodName}><slot /></Link
+        method={methodName}>{@render children?.()}</Link
     >
 {:else}
     <a
@@ -21,6 +31,6 @@
         class=" {$page.url.endsWith(hrefLink)
             ? 'font-bold'
             : 'font-light hover:font-normal'}"
-        method={methodName}><slot /></a
+        method={methodName}>{@render children?.()}</a
     >
 {/if}

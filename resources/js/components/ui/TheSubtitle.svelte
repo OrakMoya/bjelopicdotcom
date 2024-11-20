@@ -1,4 +1,9 @@
-<script>
+<script lang="ts">
+    interface Props {
+        [key: string]: any
+    }
+
+    let { ...rest }: Props = $props();
     let subtitles = [
         'Producenti "ORIGINALNIH BJELOVARSKIH BLOCKBUSTERA"',
         "Jednostavno superiorniji",
@@ -13,4 +18,4 @@
     }
 </script>
 
-<span class={$$restProps.class}>{pickSubtitle()}</span>
+<span class={rest.class}>{pickSubtitle()}</span>

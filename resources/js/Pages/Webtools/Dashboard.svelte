@@ -1,11 +1,11 @@
-<script context="module">
+<script module>
     export { default as layout } from "./Layout.svelte";
 </script>
 
 <script>
     import DashboardChart from "./DashboardChart.svelte";
 
-    export let distinct_visitor_count_by_date;
+    let { distinct_visitor_count_by_date } = $props();
 
     let data = {
         labels: distinct_visitor_count_by_date.data.map(

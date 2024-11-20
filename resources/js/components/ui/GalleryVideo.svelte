@@ -1,37 +1,58 @@
 <script>
+    import { run, preventDefault, stopPropagation } from 'svelte/legacy';
+
     import { fade, fly } from "svelte/transition";
     import { onMount } from "svelte";
     import { AspectRatio } from "bits-ui";
     import { ChevronLeft } from "lucide-svelte";
-    export let preview_src = null;
-    export let thumbnail_src = null;
-    export let alt = "";
-    /** @type {string|null} */
-    export let selected_id;
-    export let this_id = "";
-    export let href = "";
-    export let poster_src = "";
-    export let title = "";
-    export let year = "";
-    let poster_shown = false;
+    
+    /**
+     * @typedef {Object} Props
+     * @property {any} [preview_src]
+     * @property {any} [thumbnail_src]
+     * @property {string} [alt]
+     * @property {string|null} selected_id
+     * @property {string} [this_id]
+     * @property {string} [href]
+     * @property {string} [poster_src]
+     * @property {string} [title]
+     * @property {string} [year]
+     */
+
+    /** @type {Props & { [key: string]: any }} */
+    let {
+        preview_src = null,
+        thumbnail_src = null,
+        alt = "",
+        selected_id,
+        this_id = "",
+        href = "",
+        poster_src = "",
+        title = "",
+        year = "",
+        ...rest
+    } = $props();
+    let poster_shown = $state(false);
     let screensize_md = 768;
-    let innerWidth = 0;
-    let menubar_height = 0;
+    let innerWidth = $state(0);
+    let menubar_height = $state(0);
     let duration = preview_src ? 100 : 0;
-    $: focused = this_id === selected_id;
-    $: poster_shown = focused && poster_shown;
+    let focused = $derived(this_id === selected_id);
+    run(() => {
+        poster_shown = focused && poster_shown;
+    });
 </script>
 
 <svelte:window bind:innerWidth />
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
     class="{focused
         ? 'scale-[104%] md:scale-[102%]'
         : ''} transition-all duration-300 w-full h-full"
 >
     <div
-        class="w-full h-full overflow-hidden relative bg-black {$$restProps.class}"
+        class="w-full h-full overflow-hidden relative bg-black {rest.class}"
     >
         {#if focused && preview_src}
             <div
@@ -83,8 +104,8 @@
             <button
                 transition:fly={{ x: 50 }}
                 class="absolute top-[15%] transition-all hover:pr-4 right-0 bg-black/80 rounded-tl-2xl rounded-bl-2xl p-2 z-10 block"
-                on:click|preventDefault|stopPropagation={() =>
-                    (poster_shown = true)}
+                onclick={stopPropagation(preventDefault(() =>
+                    (poster_shown = true)))}
             >
                 <ChevronLeft class="w-6 h-6" />
             </button>
@@ -93,8 +114,8 @@
         {#if focused && poster_src && poster_shown}
             <button
                 class="w-1/3 p-4 z-10 hover:cursor-pointer block absolute right-0 top-0"
-                on:click|preventDefault|stopPropagation={() =>
-                    (poster_shown = false)}
+                onclick={stopPropagation(preventDefault(() =>
+                    (poster_shown = false)))}
                 transition:fly={{ x: 100 }}
             >
                 <AspectRatio.Root ratio={707 / 1000}>

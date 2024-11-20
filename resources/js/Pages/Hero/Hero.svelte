@@ -1,8 +1,10 @@
-<script context="module">
+<script module>
     export { default as layout } from "./Layout.svelte";
 </script>
 
 <script>
+    import { run } from 'svelte/legacy';
+
     import { Link } from "@inertiajs/svelte";
     import { AspectRatio } from "bits-ui";
     import * as Carousel from "$lib/components/ui/carousel";
@@ -13,8 +15,10 @@
     import { fade } from "svelte/transition";
     import TheSubtitle from "$lib/components/ui/TheSubtitle.svelte";
     import { Button as button } from "$lib/components/ui/button";
+    import { onMount } from "svelte";
 
-    export let videos;
+    let { videos } = $props();
+
 
     const autoscroll = AutoScroll({
         speed: 0.3,
@@ -25,25 +29,27 @@
     /**
      * @type {number}
      */
-    let autoplay_resume_timeout_id = 0;
-    let carousel_hovered = false;
+    let autoplay_resume_timeout_id = $state(0);
+    let carousel_hovered = $state(false);
     /**
      * @type {any}
      */
-    let carousel_api;
+    let carousel_api = $state();
 
-    let innerWidth = 0;
+    let innerWidth = $state(0);
     /**
      * @type {number}
      */
-    let innerHeight = 0;
-    let scrollY = 0;
-    let window_scrolled = false;
+    let innerHeight = $state(0);
+    let scrollY = $state(0);
+    let window_scrolled = $state(false);
     let screensize_md = 768;
-    $: if (scrollY && !window_scrolled) {
-        window_scrolled = true;
-    }
-    let arrows_shown = false;
+    run(() => {
+        if (scrollY && !window_scrolled) {
+            window_scrolled = true;
+        }
+    });
+    let arrows_shown = $state(false);
 
     setTimeout(() => (arrows_shown = true), 4000);
     let carousel_opts = {
@@ -52,22 +58,24 @@
     };
     let autoscroll_resume_delay = 3000;
 
-    $: if (carousel_api) {
-        // Stop scroll on mobile touch down
-        carousel_api.on("pointerDown", () => {
-            autoscroll.stop();
-            clearTimeout(autoplay_resume_timeout_id);
-        });
+    onMount(() => {
+        if (carousel_api) {
+            // Stop scroll on mobile touch down
+            carousel_api.on("pointerDown", () => {
+                autoscroll.stop();
+                clearTimeout(autoplay_resume_timeout_id);
+            });
 
-        // Resume scroll on mobile touch up
-        carousel_api.on("pointerUp", () => {
-            if (!carousel_hovered)
-                autoplay_resume_timeout_id = setTimeout(
-                    () => autoscroll.play(),
-                    autoscroll_resume_delay,
-                );
-        });
-    }
+            // Resume scroll on mobile touch up
+            carousel_api.on("pointerUp", () => {
+                if (!carousel_hovered)
+                    autoplay_resume_timeout_id = setTimeout(
+                        () => autoscroll.play(),
+                        autoscroll_resume_delay,
+                    );
+            });
+        }
+    });
 </script>
 
 <svelte:head>
@@ -137,13 +145,13 @@
                 : ''} transition duration-300"
         >
             <Carousel.Root
-                on:mouseleave={() =>
+                setApi={(emblaApi) => (carousel_api = emblaApi)}
+                onmouseleave={() =>
                     (autoplay_resume_timeout_id = setTimeout(
                         () => autoscroll.play(),
                         autoscroll_resume_delay,
                     ))}
-                on:mouseenter={() => clearTimeout(autoplay_resume_timeout_id)}
-                bind:api={carousel_api}
+                onmouseenter={() => clearTimeout(autoplay_resume_timeout_id)}
                 plugins={[autoscroll]}
                 opts={carousel_opts}
                 class="w-auto max-w-full mx-auto overflow-visible"
@@ -157,11 +165,11 @@
                                 width={innerWidth < screensize_md ? 16 : 24}
                             />
                             <div class="overflow-visible">
-                                <!-- svelte-ignore a11y-no-static-element-interactions -->
+                                <!-- svelte-ignore a11y_no_static_element_interactions -->
                                 <div
-                                    on:mouseenter={() =>
+                                    onmouseenter={() =>
                                         (carousel_hovered = true)}
-                                    on:mouseleave={() =>
+                                    onmouseleave={() =>
                                         (carousel_hovered = false)}
                                     class="p-1 w-48 md:w-72 bg-black overflow-visible"
                                 >

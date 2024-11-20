@@ -1,5 +1,9 @@
-<script>
-    export let width = 24;
+<script lang="ts">
+    interface Props {
+        width?: number;
+    }
+
+    let { width = 24 }: Props = $props();
 </script>
 
 <div

@@ -5,11 +5,10 @@
     /**
      * @type {HTMLCanvasElement}
      */
-    let canvas;
+    let canvas = $state();
 
-    export let type;
     let ctx;
-    export let options = {
+    let { type, options = {
         plugins: {
             legend: {
                 display: false,
@@ -30,8 +29,7 @@
                 },
             },
         },
-    };
-    export let data;
+    }, data } = $props();
 
     onMount(async function () {
         ctx = canvas.getContext("2d");
@@ -46,5 +44,5 @@
 </script>
 
 <div class="w-full h-full">
-    <canvas bind:this={canvas} />
+    <canvas bind:this={canvas}></canvas>
 </div>

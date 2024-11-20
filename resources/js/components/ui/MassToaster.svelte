@@ -1,4 +1,6 @@
 <script>
+    import { run } from 'svelte/legacy';
+
     import { Toaster } from "$lib/components/ui/sonner";
     import { toast } from "svelte-sonner";
     import { page } from "@inertiajs/svelte";
@@ -18,7 +20,9 @@
         }
     }
 
-    $: process($page.props);
+    run(() => {
+        process($page.props);
+    });
 </script>
 
 <Toaster richColors theme="dark" />

@@ -1,8 +1,10 @@
-<script context="module">
+<script module>
     export { default as layout } from "./Layout.svelte";
 </script>
 
 <script>
+    import { run, preventDefault } from 'svelte/legacy';
+
     import { useForm, page } from "@inertiajs/svelte";
     import { Toaster, toast } from "svelte-sonner";
     import { Input } from "$lib/components/ui/input";
@@ -27,13 +29,15 @@
         }
     }
 
-    $: processRefresh($page.props);
+    run(() => {
+        processRefresh($page.props);
+    });
 </script>
 
 <Toaster theme="dark" richColors />
 
 <main class="max-w-screen-lg mx-auto p-4">
-    <form on:submit|preventDefault={handleSubmit}>
+    <form onsubmit={preventDefault(handleSubmit)}>
         <Card.Root class="w-[350px] mx-auto">
             <Card.Header>
                 <Card.Title>Login</Card.Title>

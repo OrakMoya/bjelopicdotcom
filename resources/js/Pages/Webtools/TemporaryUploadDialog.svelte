@@ -1,4 +1,6 @@
 <script>
+    import { preventDefault } from "svelte/legacy";
+
     import Resumable from "resumablejs";
     import { router, page } from "@inertiajs/svelte";
     import DatePicker from "$lib/components/ui/datepicker/DatePicker.svelte";
@@ -16,7 +18,7 @@
     const headers = new Headers();
     const screensize_md = 768;
 
-    let innerWidth = 0;
+    let innerWidth = $state(0);
 
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
@@ -24,26 +26,28 @@
         headers.append("X-CSRF-TOKEN", csrf_token);
     }
 
-    let formData = {
+    let formData = $state({
         expiry_date: today(getLocalTimeZone()).add({ days: 1 }),
         expiry_hours: 12,
         expiry_minutes: 0,
         expiry_seconds: 0,
         expires: true,
         resumable_identifier: null,
-    };
-
-    let resumable = new Resumable({
-        target: "/webtools/uploads/upload",
-        query: {
-            _token: csrf_token,
-            temporaryUploadId: null,
-        },
-        chunkSize: 10 * 1024 * 1024,
     });
 
-    let progress = 0.0;
-    let uploading = false;
+    let resumable = $state(
+        new Resumable({
+            target: "/webtools/uploads/upload",
+            query: {
+                _token: csrf_token,
+                temporaryUploadId: null,
+            },
+            chunkSize: 10 * 1024 * 1024,
+        }),
+    );
+
+    let progress = $state(0.0);
+    let uploading = $state(false);
 
     async function processSubmit() {
         let processedFormData = formData;
@@ -79,7 +83,11 @@
         }
     }
     let datePicker;
-    let dialogOpen = false;
+    let dialogOpen = $state(false);
+
+    $effect(() => {
+        $inspect(uploading);
+    });
 </script>
 
 <svelte:window bind:innerWidth />
@@ -87,22 +95,22 @@
 <div class="flex flex-col mb-4">
     {#if innerWidth < screensize_md}
         <Dialog.Root bind:open={dialogOpen}>
-            <Dialog.Trigger asChild let:builder>
-                {#if !uploading}
-                    <Button builders={[builder]} disabled={uploading}>
-                        Upload
-                    </Button>
-                {:else}
-                    <div
-                        class="flex px-4 py-2 items-center text-sm justify-center bg-neutral-500 text-black rounded-md relative overflow-clip h-10"
-                    >
+            <Dialog.Trigger>
+                {#snippet children()}
+                    {#if !uploading}
+                        <Button disabled={uploading}>Upload</Button>
+                    {:else}
                         <div
-                            class="absolute bottom-0 left-0 h-full bg-white opacity-100 transition-all duration-500"
-                            style="width: {progress * 100}%;"
-                        ></div>
-                        <span class="z-10"> Uploading </span>
-                    </div>
-                {/if}
+                            class="flex px-4 py-2 items-center text-sm justify-center bg-neutral-500 text-black rounded-md relative overflow-clip h-10"
+                        >
+                            <div
+                                class="absolute bottom-0 left-0 h-full bg-white opacity-100 transition-all duration-500"
+                                style="width: {progress * 100}%;"
+                            ></div>
+                            <span class="z-10"> Uploading </span>
+                        </div>
+                    {/if}
+                {/snippet}
             </Dialog.Trigger>
             <Dialog.Content>
                 <Dialog.Header>
@@ -110,14 +118,17 @@
                 </Dialog.Header>
                 <form
                     class="flex flex-col items-left md:items-center gap-x-4 gap-y-2 mb-1}"
-                    on:submit|preventDefault={processSubmit}
+                    onsubmit={preventDefault(processSubmit)}
                 >
                     <Input
                         type="file"
                         disabled={uploading}
-                        on:input={(e) => {
+                        onchange={(e) => {
+                            console.log("gas");
+                            if(!e) return;
                             resumable.files = [];
                             resumable.addFile(e.target.files[0]);
+                            console.log(resumable.files.length);
                         }}
                     />
                     <div class="flex items-center gap-x-2">
@@ -165,7 +176,7 @@
     <div class={innerWidth < screensize_md ? "hidden" : ""}>
         <form
             class="flex items-center gap-x-4 mb-1}"
-            on:submit|preventDefault={processSubmit}
+            onsubmit={preventDefault(processSubmit)}
         >
             <Input
                 type="file"

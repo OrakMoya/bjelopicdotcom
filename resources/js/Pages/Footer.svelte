@@ -6,8 +6,8 @@
     import FooterInfoLinks from "./FooterInfoLinks.svelte";
     import FooterSocials from "./FooterSocials.svelte";
 
-    let innerWidth = 0;
-    let innerHeight = 0;
+    let innerWidth = $state(0);
+    let innerHeight = $state(0);
     let md = 768;
 </script>
 

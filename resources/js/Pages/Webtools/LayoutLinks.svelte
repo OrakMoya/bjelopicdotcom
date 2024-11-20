@@ -1,14 +1,23 @@
-<script>
+<script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import NavLink from "$lib/components/ui/NavLink.svelte";
     import { SquareArrowOutUpRight } from "lucide-svelte";
     import {page} from '@inertiajs/svelte';
+    interface Props {
+        [key: string]: any
+    }
+
+    let { ...rest }: Props = $props();
 
 
-    let show_telescope = false;
-    $: show_telescope = $page.props.show_telescope;
+    let show_telescope = $state(false);
+    run(() => {
+        show_telescope = $page.props.show_telescope;
+    });
 </script>
 
-<div class="flex flex-col text-2xl gap-y-2 {$$restProps.class} h-full">
+<div class="flex flex-col text-2xl gap-y-2 {rest.class} h-full">
     <NavLink href="/"
         ><span class="flex items-baseline"
             >Website<SquareArrowOutUpRight

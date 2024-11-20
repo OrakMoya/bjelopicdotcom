@@ -1,33 +1,52 @@
-<script>
+<script lang="ts">
+    import { run, preventDefault, stopPropagation } from 'svelte/legacy';
+
     import Header from "./Header.svelte";
     import LayoutLinks from "./LayoutLinks.svelte";
     import { Menu } from "lucide-svelte";
     import { fly, fade, scale } from "svelte/transition";
     import { page } from "@inertiajs/svelte";
     import MassToaster from "$lib/components/ui/MassToaster.svelte";
+    interface Props {
+        children?: import('svelte').Snippet;
+    }
+
+    let { children }: Props = $props();
     let screensize_xl = 1280;
     let screensize_md = 768;
     let screensize_sm = 640;
-    let innerWidth = 0;
-    let innerHeight = 0;
-    let menubar_open = false;
-    $: if (innerWidth > screensize_xl) menubar_open = false;
-    let menubar_width = 0;
-    let header_height = 0;
-    let effective_header_height = header_height;
-    let menubar_height = 0;
-    let append_absolute = false;
-    let scrollY = 0;
-    let logged_in = $page.props.logged_in;
+    let innerWidth = $state(0);
+    let innerHeight = $state(0);
+    let menubar_open = $state(false);
+    run(() => {
+        if (innerWidth > screensize_xl) menubar_open = false;
+    });
+    let menubar_width = $state(0);
+    let header_height = $state(0);
+    let effective_header_height = $state(header_height);
+    let menubar_height = $state(0);
+    let append_absolute = $state(false);
+    let scrollY = $state(0);
+    let logged_in = $state($page.props.logged_in);
 
     const anim_duration = 300;
-    let duration = anim_duration;
-    $: duration = innerWidth < screensize_xl ? anim_duration : 0;
-    $: logged_in = $page.props.logged_in;
-    $: menubar_open = menubar_open && logged_in;
-    $: append_absolute = innerWidth < screensize_xl ? append_absolute : false;
-    $: effective_header_height =
-        header_height - scrollY < 0 ? 0 : header_height - scrollY;
+    let duration = $state(anim_duration);
+    run(() => {
+        duration = innerWidth < screensize_xl ? anim_duration : 0;
+    });
+    run(() => {
+        logged_in = $page.props.logged_in;
+    });
+    run(() => {
+        menubar_open = menubar_open && logged_in;
+    });
+    run(() => {
+        append_absolute = innerWidth < screensize_xl ? append_absolute : false;
+    });
+    run(() => {
+        effective_header_height =
+            header_height - scrollY < 0 ? 0 : header_height - scrollY;
+    });
 </script>
 
 {#if menubar_open}
@@ -53,22 +72,22 @@
                 <button
                     transition:fade={{ duration: anim_duration }}
                     class="mx-4"
-                    on:click|preventDefault|stopPropagation={() => {
+                    onclick={stopPropagation(preventDefault(() => {
                         menubar_open = !menubar_open;
-                    }}><Menu class="w-8 h-8" /></button
+                    }))}><Menu class="w-8 h-8" /></button
                 >
             {/if}
         </Header>
         <div>
             {#if menubar_open}
-                <!-- svelte-ignore a11y-interartive-supports-focus -->
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <!-- svelte-ignore a11y-no-static-element-interactions -->
+                <!-- svelte-ignore a11y_interartive_supports_focus -->
+                <!-- svelte-ignore a11y_click_events_have_key_events -->
+                <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <div
                     transition:fade={{ duration: 300 }}
                     class="w-screen h-screen fixed bg-black/80 z-30 top-0"
-                    on:click={() => (menubar_open = false)}
-                />
+                    onclick={() => (menubar_open = false)}
+></div>
             {/if}
 
             {#if innerWidth < screensize_md && menubar_open}
@@ -152,16 +171,16 @@
                         style="top: 0px;"
                         in:fly={{ y: innerHeight, duration: duration }}
                         out:fade={{ delay: duration, duration: 0 }}
-                        on:introstart={() => {
+                        onintrostart={() => {
                             append_absolute = true;
                         }}
-                        on:introend={() => {
+                        onintroend={() => {
                             append_absolute = false;
                         }}
-                        on:outrostart={() => (append_absolute = true)}
-                        on:outroend={() => (append_absolute = false)}
+                        onoutrostart={() => (append_absolute = true)}
+                        onoutroend={() => (append_absolute = false)}
                     >
-                        <slot />
+                        {@render children?.()}
                     </div>
                 {/key}
             </div>
