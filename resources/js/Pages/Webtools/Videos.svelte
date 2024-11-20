@@ -3,8 +3,6 @@
 </script>
 
 <script>
-    import { preventDefault, stopPropagation } from 'svelte/legacy';
-
     import { BadgeXIcon, EyeIcon, PlusIcon, TrashIcon } from "lucide-svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Dialog from "$lib/components/ui/dialog";
@@ -27,13 +25,14 @@
     import * as Command from "$lib/components/ui/command";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import { Checkbox } from "$lib/components/ui/checkbox";
+    import { tick } from "svelte";
+    /** @import {GalleryVideoProps} from "$lib/types" */
 
-    
     /**
      * @typedef {Object} Props
-     * @property {any[]} videos
-     * @property {any} collections
-     * @property {any} available_roles
+     * @property {GalleryVideoProps[]} videos
+     * @property {string[]} collections
+     * @property {{id: number; role: string;}[]} available_roles
      */
 
     /** @type {Props} */
@@ -44,27 +43,29 @@
     let new_collection_open = $state(false);
     let new_collection_name = $state("");
     /**
-     * @type {{ thumbnail_url: string | null | undefined; preview_url: string | null | undefined; poster_url: string | null | undefined; id: number; } | null}
+     * @type {GalleryVideoProps | null}
      */
-    let currently_edited_video = $state();
+    let currently_edited_video = $state(null);
     let deleteVideoDialogOpen = $state(false);
 
-    let new_video_form = useForm({
-        id: null,
-        title: null,
-        description: null,
-        subject: null,
-        poster: null,
-        poster_deleted: false,
-        preview: null,
-        preview_deleted: false,
-        thumbnail: null,
-        link: null,
-        publication_date: null,
-        collection: "",
-        category: null,
-        roles: [],
-    });
+    let new_video_form = useForm(
+        /** @type {GalleryVideoProps} */ {
+            /** @type {number|null} */ id: null,
+            /** @type {string|null} */ title: null,
+            /** @type {string|null} */ description: null,
+            /** @type {string|null} */ subject: null,
+            /** @type {string|null} */ poster: null,
+            /** @type {boolean} */ poster_deleted: false,
+            /** @type {string|null} */ preview: null,
+            /** @type {boolean} */ preview_deleted: false,
+            /** @type {string|null} */ thumbnail: null,
+            /** @type {string|null} */ link: null,
+            /** @type {any} */ publication_date: null,
+            /** @type {string|null} */ collection: "",
+            /** @type {string|null} */ category: null,
+            /** @type {string[]} */ roles: [],
+        },
+    );
 
     const df = new DateFormatter("en-US", {
         dateStyle: "long",
@@ -78,7 +79,10 @@
         }
         if (currently_edited_video) {
             $new_video_form
-                .transform((/** @type {any} */ data) => ({ ...data, _method: "patch" }))
+                .transform((/** @type {any} */ data) => ({
+                    ...data,
+                    _method: "patch",
+                }))
                 .post("/webtools/videos/" + currently_edited_video.id, {
                     onSuccess: () => (new_video_dialog_open = false),
                 });
@@ -101,13 +105,13 @@
         }
     }
 
-    /**
-     * @param {string} triggerId
-     */
-    function closeAndFocusTrigger(triggerId) {
-        collections_open = false;
+    let collectionPopoverOpen = $state(false);
+    /** @type {HTMLButtonElement|null} */
+    let triggerRef = $state(null);
+    function closeAndFocusTrigger() {
+        collectionPopoverOpen = false;
         tick().then(() => {
-            document.getElementById(triggerId)?.focus();
+            triggerRef?.focus();
         });
     }
 
@@ -115,8 +119,14 @@
      * @param {number|null} id
      */
     function assignVideoFormValues(id) {
+        $new_video_form.reset();
         if (id) {
-            let video = videos.find((element) => element.id === id);
+            let video = videos.find((element) => element.id === id) ?? null;
+            if (!video) {
+                location.reload();
+                return;
+            }
+
             currently_edited_video = video;
             $new_video_form.id = video.id;
             $new_video_form.title = video.title;
@@ -129,17 +139,6 @@
             );
             $new_video_form.collection = video.collection;
             $new_video_form.roles = video.roles;
-        } else {
-            currently_edited_video = null;
-            $new_video_form.id = null;
-            $new_video_form.category = null;
-            $new_video_form.title = null;
-            $new_video_form.description = null;
-            $new_video_form.subject = null;
-            $new_video_form.link = null;
-            $new_video_form.publication_date = null;
-            $new_video_form.collection = null;
-            $new_video_form.roles = [];
         }
         $new_video_form.poster = null;
         $new_video_form.poster_deleted = false;
@@ -157,7 +156,12 @@
     <!-- New/edit video dialog -->
     <div class="flex justify-end">
         <Dialog.Root bind:open={new_video_dialog_open}>
-            <form onsubmit={preventDefault(processSubmit)}>
+            <form
+                onsubmit={(e) => {
+                    e.preventDefault();
+                    processSubmit();
+                }}
+            >
                 <Dialog.Content>
                     <Dialog.Header>
                         <Dialog.Title class="text-2xl">
@@ -222,10 +226,10 @@
                                 >Publication date*</Label
                             ><br />
 
-                            <Popover.Root openFocus>
-                                <Popover.Trigger asChild >
-                                    {#snippet children({ builder })}
-                                                                        <Button
+                            <Popover.Root>
+                                <Popover.Trigger>
+                                    {#snippet children()}
+                                        <Button
                                             variant="outline"
                                             class={cn(
                                                 "w-[280px] justify-start text-left font-normal",
@@ -233,9 +237,10 @@
                                                     "text-muted-foreground",
                                             )}
                                             id="new-video-publication-date"
-                                            builders={[builder]}
                                         >
-                                            <CalendarIcon class="mr-2 h-4 w-4" />
+                                            <CalendarIcon
+                                                class="mr-2 h-4 w-4"
+                                            />
                                             {$new_video_form.publication_date
                                                 ? df.format(
                                                       $new_video_form.publication_date.toDate(
@@ -244,10 +249,11 @@
                                                   )
                                                 : "Select a date"}
                                         </Button>
-                                                                                                        {/snippet}
-                                                                </Popover.Trigger>
+                                    {/snippet}
+                                </Popover.Trigger>
                                 <Popover.Content class="w-auto p-0">
                                     <Calendar
+                                        type="single"
                                         bind:value={$new_video_form.publication_date}
                                         initialFocus
                                     />
@@ -262,7 +268,7 @@
                                 bind:value={$new_video_form.link}
                             />
 
-                            <Accordion.Root multiple class="mt-4">
+                            <Accordion.Root type="multiple" class="mt-4">
                                 <!-- Assign category -->
                                 <Accordion.Item
                                     value="collections"
@@ -276,17 +282,12 @@
                                             class="flex gap-x-2 align-middle items-center"
                                         >
                                             <Popover.Root
-                                                bind:open={collections_open}
-                                                
+                                                bind:open={collectionPopoverOpen}
                                             >
-                                                {#snippet children({ ids })}
-                                                                                                <Popover.Trigger
-                                                        asChild
-                                                        
-                                                    >
-                                                        {#snippet children({ builder })}
-                                                                                                        <Button
-                                                                builders={[builder]}
+                                                {#snippet children({})}
+                                                    <Popover.Trigger>
+                                                        {#snippet children({})}
+                                                            <Button
                                                                 variant="outline"
                                                                 role="combobox"
                                                                 aria-expanded={collections_open}
@@ -298,8 +299,8 @@
                                                                     ? $new_video_form.collection
                                                                     : "Select"}
                                                             </Button>
-                                                                                                                                                            {/snippet}
-                                                                                                </Popover.Trigger>
+                                                        {/snippet}
+                                                    </Popover.Trigger>
                                                     <Popover.Content
                                                         class="w-[222px] p-0"
                                                     >
@@ -315,14 +316,10 @@
                                                                 {#each collections as collection}
                                                                     <Command.Item
                                                                         value={collection}
-                                                                        onSelect={(
-                                                                            currentValue,
-                                                                        ) => {
+                                                                        onSelect={() => {
                                                                             $new_video_form.collection =
-                                                                                currentValue;
-                                                                            closeAndFocusTrigger(
-                                                                                ids.trigger,
-                                                                            );
+                                                                                collection;
+                                                                            closeAndFocusTrigger();
                                                                         }}
                                                                         >{collection}</Command.Item
                                                                     >
@@ -330,12 +327,12 @@
                                                             </Command.Group>
                                                         </Command.Root>
                                                     </Popover.Content>
-                                                                                                                                            {/snippet}
-                                                                                        </Popover.Root>
+                                                {/snippet}
+                                            </Popover.Root>
                                             {#if $new_video_form.collection}
                                                 <Button
                                                     variant="destructive"
-                                                    on:click={() =>
+                                                    onclick={() =>
                                                         ($new_video_form.collection =
                                                             null)}
                                                     ><BadgeXIcon
@@ -348,30 +345,24 @@
                                                 bind:open={new_collection_open}
                                             >
                                                 <Popover.Trigger
-                                                    asChild
-                                                    
+                                                    bind:ref={triggerRef}
                                                 >
-                                                    {#snippet children({ builder })}
-                                                                                                        <Button
+                                                    {#snippet children()}
+                                                        <Button
                                                             variant="outline"
-                                                            builders={[builder]}
                                                             ><PlusIcon
                                                                 class="w-4 h-4"
                                                             /></Button
                                                         >
-                                                                                                                                                        {/snippet}
-                                                                                                </Popover.Trigger>
+                                                    {/snippet}
+                                                </Popover.Trigger>
                                                 <Popover.Content
                                                     class="drop-shadow-md"
                                                 >
                                                     <form
                                                         class="flex gap-x-2"
-                                                        disabled={collections.find(
-                                                            (element) =>
-                                                                element ===
-                                                                new_collection_name,
-                                                        )}
-                                                        onsubmit={preventDefault(() => {
+                                                        onsubmit={(e) => {
+                                                            e.preventDefault();
                                                             collections.push(
                                                                 new_collection_name,
                                                             );
@@ -379,8 +370,8 @@
                                                             $new_video_form.collection =
                                                                 new_collection_name;
                                                             new_collection_name =
-                                                                null;
-                                                        })}
+                                                                "";
+                                                        }}
                                                     >
                                                         <Input
                                                             type="text"
@@ -392,7 +383,8 @@
                                                                 (element) =>
                                                                     element ===
                                                                     new_collection_name,
-                                                            )}>Add</Button
+                                                            ) != undefined}
+                                                            >Add</Button
                                                         >
                                                     </form>
                                                 </Popover.Content>
@@ -524,12 +516,11 @@
                                                     : URL.createObjectURL(
                                                           $new_video_form.preview,
                                                       )}
-                                                alt="New video thumbnail"
                                                 controls
-></video>
+                                            ></video>
                                             <Button
                                                 class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity "
-                                                on:click={(e) => {
+                                                onclick={(e) => {
                                                     $new_video_form.preview =
                                                         null;
                                                     $new_video_form.preview_deleted = true;
@@ -579,7 +570,7 @@
                                         />
                                         <Button
                                             class="absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
-                                            on:click={(e) => {
+                                            onclick={(e) => {
                                                 $new_video_form.poster = null;
                                                 $new_video_form.poster_deleted = true;
                                                 e.preventDefault();
@@ -599,24 +590,19 @@
                         <div
                             class="flex justify-between flex-row-reverse w-full"
                         >
-                            <Button on:click={processSubmit}>Save</Button>
+                            <Button onclick={processSubmit}>Save</Button>
                             {#if currently_edited_video}
                                 <div>
                                     <AlertDialog.Root
                                         bind:open={deleteVideoDialogOpen}
                                     >
-                                        <AlertDialog.Trigger
-                                            asChild
-                                            
-                                        >
-                                            {#snippet children({ builder })}
-                                                                                        <Button
-                                                    builders={[builder]}
-                                                    variant="destructive"
+                                        <AlertDialog.Trigger>
+                                            {#snippet children({})}
+                                                <Button variant="destructive"
                                                     >Delete</Button
                                                 >
-                                                                                                                                {/snippet}
-                                                                                </AlertDialog.Trigger>
+                                            {/snippet}
+                                        </AlertDialog.Trigger>
                                         <AlertDialog.Content>
                                             <AlertDialog.Header>
                                                 <AlertDialog.Title
@@ -628,18 +614,12 @@
                                                     >Cancel</AlertDialog.Cancel
                                                 >
                                                 <AlertDialog.Action
-                                                    asChild
-                                                    
+                                                    type="button"
+                                                    onclick={processDelete}
+                                                    class="bg-destructive text-destructive-foreground hover:bg-destructive hover:brightness-90 transition"
                                                 >
-                                                    {#snippet children({ builder })}
-                                                                                                        <Button
-                                                            on:click={processDelete}
-                                                            builders={[builder]}
-                                                            variant="destructive"
-                                                            >Delete</Button
-                                                        >                                                                                                    {/snippet}
-                                                                                                </AlertDialog.Action
-                                                >
+                                                    Delete
+                                                </AlertDialog.Action>
                                             </AlertDialog.Footer>
                                         </AlertDialog.Content>
                                     </AlertDialog.Root>
@@ -701,7 +681,7 @@
                             <a
                                 href={video.link}
                                 target="_blank"
-                                onclick={stopPropagation(() => {})}
+                                onclick={(e) => e.stopPropagation()}
                                 class="mr-1"
                                 ><EyeIcon
                                     class="w-6 h-6 text-neutral-500 hover:text-white transition"

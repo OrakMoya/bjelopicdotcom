@@ -1,13 +1,19 @@
-<script lang="ts">
+<script>
     import GalleryVideo from "$lib/components/ui/GalleryVideo.svelte";
     import TheBjeloPIC from "$lib/components/ui/TheBjeloPIC.svelte";
     import { AspectRatio } from "bits-ui";
     import GalleryVideoDescription from "./GalleryVideoDescription.svelte";
+    /** @import {GalleryVideoProps} from "$lib/types" */
 
+    /**
+     * @typedef {Object} Props
+     * @prop {{collection: string; videos: GalleryVideoProps[] }[]} by_collection
+     */
+
+    /** @type Props */
     let { by_collection } = $props();
     const params = new URLSearchParams(window.location.search);
     const focus = params.get("focus");
-    console.log(focus);
     let innerHeight = $state(0);
 
     let selected_video_uuid = $state(focus);
@@ -29,6 +35,19 @@
             }
         }
     });
+
+    /**
+     * @param {GalleryVideoProps[]} videos
+     * @returns {Set<string>}
+     */
+    function getUniqueRoles(videos) {
+        console.log(videos);
+        let set = new Set();
+        videos.forEach((video) => {
+            video.roles.forEach((role) => set.add(role));
+        });
+        return set;
+    }
 </script>
 
 <svelte:head>
@@ -48,6 +67,7 @@
         <div class="max-w-screen-xl mx-auto px-4">
             {#if collection.videos[0].collection}
                 {@const firstVideo = collection.videos[0]}
+                {@const uniqueRoles = getUniqueRoles(collection.videos)}
                 <div
                     class="flex w-full justify-center items-center gap-x-4 mx-auto transition-all duration-500 drop-shadow"
                 >
@@ -64,7 +84,7 @@
                     ></div>
                 </div>
                 <div
-                    class="flex justify-center mb-2 text-lg lg:text-xl text-bjelopic-blue-1 font-semibold"
+                    class="flex justify-center mb-2 text-lg lg:text-xl font-semibold"
                 >
                     {#if firstVideo.subject === "BjeloPIC"}
                         <TheBjeloPIC />
@@ -72,17 +92,19 @@
                         {firstVideo.subject}
                     {/if}
                 </div>
-                <div
-                    class="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 mb-6"
-                >
-                    {#each firstVideo.roles as role}
-                        <div
-                            class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm lg:text-base px-1 py-[0.5px]"
-                        >
-                            <span class="drop-shadow">{role}</span>
-                        </div>
-                    {/each}
-                </div>
+                {#if uniqueRoles.size}
+                    <div
+                        class="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 mb-4"
+                    >
+                        {#each uniqueRoles as role}
+                            <div
+                                class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm lg:text-base px-1 py-[0.5px]"
+                            >
+                                <span class="drop-shadow">{role}</span>
+                            </div>
+                        {/each}
+                    </div>
+                {/if}
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4"
                     role="none"
@@ -191,9 +213,7 @@
                         <div
                             class="w-full basis-2/5 flex flex-col gap-y-1 justify-center md:justify-start drop-shadow mb-2 md:mb-0"
                         >
-                            <span
-                                class="text-bjelopic-blue-1 font-semibold text-2xl lg:text-3xl"
-                            >
+                            <span class="font-semibold text-2xl lg:text-3xl">
                                 {#if video.subject === "BjeloPIC"}
                                     <TheBjeloPIC />
                                 {:else}

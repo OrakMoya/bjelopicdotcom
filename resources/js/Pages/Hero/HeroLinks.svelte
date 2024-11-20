@@ -2,10 +2,10 @@
     import { Link } from "@inertiajs/svelte";
 </script>
 
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-1 text-sm sm:text-base">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-1 text-sm sm:text-base items-center">
     <a
         href="mailto:info@bjelopic.com"
-        class="px-4 py-2 rounded-xl bg-bjelopic-red-2 transition duration-300 text-white hover:bg-bjelopic-red-1 drop-shadow-md text-center"
+        class="px-4 py-2 rounded-xl bg-bjelopic-red-2 transition duration-300 text-white hover:bg-bjelopic-red-1 drop-shadow-md text-center text-base"
         ><span class="drop-shadow"> Kontaktirajte nas</span></a
     >
     <div class="grid grid-cols-2 gap-4 sm:col-span-2">

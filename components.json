@@ -2,9 +2,9 @@
 	"$schema": "https://next.shadcn-svelte.com/schema.json",
 	"style": "default",
 	"tailwind": {
-		"config": "tailwind.config.js",
-		"css": "resources/css/app.css",
-		"baseColor": "slate"
+		"config": "tailwind.config1.js",
+		"css": "resources/css/app1.css",
+		"baseColor": "neutral"
 	},
 	"aliases": {
 		"components": "$lib/components",

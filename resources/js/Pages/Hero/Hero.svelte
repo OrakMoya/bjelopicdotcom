@@ -9,11 +9,11 @@
     import TheSubtitle from "$lib/components/ui/TheSubtitle.svelte";
     import HeroCarousel from "./HeroCarousel.svelte";
     import HeroLinks from "./HeroLinks.svelte";
-    /** @import {HeroGalleryVideo} from "$lib/types" */
+    /** @import {HeroGalleryVideoProps} from "$lib/types" */
 
     /**
      * @typedef {object} Props
-     * @prop {HeroGalleryVideo[]} videos
+     * @prop {HeroGalleryVideoProps[]} videos
      */
 
     /** @type {Props} */
@@ -81,7 +81,7 @@
         <div class="basis-1/3 flex place-items-end">
             <div class="flex flex-col items-center">
                 <TheBjeloPic
-                    class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-4 sm:mb-6 text-center relative right-1"
+                    class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-4 sm:mb-6 text-center relative md:right-1 right-[2px]"
                 />
                 <div
                     class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3"
@@ -95,7 +95,7 @@
             </div>
         </div>
 
-            <HeroLinks />
+        <HeroLinks />
 
         <HeroCarousel {videos} />
     </section>
