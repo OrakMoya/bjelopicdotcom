@@ -26,6 +26,7 @@
         ></NavLink
     >
     <NavLink href="/webtools">Dashboard</NavLink>
+    <NavLink href="/webtools/hero">Hero</NavLink>
     <NavLink href="/webtools/videos">Videos</NavLink>
     <NavLink href="/webtools/uploads">File Upload</NavLink>
     {#if show_telescope}

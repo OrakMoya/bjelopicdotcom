@@ -49,7 +49,7 @@
     >
         <div class="brightness-50 w-full h-full object-cover">
             <video class="w-full h-full object-cover" autoplay loop muted>
-                <source src="/hero.webm" type="video/webm" />
+                <source src="/storage/hero.webm" type="video/webm" />
             </video>
         </div>
     </div>
