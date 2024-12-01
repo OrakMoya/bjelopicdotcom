@@ -17,6 +17,13 @@ class HeroController extends Controller
             $video->encodeURLs();
         }
 
-        return Inertia::render('Hero/Hero', ['videos' => $videos]);
+        return Inertia::render(
+            'Hero/Hero',
+            [
+                'videos' => $videos,
+                'heroUrl' =>
+                Storage::fileExists('public/hero.webm') ? Storage::url('public/hero.webm') : 'hero.webm'
+            ]
+        );
     }
 }

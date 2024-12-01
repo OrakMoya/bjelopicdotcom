@@ -17,7 +17,7 @@
      */
 
     /** @type {Props} */
-    let { videos } = $props();
+    let { videos, heroUrl } = $props();
 
     let innerWidth = $state(0);
     /**
@@ -49,7 +49,7 @@
     >
         <div class="brightness-50 w-full h-full object-cover">
             <video class="w-full h-full object-cover" autoplay loop muted>
-                <source src="/storage/hero.webm" type="video/webm" />
+                <source src={heroUrl} type="video/webm" />
             </video>
         </div>
     </div>
