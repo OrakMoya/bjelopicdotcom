@@ -4,7 +4,7 @@
 
 <script>
     import { Button } from "$lib/components/ui/button";
-    import { useForm } from "@inertiajs/svelte";
+    import { useForm, router } from "@inertiajs/svelte";
     import axios from "axios";
     import { ArrowUp } from "lucide-svelte";
 
@@ -19,7 +19,9 @@
      */
     function processSubmit(e) {
         e.preventDefault();
-        $form.post("/webtools/hero");
+        $form.post("/webtools/hero", {
+            onSuccess: () => location.reload(),
+        });
     }
 </script>
 
