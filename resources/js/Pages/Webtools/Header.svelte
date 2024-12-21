@@ -17,17 +17,12 @@
 
     let { clientHeight = $bindable(0), dontHide = false, children, ...rest }: Props = $props();
 
-    /**
-     * @param {number} scrollY
-     */
-    function setHeaderVisibility(scrollY) {
-        header_shown = innerWidth > screensize_md || scrollY < previous_scrollY;
+    function setHeaderVisibility(scrollY: number) {
+        header_shown = innerWidth > screensize_md || scrollY < previous_scrollY || scrollY == 0;
         previous_scrollY = scrollY;
     }
 
-    run(() => {
-        setHeaderVisibility(scrollY);
-    });
+    $effect(()=>setHeaderVisibility(scrollY));
 </script>
 
 <svelte:window bind:innerWidth bind:scrollY />

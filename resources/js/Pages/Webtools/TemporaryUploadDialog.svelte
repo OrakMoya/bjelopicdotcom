@@ -11,6 +11,8 @@
     import { Checkbox } from "$lib/components/ui/checkbox";
     import { Label } from "$lib/components/ui/label";
     import * as Dialog from "$lib/components/ui/dialog";
+    import { flushSync } from "svelte";
+    /** @import {CalendarDate, DateValue} from "@internationalized/date" */
 
     const csrf_token = document
         .querySelector('meta[name="csrf-token"]')
@@ -27,29 +29,39 @@
     }
 
     let formData = $state({
+        /** @type {string | CalendarDate | DateValue} */
         expiry_date: today(getLocalTimeZone()).add({ days: 1 }),
         expiry_hours: 12,
         expiry_minutes: 0,
         expiry_seconds: 0,
         expires: true,
+        /** @type {?string} */
         resumable_identifier: null,
     });
 
-    let resumable = $state(
-        new Resumable({
-            target: "/webtools/uploads/upload",
-            query: {
-                _token: csrf_token,
-                temporaryUploadId: null,
-            },
-            chunkSize: 10 * 1024 * 1024,
-        }),
-    );
+    let resumable = new Resumable({
+        target: "/webtools/uploads/upload",
+        query: {
+            _token: csrf_token ?? "",
+            temporaryUploadId: null,
+        },
+        chunkSize: 10 * 1024 * 1024,
+    });
+
+    /**
+     * @type {Resumable.ResumableFile[]}
+     */
+    let files = $state([]);
+    resumable.files = files;
 
     let progress = $state(0.0);
     let uploading = $state(false);
 
-    async function processSubmit() {
+    /**
+     * @param {SubmitEvent} e
+     */
+    async function processSubmit(e) {
+        e.preventDefault();
         let processedFormData = formData;
 
         processedFormData.expiry_date =
@@ -65,6 +77,7 @@
         });
         const response = await result.json();
         if (typeof response === "number") {
+            // @ts-ignore
             resumable.opts.query.temporaryUploadId = response;
             resumable.opts.target += "/" + response;
 
@@ -82,23 +95,34 @@
             toast.error(response.message);
         }
     }
-    let datePicker;
+
     let dialogOpen = $state(false);
 
     $effect(() => {
-        $inspect(uploading);
+        $inspect(files);
     });
 </script>
 
 <svelte:window bind:innerWidth />
 
-<div class="flex flex-col mb-4">
+<div class="flex flex-col">
+    <input
+        type="file"
+        class="hidden"
+        id="file-input-field"
+        onchange={(e) => {
+            let target = /** @type {HTMLInputElement}*/ (e.target);
+            if (!target.files) return;
+            resumable.files.length = 0;
+            resumable.addFile(target.files[0]);
+        }}
+    />
     {#if innerWidth < screensize_md}
         <Dialog.Root bind:open={dialogOpen}>
             <Dialog.Trigger>
-                {#snippet children()}
+                {#snippet child({ props })}
                     {#if !uploading}
-                        <Button disabled={uploading}>Upload</Button>
+                        <Button {...props} disabled={uploading}>Upload</Button>
                     {:else}
                         <div
                             class="flex px-4 py-2 items-center text-sm justify-center bg-neutral-500 text-black rounded-md relative overflow-clip h-10"
@@ -118,19 +142,13 @@
                 </Dialog.Header>
                 <form
                     class="flex flex-col items-left md:items-center gap-x-4 gap-y-2 mb-1}"
-                    onsubmit={preventDefault(processSubmit)}
+                    onsubmit={processSubmit}
                 >
-                    <Input
-                        type="file"
-                        disabled={uploading}
-                        onchange={(e) => {
-                            console.log("gas");
-                            if(!e) return;
-                            resumable.files = [];
-                            resumable.addFile(e.target.files[0]);
-                            console.log(resumable.files.length);
-                        }}
-                    />
+                    <label
+                        class="hover:bg-accent hover:cursor-pointer text-sm px-4 py-2 border border-accent rounded-md text-ellipsis overflow-hidden text-nowrap"
+                        for="file-input-field"
+                        >{files[0]?.fileName ?? "No file selected"}</label
+                    >
                     <div class="flex items-center gap-x-2">
                         <Checkbox
                             bind:checked={formData.expires}
@@ -154,7 +172,7 @@
                                 type="number"
                                 bind:value={formData.expiry_hours}
                                 class="w-28"
-                                on:input={() => {
+                                oninput={() => {
                                     formData.expiry_hours = Math.min(
                                         Math.max(formData.expiry_hours, 0),
                                         23,
@@ -165,8 +183,9 @@
                         </div>
                     </div>
                     <Dialog.Footer>
-                        <Button disabled={uploading} type="submit"
-                            >Submit</Button
+                        <Button
+                            disabled={!resumable.files.length || uploading}
+                            type="submit">Submit</Button
                         >
                     </Dialog.Footer>
                 </form>
@@ -175,17 +194,14 @@
     {/if}
     <div class={innerWidth < screensize_md ? "hidden" : ""}>
         <form
-            class="flex items-center gap-x-4 mb-1}"
-            onsubmit={preventDefault(processSubmit)}
+            class="flex justify-center items-center gap-x-4 mb-1}"
+            onsubmit={processSubmit}
         >
-            <Input
-                type="file"
-                disabled={uploading}
-                on:input={(e) => {
-                    resumable.files = [];
-                    resumable.addFile(e.target.files[0]);
-                }}
-            />
+            <label
+                class="hover:bg-accent hover:cursor-pointer text-sm px-4 py-2 border border-accent rounded-md text-ellipsis overflow-hidden text-nowrap"
+                for="file-input-field"
+                >{files[0]?.fileName ?? "No file selected"}</label
+            >
             <div class="flex items-center gap-x-2">
                 <Checkbox bind:checked={formData.expires} id="expires-box" />
                 <Label for="expires-box">Expires</Label>
@@ -201,7 +217,7 @@
                     type="number"
                     bind:value={formData.expiry_hours}
                     class="w-20"
-                    on:input={() => {
+                    oninput={() => {
                         formData.expiry_hours = Math.min(
                             Math.max(formData.expiry_hours, 0),
                             23,
@@ -210,7 +226,9 @@
                 />
             </div>
             {#if !uploading}
-                <Button type="submit" disabled={!resumable.files.length}
+                <Button
+                    type="submit"
+                    disabled={!resumable.files.length || uploading}
                     >Upload</Button
                 >
             {:else}

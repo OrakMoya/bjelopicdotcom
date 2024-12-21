@@ -227,8 +227,10 @@
                             ><br />
 
                             <Popover.Root>
-                                <Popover.Trigger>
-                                    {#snippet children()}
+                                <Popover.Trigger
+                                    id="new-video-publication-date"
+                                >
+                                    {#snippet child({ props })}
                                         <Button
                                             variant="outline"
                                             class={cn(
@@ -236,7 +238,7 @@
                                                 !$new_video_form.publication_date &&
                                                     "text-muted-foreground",
                                             )}
-                                            id="new-video-publication-date"
+                                            {...props}
                                         >
                                             <CalendarIcon
                                                 class="mr-2 h-4 w-4"
@@ -284,50 +286,49 @@
                                             <Popover.Root
                                                 bind:open={collectionPopoverOpen}
                                             >
-                                                {#snippet children({})}
-                                                    <Popover.Trigger>
-                                                        {#snippet children({})}
-                                                            <Button
-                                                                variant="outline"
-                                                                role="combobox"
-                                                                aria-expanded={collections_open}
-                                                                class="w-[222px] overflow-hidden justify-between {$new_video_form.collection
-                                                                    ? ''
-                                                                    : 'text-muted-foreground'}"
-                                                            >
-                                                                {$new_video_form.collection
-                                                                    ? $new_video_form.collection
-                                                                    : "Select"}
-                                                            </Button>
-                                                        {/snippet}
-                                                    </Popover.Trigger>
-                                                    <Popover.Content
-                                                        class="w-[222px] p-0"
-                                                    >
-                                                        <Command.Root>
-                                                            <Command.Input
-                                                                placeholder="Search collections..."
-                                                            />
-                                                            <Command.Empty
-                                                                >Collection not
-                                                                found.</Command.Empty
-                                                            >
-                                                            <Command.Group>
-                                                                {#each collections as collection}
-                                                                    <Command.Item
-                                                                        value={collection}
-                                                                        onSelect={() => {
-                                                                            $new_video_form.collection =
-                                                                                collection;
-                                                                            closeAndFocusTrigger();
-                                                                        }}
-                                                                        >{collection}</Command.Item
-                                                                    >
-                                                                {/each}
-                                                            </Command.Group>
-                                                        </Command.Root>
-                                                    </Popover.Content>
-                                                {/snippet}
+                                                <Popover.Trigger>
+                                                    {#snippet child({ props })}
+                                                        <Button
+                                                            variant="outline"
+                                                            role="combobox"
+                                                            aria-expanded={collections_open}
+                                                            class="w-[222px] overflow-hidden justify-between {$new_video_form.collection
+                                                                ? ''
+                                                                : 'text-muted-foreground'}"
+                                                            {...props}
+                                                        >
+                                                            {$new_video_form.collection
+                                                                ? $new_video_form.collection
+                                                                : "Select"}
+                                                        </Button>
+                                                    {/snippet}
+                                                </Popover.Trigger>
+                                                <Popover.Content
+                                                    class="w-[222px] p-0"
+                                                >
+                                                    <Command.Root>
+                                                        <Command.Input
+                                                            placeholder="Search collections..."
+                                                        />
+                                                        <Command.Empty
+                                                            >Collection not
+                                                            found.</Command.Empty
+                                                        >
+                                                        <Command.Group>
+                                                            {#each collections as collection}
+                                                                <Command.Item
+                                                                    value={collection}
+                                                                    onSelect={() => {
+                                                                        $new_video_form.collection =
+                                                                            collection;
+                                                                        closeAndFocusTrigger();
+                                                                    }}
+                                                                    >{collection}</Command.Item
+                                                                >
+                                                            {/each}
+                                                        </Command.Group>
+                                                    </Command.Root>
+                                                </Popover.Content>
                                             </Popover.Root>
                                             {#if $new_video_form.collection}
                                                 <Button
@@ -347,9 +348,10 @@
                                                 <Popover.Trigger
                                                     bind:ref={triggerRef}
                                                 >
-                                                    {#snippet children()}
+                                                    {#snippet child({ props })}
                                                         <Button
                                                             variant="outline"
+                                                            {...props}
                                                             ><PlusIcon
                                                                 class="w-4 h-4"
                                                             /></Button
@@ -597,9 +599,10 @@
                                         bind:open={deleteVideoDialogOpen}
                                     >
                                         <AlertDialog.Trigger>
-                                            {#snippet children({})}
-                                                <Button variant="destructive"
-                                                    >Delete</Button
+                                            {#snippet child({ props })}
+                                                <Button
+                                                    variant="destructive"
+                                                    {...props}>Delete</Button
                                                 >
                                             {/snippet}
                                         </AlertDialog.Trigger>

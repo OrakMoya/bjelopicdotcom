@@ -18,7 +18,7 @@
 
     export let temporary_uploads;
 
-    let delete_canidate_temporary_upload_id = -1;
+    let delete_candidate_temporary_upload_id = -1;
 </script>
 
 <svelte:window bind:innerWidth />
@@ -40,8 +40,8 @@
             <AlertDialog.Footer>
                 <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
                 <Button
-                    on:click={() =>
-                        router.visit("/webtools/uploads/" + delete_canidate_temporary_upload_id, {
+                    onclick={() =>
+                        router.visit("/webtools/uploads/" + delete_candidate_temporary_upload_id, {
                             method: "delete",
                             onSuccess: () =>
                                 (delete_temporary_upload_dialog_open = false),
@@ -55,7 +55,7 @@
     <section class="border border-neutral-800 rounded-xl overflow-clip">
         <Table.Root>
             {#if temporary_uploads.length === 0}
-                <Table.Caption>Empty...</Table.Caption>
+                <Table.Caption class="mb-3">Empty...</Table.Caption>
             {/if}
             <Table.Header>
                 <Table.Row>
@@ -99,8 +99,8 @@
                         </Table.Cell>
                         <Table.Cell>
                             <Button
-                                on:click={() => {
-                                    delete_canidate_temporary_upload_id = upload.id;
+                                onclick={() => {
+                                    delete_candidate_temporary_upload_id = upload.id;
                                     delete_temporary_upload_dialog_open = true;
                                 }}
                                 variant="ghost"

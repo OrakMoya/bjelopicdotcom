@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { run, preventDefault, stopPropagation } from 'svelte/legacy';
-
     import Header from "./Header.svelte";
     import LayoutLinks from "./LayoutLinks.svelte";
     import { Menu } from "lucide-svelte";
@@ -8,42 +6,39 @@
     import { page } from "@inertiajs/svelte";
     import MassToaster from "$lib/components/ui/MassToaster.svelte";
     interface Props {
-        children?: import('svelte').Snippet;
+        children?: import("svelte").Snippet;
+        logged_in: boolean;
     }
 
-    let { children }: Props = $props();
+    let { children, logged_in }: Props = $props();
     let screensize_xl = 1280;
     let screensize_md = 768;
     let screensize_sm = 640;
     let innerWidth = $state(0);
     let innerHeight = $state(0);
     let menubar_open = $state(false);
-    run(() => {
+    $effect(() => {
         if (innerWidth > screensize_xl) menubar_open = false;
     });
     let menubar_width = $state(0);
     let header_height = $state(0);
-    let effective_header_height = $state(header_height);
+    let effective_header_height = $state(0);
     let menubar_height = $state(0);
     let append_absolute = $state(false);
     let scrollY = $state(0);
-    let logged_in = $state($page.props.logged_in);
 
     const anim_duration = 300;
     let duration = $state(anim_duration);
-    run(() => {
+    $effect(() => {
         duration = innerWidth < screensize_xl ? anim_duration : 0;
     });
-    run(() => {
-        logged_in = $page.props.logged_in;
-    });
-    run(() => {
+    $effect(() => {
         menubar_open = menubar_open && logged_in;
     });
-    run(() => {
+    $effect(() => {
         append_absolute = innerWidth < screensize_xl ? append_absolute : false;
     });
-    run(() => {
+    $effect(() => {
         effective_header_height =
             header_height - scrollY < 0 ? 0 : header_height - scrollY;
     });
@@ -72,9 +67,11 @@
                 <button
                     transition:fade={{ duration: anim_duration }}
                     class="mx-4"
-                    onclick={stopPropagation(preventDefault(() => {
+                    onclick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         menubar_open = !menubar_open;
-                    }))}><Menu class="w-8 h-8" /></button
+                    }}><Menu class="w-8 h-8" /></button
                 >
             {/if}
         </Header>
@@ -87,7 +84,7 @@
                     transition:fade={{ duration: 300 }}
                     class="w-screen h-screen fixed bg-black/80 z-30 top-0"
                     onclick={() => (menubar_open = false)}
-></div>
+                ></div>
             {/if}
 
             {#if innerWidth < screensize_md && menubar_open}
