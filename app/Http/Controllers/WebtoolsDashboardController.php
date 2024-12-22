@@ -16,11 +16,10 @@ class WebtoolsDashboardController extends Controller
         $database_result =
             Visitor::select(
                 Visitor::raw('SUBSTR(visited_at, 1, 10) as date'),
-                Visitor::raw('count(*) as total')
+                Visitor::raw('COUNT(DISTINCT ip_address) as total')
             )
                 ->whereDate('visited_at', '>', Date::now()->subtract('month', 1))
                 ->groupBy('date')
-                ->distinct('ip_address')
                 ->get();
         $max = 0;
         foreach ($database_result as $visitor_count) {
