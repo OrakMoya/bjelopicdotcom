@@ -59,7 +59,7 @@
     <section
         class=" mx-auto {i % 2
             ? 'bg-bjelopic-neutral-8'
-            : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
+            : 'bg-bjelopic-neutral-7'} py-4 px-4 relative overflow-clip"
         onclick={() => (selected_video_uuid = "")}
         role="none"
     >
