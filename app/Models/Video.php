@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,5 +39,9 @@ class Video extends Model
     public function videoRoles(): BelongsToMany
     {
         return $this->belongsToMany(VideoRole::class, 'video_videorole', 'video_id', 'videorole_id');
+    }
+
+    public function stills(): HasMany{
+        return $this->hasMany(Still::class, 'video_id', 'id');
     }
 }

@@ -23,5 +23,6 @@ export {};
  * @prop {string} uuid
  * @prop {string[]} roles
  * @prop {string} publication_date
+ * @prop {boolean} stillsAvailable
  */
 

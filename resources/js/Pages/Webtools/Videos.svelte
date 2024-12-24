@@ -3,7 +3,7 @@
 </script>
 
 <script>
-    import { BadgeXIcon, EyeIcon, PlusIcon, TrashIcon } from "lucide-svelte";
+    import { BadgeXIcon, EyeIcon, ImageIcon, PlusIcon, TrashIcon } from "lucide-svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Input } from "$lib/components/ui/input";
@@ -14,6 +14,7 @@
     import { CalendarIcon } from "lucide-svelte";
     import * as Popover from "$lib/components/ui/popover";
     import { cn } from "$lib/utils";
+    import { Link } from "@inertiajs/svelte";
     import {
         DateFormatter,
         getLocalTimeZone,
@@ -681,15 +682,27 @@
                                     video.publication_date,
                                 ).getFullYear()})</span
                             >
-                            <a
-                                href={video.link}
-                                target="_blank"
-                                onclick={(e) => e.stopPropagation()}
-                                class="mr-1"
-                                ><EyeIcon
-                                    class="w-6 h-6 text-neutral-500 hover:text-white transition"
-                                /></a
-                            >
+                            <div class="flex gap-2 align-middle">
+                                <a
+                                    href={video.link}
+                                    target="_blank"
+                                    onclick={(e) => e.stopPropagation()}
+                                    class="mr-1"
+                                    ><EyeIcon
+                                        class="w-6 h-6 text-neutral-500 hover:text-white transition"
+                                    /></a
+                                >
+                                <Link
+                                    as="button"
+                                    onclick={(/**@type {MouseEvent} */ e) => {
+                                        e.stopPropagation();
+                                    }}
+                                    href={"/webtools/videos/" +
+                                        video.id +
+                                        "/stills"}
+                                    ><ImageIcon class="w-6 h-6 text-neutral-500 hover:text-white transition" /></Link
+                                >
+                            </div>
                         </div>
                     </div>
                 </div>

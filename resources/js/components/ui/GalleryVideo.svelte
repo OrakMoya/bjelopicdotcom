@@ -4,7 +4,8 @@
     import { fade, fly } from "svelte/transition";
     import { onMount } from "svelte";
     import { AspectRatio } from "bits-ui";
-    import { ChevronLeft } from "lucide-svelte";
+    import { ChevronLeft, ImagesIcon } from "lucide-svelte";
+    import { Link } from "@inertiajs/svelte";
 
     /**
      * @typedef {Object} Props
@@ -30,6 +31,8 @@
         poster_src = "",
         title = "",
         year = "",
+        stillsAvailable = false,
+        uuid = "",
         ...rest
     } = $props();
     let poster_shown = $state(false);
@@ -38,9 +41,10 @@
     let menubar_height = $state(0);
     let duration = preview_src ? 100 : 0;
     let focused = $derived(this_id === selected_id);
-    run(() => {
+    $effect(() => {
         poster_shown = focused && poster_shown;
     });
+    console.log(stillsAvailable);
 </script>
 
 <svelte:window bind:innerWidth />
@@ -100,13 +104,20 @@
                 {/if}
             </div>
         {/if}
-        {#if focused && title}
+        {#if focused && (title || stillsAvailable)}
             <div
                 bind:clientHeight={menubar_height}
                 transition:fly={{ opacity: 1, y: menubar_height }}
-                class="absolute font-semibold w-full bottom-0 bg-black/80 p-2 text-left"
+                class="absolute flex items-center justify-between font-semibold w-full bottom-0 bg-black/80 p-1 text-left"
             >
-                {title} <span class="text-bjelopic-blue-1"> ({year})</span>
+                <div class={title ? "" : "invisible"}>
+                    {title} <span class="text-bjelopic-blue-1"> ({year})</span>
+                </div>
+                <div class={stillsAvailable ? "" : "invisible"}>
+                    <Link href={"/gallery/"+uuid}>
+                        <ImagesIcon class="w-5 h-5 m-2" />
+                    </Link>
+                </div>
             </div>
         {/if}
         {#if !poster_shown && poster_src && focused}

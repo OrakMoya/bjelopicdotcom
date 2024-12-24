@@ -41,7 +41,6 @@
      * @returns {Set<string>}
      */
     function getUniqueRoles(videos) {
-        console.log(videos);
         let set = new Set();
         videos.forEach((video) => {
             video.roles.forEach((role) => set.add(role));
@@ -153,6 +152,8 @@
                                         thumbnail_src={video.thumbnail_url}
                                         preview_src={video.preview_url}
                                         poster_src={video.poster_url}
+                                        stillsAvailable={video.stillsAvailable}
+                                        uuid={video.uuid}
                                     />
                                 </AspectRatio.Root>
                             </button>
@@ -207,6 +208,8 @@
                                     thumbnail_src={video.thumbnail_url}
                                     preview_src={video.preview_url}
                                     poster_src={video.poster_url}
+                                    stillsAvailable={video.stillsAvailable}
+                                    uuid={video.uuid}
                                 />
                             </AspectRatio.Root>
                         </button>

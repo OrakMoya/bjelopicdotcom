@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(TrackVisitors::class)->group(function () {
     Route::get('/', [HeroController::class, 'show']);
-    Route::get('/gallery', [GalleryController::class, 'show']);
+    Route::get('/gallery', [GalleryController::class, 'index']);
+    Route::get('/gallery/{video:uuid}', [GalleryController::class, 'show']);
 });
 
 Route::get('/webtools/login', [WebtoolsLoginController::class, 'show'])->name('login');

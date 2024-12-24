@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Still;
 use App\Models\Video;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
+use function Termwind\render;
 
 class GalleryController extends Controller
 {
-    public function show(): Response
+    public function index(): Response
     {
         $videos = Video::select(
             [
@@ -58,6 +61,10 @@ class GalleryController extends Controller
                     ],
                 ]);
             }
+
+            $video->stillsAvailable = Still::select('id', 'video_id')
+                ->where('video_id', $video->id)->count() > 0;
+
             unset($video->id);
             unset($video->videoRoles);
         }
@@ -73,5 +80,21 @@ class GalleryController extends Controller
         });
 
         return Inertia::render('Subpages/Gallery', ['by_collection' => $videos_by_collection]);
+    }
+
+    public function show(Video $video): Response
+    {
+        $stills = Still::select('video_id', 'path', 'description')
+            ->where('video_id', $video->id)
+            ->get()->toArray();
+        $stills = array_map(function ($still) {
+            return [...$still, 'path' => Storage::url($still['path'])];
+        }, $stills);
+        $video = [
+            'title' => $video->title,
+            'publication_date' => $video->publication_date,
+            'uuid' => $video->uuid
+        ];
+        return Inertia::render('Subpages/Stills', ['video' => $video, 'stills' => $stills]);
     }
 }
