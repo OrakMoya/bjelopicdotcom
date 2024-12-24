@@ -1,737 +1,670 @@
-import ne from "deepmerge";
-import u from "nprogress";
-import cloneDeep from "lodash.clonedeep";
-import isEqual from "lodash.isequal";
-import "dequal";
-import { nanoid } from "nanoid/non-secure";
-import { CalendarDateTime, CalendarDate, ZonedDateTime, parseZonedDateTime, parseDateTime, parseDate, toCalendar, getLocalTimeZone, getDayOfWeek, DateFormatter, startOfMonth, endOfMonth, isSameMonth, isSameDay, isToday } from "@internationalized/date";
+var __defProp = Object.defineProperty;
+var __typeError = (msg) => {
+  throw TypeError(msg);
+};
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
+var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read from private field"), getter ? getter.call(obj) : member.get(obj));
+var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+var __privateSet = (obj, member, value, setter) => (__accessCheck(obj, member, "write to private field"), setter ? setter.call(obj, value) : member.set(obj, value), value);
+var __privateMethod = (obj, member, method) => (__accessCheck(obj, member, "access private method"), method);
+var _size, _id, _ref, _loop, _props, _value, _value2, _id2, _ref2, _isActive, _isDisabled, _props2, _ref3, _disabled, _id3, _root, _itemState, _isDisabled2, _props3, _ref4, _id4, _originalStyles, _isMountAnimationPrevented, _width, _height, _forceMount, _present, _snippetProps, _props4, _id5, _ref5, _level, _item, _props5, _attrs, _sharedProps, _id6, _ref6, _root2, _disabled2, _props6, _id7, _ref7, _root3, _variant, _disabled3, _attr, _props7, _id8, _ref8, _root4, _attr2, _props8, _id9, _ref9, _root5, _level2, _props9, _id10, _ref10, _snippetProps2, _props10, _id11, _ref11, _snippetProps3, _props11, _id12, _ref12, _root6, _disabled4, _props12, _interactOutsideProp, _behaviorType, _interceptedEvents, _isResponsibleLayer, _documentObj, _enabled, _isFocusInsideDOMTree, _onFocusOutside, _isValidEventProp, _unsubClickListener, _handleFocus, _DismissibleLayerState_instances, addEventListeners_fn, _handleDismiss, _handleInteractOutside, _markInterceptedEvent, _markNonInterceptedEvent, _markResponsibleLayer, _isTargetWithinLayer, _resetState, isAnyEventIntercepted_fn, _onfocuscapture, _onblurcapture, _onEscapeProp, _behaviorType2, _enabled2, _addEventListener, _onkeydown, _id13, _onPointerDownProp, _onPointerUpProp, _enabled3, _unsubSelectionLock, _ref13, _TextSelectionLayerState_instances, addEventListeners_fn2, _pointerdown, _resetSelectionLock, _ref14, _id14, _ratio, _wrapperProps, _props13, _visibleMonths, _weekdays, _isNextButtonDisabled, _isPrevButtonDisabled, _isInvalid, _headingValue, _fullCalendarLabel, _snippetProps4, _props14, _headingValue2, _props15, _cellDate, _isDisabled3, _isUnavailable, _isDateToday, _isOutsideMonth, _isOutsideVisibleMonths, _isFocusedDate, _isSelectedDate, _labelText, _snippetProps5, _ariaDisabled, _sharedDataAttrs, _props16, _tabindex, _snippetProps6, _props17, _isDisabled4, _props18, _isDisabled5, _props19, _props20, _props21, _props22, _props23, _props24, _props25, _id15, _ref15, _type, _disabled5, _required, _name, _trueName, _trueRequired, _trueDisabled, _CheckboxRootState_instances, toggle_fn, _snippetProps7, _props26, _trueChecked, _shouldRender, _props27, _transformedStyle, _dir, _side, _sideOffset, _align, _alignOffset, _arrowPadding, _avoidCollisions, _collisionBoundary, _collisionPadding, _sticky, _hideWhenDetached, _strategy, _updatePositionStrategy, _arrowSize, _arrowWidth, _arrowHeight, _desiredPlacement, _boundary, _hasExplicitBoundaries, _detectOverflowOptions, _availableWidth, _availableHeight, _anchorWidth, _anchorHeight, _middleware, _placedSide, _placedAlign, _arrowX, _arrowY, _cannotCenterArrow, _arrowBaseSide, _wrapperProps2, _props28, _arrowStyle, _updateScheduled, _vimBindings, _CommandRootState_instances, snapshot_fn, scheduleUpdate_fn, score_fn, sort_fn, selectFirstItem_fn, filterItems_fn, getValidItems_fn, getSelectedItem_fn, scrollSelectedIntoView_fn, updateSelectedToIndex_fn, updateSelectedByItem_fn, updateSelectedByGroup_fn, last_fn, next_fn, prev_fn, _props29, _ref16, _id16, _root7, _forceMount2, _isInitialRender, _shouldRender2, _props30, _ref17, _value3, _root8, _shouldRender3, _props31, _ref18, _id17, _group, _props32, _ref19, _id18, _group2, _props33, _ref20, _id19, _root9, _value4, _autofocus, _selectedItemId, _props34, _ref21, _value5, _disabled6, _onSelectProp, _forceMount3, _group3, _trueForceMount, _shouldRender4, _isSelected, _CommandItemState_instances, onSelect_fn, select_fn, _props35, _ref22, _id20, _root10, _for, _props36, _id21, _ref23, _disabled7, _root11, _PopoverTriggerState_instances, getAriaControls_fn, _props37, _id22, _ref24, _snippetProps8, _props38, _id23, _ref25, _props39, _id24, _props40, _id25, _ref26, _root12, _isDisabled6, _props41, _root13, _id26, _ref27, _disabled8, _value6, _isActive2, _isDisabled7, _tabIndex, _ariaControls, _TabsTriggerState_instances, activate_fn, _props42, _root14, _id27, _ref28, _value7, _isActive3, _ariaLabelledBy, _props43;
+import { DEV } from "esm-env";
+import { router, setupProgress } from "@inertiajs/core";
+import escape from "html-escape";
+import cloneDeep from "lodash/cloneDeep.js";
+import isEqual from "lodash/isEqual.js";
 import { clsx } from "clsx";
+import parse from "style-to-object";
 import { twMerge } from "tailwind-merge";
 import { tv } from "tailwind-variants";
 import AutoScroll from "embla-carousel-auto-scroll";
 import "chart.js/auto";
-import _ from "axios";
-import * as O from "qs";
-import { createFocusTrap as createFocusTrap$1 } from "focus-trap";
-import { flip, offset, shift, arrow, size, autoUpdate, computePosition } from "@floating-ui/dom";
-import { createServer } from "http";
-import * as s from "process";
-function noop$1() {
-}
-const identity = (x2) => x2;
-function run(fn) {
-  return fn();
-}
-function blank_object() {
-  return /* @__PURE__ */ Object.create(null);
-}
-function run_all(fns) {
-  fns.forEach(run);
-}
-function is_function(thing) {
-  return typeof thing === "function";
-}
-function safe_not_equal(a, b2) {
-  return a != a ? b2 == b2 : a !== b2 || a && typeof a === "object" || typeof a === "function";
-}
-function subscribe(store2, ...callbacks) {
-  if (store2 == null) {
-    for (const callback of callbacks) {
-      callback(void 0);
-    }
-    return noop$1;
-  }
-  const unsub = store2.subscribe(...callbacks);
-  return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
-}
-function get_store_value(store2) {
-  let value;
-  subscribe(store2, (_2) => value = _2)();
-  return value;
-}
-function compute_rest_props(props, keys) {
-  const rest = {};
-  keys = new Set(keys);
-  for (const k2 in props) if (!keys.has(k2) && k2[0] !== "$") rest[k2] = props[k2];
-  return rest;
-}
-function set_store_value(store2, ret, value) {
-  store2.set(value);
-  return ret;
-}
-function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
-  return new CustomEvent(type, { detail, bubbles, cancelable });
-}
-let current_component;
-function set_current_component(component) {
-  current_component = component;
-}
-function get_current_component() {
-  if (!current_component) throw new Error("Function called outside component initialization");
-  return current_component;
-}
-function onDestroy(fn) {
-  get_current_component().$$.on_destroy.push(fn);
-}
-function createEventDispatcher() {
-  const component = get_current_component();
-  return (type, detail, { cancelable = false } = {}) => {
-    const callbacks = component.$$.callbacks[type];
-    if (callbacks) {
-      const event = custom_event(
-        /** @type {string} */
-        type,
-        detail,
-        { cancelable }
-      );
-      callbacks.slice().forEach((fn) => {
-        fn.call(component, event);
-      });
-      return !event.defaultPrevented;
-    }
-    return true;
-  };
-}
-function setContext(key, context) {
-  get_current_component().$$.context.set(key, context);
-  return context;
-}
-function getContext(key) {
-  return get_current_component().$$.context.get(key);
-}
-function hasContext(key) {
-  return get_current_component().$$.context.has(key);
-}
-const dirty_components = [];
-const binding_callbacks = [];
-let render_callbacks = [];
-const flush_callbacks = [];
-const resolved_promise = /* @__PURE__ */ Promise.resolve();
-let update_scheduled = false;
-function schedule_update() {
-  if (!update_scheduled) {
-    update_scheduled = true;
-    resolved_promise.then(flush);
-  }
-}
-function tick$1() {
-  schedule_update();
-  return resolved_promise;
-}
-function add_render_callback(fn) {
-  render_callbacks.push(fn);
-}
-const seen_callbacks = /* @__PURE__ */ new Set();
-let flushidx = 0;
-function flush() {
-  if (flushidx !== 0) {
-    return;
-  }
-  const saved_component = current_component;
-  do {
-    try {
-      while (flushidx < dirty_components.length) {
-        const component = dirty_components[flushidx];
-        flushidx++;
-        set_current_component(component);
-        update(component.$$);
-      }
-    } catch (e) {
-      dirty_components.length = 0;
-      flushidx = 0;
-      throw e;
-    }
-    set_current_component(null);
-    dirty_components.length = 0;
-    flushidx = 0;
-    while (binding_callbacks.length) binding_callbacks.pop()();
-    for (let i = 0; i < render_callbacks.length; i += 1) {
-      const callback = render_callbacks[i];
-      if (!seen_callbacks.has(callback)) {
-        seen_callbacks.add(callback);
-        callback();
-      }
-    }
-    render_callbacks.length = 0;
-  } while (dirty_components.length);
-  while (flush_callbacks.length) {
-    flush_callbacks.pop()();
-  }
-  update_scheduled = false;
-  seen_callbacks.clear();
-  set_current_component(saved_component);
-}
-function update($$) {
-  if ($$.fragment !== null) {
-    $$.update();
-    run_all($$.before_update);
-    const dirty = $$.dirty;
-    $$.dirty = [-1];
-    $$.fragment && $$.fragment.p($$.ctx, dirty);
-    $$.after_update.forEach(add_render_callback);
-  }
-}
-function ensure_array_like(array_like_or_iterator) {
-  return (array_like_or_iterator == null ? void 0 : array_like_or_iterator.length) !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
-}
-const _boolean_attributes = (
-  /** @type {const} */
-  [
-    "allowfullscreen",
-    "allowpaymentrequest",
-    "async",
-    "autofocus",
-    "autoplay",
-    "checked",
-    "controls",
-    "default",
-    "defer",
-    "disabled",
-    "formnovalidate",
-    "hidden",
-    "inert",
-    "ismap",
-    "loop",
-    "multiple",
-    "muted",
-    "nomodule",
-    "novalidate",
-    "open",
-    "playsinline",
-    "readonly",
-    "required",
-    "reversed",
-    "selected"
-  ]
-);
-const boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
-const void_element_names = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/;
-function is_void(name2) {
-  return void_element_names.test(name2) || name2.toLowerCase() === "!doctype";
-}
-const invalid_attribute_name_character = /[\s'">/=\u{FDD0}-\u{FDEF}\u{FFFE}\u{FFFF}\u{1FFFE}\u{1FFFF}\u{2FFFE}\u{2FFFF}\u{3FFFE}\u{3FFFF}\u{4FFFE}\u{4FFFF}\u{5FFFE}\u{5FFFF}\u{6FFFE}\u{6FFFF}\u{7FFFE}\u{7FFFF}\u{8FFFE}\u{8FFFF}\u{9FFFE}\u{9FFFF}\u{AFFFE}\u{AFFFF}\u{BFFFE}\u{BFFFF}\u{CFFFE}\u{CFFFF}\u{DFFFE}\u{DFFFF}\u{EFFFE}\u{EFFFF}\u{FFFFE}\u{FFFFF}\u{10FFFE}\u{10FFFF}]/u;
-function spread(args, attrs_to_add) {
-  const attributes = Object.assign({}, ...args);
-  if (attrs_to_add) {
-    const classes_to_add = attrs_to_add.classes;
-    const styles_to_add = attrs_to_add.styles;
-    if (classes_to_add) {
-      if (attributes.class == null) {
-        attributes.class = classes_to_add;
-      } else {
-        attributes.class += " " + classes_to_add;
-      }
-    }
-    if (styles_to_add) {
-      if (attributes.style == null) {
-        attributes.style = style_object_to_string(styles_to_add);
-      } else {
-        attributes.style = style_object_to_string(
-          merge_ssr_styles(attributes.style, styles_to_add)
-        );
-      }
-    }
-  }
-  let str = "";
-  Object.keys(attributes).forEach((name2) => {
-    if (invalid_attribute_name_character.test(name2)) return;
-    const value = attributes[name2];
-    if (value === true) str += " " + name2;
-    else if (boolean_attributes.has(name2.toLowerCase())) {
-      if (value) str += " " + name2;
-    } else if (value != null) {
-      str += ` ${name2}="${value}"`;
-    }
-  });
-  return str;
-}
-function merge_ssr_styles(style_attribute, style_directive) {
-  const style_object = {};
-  for (const individual_style of style_attribute.split(";")) {
-    const colon_index = individual_style.indexOf(":");
-    const name2 = individual_style.slice(0, colon_index).trim();
-    const value = individual_style.slice(colon_index + 1).trim();
-    if (!name2) continue;
-    style_object[name2] = value;
-  }
-  for (const name2 in style_directive) {
-    const value = style_directive[name2];
-    if (value) {
-      style_object[name2] = value;
-    } else {
-      delete style_object[name2];
-    }
-  }
-  return style_object;
-}
-const ATTR_REGEX = /[&"]/g;
+import Resumable from "resumablejs";
+import { CalendarDateTime, CalendarDate, ZonedDateTime, parseZonedDateTime, parseDateTime, parseDate, toCalendar, getLocalTimeZone, getDayOfWeek, DateFormatter, startOfMonth, endOfMonth, isSameMonth, isSameDay, isToday, today } from "@internationalized/date";
+import { computePosition, offset, shift, limitShift, flip, size, arrow, hide, autoUpdate } from "@floating-ui/dom";
+import createServer from "@inertiajs/core/server";
+const HYDRATION_START = "[";
+const HYDRATION_END = "]";
+const ELEMENT_IS_NAMESPACED = 1;
+const ELEMENT_PRESERVE_ATTRIBUTE_CASE = 1 << 1;
+const UNINITIALIZED = Symbol();
+const ATTR_REGEX = /[&"<]/g;
 const CONTENT_REGEX = /[&<]/g;
-function escape(value, is_attr = false) {
-  const str = String(value);
+function escape_html(value, is_attr) {
+  const str = String(value ?? "");
   const pattern = is_attr ? ATTR_REGEX : CONTENT_REGEX;
   pattern.lastIndex = 0;
   let escaped = "";
-  let last2 = 0;
+  let last = 0;
   while (pattern.test(str)) {
     const i = pattern.lastIndex - 1;
     const ch = str[i];
-    escaped += str.substring(last2, i) + (ch === "&" ? "&amp;" : ch === '"' ? "&quot;" : "&lt;");
-    last2 = i + 1;
+    escaped += str.substring(last, i) + (ch === "&" ? "&amp;" : ch === '"' ? "&quot;" : "&lt;");
+    last = i + 1;
   }
-  return escaped + str.substring(last2);
+  return escaped + str.substring(last);
 }
-function escape_attribute_value(value) {
-  const should_escape = typeof value === "string" || value && typeof value === "object";
-  return should_escape ? escape(value, true) : value;
-}
-function escape_object(obj) {
-  const result = {};
-  for (const key in obj) {
-    result[key] = escape_attribute_value(obj[key]);
-  }
-  return result;
-}
-function each(items, fn) {
-  items = ensure_array_like(items);
-  let str = "";
-  for (let i = 0; i < items.length; i += 1) {
-    str += fn(items[i], i);
-  }
-  return str;
-}
-const missing_component = {
-  $$render: () => ""
+const replacements = {
+  translate: /* @__PURE__ */ new Map([
+    [true, "yes"],
+    [false, "no"]
+  ])
 };
-function validate_component(component, name2) {
-  if (!component || !component.$$render) {
-    if (name2 === "svelte:component") name2 += " this={...}";
-    throw new Error(
-      `<${name2}> is not a valid SSR component. You may need to review your build config to ensure that dependencies are compiled, rather than imported as pre-compiled modules. Otherwise you may need to fix a <${name2}>.`
+function attr(name, value, is_boolean = false) {
+  if (value == null || !value && is_boolean || value === "" && name === "class") return "";
+  const normalized = name in replacements && replacements[name].get(value) || value;
+  const assignment = is_boolean ? "" : `="${escape_html(normalized, true)}"`;
+  return ` ${name}${assignment}`;
+}
+var is_array = Array.isArray;
+var object_prototype = Object.prototype;
+var get_prototype_of = Object.getPrototypeOf;
+const noop$1 = () => {
+};
+function run$1(fn) {
+  return fn();
+}
+function run_all(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    arr[i]();
+  }
+}
+function fallback(value, fallback2, lazy = false) {
+  return value === void 0 ? lazy ? (
+    /** @type {() => V} */
+    fallback2()
+  ) : (
+    /** @type {V} */
+    fallback2
+  ) : value;
+}
+function safe_not_equal(a, b) {
+  return a != a ? b == b : a !== b || a !== null && typeof a === "object" || typeof a === "function";
+}
+function rune_outside_svelte(rune) {
+  if (DEV) {
+    const error = new Error(`rune_outside_svelte
+The \`${rune}\` rune is only available inside \`.svelte\` and \`.svelte.js/ts\` files
+https://svelte.dev/e/rune_outside_svelte`);
+    error.name = "Svelte error";
+    throw error;
+  } else {
+    throw new Error(`https://svelte.dev/e/rune_outside_svelte`);
+  }
+}
+var bold = "font-weight: bold";
+var normal = "font-weight: normal";
+function state_snapshot_uncloneable(properties) {
+  if (DEV) {
+    console.warn(`%c[svelte] state_snapshot_uncloneable
+%c${properties ? `The following properties cannot be cloned with \`$state.snapshot\` — the return value contains the originals:
+
+${properties}` : "Value cannot be cloned with `$state.snapshot` — the original value was returned"}
+https://svelte.dev/e/state_snapshot_uncloneable`, bold, normal);
+  } else {
+    console.warn(`https://svelte.dev/e/state_snapshot_uncloneable`);
+  }
+}
+const empty = [];
+function snapshot(value, skip_warning = false) {
+  if (DEV && !skip_warning) {
+    const paths = [];
+    const copy = clone(value, /* @__PURE__ */ new Map(), "", paths);
+    if (paths.length === 1 && paths[0] === "") {
+      state_snapshot_uncloneable();
+    } else if (paths.length > 0) {
+      const slice = paths.length > 10 ? paths.slice(0, 7) : paths.slice(0, 10);
+      const excess = paths.length - slice.length;
+      let uncloned = slice.map((path) => `- <value>${path}`).join("\n");
+      if (excess > 0) uncloned += `
+- ...and ${excess} more`;
+      state_snapshot_uncloneable(uncloned);
+    }
+    return copy;
+  }
+  return clone(value, /* @__PURE__ */ new Map(), "", empty);
+}
+function clone(value, cloned, path, paths, original = null) {
+  if (typeof value === "object" && value !== null) {
+    var unwrapped = cloned.get(value);
+    if (unwrapped !== void 0) return unwrapped;
+    if (value instanceof Map) return (
+      /** @type {Snapshot<T>} */
+      new Map(value)
+    );
+    if (value instanceof Set) return (
+      /** @type {Snapshot<T>} */
+      new Set(value)
+    );
+    if (is_array(value)) {
+      var copy = (
+        /** @type {Snapshot<any>} */
+        Array(value.length)
+      );
+      cloned.set(value, copy);
+      if (original !== null) {
+        cloned.set(original, copy);
+      }
+      for (var i = 0; i < value.length; i += 1) {
+        var element2 = value[i];
+        if (i in value) {
+          copy[i] = clone(element2, cloned, DEV ? `${path}[${i}]` : path, paths);
+        }
+      }
+      return copy;
+    }
+    if (get_prototype_of(value) === object_prototype) {
+      copy = {};
+      cloned.set(value, copy);
+      if (original !== null) {
+        cloned.set(original, copy);
+      }
+      for (var key in value) {
+        copy[key] = clone(value[key], cloned, DEV ? `${path}.${key}` : path, paths);
+      }
+      return copy;
+    }
+    if (value instanceof Date) {
+      return (
+        /** @type {Snapshot<T>} */
+        structuredClone(value)
+      );
+    }
+    if (typeof /** @type {T & { toJSON?: any } } */
+    value.toJSON === "function") {
+      return clone(
+        /** @type {T & { toJSON(): any } } */
+        value.toJSON(),
+        cloned,
+        DEV ? `${path}.toJSON()` : path,
+        paths,
+        // Associate the instance with the toJSON clone
+        value
+      );
+    }
+  }
+  if (value instanceof EventTarget) {
+    return (
+      /** @type {Snapshot<T>} */
+      value
     );
   }
-  return component;
-}
-let on_destroy;
-function create_ssr_component(fn) {
-  function $$render(result, props, bindings, slots, context) {
-    const parent_component = current_component;
-    const $$ = {
-      on_destroy,
-      context: new Map(context || (parent_component ? parent_component.$$.context : [])),
-      // these will be immediately discarded
-      on_mount: [],
-      before_update: [],
-      after_update: [],
-      callbacks: blank_object()
-    };
-    set_current_component({ $$ });
-    const html = fn(result, props, bindings, slots);
-    set_current_component(parent_component);
-    return html;
+  try {
+    return (
+      /** @type {Snapshot<T>} */
+      structuredClone(value)
+    );
+  } catch (e) {
+    if (DEV) {
+      paths.push(path);
+    }
+    return (
+      /** @type {Snapshot<T>} */
+      value
+    );
   }
-  return {
-    render: (props = {}, { $$slots = {}, context = /* @__PURE__ */ new Map() } = {}) => {
-      on_destroy = [];
-      const result = { title: "", head: "", css: /* @__PURE__ */ new Set() };
-      const html = $$render(result, props, {}, $$slots, context);
-      run_all(on_destroy);
-      return {
-        html,
-        css: {
-          code: Array.from(result.css).map((css2) => css2.code).join("\n"),
-          map: null
-          // TODO
+}
+function lifecycle_outside_component(name) {
+  if (DEV) {
+    const error = new Error(`lifecycle_outside_component
+\`${name}(...)\` can only be used during component initialisation
+https://svelte.dev/e/lifecycle_outside_component`);
+    error.name = "Svelte error";
+    throw error;
+  } else {
+    throw new Error(`https://svelte.dev/e/lifecycle_outside_component`);
+  }
+}
+function store_invalid_shape(name) {
+  if (DEV) {
+    const error = new Error(`store_invalid_shape
+\`${name}\` is not a store with a \`subscribe\` method
+https://svelte.dev/e/store_invalid_shape`);
+    error.name = "Svelte error";
+    throw error;
+  } else {
+    throw new Error(`https://svelte.dev/e/store_invalid_shape`);
+  }
+}
+let active_reaction = null;
+function untrack(fn) {
+  const previous_reaction = active_reaction;
+  try {
+    active_reaction = null;
+    return fn();
+  } finally {
+    active_reaction = previous_reaction;
+  }
+}
+if (DEV) {
+  let throw_rune_error = function(rune) {
+    if (!(rune in globalThis)) {
+      let value;
+      Object.defineProperty(globalThis, rune, {
+        configurable: true,
+        // eslint-disable-next-line getter-return
+        get: () => {
+          if (value !== void 0) {
+            return value;
+          }
+          rune_outside_svelte(rune);
         },
-        head: result.title + result.head
-      };
-    },
-    $$render
+        set: (v) => {
+          value = v;
+        }
+      });
+    }
+  };
+  throw_rune_error("$state");
+  throw_rune_error("$effect");
+  throw_rune_error("$derived");
+  throw_rune_error("$inspect");
+  throw_rune_error("$props");
+  throw_rune_error("$bindable");
+}
+const VOID_ELEMENT_NAMES = [
+  "area",
+  "base",
+  "br",
+  "col",
+  "command",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "keygen",
+  "link",
+  "meta",
+  "param",
+  "source",
+  "track",
+  "wbr"
+];
+function is_void(name) {
+  return VOID_ELEMENT_NAMES.includes(name) || name.toLowerCase() === "!doctype";
+}
+const DOM_BOOLEAN_ATTRIBUTES = [
+  "allowfullscreen",
+  "async",
+  "autofocus",
+  "autoplay",
+  "checked",
+  "controls",
+  "default",
+  "disabled",
+  "formnovalidate",
+  "hidden",
+  "indeterminate",
+  "ismap",
+  "loop",
+  "multiple",
+  "muted",
+  "nomodule",
+  "novalidate",
+  "open",
+  "playsinline",
+  "readonly",
+  "required",
+  "reversed",
+  "seamless",
+  "selected",
+  "webkitdirectory"
+];
+function is_boolean_attribute(name) {
+  return DOM_BOOLEAN_ATTRIBUTES.includes(name);
+}
+const RAW_TEXT_ELEMENTS = (
+  /** @type {const} */
+  ["textarea", "script", "style", "title"]
+);
+function is_raw_text_element(name) {
+  return RAW_TEXT_ELEMENTS.includes(
+    /** @type {RAW_TEXT_ELEMENTS[number]} */
+    name
+  );
+}
+function validate_store(store, name) {
+  if (store != null && typeof store.subscribe !== "function") {
+    store_invalid_shape(name);
+  }
+}
+function subscribe_to_store(store, run2, invalidate) {
+  if (store == null) {
+    run2(void 0);
+    if (invalidate) invalidate(void 0);
+    return noop$1;
+  }
+  const unsub = untrack(
+    () => store.subscribe(
+      run2,
+      // @ts-expect-error
+      invalidate
+    )
+  );
+  return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+}
+var current_component = null;
+function getContext$1(key) {
+  const context_map = get_or_init_context_map("getContext");
+  const result = (
+    /** @type {T} */
+    context_map.get(key)
+  );
+  return result;
+}
+function setContext$1(key, context) {
+  get_or_init_context_map("setContext").set(key, context);
+  return context;
+}
+function hasContext(key) {
+  return get_or_init_context_map("hasContext").has(key);
+}
+function getAllContexts() {
+  return get_or_init_context_map("getAllContexts");
+}
+function get_or_init_context_map(name) {
+  if (current_component === null) {
+    lifecycle_outside_component(name);
+  }
+  return current_component.c ?? (current_component.c = new Map(get_parent_context(current_component) || void 0));
+}
+function push(fn) {
+  current_component = { p: current_component, c: null, d: null };
+  if (DEV) {
+    current_component.function = fn;
+  }
+}
+function pop() {
+  var component = (
+    /** @type {Component} */
+    current_component
+  );
+  var ondestroy = component.d;
+  if (ondestroy) {
+    on_destroy.push(...ondestroy);
+  }
+  current_component = component.p;
+}
+function get_parent_context(component_context) {
+  let parent = component_context.p;
+  while (parent !== null) {
+    const context_map = parent.c;
+    if (context_map !== null) {
+      return context_map;
+    }
+    parent = parent.p;
+  }
+  return null;
+}
+const BLOCK_OPEN = `<!--${HYDRATION_START}-->`;
+const BLOCK_CLOSE = `<!--${HYDRATION_END}-->`;
+const EMPTY_COMMENT = `<!---->`;
+function reset_elements() {
+  return () => {
   };
 }
-function add_attribute(name2, value, boolean) {
-  if (value == null || boolean) return "";
-  const assignment = `="${escape(value, true)}"`;
-  return ` ${name2}${assignment}`;
+const INVALID_ATTR_NAME_CHAR_REGEX = /[\s'">/=\u{FDD0}-\u{FDEF}\u{FFFE}\u{FFFF}\u{1FFFE}\u{1FFFF}\u{2FFFE}\u{2FFFF}\u{3FFFE}\u{3FFFF}\u{4FFFE}\u{4FFFF}\u{5FFFE}\u{5FFFF}\u{6FFFE}\u{6FFFF}\u{7FFFE}\u{7FFFF}\u{8FFFE}\u{8FFFF}\u{9FFFE}\u{9FFFF}\u{AFFFE}\u{AFFFF}\u{BFFFE}\u{BFFFF}\u{CFFFE}\u{CFFFF}\u{DFFFE}\u{DFFFF}\u{EFFFE}\u{EFFFF}\u{FFFFE}\u{FFFFF}\u{10FFFE}\u{10FFFF}]/u;
+function copy_payload({ out, css, head: head2 }) {
+  return {
+    out,
+    css: new Set(css),
+    head: {
+      title: head2.title,
+      out: head2.out
+    }
+  };
+}
+function assign_payload(p1, p2) {
+  p1.out = p2.out;
+  p1.head = p2.head;
+}
+function element(payload, tag, attributes_fn = noop$1, children_fn = noop$1) {
+  payload.out += "<!---->";
+  if (tag) {
+    payload.out += `<${tag}`;
+    attributes_fn();
+    payload.out += `>`;
+    if (!is_void(tag)) {
+      children_fn();
+      if (!is_raw_text_element(tag)) {
+        payload.out += EMPTY_COMMENT;
+      }
+      payload.out += `</${tag}>`;
+    }
+  }
+  payload.out += "<!---->";
+}
+let on_destroy = [];
+function render(component, options = {}) {
+  const payload = { out: "", css: /* @__PURE__ */ new Set(), head: { title: "", out: "" } };
+  const prev_on_destroy = on_destroy;
+  on_destroy = [];
+  payload.out += BLOCK_OPEN;
+  let reset_reset_element;
+  if (DEV) {
+    reset_reset_element = reset_elements();
+  }
+  if (options.context) {
+    push();
+    current_component.c = options.context;
+  }
+  component(payload, options.props ?? {}, {}, {});
+  if (options.context) {
+    pop();
+  }
+  if (reset_reset_element) {
+    reset_reset_element();
+  }
+  payload.out += BLOCK_CLOSE;
+  for (const cleanup of on_destroy) cleanup();
+  on_destroy = prev_on_destroy;
+  let head2 = payload.head.out + payload.head.title;
+  for (const { hash, code } of payload.css) {
+    head2 += `<style id="${hash}">${code}</style>`;
+  }
+  return {
+    head: head2,
+    html: payload.out,
+    body: payload.out
+  };
+}
+function head(payload, fn) {
+  const head_payload = payload.head;
+  head_payload.out += BLOCK_OPEN;
+  fn(head_payload);
+  head_payload.out += BLOCK_CLOSE;
+}
+function spread_attributes(attrs, classes, styles, flags = 0) {
+  if (styles) {
+    attrs.style = attrs.style ? style_object_to_string(merge_styles(
+      /** @type {string} */
+      attrs.style,
+      styles
+    )) : style_object_to_string(styles);
+  }
+  if (classes) {
+    const classlist = attrs.class ? [attrs.class] : [];
+    for (const key in classes) {
+      if (classes[key]) {
+        classlist.push(key);
+      }
+    }
+    attrs.class = classlist.join(" ");
+  }
+  let attr_str = "";
+  let name;
+  const is_html = (flags & ELEMENT_IS_NAMESPACED) === 0;
+  const lowercase = (flags & ELEMENT_PRESERVE_ATTRIBUTE_CASE) === 0;
+  for (name in attrs) {
+    if (typeof attrs[name] === "function") continue;
+    if (name[0] === "$" && name[1] === "$") continue;
+    if (INVALID_ATTR_NAME_CHAR_REGEX.test(name)) continue;
+    var value = attrs[name];
+    if (lowercase) {
+      name = name.toLowerCase();
+    }
+    attr_str += attr(name, value, is_html && is_boolean_attribute(name));
+  }
+  return attr_str;
+}
+function spread_props(props) {
+  const merged_props = {};
+  let key;
+  for (let i = 0; i < props.length; i++) {
+    const obj = props[i];
+    for (key in obj) {
+      const desc = Object.getOwnPropertyDescriptor(obj, key);
+      if (desc) {
+        Object.defineProperty(merged_props, key, desc);
+      } else {
+        merged_props[key] = obj[key];
+      }
+    }
+  }
+  return merged_props;
+}
+function stringify(value) {
+  return typeof value === "string" ? value : value == null ? "" : value + "";
 }
 function style_object_to_string(style_object) {
-  return Object.keys(style_object).filter((key) => style_object[key] != null && style_object[key] !== "").map((key) => `${key}: ${escape_attribute_value(style_object[key])};`).join(" ");
+  return Object.keys(style_object).filter(
+    /** @param {any} key */
+    (key) => style_object[key] != null && style_object[key] !== ""
+  ).map(
+    /** @param {any} key */
+    (key) => `${key}: ${escape_html(style_object[key], true)};`
+  ).join(" ");
 }
 function add_styles(style_object) {
   const styles = style_object_to_string(style_object);
   return styles ? ` style="${styles}"` : "";
 }
-const TheBjeloPIC = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, []);
-  return `<span class="${"font-bjelopic font-normal text-white " + escape($$restProps.class, true)}">Bjelo<span class="text-bjelopic-red-1 font-bold font-sans" data-svelte-h="svelte-11bhgsh">PIC</span></span>`;
-});
-const TheBjeloPICLogo = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, []);
-  return `<div${add_attribute("class", $$restProps.class, 0)}><img src="/bjelopic_logo.png" alt="bjelopic"></div>`;
-});
-function L(t, e) {
-  let i;
-  return function(...n) {
-    clearTimeout(i), i = setTimeout(() => t.apply(this, n), e);
+function merge_styles(attribute, styles) {
+  var merged = {};
+  if (attribute) {
+    for (var declaration of attribute.split(";")) {
+      var i = declaration.indexOf(":");
+      var name = declaration.slice(0, i).trim();
+      var value = declaration.slice(i + 1).trim();
+      if (name !== "") merged[name] = value;
+    }
+  }
+  for (name in styles) {
+    merged[name] = styles[name];
+  }
+  return merged;
+}
+function store_get(store_values, store_name, store) {
+  var _a;
+  if (DEV) {
+    validate_store(store, store_name.slice(1));
+  }
+  if (store_name in store_values && store_values[store_name][0] === store) {
+    return store_values[store_name][2];
+  }
+  (_a = store_values[store_name]) == null ? void 0 : _a[1]();
+  store_values[store_name] = [store, null, void 0];
+  const unsub = subscribe_to_store(
+    store,
+    /** @param {any} v */
+    (v) => store_values[store_name][2] = v
+  );
+  store_values[store_name][1] = unsub;
+  return store_values[store_name][2];
+}
+function store_set(store, value) {
+  store.set(value);
+  return value;
+}
+function store_mutate(store_values, store_name, store, expression) {
+  store_set(store, store_get(store_values, store_name, store));
+  return expression;
+}
+function unsubscribe_stores(store_values) {
+  for (const store_name in store_values) {
+    store_values[store_name][1]();
+  }
+}
+function slot(payload, $$props, name, slot_props, fallback_fn) {
+  var _a;
+  var slot_fn = (_a = $$props.$$slots) == null ? void 0 : _a[name];
+  if (slot_fn === true) {
+    slot_fn = $$props[name === "default" ? "children" : name];
+  }
+  if (slot_fn !== void 0) {
+    slot_fn(payload, slot_props);
+  } else {
+    fallback_fn == null ? void 0 : fallback_fn();
+  }
+}
+function rest_props(props, rest) {
+  const rest_props2 = {};
+  let key;
+  for (key in props) {
+    if (!rest.includes(key)) {
+      rest_props2[key] = props[key];
+    }
+  }
+  return rest_props2;
+}
+function sanitize_props(props) {
+  const { children, $$slots, ...sanitized } = props;
+  return sanitized;
+}
+function bind_props(props_parent, props_now) {
+  var _a;
+  for (const key in props_now) {
+    const initial_value = props_parent[key];
+    const value = props_now[key];
+    if (initial_value === void 0 && value !== void 0 && ((_a = Object.getOwnPropertyDescriptor(props_parent, key)) == null ? void 0 : _a.set)) {
+      props_parent[key] = value;
+    }
+  }
+}
+function ensure_array_like(array_like_or_iterator) {
+  if (array_like_or_iterator) {
+    return array_like_or_iterator.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+  }
+  return [];
+}
+function once(get_value) {
+  let value = (
+    /** @type {V} */
+    UNINITIALIZED
+  );
+  return () => {
+    if (value === UNINITIALIZED) {
+      value = get_value();
+    }
+    return value;
   };
 }
-function m(t, e) {
-  return document.dispatchEvent(new CustomEvent(`inertia:${t}`, e));
+function TheBjeloPIC($$payload, $$props) {
+  push();
+  let { $$slots, $$events, ...rest } = $$props;
+  $$payload.out += `<span${attr("class", `font-bjelopic text-white ${stringify(rest.class)}`)}>Bjelo<span class="text-bjelopic-red-1 font-bold font-sans">PIC</span></span>`;
+  pop();
 }
-var M = (t) => m("before", { cancelable: true, detail: { visit: t } }), H = (t) => m("error", { detail: { errors: t } }), $ = (t) => m("exception", { cancelable: true, detail: { exception: t } }), N = (t) => m("finish", { detail: { visit: t } }), q = (t) => m("invalid", { cancelable: true, detail: { response: t } }), x = (t) => m("navigate", { detail: { page: t } }), W = (t) => m("progress", { detail: { progress: t } }), X$1 = (t) => m("start", { detail: { visit: t } }), K = (t) => m("success", { detail: { page: t } });
-function I(t) {
-  return t instanceof File || t instanceof Blob || t instanceof FileList && t.length > 0 || t instanceof FormData && Array.from(t.values()).some((e) => I(e)) || typeof t == "object" && t !== null && Object.values(t).some((e) => I(e));
+function TheBjeloPICLogo($$payload, $$props) {
+  push();
+  let { $$slots, $$events, ...rest } = $$props;
+  $$payload.out += `<div${attr("class", rest.class)}><img src="/bjelopic_logo.png" alt="bjelopic"></div>`;
+  pop();
 }
-function A(t, e = new FormData(), i = null) {
-  t = t || {};
-  for (let n in t) Object.prototype.hasOwnProperty.call(t, n) && z(e, J(i, n), t[n]);
-  return e;
+function onDestroy(fn) {
+  var context = (
+    /** @type {Component} */
+    current_component
+  );
+  (context.d ?? (context.d = [])).push(fn);
 }
-function J(t, e) {
-  return t ? t + "[" + e + "]" : e;
+async function tick() {
 }
-function z(t, e, i) {
-  if (Array.isArray(i)) return Array.from(i.keys()).forEach((n) => z(t, J(e, n.toString()), i[n]));
-  if (i instanceof Date) return t.append(e, i.toISOString());
-  if (i instanceof File) return t.append(e, i, i.name);
-  if (i instanceof Blob) return t.append(e, i);
-  if (typeof i == "boolean") return t.append(e, i ? "1" : "0");
-  if (typeof i == "string") return t.append(e, i);
-  if (typeof i == "number") return t.append(e, `${i}`);
-  if (i == null) return t.append(e, "");
-  A(i, t, e);
-}
-var B = { modal: null, listener: null, show(t) {
-  typeof t == "object" && (t = `All Inertia requests must receive a valid Inertia response, however a plain JSON response was received.<hr>${JSON.stringify(t)}`);
-  let e = document.createElement("html");
-  e.innerHTML = t, e.querySelectorAll("a").forEach((n) => n.setAttribute("target", "_top")), this.modal = document.createElement("div"), this.modal.style.position = "fixed", this.modal.style.width = "100vw", this.modal.style.height = "100vh", this.modal.style.padding = "50px", this.modal.style.boxSizing = "border-box", this.modal.style.backgroundColor = "rgba(0, 0, 0, .6)", this.modal.style.zIndex = 2e5, this.modal.addEventListener("click", () => this.hide());
-  let i = document.createElement("iframe");
-  if (i.style.backgroundColor = "white", i.style.borderRadius = "5px", i.style.width = "100%", i.style.height = "100%", this.modal.appendChild(i), document.body.prepend(this.modal), document.body.style.overflow = "hidden", !i.contentWindow) throw new Error("iframe not yet ready.");
-  i.contentWindow.document.open(), i.contentWindow.document.write(e.outerHTML), i.contentWindow.document.close(), this.listener = this.hideOnEscape.bind(this), document.addEventListener("keydown", this.listener);
-}, hide() {
-  this.modal.outerHTML = "", this.modal = null, document.body.style.overflow = "visible", document.removeEventListener("keydown", this.listener);
-}, hideOnEscape(t) {
-  t.keyCode === 27 && this.hide();
-} };
-function b(t) {
-  return new URL(t.toString(), window.location.toString());
-}
-function k(t, e, i, n = "brackets") {
-  let s2 = /^https?:\/\//.test(e.toString()), l = s2 || e.toString().startsWith("/"), h2 = !l && !e.toString().startsWith("#") && !e.toString().startsWith("?"), g2 = e.toString().includes("?") || t === "get" && Object.keys(i).length, f = e.toString().includes("#"), c = new URL(e.toString(), "http://localhost");
-  return t === "get" && Object.keys(i).length && (c.search = O.stringify(ne(O.parse(c.search, { ignoreQueryPrefix: true }), i), { encodeValuesOnly: true, arrayFormat: n }), i = {}), [[s2 ? `${c.protocol}//${c.host}` : "", l ? c.pathname : "", h2 ? c.pathname.substring(1) : "", g2 ? c.search : "", f ? c.hash : ""].join(""), i];
-}
-function w(t) {
-  return t = new URL(t.href), t.hash = "", t;
-}
-var Q = typeof window > "u", C = class {
-  constructor() {
-    this.visitId = null;
-  }
-  init({ initialPage: e, resolveComponent: i, swapComponent: n }) {
-    this.page = e, this.resolveComponent = i, this.swapComponent = n, this.setNavigationType(), this.clearRememberedStateOnReload(), this.isBackForwardVisit() ? this.handleBackForwardVisit(this.page) : this.isLocationVisit() ? this.handleLocationVisit(this.page) : this.handleInitialPageVisit(this.page), this.setupEventListeners();
-  }
-  setNavigationType() {
-    this.navigationType = window.performance && window.performance.getEntriesByType("navigation").length > 0 ? window.performance.getEntriesByType("navigation")[0].type : "navigate";
-  }
-  clearRememberedStateOnReload() {
-    var _a;
-    this.navigationType === "reload" && ((_a = window.history.state) == null ? void 0 : _a.rememberedState) && delete window.history.state.rememberedState;
-  }
-  handleInitialPageVisit(e) {
-    this.page.url += window.location.hash, this.setPage(e, { preserveState: true }).then(() => x(e));
-  }
-  setupEventListeners() {
-    window.addEventListener("popstate", this.handlePopstateEvent.bind(this)), document.addEventListener("scroll", L(this.handleScrollEvent.bind(this), 100), true);
-  }
-  scrollRegions() {
-    return document.querySelectorAll("[scroll-region]");
-  }
-  handleScrollEvent(e) {
-    typeof e.target.hasAttribute == "function" && e.target.hasAttribute("scroll-region") && this.saveScrollPositions();
-  }
-  saveScrollPositions() {
-    this.replaceState({ ...this.page, scrollRegions: Array.from(this.scrollRegions()).map((e) => ({ top: e.scrollTop, left: e.scrollLeft })) });
-  }
-  resetScrollPositions() {
-    window.scrollTo(0, 0), this.scrollRegions().forEach((e) => {
-      typeof e.scrollTo == "function" ? e.scrollTo(0, 0) : (e.scrollTop = 0, e.scrollLeft = 0);
-    }), this.saveScrollPositions(), window.location.hash && setTimeout(() => {
-      var _a;
-      return (_a = document.getElementById(window.location.hash.slice(1))) == null ? void 0 : _a.scrollIntoView();
-    });
-  }
-  restoreScrollPositions() {
-    this.page.scrollRegions && this.scrollRegions().forEach((e, i) => {
-      let n = this.page.scrollRegions[i];
-      if (n) typeof e.scrollTo == "function" ? e.scrollTo(n.left, n.top) : (e.scrollTop = n.top, e.scrollLeft = n.left);
-      else return;
-    });
-  }
-  isBackForwardVisit() {
-    return window.history.state && this.navigationType === "back_forward";
-  }
-  handleBackForwardVisit(e) {
-    window.history.state.version = e.version, this.setPage(window.history.state, { preserveScroll: true, preserveState: true }).then(() => {
-      this.restoreScrollPositions(), x(e);
-    });
-  }
-  locationVisit(e, i) {
-    try {
-      let n = { preserveScroll: i };
-      window.sessionStorage.setItem("inertiaLocationVisit", JSON.stringify(n)), window.location.href = e.href, w(window.location).href === w(e).href && window.location.reload();
-    } catch {
-      return false;
-    }
-  }
-  isLocationVisit() {
-    try {
-      return window.sessionStorage.getItem("inertiaLocationVisit") !== null;
-    } catch {
-      return false;
-    }
-  }
-  handleLocationVisit(e) {
-    var _a, _b;
-    let i = JSON.parse(window.sessionStorage.getItem("inertiaLocationVisit") || "");
-    window.sessionStorage.removeItem("inertiaLocationVisit"), e.url += window.location.hash, e.rememberedState = ((_a = window.history.state) == null ? void 0 : _a.rememberedState) ?? {}, e.scrollRegions = ((_b = window.history.state) == null ? void 0 : _b.scrollRegions) ?? [], this.setPage(e, { preserveScroll: i.preserveScroll, preserveState: true }).then(() => {
-      i.preserveScroll && this.restoreScrollPositions(), x(e);
-    });
-  }
-  isLocationVisitResponse(e) {
-    return !!(e && e.status === 409 && e.headers["x-inertia-location"]);
-  }
-  isInertiaResponse(e) {
-    return !!(e == null ? void 0 : e.headers["x-inertia"]);
-  }
-  createVisitId() {
-    return this.visitId = {}, this.visitId;
-  }
-  cancelVisit(e, { cancelled: i = false, interrupted: n = false }) {
-    e && !e.completed && !e.cancelled && !e.interrupted && (e.cancelToken.abort(), e.onCancel(), e.completed = false, e.cancelled = i, e.interrupted = n, N(e), e.onFinish(e));
-  }
-  finishVisit(e) {
-    !e.cancelled && !e.interrupted && (e.completed = true, e.cancelled = false, e.interrupted = false, N(e), e.onFinish(e));
-  }
-  resolvePreserveOption(e, i) {
-    return typeof e == "function" ? e(i) : e === "errors" ? Object.keys(i.props.errors || {}).length > 0 : e;
-  }
-  cancel() {
-    this.activeVisit && this.cancelVisit(this.activeVisit, { cancelled: true });
-  }
-  visit(e, { method: i = "get", data: n = {}, replace: s2 = false, preserveScroll: l = false, preserveState: h2 = false, only: g2 = [], except: f = [], headers: c = {}, errorBag: o = "", forceFormData: v = false, onCancelToken: T = () => {
-  }, onBefore: d2 = () => {
-  }, onStart: p = () => {
-  }, onProgress: P = () => {
-  }, onFinish: y = () => {
-  }, onCancel: ie = () => {
-  }, onSuccess: D = () => {
-  }, onError: U = () => {
-  }, queryStringArrayFormat: F = "brackets" } = {}) {
-    let S = typeof e == "string" ? b(e) : e;
-    if ((I(n) || v) && !(n instanceof FormData) && (n = A(n)), !(n instanceof FormData)) {
-      let [r, a] = k(i, S, n, F);
-      S = b(r), n = a;
-    }
-    let R = { url: S, method: i, data: n, replace: s2, preserveScroll: l, preserveState: h2, only: g2, except: f, headers: c, errorBag: o, forceFormData: v, queryStringArrayFormat: F, cancelled: false, completed: false, interrupted: false };
-    if (d2(R) === false || !M(R)) return;
-    this.activeVisit && this.cancelVisit(this.activeVisit, { interrupted: true }), this.saveScrollPositions();
-    let G = this.createVisitId();
-    this.activeVisit = { ...R, onCancelToken: T, onBefore: d2, onStart: p, onProgress: P, onFinish: y, onCancel: ie, onSuccess: D, onError: U, queryStringArrayFormat: F, cancelToken: new AbortController() }, T({ cancel: () => {
-      this.activeVisit && this.cancelVisit(this.activeVisit, { cancelled: true });
-    } }), X$1(R), p(R);
-    let j = !!(g2.length || f.length);
-    _({ method: i, url: w(S).href, data: i === "get" ? {} : n, params: i === "get" ? n : {}, signal: this.activeVisit.cancelToken.signal, headers: { ...c, Accept: "text/html, application/xhtml+xml", "X-Requested-With": "XMLHttpRequest", "X-Inertia": true, ...j ? { "X-Inertia-Partial-Component": this.page.component } : {}, ...g2.length ? { "X-Inertia-Partial-Data": g2.join(",") } : {}, ...f.length ? { "X-Inertia-Partial-Except": f.join(",") } : {}, ...o && o.length ? { "X-Inertia-Error-Bag": o } : {}, ...this.page.version ? { "X-Inertia-Version": this.page.version } : {} }, onUploadProgress: (r) => {
-      n instanceof FormData && (r.percentage = r.progress ? Math.round(r.progress * 100) : 0, W(r), P(r));
-    } }).then((r) => {
-      var _a;
-      if (!this.isInertiaResponse(r)) return Promise.reject({ response: r });
-      let a = r.data;
-      j && a.component === this.page.component && (a.props = { ...this.page.props, ...a.props }), l = this.resolvePreserveOption(l, a), h2 = this.resolvePreserveOption(h2, a), h2 && ((_a = window.history.state) == null ? void 0 : _a.rememberedState) && a.component === this.page.component && (a.rememberedState = window.history.state.rememberedState);
-      let E = S, V = b(a.url);
-      return E.hash && !V.hash && w(E).href === V.href && (V.hash = E.hash, a.url = V.href), this.setPage(a, { visitId: G, replace: s2, preserveScroll: l, preserveState: h2 });
-    }).then(() => {
-      let r = this.page.props.errors || {};
-      if (Object.keys(r).length > 0) {
-        let a = o ? r[o] ? r[o] : {} : r;
-        return H(a), U(a);
-      }
-      return K(this.page), D(this.page);
-    }).catch((r) => {
-      if (this.isInertiaResponse(r.response)) return this.setPage(r.response.data, { visitId: G });
-      if (this.isLocationVisitResponse(r.response)) {
-        let a = b(r.response.headers["x-inertia-location"]), E = S;
-        E.hash && !a.hash && w(E).href === a.href && (a.hash = E.hash), this.locationVisit(a, l === true);
-      } else if (r.response) q(r.response) && B.show(r.response.data);
-      else return Promise.reject(r);
-    }).then(() => {
-      this.activeVisit && this.finishVisit(this.activeVisit);
-    }).catch((r) => {
-      if (!_.isCancel(r)) {
-        let a = $(r);
-        if (this.activeVisit && this.finishVisit(this.activeVisit), a) return Promise.reject(r);
-      }
-    });
-  }
-  setPage(e, { visitId: i = this.createVisitId(), replace: n = false, preserveScroll: s2 = false, preserveState: l = false } = {}) {
-    return Promise.resolve(this.resolveComponent(e.component)).then((h2) => {
-      i === this.visitId && (e.scrollRegions = e.scrollRegions || [], e.rememberedState = e.rememberedState || {}, n = n || b(e.url).href === window.location.href, n ? this.replaceState(e) : this.pushState(e), this.swapComponent({ component: h2, page: e, preserveState: l }).then(() => {
-        s2 || this.resetScrollPositions(), n || x(e);
-      }));
-    });
-  }
-  pushState(e) {
-    this.page = e, window.history.pushState(e, "", e.url);
-  }
-  replaceState(e) {
-    this.page = e, window.history.replaceState(e, "", e.url);
-  }
-  handlePopstateEvent(e) {
-    if (e.state !== null) {
-      let i = e.state, n = this.createVisitId();
-      Promise.resolve(this.resolveComponent(i.component)).then((s2) => {
-        n === this.visitId && (this.page = i, this.swapComponent({ component: s2, page: i, preserveState: false }).then(() => {
-          this.restoreScrollPositions(), x(i);
-        }));
-      });
-    } else {
-      let i = b(this.page.url);
-      i.hash = window.location.hash, this.replaceState({ ...this.page, url: i.href }), this.resetScrollPositions();
-    }
-  }
-  get(e, i = {}, n = {}) {
-    return this.visit(e, { ...n, method: "get", data: i });
-  }
-  reload(e = {}) {
-    return this.visit(window.location.href, { ...e, preserveScroll: true, preserveState: true });
-  }
-  replace(e, i = {}) {
-    return console.warn(`Inertia.replace() has been deprecated and will be removed in a future release. Please use Inertia.${i.method ?? "get"}() instead.`), this.visit(e, { preserveState: true, ...i, replace: true });
-  }
-  post(e, i = {}, n = {}) {
-    return this.visit(e, { preserveState: true, ...n, method: "post", data: i });
-  }
-  put(e, i = {}, n = {}) {
-    return this.visit(e, { preserveState: true, ...n, method: "put", data: i });
-  }
-  patch(e, i = {}, n = {}) {
-    return this.visit(e, { preserveState: true, ...n, method: "patch", data: i });
-  }
-  delete(e, i = {}) {
-    return this.visit(e, { preserveState: true, ...i, method: "delete" });
-  }
-  remember(e, i = "default") {
-    var _a;
-    Q || this.replaceState({ ...this.page, rememberedState: { ...(_a = this.page) == null ? void 0 : _a.rememberedState, [i]: e } });
-  }
-  restore(e = "default") {
-    var _a, _b;
-    if (!Q) return (_b = (_a = window.history.state) == null ? void 0 : _a.rememberedState) == null ? void 0 : _b[e];
-  }
-  on(e, i) {
-    let n = (s2) => {
-      let l = i(s2);
-      s2.cancelable && !s2.defaultPrevented && l === false && s2.preventDefault();
-    };
-    return document.addEventListener(`inertia:${e}`, n), () => document.removeEventListener(`inertia:${e}`, n);
-  }
-};
-var Z = null;
-function oe(t) {
-  document.addEventListener("inertia:start", se.bind(null, t)), document.addEventListener("inertia:progress", ae), document.addEventListener("inertia:finish", le);
-}
-function se(t) {
-  Z = setTimeout(() => u.start(), t);
-}
-function ae(t) {
-  var _a;
-  u.isStarted() && ((_a = t.detail.progress) == null ? void 0 : _a.percentage) && u.set(Math.max(u.status, t.detail.progress.percentage / 100 * 0.9));
-}
-function le(t) {
-  if (clearTimeout(Z), u.isStarted()) t.detail.visit.completed ? u.done() : t.detail.visit.interrupted ? u.set(0) : t.detail.visit.cancelled && (u.done(), u.remove());
-  else return;
-}
-function ce(t) {
-  let e = document.createElement("style");
-  e.type = "text/css", e.textContent = `
-    #nprogress {
-      pointer-events: none;
-    }
-
-    #nprogress .bar {
-      background: ${t};
-
-      position: fixed;
-      z-index: 1031;
-      top: 0;
-      left: 0;
-
-      width: 100%;
-      height: 2px;
-    }
-
-    #nprogress .peg {
-      display: block;
-      position: absolute;
-      right: 0px;
-      width: 100px;
-      height: 100%;
-      box-shadow: 0 0 10px ${t}, 0 0 5px ${t};
-      opacity: 1.0;
-
-      -webkit-transform: rotate(3deg) translate(0px, -4px);
-          -ms-transform: rotate(3deg) translate(0px, -4px);
-              transform: rotate(3deg) translate(0px, -4px);
-    }
-
-    #nprogress .spinner {
-      display: block;
-      position: fixed;
-      z-index: 1031;
-      top: 15px;
-      right: 15px;
-    }
-
-    #nprogress .spinner-icon {
-      width: 18px;
-      height: 18px;
-      box-sizing: border-box;
-
-      border: solid 2px transparent;
-      border-top-color: ${t};
-      border-left-color: ${t};
-      border-radius: 50%;
-
-      -webkit-animation: nprogress-spinner 400ms linear infinite;
-              animation: nprogress-spinner 400ms linear infinite;
-    }
-
-    .nprogress-custom-parent {
-      overflow: hidden;
-      position: relative;
-    }
-
-    .nprogress-custom-parent #nprogress .spinner,
-    .nprogress-custom-parent #nprogress .bar {
-      position: absolute;
-    }
-
-    @-webkit-keyframes nprogress-spinner {
-      0%   { -webkit-transform: rotate(0deg); }
-      100% { -webkit-transform: rotate(360deg); }
-    }
-    @keyframes nprogress-spinner {
-      0%   { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  `, document.head.appendChild(e);
-}
-function ee({ delay: t = 250, color: e = "#29d", includeCSS: i = true, showSpinner: n = false } = {}) {
-  oe(t), u.configure({ showSpinner: n }), i && ce(e);
-}
-var Fe = new C();
-function onMount() {
-}
-const Link = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, [
+function Link($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, [
     "href",
     "as",
     "data",
@@ -742,34 +675,114 @@ const Link = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     "only",
     "except",
     "headers",
-    "queryStringArrayFormat"
+    "queryStringArrayFormat",
+    "async",
+    "prefetch",
+    "cacheFor"
   ]);
-  let { href } = $$props;
-  let { as = "a" } = $$props;
-  let { data = {} } = $$props;
-  let { method = "get" } = $$props;
-  let { replace = false } = $$props;
-  let { preserveScroll = false } = $$props;
-  let { preserveState = null } = $$props;
-  let { only = [] } = $$props;
-  let { except = [] } = $$props;
-  let { headers = {} } = $$props;
-  let { queryStringArrayFormat = "brackets" } = $$props;
-  if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
-  if ($$props.as === void 0 && $$bindings.as && as !== void 0) $$bindings.as(as);
-  if ($$props.data === void 0 && $$bindings.data && data !== void 0) $$bindings.data(data);
-  if ($$props.method === void 0 && $$bindings.method && method !== void 0) $$bindings.method(method);
-  if ($$props.replace === void 0 && $$bindings.replace && replace !== void 0) $$bindings.replace(replace);
-  if ($$props.preserveScroll === void 0 && $$bindings.preserveScroll && preserveScroll !== void 0) $$bindings.preserveScroll(preserveScroll);
-  if ($$props.preserveState === void 0 && $$bindings.preserveState && preserveState !== void 0) $$bindings.preserveState(preserveState);
-  if ($$props.only === void 0 && $$bindings.only && only !== void 0) $$bindings.only(only);
-  if ($$props.except === void 0 && $$bindings.except && except !== void 0) $$bindings.except(except);
-  if ($$props.headers === void 0 && $$bindings.headers && headers !== void 0) $$bindings.headers(headers);
-  if ($$props.queryStringArrayFormat === void 0 && $$bindings.queryStringArrayFormat && queryStringArrayFormat !== void 0) $$bindings.queryStringArrayFormat(queryStringArrayFormat);
-  return ` ${((tag) => {
-    return tag ? `<${as}${spread([escape_object(as === "a" ? { href } : {}), escape_object($$restProps)], {})}>${is_void(tag) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag) ? "" : `</${tag}>`}` : "";
-  })(as)}`;
-});
+  push();
+  let asProp, elProps;
+  let href = $$props["href"];
+  let as = fallback($$props["as"], "a");
+  let data = fallback($$props["data"], () => ({}), true);
+  let method = fallback($$props["method"], "get");
+  let replace = fallback($$props["replace"], false);
+  let preserveScroll = fallback($$props["preserveScroll"], false);
+  let preserveState = fallback($$props["preserveState"], null);
+  let only = fallback($$props["only"], () => [], true);
+  let except = fallback($$props["except"], () => [], true);
+  let headers = fallback($$props["headers"], () => ({}), true);
+  let queryStringArrayFormat = fallback($$props["queryStringArrayFormat"], "brackets");
+  let async = fallback($$props["async"], false);
+  let prefetch = fallback($$props["prefetch"], false);
+  let cacheFor = fallback($$props["cacheFor"], 0);
+  asProp = method !== "get" ? "button" : as.toLowerCase();
+  elProps = { a: { href }, button: { type: "button" } }[asProp] || {};
+  element(
+    $$payload,
+    asProp,
+    () => {
+      $$payload.out += `${spread_attributes({ ...$$restProps, ...elProps })}`;
+    },
+    () => {
+      $$payload.out += `<!---->`;
+      slot($$payload, $$props, "default", {}, null);
+      $$payload.out += `<!---->`;
+    }
+  );
+  bind_props($$props, {
+    href,
+    as,
+    data,
+    method,
+    replace,
+    preserveScroll,
+    preserveState,
+    only,
+    except,
+    headers,
+    queryStringArrayFormat,
+    async,
+    prefetch,
+    cacheFor
+  });
+  pop();
+}
+const h = (component, propsOrChildren, childrenOrKey, key = null) => {
+  const hasProps = typeof propsOrChildren === "object" && propsOrChildren !== null && !Array.isArray(propsOrChildren);
+  return {
+    component,
+    key: hasProps ? key : typeof childrenOrKey === "number" ? childrenOrKey : null,
+    props: hasProps ? propsOrChildren : {},
+    children: hasProps ? Array.isArray(childrenOrKey) ? childrenOrKey : childrenOrKey !== null ? [childrenOrKey] : [] : Array.isArray(propsOrChildren) ? propsOrChildren : propsOrChildren !== null ? [propsOrChildren] : []
+  };
+};
+function Render($$payload, $$props) {
+  push();
+  let component = $$props["component"];
+  let props = fallback($$props["props"], () => ({}), true);
+  let children = fallback($$props["children"], () => [], true);
+  let key = fallback($$props["key"], null);
+  if (component) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<!---->`;
+    {
+      if (children.length > 0) {
+        $$payload.out += "<!--[-->";
+        $$payload.out += `<!---->`;
+        component == null ? void 0 : component($$payload, spread_props([
+          props,
+          {
+            children: ($$payload2) => {
+              const each_array = ensure_array_like(children);
+              $$payload2.out += `<!--[-->`;
+              for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+                let child = each_array[$$index];
+                Render($$payload2, spread_props([child]));
+                $$payload2.out += `<!---->`;
+              }
+              $$payload2.out += `<!--]-->`;
+            },
+            $$slots: { default: true }
+          }
+        ]));
+        $$payload.out += `<!---->`;
+      } else {
+        $$payload.out += "<!--[!-->";
+        $$payload.out += `<!---->`;
+        component == null ? void 0 : component($$payload, spread_props([props]));
+        $$payload.out += `<!---->`;
+      }
+      $$payload.out += `<!--]-->`;
+    }
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { component, props, children, key });
+  pop();
+}
 const subscriber_queue = [];
 function readable(value, start) {
   return {
@@ -777,9 +790,9 @@ function readable(value, start) {
   };
 }
 function writable(value, start = noop$1) {
-  let stop;
+  let stop = null;
   const subscribers = /* @__PURE__ */ new Set();
-  function set(new_value) {
+  function set2(new_value) {
     if (safe_not_equal(value, new_value)) {
       value = new_value;
       if (stop) {
@@ -797,16 +810,22 @@ function writable(value, start = noop$1) {
       }
     }
   }
-  function update2(fn) {
-    set(fn(value));
+  function update(fn) {
+    set2(fn(
+      /** @type {T} */
+      value
+    ));
   }
   function subscribe2(run2, invalidate = noop$1) {
     const subscriber = [run2, invalidate];
     subscribers.add(subscriber);
     if (subscribers.size === 1) {
-      stop = start(set, update2) || noop$1;
+      stop = start(set2, update) || noop$1;
     }
-    run2(value);
+    run2(
+      /** @type {T} */
+      value
+    );
     return () => {
       subscribers.delete(subscriber);
       if (subscribers.size === 0 && stop) {
@@ -815,7 +834,7 @@ function writable(value, start = noop$1) {
       }
     };
   }
-  return { set, update: update2, subscribe: subscribe2 };
+  return { set: set2, update, subscribe: subscribe2 };
 }
 function derived(stores, fn, initial_value) {
   const single = !Array.isArray(stores);
@@ -824,7 +843,7 @@ function derived(stores, fn, initial_value) {
     throw new Error("derived() expects stores as input, got a falsy value");
   }
   const auto = fn.length < 2;
-  return readable(initial_value, (set, update2) => {
+  return readable(initial_value, (set2, update) => {
     let started = false;
     const values = [];
     let pending = 0;
@@ -834,16 +853,16 @@ function derived(stores, fn, initial_value) {
         return;
       }
       cleanup();
-      const result = fn(single ? values[0] : values, set, update2);
+      const result = fn(single ? values[0] : values, set2, update);
       if (auto) {
-        set(result);
+        set2(result);
       } else {
-        cleanup = is_function(result) ? result : noop$1;
+        cleanup = typeof result === "function" ? result : noop$1;
       }
     };
     const unsubscribers = stores_array.map(
-      (store2, i) => subscribe(
-        store2,
+      (store, i) => subscribe_to_store(
+        store,
         (value) => {
           values[i] = value;
           pending &= ~(1 << i);
@@ -865,113 +884,100 @@ function derived(stores, fn, initial_value) {
     };
   });
 }
-function readonly(store2) {
-  return {
-    subscribe: store2.subscribe.bind(store2)
-  };
+function get$1(store) {
+  let value;
+  subscribe_to_store(store, (_) => value = _)();
+  return value;
 }
-const store = writable({
-  component: null,
-  layout: [],
-  page: {},
-  key: null
-});
-const h = (component, props, children) => {
-  return {
-    component,
-    ...props ? { props } : {},
-    ...children ? { children } : {}
-  };
-};
-const Render = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $store, $$unsubscribe_store;
-  $$unsubscribe_store = subscribe(store, (value) => $store = value);
-  let { component } = $$props;
-  let { props = {} } = $$props;
-  let { children = [] } = $$props;
-  if ($$props.component === void 0 && $$bindings.component && component !== void 0) $$bindings.component(component);
-  if ($$props.props === void 0 && $$bindings.props && props !== void 0) $$bindings.props(props);
-  if ($$props.children === void 0 && $$bindings.children && children !== void 0) $$bindings.children(children);
-  $$unsubscribe_store();
-  return `${$store.component ? `${validate_component(component || missing_component, "svelte:component").$$render($$result, Object.assign({}, props), {}, {
-    default: () => {
-      return `${each(children, (child, index) => {
-        return `${validate_component(Render, "svelte:self").$$render($$result, Object.assign({}, child), {}, {})}`;
-      })}`;
+const { set, subscribe } = writable();
+const setPage = set;
+const page = { subscribe };
+function App($$payload, $$props) {
+  push();
+  let initialComponent = $$props["initialComponent"];
+  let initialPage = $$props["initialPage"];
+  let resolveComponent = $$props["resolveComponent"];
+  let component = initialComponent;
+  let key = null;
+  let page2 = initialPage;
+  let renderProps = resolveRenderProps(component, page2, key);
+  setPage(page2);
+  const isServer = typeof window === "undefined";
+  if (!isServer) {
+    router.init({
+      initialPage,
+      resolveComponent,
+      swapComponent: async (args) => {
+        component = args.component;
+        page2 = args.page;
+        key = args.preserveState ? key : Date.now();
+        renderProps = resolveRenderProps(component, page2, key);
+        setPage(page2);
+      }
+    });
+  }
+  function resolveRenderProps(component2, page22, key2 = null) {
+    const child = h(component2.default, page22.props, [], key2);
+    const layout = component2.layout;
+    return layout ? resolveLayout(layout, child, page22.props, key2) : child;
+  }
+  function resolveLayout(layout, child, pageProps, key2) {
+    if (isLayoutFunction(layout)) {
+      return layout(h, child);
     }
-  })}` : ``}`;
-});
-const App = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let child;
-  let layout;
-  let components;
-  let $store, $$unsubscribe_store;
-  $$unsubscribe_store = subscribe(store, (value) => $store = value);
-  child = $store.component && h($store.component.default, $store.page.props);
-  layout = $store.component && $store.component.layout;
-  components = layout ? Array.isArray(layout) ? layout.concat(child).reverse().reduce((child2, layout2) => h(layout2, $store.page.props, [child2])) : h(layout, $store.page.props, [child]) : child;
-  $$unsubscribe_store();
-  return `${validate_component(Render, "Render").$$render($$result, Object.assign({}, components), {}, {})}`;
-});
-const SSR = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { id, initialPage } = $$props;
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.initialPage === void 0 && $$bindings.initialPage && initialPage !== void 0) $$bindings.initialPage(initialPage);
-  return `<div data-server-rendered="true"${add_attribute("id", id, 0)}${add_attribute("data-page", JSON.stringify(initialPage), 0)}>${validate_component(App, "App").$$render($$result, {}, {}, {})}</div>`;
-});
+    if (Array.isArray(layout)) {
+      return layout.slice().reverse().reduce((currentRender, layoutComponent) => h(layoutComponent, pageProps, [currentRender], key2), child);
+    }
+    return h(layout, pageProps, [child], key2);
+  }
+  function isLayoutFunction(layout) {
+    return typeof layout === "function" && layout.length === 2 && typeof layout.prototype === "undefined";
+  }
+  Render($$payload, spread_props([renderProps]));
+  bind_props($$props, {
+    initialComponent,
+    initialPage,
+    resolveComponent
+  });
+  pop();
+}
 async function createInertiaApp({ id = "app", resolve, setup, progress = {}, page: page2 }) {
   const isServer = typeof window === "undefined";
   const el = isServer ? null : document.getElementById(id);
-  const initialPage = page2 || JSON.parse(el.dataset.page);
-  const resolveComponent = (name2) => Promise.resolve(resolve(name2));
-  await resolveComponent(initialPage.component).then((initialComponent) => {
-    store.set({
-      component: initialComponent,
-      page: initialPage
-    });
+  const initialPage = page2 || JSON.parse((el == null ? void 0 : el.dataset.page) || "{}");
+  const resolveComponent = (name) => Promise.resolve(resolve(name));
+  const [initialComponent] = await Promise.all([
+    resolveComponent(initialPage.component),
+    router.decryptHistory().catch(() => {
+    })
+  ]);
+  const props = { initialPage, initialComponent, resolveComponent };
+  const svelteApp = setup({
+    el,
+    App,
+    props
   });
-  if (!isServer) {
-    Fe.init({
-      initialPage,
-      resolveComponent,
-      swapComponent: async ({ component, page: page3, preserveState }) => {
-        store.update((current) => ({
-          component,
-          page: page3,
-          key: preserveState ? current.key : Date.now()
-        }));
-      }
-    });
-    if (progress) {
-      ee(progress);
-    }
-    return setup({
-      el,
-      App,
-      props: {
-        initialPage,
-        resolveComponent
-      }
-    });
-  }
   if (isServer) {
-    const { html, head } = SSR.render({ id, initialPage });
+    const { html, head: head2, css } = svelteApp;
     return {
-      body: html,
-      head: [head]
+      body: `<div data-server-rendered="true" id="${id}" data-page="${escape(JSON.stringify(initialPage))}">${html}</div>`,
+      head: [head2, css ? `<style data-vite-css>${css.code}</style>` : ""]
     };
   }
+  if (progress) {
+    setupProgress(progress);
+  }
 }
-const page = derived(store, ($store) => $store.page);
-function useForm(...args) {
-  const rememberKey = typeof args[0] === "string" ? args[0] : null;
-  const data = (typeof args[0] === "string" ? args[1] : args[0]) || {};
-  const restored = rememberKey ? Fe.restore(rememberKey) : null;
-  let defaults2 = cloneDeep(data);
+function useForm(rememberKeyOrData, maybeData) {
+  const rememberKey = typeof rememberKeyOrData === "string" ? rememberKeyOrData : null;
+  const inputData = typeof rememberKeyOrData === "string" ? maybeData : rememberKeyOrData;
+  const data = typeof inputData === "function" ? inputData() : inputData;
+  const restored = rememberKey ? router.restore(rememberKey) : null;
+  let defaults = cloneDeep(data);
   let cancelToken = null;
   let recentlySuccessfulTimeoutId = null;
   let transform = (data2) => data2;
-  const store2 = writable({
+  const store = writable({
     ...restored ? restored.data : data,
     isDirty: false,
     errors: restored ? restored.errors : {},
@@ -980,9 +986,9 @@ function useForm(...args) {
     wasSuccessful: false,
     recentlySuccessful: false,
     processing: false,
-    setStore(key, value) {
-      store2.update((store3) => {
-        return Object.assign(store3, typeof key === "string" ? { [key]: value } : key);
+    setStore(keyOrData, maybeValue = void 0) {
+      store.update((store2) => {
+        return Object.assign(store2, typeof keyOrData === "string" ? { [keyOrData]: maybeValue } : keyOrData);
       });
     },
     data() {
@@ -995,46 +1001,34 @@ function useForm(...args) {
       transform = callback;
       return this;
     },
-    defaults(key, value) {
-      if (typeof key === "undefined") {
-        defaults2 = Object.assign(defaults2, cloneDeep(this.data()));
-        return this;
-      }
-      defaults2 = Object.assign(defaults2, cloneDeep(value ? { [key]: value } : key));
+    defaults(fieldOrFields, maybeValue) {
+      defaults = typeof fieldOrFields === "undefined" ? cloneDeep(this.data()) : Object.assign(cloneDeep(defaults), typeof fieldOrFields === "string" ? { [fieldOrFields]: maybeValue } : fieldOrFields);
       return this;
     },
     reset(...fields) {
-      let clonedDefaults = cloneDeep(defaults2);
+      const clonedData = cloneDeep(defaults);
       if (fields.length === 0) {
-        this.setStore(clonedDefaults);
+        this.setStore(clonedData);
       } else {
-        this.setStore(
-          Object.keys(clonedDefaults).filter((key) => fields.includes(key)).reduce((carry, key) => {
-            carry[key] = clonedDefaults[key];
-            return carry;
-          }, {})
-        );
+        this.setStore(Object.keys(clonedData).filter((key) => fields.includes(key)).reduce((carry, key) => {
+          carry[key] = clonedData[key];
+          return carry;
+        }, {}));
       }
       return this;
     },
-    setError(key, value) {
+    setError(fieldOrFields, maybeValue) {
       this.setStore("errors", {
         ...this.errors,
-        ...value ? { [key]: value } : key
+        ...typeof fieldOrFields === "string" ? { [fieldOrFields]: maybeValue } : fieldOrFields
       });
       return this;
     },
     clearErrors(...fields) {
-      this.setStore(
-        "errors",
-        Object.keys(this.errors).reduce(
-          (carry, field) => ({
-            ...carry,
-            ...fields.length > 0 && !fields.includes(field) ? { [field]: this.errors[field] } : {}
-          }),
-          {}
-        )
-      );
+      this.setStore("errors", Object.keys(this.errors).reduce((carry, field) => ({
+        ...carry,
+        ...fields.length > 0 && !fields.includes(field) ? { [field]: this.errors[field] } : {}
+      }), {}));
       return this;
     },
     submit(method, url, options = {}) {
@@ -1050,7 +1044,9 @@ function useForm(...args) {
         onBefore: (visit) => {
           this.setStore("wasSuccessful", false);
           this.setStore("recentlySuccessful", false);
-          clearTimeout(recentlySuccessfulTimeoutId);
+          if (recentlySuccessfulTimeoutId) {
+            clearTimeout(recentlySuccessfulTimeoutId);
+          }
           if (options.onBefore) {
             return options.onBefore(visit);
           }
@@ -1093,19 +1089,19 @@ function useForm(...args) {
             return options.onCancel();
           }
         },
-        onFinish: () => {
+        onFinish: (visit) => {
           this.setStore("processing", false);
           this.setStore("progress", null);
           cancelToken = null;
           if (options.onFinish) {
-            return options.onFinish();
+            return options.onFinish(visit);
           }
         }
       };
       if (method === "delete") {
-        Fe.delete(url, { ..._options, data: data2 });
+        router.delete(url, { ..._options, data: data2 });
       } else {
-        Fe[method](url, data2, _options);
+        router[method](url, data2, _options);
       }
     },
     get(url, options) {
@@ -1124,13 +1120,11 @@ function useForm(...args) {
       this.submit("delete", url, options);
     },
     cancel() {
-      if (cancelToken) {
-        cancelToken.cancel();
-      }
+      cancelToken == null ? void 0 : cancelToken.cancel();
     }
   });
-  store2.subscribe((form) => {
-    if (form.isDirty === isEqual(form.data(), defaults2)) {
+  store.subscribe((form) => {
+    if (form.isDirty === isEqual(form.data(), defaults)) {
       form.setStore("isDirty", !form.isDirty);
     }
     const hasErrors = Object.keys(form.errors).length > 0;
@@ -1138,169 +1132,198 @@ function useForm(...args) {
       form.setStore("hasErrors", !form.hasErrors);
     }
     if (rememberKey) {
-      Fe.remember({ data: form.data(), errors: form.errors }, rememberKey);
+      router.remember({ data: form.data(), errors: form.errors }, rememberKey);
     }
   });
-  return store2;
+  return store;
 }
-function next(array, index, loop = true) {
-  if (index === array.length - 1) {
-    return loop ? array[0] : array[index];
-  }
-  return array[index + 1];
-}
-function prev(array, currentIndex, loop = true) {
-  if (currentIndex <= 0) {
-    return loop ? array[array.length - 1] : array[0];
-  }
-  return array[currentIndex - 1];
-}
-function last(array) {
-  return array[array.length - 1];
-}
-function chunk(arr, size2) {
-  const result = [];
-  for (let i = 0; i < arr.length; i += size2) {
-    result.push(arr.slice(i, i + size2));
-  }
-  return result;
-}
-function isValidIndex(index, arr) {
-  return index >= 0 && index < arr.length;
-}
-function styleToString$3(style) {
-  return Object.keys(style).reduce((str, key) => {
-    if (style[key] === void 0)
-      return str;
-    return str + `${key}:${style[key]};`;
-  }, "");
-}
-function disabledAttr(disabled) {
-  return disabled ? true : void 0;
-}
-({
-  type: "hidden",
-  "aria-hidden": true,
-  hidden: true,
-  tabIndex: -1,
-  style: styleToString$3({
-    position: "absolute",
-    opacity: 0,
-    "pointer-events": "none",
-    margin: 0,
-    transform: "translateX(-100%)"
-  })
-});
-function portalAttr(portal) {
-  if (portal !== null) {
-    return "";
-  }
-  return void 0;
-}
-function lightable(value) {
-  function subscribe2(run2) {
-    run2(value);
-    return () => {
-    };
-  }
-  return { subscribe: subscribe2 };
-}
-function getElementByMeltId(id) {
-  if (!isBrowser$3)
-    return null;
-  const el = document.querySelector(`[data-melt-id="${id}"]`);
-  return isHTMLElement(el) ? el : null;
-}
-const hiddenAction = (obj) => {
-  return new Proxy(obj, {
-    get(target, prop, receiver) {
-      return Reflect.get(target, prop, receiver);
-    },
-    ownKeys(target) {
-      return Reflect.ownKeys(target).filter((key) => key !== "action");
-    }
-  });
-};
-const isFunctionWithParams = (fn) => {
-  return typeof fn === "function";
-};
-makeElement("empty");
-function makeElement(name2, args) {
-  const { stores, action, returned } = args ?? {};
-  const derivedStore = (() => {
-    if (stores && returned) {
-      return derived(stores, (values) => {
-        const result = returned(values);
-        if (isFunctionWithParams(result)) {
-          const fn = (...args2) => {
-            return hiddenAction({
-              ...result(...args2),
-              [`data-melt-${name2}`]: "",
-              action: action ?? noop
-            });
-          };
-          fn.action = action ?? noop;
-          return fn;
-        }
-        return hiddenAction({
-          ...result,
-          [`data-melt-${name2}`]: "",
-          action: action ?? noop
-        });
-      });
-    } else {
-      const returnedFn = returned;
-      const result = returnedFn == null ? void 0 : returnedFn();
-      if (isFunctionWithParams(result)) {
-        const resultFn = (...args2) => {
-          return hiddenAction({
-            ...result(...args2),
-            [`data-melt-${name2}`]: "",
-            action: action ?? noop
-          });
-        };
-        resultFn.action = action ?? noop;
-        return lightable(resultFn);
-      }
-      return lightable(hiddenAction({
-        ...result,
-        [`data-melt-${name2}`]: "",
-        action: action ?? noop
-      }));
-    }
-  })();
-  const actionFn = action ?? (() => {
-  });
-  actionFn.subscribe = derivedStore.subscribe;
-  return actionFn;
-}
-function createElHelpers(prefix) {
-  const name2 = (part) => part ? `${prefix}-${part}` : prefix;
-  const attribute = (part) => `data-melt-${prefix}${part ? `-${part}` : ""}`;
-  const selector2 = (part) => `[data-melt-${prefix}${part ? `-${part}` : ""}]`;
-  const getEl = (part) => document.querySelector(selector2(part));
-  return {
-    name: name2,
-    attribute,
-    selector: selector2,
-    getEl
-  };
-}
-const isBrowser$3 = typeof document !== "undefined";
-const isFunction = (v) => typeof v === "function";
-function isElement(element) {
-  return element instanceof Element;
-}
-function isHTMLElement(element) {
-  return element instanceof HTMLElement;
+function isFunction(value) {
+  return typeof value === "function";
 }
 function isObject(value) {
   return value !== null && typeof value === "object";
 }
-function isReadable(value) {
-  return isObject(value) && "subscribe" in value;
+const BoxSymbol = Symbol("box");
+const isWritableSymbol = Symbol("is-writable");
+function isBox(value) {
+  return isObject(value) && BoxSymbol in value;
 }
-function executeCallbacks$1(...callbacks) {
+function isWritableBox(value) {
+  return box.isBox(value) && isWritableSymbol in value;
+}
+function box(initialValue) {
+  let current = initialValue;
+  return {
+    [BoxSymbol]: true,
+    [isWritableSymbol]: true,
+    get current() {
+      return current;
+    },
+    set current(v) {
+      current = v;
+    }
+  };
+}
+function boxWith(getter, setter) {
+  const derived2 = getter();
+  if (setter) {
+    return {
+      [BoxSymbol]: true,
+      [isWritableSymbol]: true,
+      get current() {
+        return derived2;
+      },
+      set current(v) {
+        setter(v);
+      }
+    };
+  }
+  return {
+    [BoxSymbol]: true,
+    get current() {
+      return getter();
+    }
+  };
+}
+function boxFrom(value) {
+  if (box.isBox(value)) return value;
+  if (isFunction(value)) return box.with(value);
+  return box(value);
+}
+function boxFlatten(boxes) {
+  return Object.entries(boxes).reduce(
+    (acc, [key, b]) => {
+      if (!box.isBox(b)) {
+        return Object.assign(acc, { [key]: b });
+      }
+      if (box.isWritableBox(b)) {
+        Object.defineProperty(acc, key, {
+          get() {
+            return b.current;
+          },
+          set(v) {
+            b.current = v;
+          }
+        });
+      } else {
+        Object.defineProperty(acc, key, {
+          get() {
+            return b.current;
+          }
+        });
+      }
+      return acc;
+    },
+    {}
+  );
+}
+function toReadonlyBox(b) {
+  if (!box.isWritableBox(b)) return b;
+  return {
+    [BoxSymbol]: true,
+    get current() {
+      return b.current;
+    }
+  };
+}
+box.from = boxFrom;
+box.with = boxWith;
+box.flatten = boxFlatten;
+box.readonly = toReadonlyBox;
+box.isBox = isBox;
+box.isWritableBox = isWritableBox;
+function composeHandlers(...handlers) {
+  return function(e) {
+    var _a;
+    for (const handler of handlers) {
+      if (!handler)
+        continue;
+      if (e.defaultPrevented)
+        return;
+      if (typeof handler === "function") {
+        handler.call(this, e);
+      } else {
+        (_a = handler.current) == null ? void 0 : _a.call(this, e);
+      }
+    }
+  };
+}
+const NUMBER_CHAR_RE = /\d/;
+const STR_SPLITTERS = ["-", "_", "/", "."];
+function isUppercase(char = "") {
+  if (NUMBER_CHAR_RE.test(char))
+    return void 0;
+  return char !== char.toLowerCase();
+}
+function splitByCase(str) {
+  const parts = [];
+  let buff = "";
+  let previousUpper;
+  let previousSplitter;
+  for (const char of str) {
+    const isSplitter = STR_SPLITTERS.includes(char);
+    if (isSplitter === true) {
+      parts.push(buff);
+      buff = "";
+      previousUpper = void 0;
+      continue;
+    }
+    const isUpper = isUppercase(char);
+    if (previousSplitter === false) {
+      if (previousUpper === false && isUpper === true) {
+        parts.push(buff);
+        buff = char;
+        previousUpper = isUpper;
+        continue;
+      }
+      if (previousUpper === true && isUpper === false && buff.length > 1) {
+        const lastChar = buff.at(-1);
+        parts.push(buff.slice(0, Math.max(0, buff.length - 1)));
+        buff = lastChar + char;
+        previousUpper = isUpper;
+        continue;
+      }
+    }
+    buff += char;
+    previousUpper = isUpper;
+    previousSplitter = isSplitter;
+  }
+  parts.push(buff);
+  return parts;
+}
+function pascalCase(str) {
+  if (!str)
+    return "";
+  return splitByCase(str).map((p2) => upperFirst(p2)).join("");
+}
+function camelCase(str) {
+  return lowerFirst(pascalCase(str || ""));
+}
+function upperFirst(str) {
+  return str ? str[0].toUpperCase() + str.slice(1) : "";
+}
+function lowerFirst(str) {
+  return str ? str[0].toLowerCase() + str.slice(1) : "";
+}
+function cssToStyleObj(css) {
+  if (!css)
+    return {};
+  const styleObj = {};
+  function iterator(name, value) {
+    if (name.startsWith("-moz-") || name.startsWith("-webkit-") || name.startsWith("-ms-") || name.startsWith("-o-")) {
+      styleObj[pascalCase(name)] = value;
+      return;
+    }
+    if (name.startsWith("--")) {
+      styleObj[name] = value;
+      return;
+    }
+    styleObj[camelCase(name)] = value;
+  }
+  parse(css, iterator);
+  return styleObj;
+}
+function executeCallbacks(...callbacks) {
   return (...args) => {
     for (const callback of callbacks) {
       if (typeof callback === "function") {
@@ -1309,1126 +1332,1475 @@ function executeCallbacks$1(...callbacks) {
     }
   };
 }
+function createParser(matcher, replacer) {
+  const regex = RegExp(matcher, "g");
+  return (str) => {
+    if (typeof str !== "string") {
+      throw new TypeError(`expected an argument of type string, but got ${typeof str}`);
+    }
+    if (!str.match(regex))
+      return str;
+    return str.replace(regex, replacer);
+  };
+}
+const camelToKebab = createParser(/[A-Z]/, (match) => `-${match.toLowerCase()}`);
+function styleToCSS(styleObj) {
+  if (!styleObj || typeof styleObj !== "object" || Array.isArray(styleObj)) {
+    throw new TypeError(`expected an argument of type object, but got ${typeof styleObj}`);
+  }
+  return Object.keys(styleObj).map((property) => `${camelToKebab(property)}: ${styleObj[property]};`).join("\n");
+}
+function styleToString(style = {}) {
+  return styleToCSS(style).replace("\n", " ");
+}
+const srOnlyStyles = {
+  position: "absolute",
+  width: "1px",
+  height: "1px",
+  padding: "0",
+  margin: "-1px",
+  overflow: "hidden",
+  clip: "rect(0, 0, 0, 0)",
+  whiteSpace: "nowrap",
+  borderWidth: "0",
+  transform: "translateX(-100%)"
+};
+const srOnlyStylesString = styleToString(srOnlyStyles);
+function isEventHandler(key) {
+  var _a;
+  return key.length > 2 && key.startsWith("on") && key[2] === ((_a = key[2]) == null ? void 0 : _a.toLowerCase());
+}
+function mergeProps(...args) {
+  const result = { ...args[0] };
+  for (let i = 1; i < args.length; i++) {
+    const props = args[i];
+    for (const key in props) {
+      const a = result[key];
+      const b = props[key];
+      const aIsFunction = typeof a === "function";
+      const bIsFunction = typeof b === "function";
+      if (aIsFunction && typeof bIsFunction && isEventHandler(key)) {
+        const aHandler = a;
+        const bHandler = b;
+        result[key] = composeHandlers(aHandler, bHandler);
+      } else if (aIsFunction && bIsFunction) {
+        result[key] = executeCallbacks(a, b);
+      } else if (key === "class" && typeof a === "string" && typeof b === "string") {
+        result[key] = clsx(a, b);
+      } else if (key === "style") {
+        const aIsObject = typeof a === "object";
+        const bIsObject = typeof b === "object";
+        const aIsString = typeof a === "string";
+        const bIsString = typeof b === "string";
+        if (aIsObject && bIsObject) {
+          result[key] = { ...a, ...b };
+        } else if (aIsObject && bIsString) {
+          const parsedStyle = cssToStyleObj(b);
+          result[key] = { ...a, ...parsedStyle };
+        } else if (aIsString && bIsObject) {
+          const parsedStyle = cssToStyleObj(a);
+          result[key] = { ...parsedStyle, ...b };
+        } else if (aIsString && bIsString) {
+          const parsedStyleA = cssToStyleObj(a);
+          const parsedStyleB = cssToStyleObj(b);
+          result[key] = { ...parsedStyleA, ...parsedStyleB };
+        } else if (aIsObject) {
+          result[key] = a;
+        } else if (bIsObject) {
+          result[key] = b;
+        }
+      } else {
+        result[key] = b !== void 0 ? b : a;
+      }
+    }
+  }
+  if (typeof result.style === "object") {
+    result.style = styleToString(result.style).replaceAll("\n", " ");
+  }
+  if (result.hidden !== true) {
+    result.hidden = void 0;
+  }
+  if (result.disabled !== true) {
+    result.disabled = void 0;
+  }
+  return result;
+}
+function useRefById({
+  id,
+  ref,
+  deps = () => true,
+  onRefChange = () => {
+  },
+  getRootNode = () => typeof document !== "undefined" ? document : void 0
+}) {
+  (() => deps())();
+  (() => getRootNode())();
+}
+function afterSleep(ms, cb) {
+  setTimeout(cb, ms);
+}
+function afterTick(fn) {
+  tick().then(fn);
+}
+class ElementSize {
+  constructor(node, options = { box: "border-box" }) {
+    __privateAdd(this, _size, { width: 0, height: 0 });
+    var _a, _b;
+    __privateSet(this, _size, {
+      width: ((_a = options.initialSize) == null ? void 0 : _a.width) ?? 0,
+      height: ((_b = options.initialSize) == null ? void 0 : _b.height) ?? 0
+    });
+  }
+  get width() {
+    return __privateGet(this, _size).width;
+  }
+  get height() {
+    return __privateGet(this, _size).height;
+  }
+}
+_size = new WeakMap();
+function getDataOpenClosed(condition) {
+  return condition ? "open" : "closed";
+}
+function getAriaDisabled(condition) {
+  return condition ? "true" : "false";
+}
+function getAriaReadonly(condition) {
+  return condition ? "true" : "false";
+}
+function getAriaExpanded(condition) {
+  return condition ? "true" : "false";
+}
+function getDataDisabled(condition) {
+  return condition ? "" : void 0;
+}
+function getAriaRequired(condition) {
+  return condition ? "true" : "false";
+}
+function getAriaSelected(condition) {
+  return condition ? "true" : "false";
+}
+function getAriaChecked(checked, indeterminate) {
+  if (indeterminate) {
+    return "mixed";
+  }
+  return checked ? "true" : "false";
+}
+function getAriaOrientation(orientation) {
+  return orientation;
+}
+function getAriaHidden(condition) {
+  return condition ? "true" : void 0;
+}
+function getDataOrientation(orientation) {
+  return orientation;
+}
+function getDataInvalid(condition) {
+  return condition ? "" : void 0;
+}
+function getDataReadonly(condition) {
+  return condition ? "" : void 0;
+}
+function getDataSelected(condition) {
+  return condition ? "" : void 0;
+}
+function getDataUnavailable(condition) {
+  return condition ? "" : void 0;
+}
+function getHidden(condition) {
+  return condition ? true : void 0;
+}
+function getDisabled(condition) {
+  return condition ? true : void 0;
+}
+const ARROW_DOWN = "ArrowDown";
+const ARROW_LEFT = "ArrowLeft";
+const ARROW_RIGHT = "ArrowRight";
+const ARROW_UP = "ArrowUp";
+const END = "End";
+const ENTER = "Enter";
+const ESCAPE = "Escape";
+const HOME = "Home";
+const SPACE = " ";
+const TAB = "Tab";
+const p = "p";
+const n = "n";
+const j = "j";
+const k = "k";
+function getElemDirection(elem) {
+  const style = window.getComputedStyle(elem);
+  const direction = style.getPropertyValue("direction");
+  return direction;
+}
+function getNextKey(dir = "ltr", orientation = "horizontal") {
+  return {
+    horizontal: dir === "rtl" ? ARROW_LEFT : ARROW_RIGHT,
+    vertical: ARROW_DOWN
+  }[orientation];
+}
+function getPrevKey(dir = "ltr", orientation = "horizontal") {
+  return {
+    horizontal: dir === "rtl" ? ARROW_RIGHT : ARROW_LEFT,
+    vertical: ARROW_UP
+  }[orientation];
+}
+function getDirectionalKeys(dir = "ltr", orientation = "horizontal") {
+  if (!["ltr", "rtl"].includes(dir))
+    dir = "ltr";
+  if (!["horizontal", "vertical"].includes(orientation))
+    orientation = "horizontal";
+  return {
+    nextKey: getNextKey(dir, orientation),
+    prevKey: getPrevKey(dir, orientation)
+  };
+}
+const isBrowser$2 = typeof document !== "undefined";
+function isHTMLElement(element2) {
+  return element2 instanceof HTMLElement;
+}
+function isElement(element2) {
+  return element2 instanceof Element;
+}
+function isNotNull(value) {
+  return value !== null;
+}
+function isSelectableInput(element2) {
+  return element2 instanceof HTMLInputElement && "select" in element2;
+}
+function isElementHidden(node, stopAt) {
+  if (getComputedStyle(node).visibility === "hidden")
+    return true;
+  while (node) {
+    if (stopAt !== void 0 && node === stopAt)
+      return false;
+    if (getComputedStyle(node).display === "none")
+      return true;
+    node = node.parentElement;
+  }
+  return false;
+}
+function useRovingFocus(props) {
+  const currentTabStopId = props.currentTabStopId ? props.currentTabStopId : box(null);
+  function getCandidateNodes() {
+    if (!isBrowser$2) return [];
+    const node = document.getElementById(props.rootNodeId.current);
+    if (!node) return [];
+    if (props.candidateSelector) {
+      const candidates = Array.from(node.querySelectorAll(props.candidateSelector));
+      return candidates;
+    } else {
+      const candidates = Array.from(node.querySelectorAll(`[${props.candidateAttr}]:not([data-disabled])`));
+      return candidates;
+    }
+  }
+  function focusFirstCandidate() {
+    var _a;
+    const items = getCandidateNodes();
+    if (!items.length) return;
+    (_a = items[0]) == null ? void 0 : _a.focus();
+  }
+  function handleKeydown(node, e, both = false) {
+    var _a;
+    const rootNode = document.getElementById(props.rootNodeId.current);
+    if (!rootNode || !node) return;
+    const items = getCandidateNodes();
+    if (!items.length) return;
+    const currentIndex = items.indexOf(node);
+    const dir = getElemDirection(rootNode);
+    const { nextKey, prevKey } = getDirectionalKeys(dir, props.orientation.current);
+    const loop = props.loop.current;
+    const keyToIndex = {
+      [nextKey]: currentIndex + 1,
+      [prevKey]: currentIndex - 1,
+      [HOME]: 0,
+      [END]: items.length - 1
+    };
+    if (both) {
+      const altNextKey = nextKey === ARROW_DOWN ? ARROW_RIGHT : ARROW_DOWN;
+      const altPrevKey = prevKey === ARROW_UP ? ARROW_LEFT : ARROW_UP;
+      keyToIndex[altNextKey] = currentIndex + 1;
+      keyToIndex[altPrevKey] = currentIndex - 1;
+    }
+    let itemIndex = keyToIndex[e.key];
+    if (itemIndex === void 0) return;
+    e.preventDefault();
+    if (itemIndex < 0 && loop) {
+      itemIndex = items.length - 1;
+    } else if (itemIndex === items.length && loop) {
+      itemIndex = 0;
+    }
+    const itemToFocus = items[itemIndex];
+    if (!itemToFocus) return;
+    itemToFocus.focus();
+    currentTabStopId.current = itemToFocus.id;
+    (_a = props.onCandidateFocus) == null ? void 0 : _a.call(props, itemToFocus);
+    return itemToFocus;
+  }
+  function getTabIndex(node) {
+    const items = getCandidateNodes();
+    const anyActive = currentTabStopId.current !== null;
+    if (node && !anyActive && items[0] === node) {
+      currentTabStopId.current = node.id;
+      return 0;
+    } else if ((node == null ? void 0 : node.id) === currentTabStopId.current) {
+      return 0;
+    }
+    return -1;
+  }
+  return {
+    setCurrentTabStopId(id) {
+      currentTabStopId.current = id;
+    },
+    getTabIndex,
+    handleKeydown,
+    focusFirstCandidate,
+    currentTabStopId
+  };
+}
+function setContext(key, value) {
+  return setContext$1(key, value);
+}
+function getContext(key, fallback2) {
+  const trueKey = typeof key === "symbol" ? key : key;
+  const description = typeof key === "symbol" ? key.description : key;
+  if (!hasContext(trueKey)) {
+    if (fallback2 === void 0) {
+      throw new Error(`Missing context dependency: ${description} and no fallback was provided.`);
+    }
+    return fallback2;
+  }
+  return getContext$1(key);
+}
+function getSymbolDescription(providerComponentName, contextName) {
+  if (contextName !== void 0)
+    return contextName;
+  if (typeof providerComponentName === "string" && contextName === void 0) {
+    return `${providerComponentName}Context`;
+  } else if (Array.isArray(providerComponentName) && contextName === void 0) {
+    return `${providerComponentName[0]}Context`;
+  } else {
+    if (contextName !== void 0)
+      return contextName;
+    return `${providerComponentName}Context`;
+  }
+}
+function createContext(providerComponentName, contextName, useSymbol = true) {
+  const symbolDescription = getSymbolDescription(providerComponentName, contextName);
+  const symbol = Symbol.for(`bits-ui.${symbolDescription}`);
+  const key = symbolDescription;
+  function getCtx(fallback2) {
+    const context = getContext(useSymbol ? symbol : key, fallback2);
+    if (context === void 0) {
+      throw new Error(`Context \`${symbolDescription}\` not found. Component must be used within ${Array.isArray(providerComponentName) ? `one of the following components: ${providerComponentName.join(", ")}` : `\`${providerComponentName}\``}`);
+    }
+    if (context === null)
+      return context;
+    return context;
+  }
+  function setCtx(value) {
+    if (useSymbol) {
+      return setContext(symbol, value);
+    } else {
+      return setContext(key, value);
+    }
+  }
+  return [setCtx, getCtx];
+}
+const ACCORDION_ROOT_ATTR = "data-accordion-root";
+const ACCORDION_TRIGGER_ATTR = "data-accordion-trigger";
+const ACCORDION_CONTENT_ATTR = "data-accordion-content";
+const ACCORDION_ITEM_ATTR = "data-accordion-item";
+const ACCORDION_HEADER_ATTR = "data-accordion-header";
+class AccordionBaseState {
+  constructor(props) {
+    __privateAdd(this, _id);
+    __privateAdd(this, _ref);
+    __publicField(this, "disabled");
+    __privateAdd(this, _loop);
+    __publicField(this, "orientation");
+    __publicField(this, "rovingFocusGroup");
+    __privateAdd(this, _props, once(() => ({
+      id: __privateGet(this, _id).current,
+      "data-orientation": getDataOrientation(this.orientation.current),
+      "data-disabled": getDataDisabled(this.disabled.current),
+      [ACCORDION_ROOT_ATTR]: ""
+    })));
+    __privateSet(this, _id, props.id);
+    this.disabled = props.disabled;
+    __privateSet(this, _ref, props.ref);
+    useRefById({ id: props.id, ref: __privateGet(this, _ref) });
+    this.orientation = props.orientation;
+    __privateSet(this, _loop, props.loop);
+    this.rovingFocusGroup = useRovingFocus({
+      rootNodeId: __privateGet(this, _id),
+      candidateAttr: ACCORDION_TRIGGER_ATTR,
+      loop: __privateGet(this, _loop),
+      orientation: this.orientation
+    });
+  }
+  get props() {
+    return __privateGet(this, _props).call(this);
+  }
+}
+_id = new WeakMap();
+_ref = new WeakMap();
+_loop = new WeakMap();
+_props = new WeakMap();
+class AccordionSingleState extends AccordionBaseState {
+  constructor(props) {
+    super(props);
+    __privateAdd(this, _value);
+    __publicField(this, "isMulti", false);
+    __privateSet(this, _value, props.value);
+    this.includesItem = this.includesItem.bind(this);
+    this.toggleItem = this.toggleItem.bind(this);
+  }
+  includesItem(item) {
+    return __privateGet(this, _value).current === item;
+  }
+  toggleItem(item) {
+    __privateGet(this, _value).current = this.includesItem(item) ? "" : item;
+  }
+}
+_value = new WeakMap();
+class AccordionMultiState extends AccordionBaseState {
+  constructor(props) {
+    super(props);
+    __privateAdd(this, _value2);
+    __publicField(this, "isMulti", true);
+    __privateSet(this, _value2, props.value);
+    this.includesItem = this.includesItem.bind(this);
+    this.toggleItem = this.toggleItem.bind(this);
+  }
+  includesItem(item) {
+    return __privateGet(this, _value2).current.includes(item);
+  }
+  toggleItem(item) {
+    if (this.includesItem(item)) {
+      __privateGet(this, _value2).current = __privateGet(this, _value2).current.filter((v) => v !== item);
+    } else {
+      __privateGet(this, _value2).current = [...__privateGet(this, _value2).current, item];
+    }
+  }
+}
+_value2 = new WeakMap();
+class AccordionItemState {
+  constructor(props) {
+    __privateAdd(this, _id2);
+    __privateAdd(this, _ref2);
+    __publicField(this, "value");
+    __publicField(this, "disabled");
+    __publicField(this, "root");
+    __privateAdd(this, _isActive, once(() => this.root.includesItem(this.value.current)));
+    __privateAdd(this, _isDisabled, once(() => this.disabled.current || this.root.disabled.current));
+    __privateAdd(this, _props2, once(() => ({
+      id: __privateGet(this, _id2).current,
+      "data-state": getDataOpenClosed(this.isActive),
+      "data-disabled": getDataDisabled(this.isDisabled),
+      "data-orientation": getDataOrientation(this.root.orientation.current),
+      [ACCORDION_ITEM_ATTR]: ""
+    })));
+    this.value = props.value;
+    this.disabled = props.disabled;
+    this.root = props.rootState;
+    __privateSet(this, _id2, props.id);
+    __privateSet(this, _ref2, props.ref);
+    this.updateValue = this.updateValue.bind(this);
+    useRefById({
+      id: __privateGet(this, _id2),
+      ref: __privateGet(this, _ref2),
+      deps: () => this.isActive
+    });
+  }
+  get isActive() {
+    return __privateGet(this, _isActive).call(this);
+  }
+  get isDisabled() {
+    return __privateGet(this, _isDisabled).call(this);
+  }
+  updateValue() {
+    this.root.toggleItem(this.value.current);
+  }
+  get props() {
+    return __privateGet(this, _props2).call(this);
+  }
+}
+_id2 = new WeakMap();
+_ref2 = new WeakMap();
+_isActive = new WeakMap();
+_isDisabled = new WeakMap();
+_props2 = new WeakMap();
+class AccordionTriggerState {
+  constructor(props, itemState) {
+    __privateAdd(this, _ref3);
+    __privateAdd(this, _disabled);
+    __privateAdd(this, _id3);
+    __privateAdd(this, _root);
+    __privateAdd(this, _itemState);
+    __privateAdd(this, _isDisabled2, once(() => __privateGet(this, _disabled).current || __privateGet(this, _itemState).disabled.current || __privateGet(this, _root).disabled.current));
+    __privateAdd(this, _props3, once(() => ({
+      id: __privateGet(this, _id3).current,
+      disabled: __privateGet(this, _isDisabled2).call(this),
+      "aria-expanded": getAriaExpanded(__privateGet(this, _itemState).isActive),
+      "aria-disabled": getAriaDisabled(__privateGet(this, _isDisabled2).call(this)),
+      "data-disabled": getDataDisabled(__privateGet(this, _isDisabled2).call(this)),
+      "data-state": getDataOpenClosed(__privateGet(this, _itemState).isActive),
+      "data-orientation": getDataOrientation(__privateGet(this, _root).orientation.current),
+      [ACCORDION_TRIGGER_ATTR]: "",
+      tabindex: 0,
+      //
+      onclick: this.onclick,
+      onkeydown: this.onkeydown
+    })));
+    __privateSet(this, _disabled, props.disabled);
+    __privateSet(this, _itemState, itemState);
+    __privateSet(this, _root, itemState.root);
+    __privateSet(this, _id3, props.id);
+    __privateSet(this, _ref3, props.ref);
+    this.onkeydown = this.onkeydown.bind(this);
+    this.onclick = this.onclick.bind(this);
+    useRefById({ id: props.id, ref: __privateGet(this, _ref3) });
+  }
+  onclick(e) {
+    if (__privateGet(this, _isDisabled2).call(this)) return;
+    if (e.button !== 0) return e.preventDefault();
+    __privateGet(this, _itemState).updateValue();
+  }
+  onkeydown(e) {
+    if (__privateGet(this, _isDisabled2).call(this)) return;
+    if (e.key === SPACE || e.key === ENTER) {
+      e.preventDefault();
+      __privateGet(this, _itemState).updateValue();
+      return;
+    }
+    __privateGet(this, _root).rovingFocusGroup.handleKeydown(__privateGet(this, _ref3).current, e);
+  }
+  get props() {
+    return __privateGet(this, _props3).call(this);
+  }
+}
+_ref3 = new WeakMap();
+_disabled = new WeakMap();
+_id3 = new WeakMap();
+_root = new WeakMap();
+_itemState = new WeakMap();
+_isDisabled2 = new WeakMap();
+_props3 = new WeakMap();
+class AccordionContentState {
+  constructor(props, item) {
+    __publicField(this, "item");
+    __privateAdd(this, _ref4);
+    __privateAdd(this, _id4);
+    __privateAdd(this, _originalStyles);
+    __privateAdd(this, _isMountAnimationPrevented, false);
+    __privateAdd(this, _width, 0);
+    __privateAdd(this, _height, 0);
+    __privateAdd(this, _forceMount);
+    __privateAdd(this, _present, once(() => __privateGet(this, _forceMount).current || this.item.isActive));
+    __privateAdd(this, _snippetProps, once(() => ({ open: this.item.isActive })));
+    __privateAdd(this, _props4, once(() => ({
+      id: __privateGet(this, _id4).current,
+      "data-state": getDataOpenClosed(this.item.isActive),
+      "data-disabled": getDataDisabled(this.item.isDisabled),
+      "data-orientation": getDataOrientation(this.item.root.orientation.current),
+      [ACCORDION_CONTENT_ATTR]: "",
+      style: {
+        "--bits-accordion-content-height": `${__privateGet(this, _height)}px`,
+        "--bits-accordion-content-width": `${__privateGet(this, _width)}px`
+      }
+    })));
+    this.item = item;
+    __privateSet(this, _forceMount, props.forceMount);
+    __privateSet(this, _isMountAnimationPrevented, this.item.isActive);
+    __privateSet(this, _id4, props.id);
+    __privateSet(this, _ref4, props.ref);
+    useRefById({ id: __privateGet(this, _id4), ref: __privateGet(this, _ref4) });
+  }
+  get present() {
+    return __privateGet(this, _present).call(this);
+  }
+  get snippetProps() {
+    return __privateGet(this, _snippetProps).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props4).call(this);
+  }
+}
+_ref4 = new WeakMap();
+_id4 = new WeakMap();
+_originalStyles = new WeakMap();
+_isMountAnimationPrevented = new WeakMap();
+_width = new WeakMap();
+_height = new WeakMap();
+_forceMount = new WeakMap();
+_present = new WeakMap();
+_snippetProps = new WeakMap();
+_props4 = new WeakMap();
+class AccordionHeaderState {
+  constructor(props, item) {
+    __privateAdd(this, _id5);
+    __privateAdd(this, _ref5);
+    __privateAdd(this, _level);
+    __privateAdd(this, _item);
+    __privateAdd(this, _props5, once(() => ({
+      id: __privateGet(this, _id5).current,
+      role: "heading",
+      "aria-level": __privateGet(this, _level).current,
+      "data-heading-level": __privateGet(this, _level).current,
+      "data-state": getDataOpenClosed(__privateGet(this, _item).isActive),
+      "data-orientation": getDataOrientation(__privateGet(this, _item).root.orientation.current),
+      [ACCORDION_HEADER_ATTR]: ""
+    })));
+    __privateSet(this, _level, props.level);
+    __privateSet(this, _id5, props.id);
+    __privateSet(this, _ref5, props.ref);
+    useRefById({ id: __privateGet(this, _id5), ref: __privateGet(this, _ref5) });
+    __privateSet(this, _item, item);
+  }
+  get props() {
+    return __privateGet(this, _props5).call(this);
+  }
+}
+_id5 = new WeakMap();
+_ref5 = new WeakMap();
+_level = new WeakMap();
+_item = new WeakMap();
+_props5 = new WeakMap();
+const [
+  setAccordionRootContext,
+  getAccordionRootContext
+] = createContext("Accordion.Root");
+const [
+  setAccordionItemContext,
+  getAccordionItemContext
+] = createContext("Accordion.Item");
+function useAccordionRoot(props) {
+  const { type, ...rest } = props;
+  const rootState = type === "single" ? new AccordionSingleState(rest) : new AccordionMultiState(rest);
+  return setAccordionRootContext(rootState);
+}
+function useAccordionItem(props) {
+  const rootState = getAccordionRootContext();
+  return setAccordionItemContext(new AccordionItemState({ ...props, rootState }));
+}
+function useAccordionTrigger(props) {
+  const item = getAccordionItemContext();
+  return new AccordionTriggerState(props, item);
+}
+function useAccordionContent(props) {
+  const item = getAccordionItemContext();
+  return new AccordionContentState(props, item);
+}
+function useAccordionHeader(props) {
+  const item = getAccordionItemContext();
+  return new AccordionHeaderState(props, item);
+}
+globalThis.bitsIdCounter ?? (globalThis.bitsIdCounter = { current: 0 });
+function useId(prefix = "bits") {
+  globalThis.bitsIdCounter.current++;
+  return `${prefix}-${globalThis.bitsIdCounter.current}`;
+}
 function noop() {
 }
-function addEventListener$3(target, event, handler, options) {
+function Accordion($$payload, $$props) {
+  push();
+  let {
+    disabled = false,
+    children,
+    child,
+    type,
+    value = void 0,
+    ref = null,
+    id = useId(),
+    onValueChange = noop,
+    loop = true,
+    orientation = "vertical",
+    controlledValue = false,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  value === void 0 && (value = type === "single" ? "" : []);
+  const rootState = useAccordionRoot({
+    type,
+    value: box.with(() => value, (v) => {
+      if (controlledValue) {
+        onValueChange(v);
+      } else {
+        value = v;
+        onValueChange(v);
+      }
+    }),
+    id: box.with(() => id),
+    disabled: box.with(() => disabled),
+    loop: box.with(() => loop),
+    orientation: box.with(() => orientation),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, rootState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { value, ref });
+  pop();
+}
+function Accordion_item$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    disabled = false,
+    value = useId(),
+    children,
+    child,
+    ref = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const itemState = useAccordionItem({
+    value: box.with(() => value),
+    disabled: box.with(() => disabled),
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, itemState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Accordion_header($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    level = 2,
+    children,
+    child,
+    ref = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const headerState = useAccordionHeader({
+    id: box.with(() => id),
+    level: box.with(() => level),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, headerState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Accordion_trigger$1($$payload, $$props) {
+  push();
+  let {
+    disabled = false,
+    ref = null,
+    id = useId(),
+    children,
+    child,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const triggerState = useAccordionTrigger({
+    disabled: box.with(() => disabled),
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, triggerState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({ type: "button", ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></button>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function useStateMachine(initialState, machine) {
+  const state = box(initialState);
+  function reducer(event) {
+    const nextState = machine[state.current][event];
+    return nextState ?? state.current;
+  }
+  const dispatch = (event) => {
+    state.current = reducer(event);
+  };
+  return { state, dispatch };
+}
+function usePresence(present, id) {
+  const initialState = present.current ? "mounted" : "unmounted";
+  const { state, dispatch } = useStateMachine(initialState, {
+    mounted: {
+      UNMOUNT: "unmounted",
+      ANIMATION_OUT: "unmountSuspended"
+    },
+    unmountSuspended: { MOUNT: "mounted", ANIMATION_END: "unmounted" },
+    unmounted: { MOUNT: "mounted" }
+  });
+  const isPresentDerived = ["mounted", "unmountSuspended"].includes(state.current);
+  return {
+    get current() {
+      return isPresentDerived;
+    }
+  };
+}
+function Presence_layer($$payload, $$props) {
+  push();
+  let { present, forceMount, presence, id } = $$props;
+  const isPresent = usePresence(box.with(() => present), box.with(() => id));
+  if (forceMount || present || isPresent.current) {
+    $$payload.out += "<!--[-->";
+    presence == null ? void 0 : presence($$payload, { present: isPresent });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]-->`;
+  pop();
+}
+function Accordion_content$1($$payload, $$props) {
+  push();
+  let {
+    child,
+    ref = null,
+    id = useId(),
+    forceMount = false,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const contentState = useAccordionContent({
+    forceMount: box.with(() => forceMount),
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  {
+    let presence = function($$payload2, { present }) {
+      const mergedProps = mergeProps(restProps, contentState.props, {
+        hidden: forceMount ? void 0 : !present.current
+      });
+      if (child) {
+        $$payload2.out += "<!--[-->";
+        child($$payload2, {
+          props: mergedProps,
+          ...contentState.snippetProps
+        });
+        $$payload2.out += `<!---->`;
+      } else {
+        $$payload2.out += "<!--[!-->";
+        $$payload2.out += `<div${spread_attributes({ ...mergedProps })}>`;
+        children == null ? void 0 : children($$payload2);
+        $$payload2.out += `<!----></div>`;
+      }
+      $$payload2.out += `<!--]-->`;
+    };
+    Presence_layer($$payload, {
+      forceMount: true,
+      present: contentState.present,
+      id,
+      presence,
+      $$slots: { presence: true }
+    });
+  }
+  bind_props($$props, { ref });
+  pop();
+}
+function createAttrs(variant) {
+  return {
+    content: `data-${variant}-content`,
+    trigger: `data-${variant}-trigger`,
+    overlay: `data-${variant}-overlay`,
+    title: `data-${variant}-title`,
+    description: `data-${variant}-description`,
+    close: `data-${variant}-close`,
+    cancel: `data-${variant}-cancel`,
+    action: `data-${variant}-action`
+  };
+}
+class DialogRootState {
+  constructor(props) {
+    __publicField(this, "open");
+    __publicField(this, "variant");
+    __publicField(this, "triggerNode", null);
+    __publicField(this, "titleNode", null);
+    __publicField(this, "contentNode", null);
+    __publicField(this, "descriptionNode", null);
+    __publicField(this, "contentId");
+    __publicField(this, "titleId");
+    __publicField(this, "triggerId");
+    __publicField(this, "descriptionId");
+    __publicField(this, "cancelNode", null);
+    __privateAdd(this, _attrs, once(() => createAttrs(this.variant.current)));
+    __privateAdd(this, _sharedProps, once(() => ({
+      "data-state": getDataOpenClosed(this.open.current)
+    })));
+    this.open = props.open;
+    this.variant = props.variant;
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+  get attrs() {
+    return __privateGet(this, _attrs).call(this);
+  }
+  handleOpen() {
+    if (this.open.current) return;
+    this.open.current = true;
+  }
+  handleClose() {
+    if (!this.open.current) return;
+    this.open.current = false;
+  }
+  get sharedProps() {
+    return __privateGet(this, _sharedProps).call(this);
+  }
+}
+_attrs = new WeakMap();
+_sharedProps = new WeakMap();
+class DialogTriggerState {
+  constructor(props, root) {
+    __privateAdd(this, _id6);
+    __privateAdd(this, _ref6);
+    __privateAdd(this, _root2);
+    __privateAdd(this, _disabled2);
+    __publicField(this, "onclick", (e) => {
+      if (__privateGet(this, _disabled2).current) return;
+      if (e.button > 0) return;
+      __privateGet(this, _root2).handleOpen();
+    });
+    __publicField(this, "onpointerdown", (e) => {
+      if (__privateGet(this, _disabled2).current) return;
+      if (e.button > 0) return;
+      e.preventDefault();
+    });
+    __publicField(this, "onkeydown", (e) => {
+      if (__privateGet(this, _disabled2).current) return;
+      if (e.key === SPACE || e.key === ENTER) {
+        e.preventDefault();
+        __privateGet(this, _root2).handleOpen();
+      }
+    });
+    __privateAdd(this, _props6, once(() => ({
+      id: __privateGet(this, _id6).current,
+      "aria-haspopup": "dialog",
+      "aria-expanded": getAriaExpanded(__privateGet(this, _root2).open.current),
+      "aria-controls": __privateGet(this, _root2).contentId,
+      [__privateGet(this, _root2).attrs.trigger]: "",
+      onpointerdown: this.onpointerdown,
+      onkeydown: this.onkeydown,
+      onclick: this.onclick,
+      ...__privateGet(this, _root2).sharedProps
+    })));
+    __privateSet(this, _id6, props.id);
+    __privateSet(this, _root2, root);
+    __privateSet(this, _ref6, props.ref);
+    __privateSet(this, _disabled2, props.disabled);
+    this.onclick = this.onclick.bind(this);
+    this.onpointerdown = this.onpointerdown.bind(this);
+    this.onkeydown = this.onkeydown.bind(this);
+    useRefById({
+      id: __privateGet(this, _id6),
+      ref: __privateGet(this, _ref6),
+      onRefChange: (node) => {
+        __privateGet(this, _root2).triggerNode = node;
+        __privateGet(this, _root2).triggerId = node == null ? void 0 : node.id;
+      }
+    });
+  }
+  get props() {
+    return __privateGet(this, _props6).call(this);
+  }
+}
+_id6 = new WeakMap();
+_ref6 = new WeakMap();
+_root2 = new WeakMap();
+_disabled2 = new WeakMap();
+_props6 = new WeakMap();
+class DialogCloseState {
+  constructor(props, root) {
+    __privateAdd(this, _id7);
+    __privateAdd(this, _ref7);
+    __privateAdd(this, _root3);
+    __privateAdd(this, _variant);
+    __privateAdd(this, _disabled3);
+    __privateAdd(this, _attr, once(() => __privateGet(this, _root3).attrs[__privateGet(this, _variant).current]));
+    __privateAdd(this, _props7, once(() => ({
+      id: __privateGet(this, _id7).current,
+      [__privateGet(this, _attr).call(this)]: "",
+      onpointerdown: this.onpointerdown,
+      onclick: this.onclick,
+      onkeydown: this.onkeydown,
+      ...__privateGet(this, _root3).sharedProps
+    })));
+    __privateSet(this, _root3, root);
+    __privateSet(this, _ref7, props.ref);
+    __privateSet(this, _id7, props.id);
+    __privateSet(this, _variant, props.variant);
+    __privateSet(this, _disabled3, props.disabled);
+    this.onclick = this.onclick.bind(this);
+    this.onpointerdown = this.onpointerdown.bind(this);
+    this.onkeydown = this.onkeydown.bind(this);
+    useRefById({
+      id: __privateGet(this, _id7),
+      ref: __privateGet(this, _ref7),
+      deps: () => __privateGet(this, _root3).open.current
+    });
+  }
+  onclick(e) {
+    if (__privateGet(this, _disabled3).current) return;
+    if (e.button > 0) return;
+    __privateGet(this, _root3).handleClose();
+  }
+  onpointerdown(e) {
+    if (__privateGet(this, _disabled3).current) return;
+    if (e.button > 0) return;
+    e.preventDefault();
+    __privateGet(this, _root3).handleClose();
+  }
+  onkeydown(e) {
+    if (__privateGet(this, _disabled3).current) return;
+    if (e.key === SPACE || e.key === ENTER) {
+      e.preventDefault();
+      __privateGet(this, _root3).handleClose();
+    }
+  }
+  get props() {
+    return __privateGet(this, _props7).call(this);
+  }
+}
+_id7 = new WeakMap();
+_ref7 = new WeakMap();
+_root3 = new WeakMap();
+_variant = new WeakMap();
+_disabled3 = new WeakMap();
+_attr = new WeakMap();
+_props7 = new WeakMap();
+class DialogActionState {
+  constructor(props, root) {
+    __privateAdd(this, _id8);
+    __privateAdd(this, _ref8);
+    __privateAdd(this, _root4);
+    __privateAdd(this, _attr2, once(() => __privateGet(this, _root4).attrs.action));
+    __privateAdd(this, _props8, once(() => ({
+      id: __privateGet(this, _id8).current,
+      [__privateGet(this, _attr2).call(this)]: "",
+      ...__privateGet(this, _root4).sharedProps
+    })));
+    __privateSet(this, _id8, props.id);
+    __privateSet(this, _ref8, props.ref);
+    __privateSet(this, _root4, root);
+    useRefById({ id: __privateGet(this, _id8), ref: __privateGet(this, _ref8) });
+  }
+  get props() {
+    return __privateGet(this, _props8).call(this);
+  }
+}
+_id8 = new WeakMap();
+_ref8 = new WeakMap();
+_root4 = new WeakMap();
+_attr2 = new WeakMap();
+_props8 = new WeakMap();
+class DialogTitleState {
+  constructor(props, root) {
+    __privateAdd(this, _id9);
+    __privateAdd(this, _ref9);
+    __privateAdd(this, _root5);
+    __privateAdd(this, _level2);
+    __privateAdd(this, _props9, once(() => ({
+      id: __privateGet(this, _id9).current,
+      role: "heading",
+      "aria-level": __privateGet(this, _level2).current,
+      [__privateGet(this, _root5).attrs.title]: "",
+      ...__privateGet(this, _root5).sharedProps
+    })));
+    __privateSet(this, _id9, props.id);
+    __privateSet(this, _root5, root);
+    __privateSet(this, _ref9, props.ref);
+    __privateSet(this, _level2, props.level);
+    useRefById({
+      id: __privateGet(this, _id9),
+      ref: __privateGet(this, _ref9),
+      onRefChange: (node) => {
+        __privateGet(this, _root5).titleNode = node;
+        __privateGet(this, _root5).titleId = node == null ? void 0 : node.id;
+      },
+      deps: () => __privateGet(this, _root5).open.current
+    });
+  }
+  get props() {
+    return __privateGet(this, _props9).call(this);
+  }
+}
+_id9 = new WeakMap();
+_ref9 = new WeakMap();
+_root5 = new WeakMap();
+_level2 = new WeakMap();
+_props9 = new WeakMap();
+class DialogContentState {
+  constructor(props, root) {
+    __privateAdd(this, _id10);
+    __privateAdd(this, _ref10);
+    __publicField(this, "root");
+    __privateAdd(this, _snippetProps2, once(() => ({ open: this.root.open.current })));
+    __privateAdd(this, _props10, once(() => ({
+      id: __privateGet(this, _id10).current,
+      role: this.root.variant.current === "alert-dialog" ? "alertdialog" : "dialog",
+      "aria-describedby": this.root.descriptionId,
+      "aria-labelledby": this.root.titleId,
+      [this.root.attrs.content]: "",
+      style: { pointerEvents: "auto" },
+      ...this.root.sharedProps
+    })));
+    __privateSet(this, _id10, props.id);
+    this.root = root;
+    __privateSet(this, _ref10, props.ref);
+    useRefById({
+      id: __privateGet(this, _id10),
+      ref: __privateGet(this, _ref10),
+      deps: () => this.root.open.current,
+      onRefChange: (node) => {
+        this.root.contentNode = node;
+        this.root.contentId = node == null ? void 0 : node.id;
+      }
+    });
+  }
+  get snippetProps() {
+    return __privateGet(this, _snippetProps2).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props10).call(this);
+  }
+}
+_id10 = new WeakMap();
+_ref10 = new WeakMap();
+_snippetProps2 = new WeakMap();
+_props10 = new WeakMap();
+class DialogOverlayState {
+  constructor(props, root) {
+    __privateAdd(this, _id11);
+    __privateAdd(this, _ref11);
+    __publicField(this, "root");
+    __privateAdd(this, _snippetProps3, once(() => ({ open: this.root.open.current })));
+    __privateAdd(this, _props11, once(() => ({
+      id: __privateGet(this, _id11).current,
+      [this.root.attrs.overlay]: "",
+      style: { pointerEvents: "auto" },
+      ...this.root.sharedProps
+    })));
+    __privateSet(this, _id11, props.id);
+    __privateSet(this, _ref11, props.ref);
+    this.root = root;
+    useRefById({
+      id: __privateGet(this, _id11),
+      ref: __privateGet(this, _ref11),
+      deps: () => this.root.open.current
+    });
+  }
+  get snippetProps() {
+    return __privateGet(this, _snippetProps3).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props11).call(this);
+  }
+}
+_id11 = new WeakMap();
+_ref11 = new WeakMap();
+_snippetProps3 = new WeakMap();
+_props11 = new WeakMap();
+class AlertDialogCancelState {
+  constructor(props, root) {
+    __privateAdd(this, _id12);
+    __privateAdd(this, _ref12);
+    __privateAdd(this, _root6);
+    __privateAdd(this, _disabled4);
+    __privateAdd(this, _props12, once(() => ({
+      id: __privateGet(this, _id12).current,
+      [__privateGet(this, _root6).attrs.cancel]: "",
+      onpointerdown: this.onpointerdown,
+      onclick: this.onclick,
+      onkeydown: this.onkeydown,
+      ...__privateGet(this, _root6).sharedProps
+    })));
+    __privateSet(this, _id12, props.id);
+    __privateSet(this, _ref12, props.ref);
+    __privateSet(this, _root6, root);
+    __privateSet(this, _disabled4, props.disabled);
+    this.onclick = this.onclick.bind(this);
+    this.onpointerdown = this.onpointerdown.bind(this);
+    this.onkeydown = this.onkeydown.bind(this);
+    useRefById({
+      id: __privateGet(this, _id12),
+      ref: __privateGet(this, _ref12),
+      deps: () => __privateGet(this, _root6).open.current,
+      onRefChange: (node) => {
+        __privateGet(this, _root6).cancelNode = node;
+      }
+    });
+  }
+  onclick(e) {
+    if (__privateGet(this, _disabled4).current) return;
+    if (e.button > 0) return;
+    __privateGet(this, _root6).handleClose();
+  }
+  onpointerdown(e) {
+    if (__privateGet(this, _disabled4).current) return;
+    if (e.pointerType === "touch") return e.preventDefault();
+    if (e.button > 0) return;
+    e.preventDefault();
+    __privateGet(this, _root6).handleClose();
+  }
+  onkeydown(e) {
+    if (__privateGet(this, _disabled4).current) return;
+    if (e.key === SPACE || e.key === ENTER) {
+      e.preventDefault();
+      __privateGet(this, _root6).handleClose();
+    }
+  }
+  get props() {
+    return __privateGet(this, _props12).call(this);
+  }
+}
+_id12 = new WeakMap();
+_ref12 = new WeakMap();
+_root6 = new WeakMap();
+_disabled4 = new WeakMap();
+_props12 = new WeakMap();
+const [setDialogRootContext, getDialogRootContext] = createContext("Dialog.Root");
+function useDialogRoot(props) {
+  return setDialogRootContext(new DialogRootState(props));
+}
+function useDialogTrigger(props) {
+  const root = getDialogRootContext();
+  return new DialogTriggerState(props, root);
+}
+function useDialogTitle(props) {
+  return new DialogTitleState(props, getDialogRootContext());
+}
+function useDialogContent(props) {
+  return new DialogContentState(props, getDialogRootContext());
+}
+function useDialogOverlay(props) {
+  return new DialogOverlayState(props, getDialogRootContext());
+}
+function useDialogClose(props) {
+  return new DialogCloseState(props, getDialogRootContext());
+}
+function useAlertDialogCancel(props) {
+  return new AlertDialogCancelState(props, getDialogRootContext());
+}
+function useAlertDialogAction(props) {
+  return new DialogActionState(props, getDialogRootContext());
+}
+function Alert_dialog($$payload, $$props) {
+  push();
+  let {
+    open = false,
+    onOpenChange = noop,
+    controlledOpen = false,
+    children
+  } = $$props;
+  useDialogRoot({
+    variant: box.with(() => "alert-dialog"),
+    open: box.with(() => open, (v) => {
+      if (controlledOpen) {
+        onOpenChange(v);
+      } else {
+        open = v;
+        onOpenChange(v);
+      }
+    })
+  });
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!---->`;
+  bind_props($$props, { open });
+  pop();
+}
+function Dialog_title$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    child,
+    children,
+    level = 2,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const titleState = useDialogTitle({
+    id: box.with(() => id),
+    level: box.with(() => level),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, titleState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Alert_dialog_action$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    id = useId(),
+    ref = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const actionState = useAlertDialogAction({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, actionState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></button>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Alert_dialog_cancel$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    children,
+    child,
+    disabled = false,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const cancelState = useAlertDialogCancel({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    disabled: box.with(() => Boolean(disabled))
+  });
+  const mergedProps = mergeProps(restProps, cancelState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></button>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Portal$1($$payload, $$props) {
+  push();
+  let { to = "body", children, disabled } = $$props;
+  getAllContexts();
+  getTarget();
+  function getTarget() {
+    if (!isBrowser$2 || disabled) return null;
+    let localTarget = null;
+    if (typeof to === "string") {
+      localTarget = document.querySelector(to);
+      if (localTarget === null) {
+        if (DEV) {
+          throw new Error(`Target element "${to}" not found.`);
+        }
+      }
+    } else if (to instanceof HTMLElement || to instanceof DocumentFragment) {
+      localTarget = to;
+    } else {
+      if (DEV) {
+        throw new TypeError(`Unknown portal target type: ${to === null ? "null" : typeof to}. Allowed types: string (query selector), HTMLElement, or DocumentFragment.`);
+      }
+    }
+    return localTarget;
+  }
+  if (disabled) {
+    $$payload.out += "<!--[-->";
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]-->`;
+  pop();
+}
+function addEventListener$1(target, event, handler, options) {
   const events = Array.isArray(event) ? event : [event];
   events.forEach((_event) => target.addEventListener(_event, handler, options));
   return () => {
     events.forEach((_event) => target.removeEventListener(_event, handler, options));
   };
 }
-function addMeltEventListener(target, event, handler, options) {
-  const events = Array.isArray(event) ? event : [event];
-  if (typeof handler === "function") {
-    const handlerWithMelt = withMelt((_event) => handler(_event));
-    events.forEach((_event) => target.addEventListener(_event, handlerWithMelt, options));
-    return () => {
-      events.forEach((_event) => target.removeEventListener(_event, handlerWithMelt, options));
-    };
-  }
-  return () => noop();
-}
-function dispatchMeltEvent(originalEvent) {
-  const node = originalEvent.currentTarget;
-  if (!isHTMLElement(node))
-    return null;
-  const customMeltEvent = new CustomEvent(`m-${originalEvent.type}`, {
-    detail: {
-      originalEvent
-    },
-    cancelable: true
-  });
-  node.dispatchEvent(customMeltEvent);
-  return customMeltEvent;
-}
-function withMelt(handler) {
-  return (event) => {
-    const customEvent = dispatchMeltEvent(event);
-    if (customEvent == null ? void 0 : customEvent.defaultPrevented)
-      return;
-    return handler(event);
-  };
-}
-const safeOnMount = (fn) => {
-  try {
-    onMount(fn);
-  } catch {
-    return fn;
-  }
-};
-const safeOnDestroy = (fn) => {
-  try {
-    onDestroy(fn);
-  } catch {
-    return fn;
-  }
-};
-function getElemDirection(elem) {
-  const style = window.getComputedStyle(elem);
-  const direction = style.getPropertyValue("direction");
-  return direction;
-}
-function omit$1(obj, ...keys) {
-  const result = {};
-  for (const key of Object.keys(obj)) {
-    if (!keys.includes(key)) {
-      result[key] = obj[key];
+function debounce(fn, wait = 500) {
+  let timeout = null;
+  const debounced = (...args) => {
+    if (timeout !== null) {
+      clearTimeout(timeout);
     }
-  }
-  return result;
-}
-function withGet(store2) {
-  return {
-    ...store2,
-    get: () => get_store_value(store2)
+    timeout = setTimeout(() => {
+      fn(...args);
+    }, wait);
   };
-}
-withGet.writable = function(initial) {
-  const internal = writable(initial);
-  let value = initial;
-  return {
-    subscribe: internal.subscribe,
-    set(newValue) {
-      internal.set(newValue);
-      value = newValue;
-    },
-    update(updater) {
-      const newValue = updater(value);
-      internal.set(newValue);
-      value = newValue;
-    },
-    get() {
-      return value;
+  debounced.destroy = () => {
+    if (timeout !== null) {
+      clearTimeout(timeout);
+      timeout = null;
     }
   };
-};
-withGet.derived = function(stores, fn) {
-  const subscribers = /* @__PURE__ */ new Map();
-  const get = () => {
-    const values = Array.isArray(stores) ? stores.map((store2) => store2.get()) : stores.get();
-    return fn(values);
-  };
-  const subscribe2 = (subscriber) => {
-    const unsubscribers = [];
-    const storesArr = Array.isArray(stores) ? stores : [stores];
-    storesArr.forEach((store2) => {
-      unsubscribers.push(store2.subscribe(() => {
-        subscriber(get());
-      }));
-    });
-    subscriber(get());
-    subscribers.set(subscriber, unsubscribers);
-    return () => {
-      const unsubscribers2 = subscribers.get(subscriber);
-      if (unsubscribers2) {
-        for (const unsubscribe of unsubscribers2) {
-          unsubscribe();
-        }
-      }
-      subscribers.delete(subscriber);
-    };
-  };
-  return {
-    get,
-    subscribe: subscribe2
-  };
-};
-const overridable = (_store, onChange) => {
-  const store2 = withGet(_store);
-  const update2 = (updater, sideEffect) => {
-    store2.update((curr) => {
-      const next2 = updater(curr);
-      let res = next2;
-      if (onChange) {
-        res = onChange({ curr, next: next2 });
-      }
-      sideEffect == null ? void 0 : sideEffect(res);
-      return res;
-    });
-  };
-  const set = (curr) => {
-    update2(() => curr);
-  };
-  return {
-    ...store2,
-    update: update2,
-    set
-  };
-};
-function sleep$1(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-function generateId$1() {
-  return nanoid(10);
-}
-function generateIds(args) {
-  return args.reduce((acc, curr) => {
-    acc[curr] = generateId$1();
-    return acc;
-  }, {});
-}
-const kbd$2 = {
-  ALT: "Alt",
-  ARROW_DOWN: "ArrowDown",
-  ARROW_LEFT: "ArrowLeft",
-  ARROW_RIGHT: "ArrowRight",
-  ARROW_UP: "ArrowUp",
-  BACKSPACE: "Backspace",
-  CAPS_LOCK: "CapsLock",
-  CONTROL: "Control",
-  DELETE: "Delete",
-  END: "End",
-  ENTER: "Enter",
-  ESCAPE: "Escape",
-  F1: "F1",
-  F10: "F10",
-  F11: "F11",
-  F12: "F12",
-  F2: "F2",
-  F3: "F3",
-  F4: "F4",
-  F5: "F5",
-  F6: "F6",
-  F7: "F7",
-  F8: "F8",
-  F9: "F9",
-  HOME: "Home",
-  META: "Meta",
-  PAGE_DOWN: "PageDown",
-  PAGE_UP: "PageUp",
-  SHIFT: "Shift",
-  SPACE: " ",
-  TAB: "Tab",
-  CTRL: "Control",
-  ASTERISK: "*",
-  A: "a",
-  P: "p"
-};
-const getNextKey = (dir = "ltr", orientation = "horizontal") => {
-  return {
-    horizontal: dir === "rtl" ? kbd$2.ARROW_LEFT : kbd$2.ARROW_RIGHT,
-    vertical: kbd$2.ARROW_DOWN
-  }[orientation];
-};
-const getPrevKey = (dir = "ltr", orientation = "horizontal") => {
-  return {
-    horizontal: dir === "rtl" ? kbd$2.ARROW_RIGHT : kbd$2.ARROW_LEFT,
-    vertical: kbd$2.ARROW_UP
-  }[orientation];
-};
-const getDirectionalKeys = (dir = "ltr", orientation = "horizontal") => {
-  return {
-    nextKey: getNextKey(dir, orientation),
-    prevKey: getPrevKey(dir, orientation)
-  };
-};
-const isDom = () => typeof window !== "undefined";
-function getPlatform() {
-  const agent = navigator.userAgentData;
-  return (agent == null ? void 0 : agent.platform) ?? navigator.platform;
-}
-const pt = (v) => isDom() && v.test(getPlatform().toLowerCase());
-const isTouchDevice = () => isDom() && !!navigator.maxTouchPoints;
-const isMac = () => pt(/^mac/) && !isTouchDevice();
-const isApple = () => pt(/mac|iphone|ipad|ipod/i);
-const isIos = () => isApple() && !isMac();
-const LOCK_CLASSNAME = "data-melt-scroll-lock";
-function assignStyle(el, style) {
-  if (!el)
-    return;
-  const previousStyle = el.style.cssText;
-  Object.assign(el.style, style);
-  return () => {
-    el.style.cssText = previousStyle;
-  };
-}
-function setCSSProperty(el, property, value) {
-  if (!el)
-    return;
-  const previousValue = el.style.getPropertyValue(property);
-  el.style.setProperty(property, value);
-  return () => {
-    if (previousValue) {
-      el.style.setProperty(property, previousValue);
-    } else {
-      el.style.removeProperty(property);
-    }
-  };
-}
-function getPaddingProperty(documentElement) {
-  const documentLeft = documentElement.getBoundingClientRect().left;
-  const scrollbarX = Math.round(documentLeft) + documentElement.scrollLeft;
-  return scrollbarX ? "paddingLeft" : "paddingRight";
-}
-function removeScroll(_document) {
-  const doc = document;
-  const win = doc.defaultView ?? window;
-  const { documentElement, body } = doc;
-  const locked = body.hasAttribute(LOCK_CLASSNAME);
-  if (locked)
-    return noop;
-  body.setAttribute(LOCK_CLASSNAME, "");
-  const scrollbarWidth = win.innerWidth - documentElement.clientWidth;
-  const setScrollbarWidthProperty = () => setCSSProperty(documentElement, "--scrollbar-width", `${scrollbarWidth}px`);
-  const paddingProperty = getPaddingProperty(documentElement);
-  const scrollbarSidePadding = win.getComputedStyle(body)[paddingProperty];
-  const setStyle = () => assignStyle(body, {
-    overflow: "hidden",
-    [paddingProperty]: `calc(${scrollbarSidePadding} + ${scrollbarWidth}px)`
-  });
-  const setIOSStyle = () => {
-    const { scrollX, scrollY, visualViewport } = win;
-    const offsetLeft = (visualViewport == null ? void 0 : visualViewport.offsetLeft) ?? 0;
-    const offsetTop = (visualViewport == null ? void 0 : visualViewport.offsetTop) ?? 0;
-    const restoreStyle = assignStyle(body, {
-      position: "fixed",
-      overflow: "hidden",
-      top: `${-(scrollY - Math.floor(offsetTop))}px`,
-      left: `${-(scrollX - Math.floor(offsetLeft))}px`,
-      right: "0",
-      [paddingProperty]: `calc(${scrollbarSidePadding} + ${scrollbarWidth}px)`
-    });
-    return () => {
-      restoreStyle == null ? void 0 : restoreStyle();
-      win.scrollTo(scrollX, scrollY);
-    };
-  };
-  const cleanups = [setScrollbarWidthProperty(), isIos() ? setIOSStyle() : setStyle()];
-  return () => {
-    cleanups.forEach((fn) => fn == null ? void 0 : fn());
-    body.removeAttribute(LOCK_CLASSNAME);
-  };
-}
-function derivedVisible(obj) {
-  const { open, forceVisible, activeTrigger } = obj;
-  return derived([open, forceVisible, activeTrigger], ([$open, $forceVisible, $activeTrigger]) => ($open || $forceVisible) && $activeTrigger !== null);
-}
-function effect$1(stores, fn) {
-  let cb = void 0;
-  const destroy = derived(stores, (stores2) => {
-    cb == null ? void 0 : cb();
-    cb = fn(stores2);
-  }).subscribe(noop);
-  const unsub = () => {
-    destroy();
-    cb == null ? void 0 : cb();
-  };
-  safeOnDestroy(unsub);
-  return unsub;
-}
-function toWritableStores$1(properties) {
-  const result = {};
-  Object.keys(properties).forEach((key) => {
-    const propertyKey = key;
-    const value = properties[propertyKey];
-    result[propertyKey] = withGet(writable(value));
-  });
-  return result;
-}
-function getPortalParent(node) {
-  let parent = node.parentElement;
-  while (isHTMLElement(parent) && !parent.hasAttribute("data-portal")) {
-    parent = parent.parentElement;
-  }
-  return parent || "body";
-}
-function getPortalDestination(node, portalProp) {
-  if (portalProp !== void 0)
-    return portalProp;
-  const portalParent = getPortalParent(node);
-  if (portalParent === "body")
-    return document.body;
-  return null;
-}
-async function handleFocus(args) {
-  const { prop, defaultEl } = args;
-  await Promise.all([sleep$1(1), tick$1]);
-  if (prop === void 0) {
-    defaultEl == null ? void 0 : defaultEl.focus();
-    return;
-  }
-  const returned = isFunction(prop) ? prop(defaultEl) : prop;
-  if (typeof returned === "string") {
-    const el = document.querySelector(returned);
-    if (!isHTMLElement(el))
-      return;
-    el.focus();
-  } else if (isHTMLElement(returned)) {
-    returned.focus();
-  }
-}
-const { name: name$4, selector: selector$1 } = createElHelpers("accordion");
-const defaults$6 = {
-  multiple: false,
-  disabled: false,
-  forceVisible: false
-};
-const createAccordion = (props) => {
-  const withDefaults = { ...defaults$6, ...props };
-  const options = toWritableStores$1(omit$1(withDefaults, "value", "onValueChange", "defaultValue"));
-  const meltIds = generateIds(["root"]);
-  const { disabled, forceVisible } = options;
-  const valueWritable = withDefaults.value ?? writable(withDefaults.defaultValue);
-  const value = overridable(valueWritable, withDefaults == null ? void 0 : withDefaults.onValueChange);
-  const isSelected = (key, v) => {
-    if (v === void 0)
-      return false;
-    if (typeof v === "string")
-      return v === key;
-    return v.includes(key);
-  };
-  const isSelectedStore = derived(value, ($value) => {
-    return (key) => isSelected(key, $value);
-  });
-  const root = makeElement(name$4(), {
-    returned: () => ({
-      "data-melt-id": meltIds.root
-    })
-  });
-  const parseItemProps = (props2) => {
-    if (typeof props2 === "string") {
-      return { value: props2 };
-    } else {
-      return props2;
-    }
-  };
-  const parseHeadingProps = (props2) => {
-    if (typeof props2 === "number") {
-      return { level: props2 };
-    } else {
-      return props2;
-    }
-  };
-  const item = makeElement(name$4("item"), {
-    stores: value,
-    returned: ($value) => {
-      return (props2) => {
-        const { value: itemValue, disabled: disabled2 } = parseItemProps(props2);
-        return {
-          "data-state": isSelected(itemValue, $value) ? "open" : "closed",
-          "data-disabled": disabledAttr(disabled2)
-        };
-      };
-    }
-  });
-  const trigger = makeElement(name$4("trigger"), {
-    stores: [value, disabled],
-    returned: ([$value, $disabled]) => {
-      return (props2) => {
-        const { value: itemValue, disabled: disabled2 } = parseItemProps(props2);
-        return {
-          disabled: disabledAttr($disabled || disabled2),
-          "aria-expanded": isSelected(itemValue, $value) ? true : false,
-          "aria-disabled": disabled2 ? true : false,
-          "data-disabled": disabledAttr(disabled2),
-          "data-value": itemValue,
-          "data-state": isSelected(itemValue, $value) ? "open" : "closed"
-        };
-      };
-    },
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
-        const disabled2 = node.dataset.disabled === "true";
-        const itemValue = node.dataset.value;
-        if (disabled2 || !itemValue)
-          return;
-        handleValueUpdate(itemValue);
-      }), addMeltEventListener(node, "keydown", (e) => {
-        if (![kbd$2.ARROW_DOWN, kbd$2.ARROW_UP, kbd$2.HOME, kbd$2.END].includes(e.key)) {
-          return;
-        }
-        e.preventDefault();
-        if (e.key === kbd$2.SPACE || e.key === kbd$2.ENTER) {
-          const disabled2 = node.dataset.disabled === "true";
-          const itemValue = node.dataset.value;
-          if (disabled2 || !itemValue)
-            return;
-          handleValueUpdate(itemValue);
-          return;
-        }
-        const el = e.target;
-        const rootEl = getElementByMeltId(meltIds.root);
-        if (!rootEl || !isHTMLElement(el))
-          return;
-        const items = Array.from(rootEl.querySelectorAll(selector$1("trigger")));
-        const candidateItems = items.filter((item2) => {
-          if (!isHTMLElement(item2))
-            return false;
-          return item2.dataset.disabled !== "true";
-        });
-        if (!candidateItems.length)
-          return;
-        const elIdx = candidateItems.indexOf(el);
-        if (e.key === kbd$2.ARROW_DOWN) {
-          candidateItems[(elIdx + 1) % candidateItems.length].focus();
-        }
-        if (e.key === kbd$2.ARROW_UP) {
-          candidateItems[(elIdx - 1 + candidateItems.length) % candidateItems.length].focus();
-        }
-        if (e.key === kbd$2.HOME) {
-          candidateItems[0].focus();
-        }
-        if (e.key === kbd$2.END) {
-          candidateItems[candidateItems.length - 1].focus();
-        }
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  const content = makeElement(name$4("content"), {
-    stores: [value, disabled, forceVisible],
-    returned: ([$value, $disabled, $forceVisible]) => {
-      return (props2) => {
-        const { value: itemValue } = parseItemProps(props2);
-        const isVisible = isSelected(itemValue, $value) || $forceVisible;
-        return {
-          "data-state": isVisible ? "open" : "closed",
-          "data-disabled": disabledAttr($disabled),
-          "data-value": itemValue,
-          hidden: isVisible ? void 0 : true,
-          style: styleToString$3({
-            display: isVisible ? void 0 : "none"
-          })
-        };
-      };
-    },
-    action: (node) => {
-      tick$1().then(() => {
-        const contentId = generateId$1();
-        const triggerId = generateId$1();
-        const parentTrigger = document.querySelector(`${selector$1("trigger")}, [data-value="${node.dataset.value}"]`);
-        if (!isHTMLElement(parentTrigger))
-          return;
-        node.id = contentId;
-        parentTrigger.setAttribute("aria-controls", contentId);
-        parentTrigger.id = triggerId;
-      });
-    }
-  });
-  const heading = makeElement(name$4("heading"), {
-    returned: () => {
-      return (props2) => {
-        const { level } = parseHeadingProps(props2);
-        return {
-          role: "heading",
-          "aria-level": level,
-          "data-heading-level": level
-        };
-      };
-    }
-  });
-  function handleValueUpdate(itemValue) {
-    value.update(($value) => {
-      if ($value === void 0) {
-        return withDefaults.multiple ? [itemValue] : itemValue;
-      }
-      if (Array.isArray($value)) {
-        if ($value.includes(itemValue)) {
-          return $value.filter((v) => v !== itemValue);
-        }
-        $value.push(itemValue);
-        return $value;
-      }
-      return $value === itemValue ? void 0 : itemValue;
-    });
-  }
-  return {
-    ids: meltIds,
-    elements: {
-      root,
-      item,
-      trigger,
-      content,
-      heading
-    },
-    states: {
-      value
-    },
-    helpers: {
-      isSelected: isSelectedStore
-    },
-    options
-  };
-};
-const defaults$5 = {
-  disabled: false,
-  required: false,
-  name: void 0,
-  value: "on",
-  defaultChecked: false
-};
-function createCheckbox(props) {
-  const withDefaults = { ...defaults$5, ...props };
-  const options = toWritableStores$1(omit$1(withDefaults, "checked", "defaultChecked"));
-  const { disabled, name: name2, required, value } = options;
-  const checkedWritable = withDefaults.checked ?? writable(withDefaults.defaultChecked);
-  const checked = overridable(checkedWritable, withDefaults == null ? void 0 : withDefaults.onCheckedChange);
-  const root = makeElement("checkbox", {
-    stores: [checked, disabled, required],
-    returned: ([$checked, $disabled, $required]) => {
-      return {
-        "data-disabled": disabledAttr($disabled),
-        disabled: disabledAttr($disabled),
-        "data-state": $checked === "indeterminate" ? "indeterminate" : $checked ? "checked" : "unchecked",
-        type: "button",
-        role: "checkbox",
-        "aria-checked": $checked === "indeterminate" ? "mixed" : $checked,
-        "aria-required": $required
-      };
-    },
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "keydown", (e) => {
-        if (e.key === kbd$2.ENTER)
-          e.preventDefault();
-      }), addMeltEventListener(node, "click", () => {
-        if (disabled.get())
-          return;
-        checked.update((value2) => {
-          if (value2 === "indeterminate")
-            return true;
-          return !value2;
-        });
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  const input = makeElement("checkbox-input", {
-    stores: [checked, name2, value, required, disabled],
-    returned: ([$checked, $name, $value, $required, $disabled]) => {
-      return {
-        type: "checkbox",
-        "aria-hidden": true,
-        hidden: true,
-        tabindex: -1,
-        name: $name,
-        value: $value,
-        checked: $checked === "indeterminate" ? false : $checked,
-        required: $required,
-        disabled: disabledAttr($disabled),
-        style: styleToString$3({
-          position: "absolute",
-          opacity: 0,
-          "pointer-events": "none",
-          margin: 0,
-          transform: "translateX(-100%)"
-        })
-      };
-    }
-  });
-  const isIndeterminate = derived(checked, ($checked) => $checked === "indeterminate");
-  const isChecked = derived(checked, ($checked) => $checked === true);
-  return {
-    elements: {
-      root,
-      input
-    },
-    states: {
-      checked
-    },
-    helpers: {
-      isIndeterminate,
-      isChecked
-    },
-    options
-  };
-}
-readable(void 0, (set) => {
-  function clicked(event) {
-    set(event);
-    set(void 0);
-  }
-  const unsubscribe = addEventListener$3(document, "pointerup", clicked, {
-    passive: false,
-    capture: true
-  });
-  return unsubscribe;
-});
-const documentEscapeKeyStore = readable(void 0, (set) => {
-  function keydown(event) {
-    if (event && event.key === kbd$2.ESCAPE) {
-      set(event);
-    }
-    set(void 0);
-  }
-  const unsubscribe = addEventListener$3(document, "keydown", keydown, {
-    passive: false
-  });
-  return unsubscribe;
-});
-const useEscapeKeydown = (node, config = {}) => {
-  let unsub = noop;
-  function update2(config2 = {}) {
-    unsub();
-    const options = { enabled: true, ...config2 };
-    const enabled = isReadable(options.enabled) ? options.enabled : readable(options.enabled);
-    unsub = executeCallbacks$1(
-      // Handle escape keydowns
-      documentEscapeKeyStore.subscribe((e) => {
-        var _a;
-        if (!e || !get_store_value(enabled))
-          return;
-        const target = e.target;
-        if (!isHTMLElement(target) || target.closest("[data-escapee]") !== node) {
-          return;
-        }
-        e.preventDefault();
-        if (options.ignore) {
-          if (isFunction(options.ignore)) {
-            if (options.ignore(e))
-              return;
-          } else if (Array.isArray(options.ignore)) {
-            if (options.ignore.length > 0 && options.ignore.some((ignoreEl) => {
-              return ignoreEl && target === ignoreEl;
-            }))
-              return;
-          }
-        }
-        (_a = options.handler) == null ? void 0 : _a.call(options, e);
-      }),
-      effect$1(enabled, ($enabled) => {
-        if ($enabled) {
-          node.dataset.escapee = "";
-        } else {
-          delete node.dataset.escapee;
-        }
-      })
-    );
-  }
-  update2(config);
-  return {
-    update: update2,
-    destroy() {
-      node.removeAttribute("data-escapee");
-      unsub();
-    }
-  };
-};
-const defaultConfig$1 = {
-  strategy: "absolute",
-  placement: "top",
-  gutter: 5,
-  flip: true,
-  sameWidth: false,
-  overflowPadding: 8
-};
-const ARROW_TRANSFORM = {
-  bottom: "rotate(45deg)",
-  left: "rotate(135deg)",
-  top: "rotate(225deg)",
-  right: "rotate(315deg)"
-};
-function useFloating(reference, floating, opts = {}) {
-  if (!floating || !reference || opts === null)
-    return {
-      destroy: noop
-    };
-  const options = { ...defaultConfig$1, ...opts };
-  const arrowEl = floating.querySelector("[data-arrow=true]");
-  const middleware = [];
-  if (options.flip) {
-    middleware.push(flip({
-      boundary: options.boundary,
-      padding: options.overflowPadding
-    }));
-  }
-  const arrowOffset = isHTMLElement(arrowEl) ? arrowEl.offsetHeight / 2 : 0;
-  if (options.gutter || options.offset) {
-    const data = options.gutter ? { mainAxis: options.gutter } : options.offset;
-    if ((data == null ? void 0 : data.mainAxis) != null) {
-      data.mainAxis += arrowOffset;
-    }
-    middleware.push(offset(data));
-  }
-  middleware.push(shift({
-    boundary: options.boundary,
-    crossAxis: options.overlap,
-    padding: options.overflowPadding
-  }));
-  if (arrowEl) {
-    middleware.push(arrow({ element: arrowEl, padding: 8 }));
-  }
-  middleware.push(size({
-    padding: options.overflowPadding,
-    apply({ rects, availableHeight, availableWidth }) {
-      if (options.sameWidth) {
-        Object.assign(floating.style, {
-          width: `${Math.round(rects.reference.width)}px`,
-          minWidth: "unset"
-        });
-      }
-      if (options.fitViewport) {
-        Object.assign(floating.style, {
-          maxWidth: `${availableWidth}px`,
-          maxHeight: `${availableHeight}px`
-        });
-      }
-    }
-  }));
-  function compute() {
-    if (!reference || !floating)
-      return;
-    if (isHTMLElement(reference) && !reference.ownerDocument.documentElement.contains(reference))
-      return;
-    const { placement, strategy } = options;
-    computePosition(reference, floating, {
-      placement,
-      middleware,
-      strategy
-    }).then((data) => {
-      const x2 = Math.round(data.x);
-      const y = Math.round(data.y);
-      const [side, align] = getSideAndAlignFromPlacement(data.placement);
-      floating.setAttribute("data-side", side);
-      floating.setAttribute("data-align", align);
-      Object.assign(floating.style, {
-        position: options.strategy,
-        top: `${y}px`,
-        left: `${x2}px`
-      });
-      if (isHTMLElement(arrowEl) && data.middlewareData.arrow) {
-        const { x: x3, y: y2 } = data.middlewareData.arrow;
-        const dir = data.placement.split("-")[0];
-        arrowEl.setAttribute("data-side", dir);
-        Object.assign(arrowEl.style, {
-          position: "absolute",
-          left: x3 != null ? `${x3}px` : "",
-          top: y2 != null ? `${y2}px` : "",
-          [dir]: `calc(100% - ${arrowOffset}px)`,
-          transform: ARROW_TRANSFORM[dir],
-          backgroundColor: "inherit",
-          zIndex: "inherit"
-        });
-      }
-      return data;
-    });
-  }
-  Object.assign(floating.style, {
-    position: options.strategy
-  });
-  return {
-    destroy: autoUpdate(reference, floating, compute)
-  };
-}
-function getSideAndAlignFromPlacement(placement) {
-  const [side, align = "center"] = placement.split("-");
-  return [side, align];
-}
-function createFocusTrap(config = {}) {
-  let trap;
-  const { immediate, ...focusTrapOptions } = config;
-  const hasFocus = writable(false);
-  const isPaused = writable(false);
-  const activate = (opts) => trap == null ? void 0 : trap.activate(opts);
-  const deactivate = (opts) => {
-    trap == null ? void 0 : trap.deactivate(opts);
-  };
-  const pause = () => {
-    if (trap) {
-      trap.pause();
-      isPaused.set(true);
-    }
-  };
-  const unpause = () => {
-    if (trap) {
-      trap.unpause();
-      isPaused.set(false);
-    }
-  };
-  const useFocusTrap = (node) => {
-    trap = createFocusTrap$1(node, {
-      ...focusTrapOptions,
-      onActivate() {
-        var _a;
-        hasFocus.set(true);
-        (_a = config.onActivate) == null ? void 0 : _a.call(config);
-      },
-      onDeactivate() {
-        var _a;
-        hasFocus.set(false);
-        (_a = config.onDeactivate) == null ? void 0 : _a.call(config);
-      }
-    });
-    if (immediate) {
-      activate();
-    }
-    return {
-      destroy() {
-        deactivate();
-        trap = void 0;
-      }
-    };
-  };
-  return {
-    useFocusTrap,
-    hasFocus: readonly(hasFocus),
-    isPaused: readonly(isPaused),
-    activate,
-    deactivate,
-    pause,
-    unpause
-  };
-}
-const visibleModals = [];
-const useModal = (node, config) => {
-  let unsubInteractOutside = noop;
-  function removeNodeFromVisibleModals() {
-    const index = visibleModals.indexOf(node);
-    if (index >= 0) {
-      visibleModals.splice(index, 1);
-    }
-  }
-  function update2(config2) {
-    unsubInteractOutside();
-    const { open, onClose, shouldCloseOnInteractOutside, closeOnInteractOutside } = config2;
-    sleep$1(100).then(() => {
-      if (open) {
-        visibleModals.push(node);
-      } else {
-        removeNodeFromVisibleModals();
-      }
-    });
-    function isLastModal() {
-      return last(visibleModals) === node;
-    }
-    function closeModal() {
-      if (isLastModal() && onClose) {
-        onClose();
-        removeNodeFromVisibleModals();
-      }
-    }
-    function onInteractOutsideStart(e) {
-      const target = e.target;
-      if (!isElement(target))
-        return;
-      if (target && isLastModal()) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-      }
-    }
-    function onInteractOutside(e) {
-      if ((shouldCloseOnInteractOutside == null ? void 0 : shouldCloseOnInteractOutside(e)) && isLastModal()) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        closeModal();
-      }
-    }
-    unsubInteractOutside = useInteractOutside(node, {
-      onInteractOutsideStart,
-      onInteractOutside: closeOnInteractOutside ? onInteractOutside : void 0,
-      enabled: open
-    }).destroy;
-  }
-  update2(config);
-  return {
-    update: update2,
-    destroy() {
-      removeNodeFromVisibleModals();
-      unsubInteractOutside();
-    }
-  };
-};
-const defaultConfig = {
-  floating: {},
-  focusTrap: {},
-  modal: {},
-  escapeKeydown: {},
-  portal: "body"
-};
-const usePopper = (popperElement, args) => {
-  popperElement.dataset.escapee = "";
-  const { anchorElement, open, options } = args;
-  if (!anchorElement || !open || !options) {
-    return { destroy: noop };
-  }
-  const opts = { ...defaultConfig, ...options };
-  const callbacks = [];
-  if (opts.portal !== null) {
-    callbacks.push(usePortal(popperElement, opts.portal).destroy);
-  }
-  callbacks.push(useFloating(anchorElement, popperElement, opts.floating).destroy);
-  if (opts.focusTrap !== null) {
-    const { useFocusTrap } = createFocusTrap({
-      immediate: true,
-      escapeDeactivates: false,
-      allowOutsideClick: true,
-      returnFocusOnDeactivate: false,
-      fallbackFocus: popperElement,
-      ...opts.focusTrap
-    });
-    callbacks.push(useFocusTrap(popperElement).destroy);
-  }
-  if (opts.modal !== null) {
-    callbacks.push(useModal(popperElement, {
-      onClose: () => {
-        if (isHTMLElement(anchorElement)) {
-          open.set(false);
-          anchorElement.focus();
-        }
-      },
-      shouldCloseOnInteractOutside: (e) => {
-        if (e.defaultPrevented)
-          return false;
-        if (isHTMLElement(anchorElement) && anchorElement.contains(e.target)) {
-          return false;
-        }
-        return true;
-      },
-      ...opts.modal
-    }).destroy);
-  }
-  if (opts.escapeKeydown !== null) {
-    callbacks.push(useEscapeKeydown(popperElement, {
-      enabled: open,
-      handler: () => {
-        open.set(false);
-      },
-      ...opts.escapeKeydown
-    }).destroy);
-  }
-  const unsubscribe = executeCallbacks$1(...callbacks);
-  return {
-    destroy() {
-      unsubscribe();
-    }
-  };
-};
-const usePortal = (el, target = "body") => {
-  let targetEl;
-  if (!isHTMLElement(target) && typeof target !== "string") {
-    return {
-      destroy: noop
-    };
-  }
-  async function update2(newTarget) {
-    target = newTarget;
-    if (typeof target === "string") {
-      targetEl = document.querySelector(target);
-      if (targetEl === null) {
-        await tick$1();
-        targetEl = document.querySelector(target);
-      }
-      if (targetEl === null) {
-        throw new Error(`No element found matching css selector: "${target}"`);
-      }
-    } else if (target instanceof HTMLElement) {
-      targetEl = target;
-    } else {
-      throw new TypeError(`Unknown portal target type: ${target === null ? "null" : typeof target}. Allowed types: string (CSS selector) or HTMLElement.`);
-    }
-    el.dataset.portal = "";
-    targetEl.appendChild(el);
-    el.hidden = false;
-  }
-  function destroy() {
-    el.remove();
-  }
-  update2(target);
-  return {
-    update: update2,
-    destroy
-  };
-};
-const useInteractOutside = (node, config) => {
-  let unsub = noop;
-  let unsubClick = noop;
-  let isPointerDown = false;
-  let isPointerDownInside = false;
-  let ignoreEmulatedMouseEvents = false;
-  function update2(config2) {
-    unsub();
-    unsubClick();
-    const { onInteractOutside, onInteractOutsideStart, enabled } = config2;
-    if (!enabled)
-      return;
-    function onPointerDown(e) {
-      if (onInteractOutside && isValidEvent(e, node)) {
-        onInteractOutsideStart == null ? void 0 : onInteractOutsideStart(e);
-      }
-      const target = e.target;
-      if (isElement(target) && isOrContainsTarget(node, target)) {
-        isPointerDownInside = true;
-      }
-      isPointerDown = true;
-    }
-    function triggerInteractOutside(e) {
-      onInteractOutside == null ? void 0 : onInteractOutside(e);
-    }
-    const documentObj = getOwnerDocument(node);
-    if (typeof PointerEvent !== "undefined") {
-      const onPointerUp = (e) => {
-        unsubClick();
-        const handler = (e2) => {
-          if (shouldTriggerInteractOutside(e2)) {
-            triggerInteractOutside(e2);
-          }
-          resetPointerState();
-        };
-        if (e.pointerType === "touch") {
-          unsubClick = addEventListener$3(documentObj, "click", handler, {
-            capture: true,
-            once: true
-          });
-          return;
-        }
-        handler(e);
-      };
-      unsub = executeCallbacks$1(addEventListener$3(documentObj, "pointerdown", onPointerDown, true), addEventListener$3(documentObj, "pointerup", onPointerUp, true));
-    } else {
-      const onMouseUp = (e) => {
-        if (ignoreEmulatedMouseEvents) {
-          ignoreEmulatedMouseEvents = false;
-        } else if (shouldTriggerInteractOutside(e)) {
-          triggerInteractOutside(e);
-        }
-        resetPointerState();
-      };
-      const onTouchEnd = (e) => {
-        ignoreEmulatedMouseEvents = true;
-        if (shouldTriggerInteractOutside(e)) {
-          triggerInteractOutside(e);
-        }
-        resetPointerState();
-      };
-      unsub = executeCallbacks$1(addEventListener$3(documentObj, "mousedown", onPointerDown, true), addEventListener$3(documentObj, "mouseup", onMouseUp, true), addEventListener$3(documentObj, "touchstart", onPointerDown, true), addEventListener$3(documentObj, "touchend", onTouchEnd, true));
-    }
-  }
-  function shouldTriggerInteractOutside(e) {
-    if (isPointerDown && !isPointerDownInside && isValidEvent(e, node)) {
-      return true;
-    }
-    return false;
-  }
-  function resetPointerState() {
-    isPointerDown = false;
-    isPointerDownInside = false;
-  }
-  update2(config);
-  return {
-    update: update2,
-    destroy() {
-      unsub();
-      unsubClick();
-    }
-  };
-};
-function isValidEvent(e, node) {
-  if ("button" in e && e.button > 0)
-    return false;
-  const target = e.target;
-  if (!isElement(target))
-    return false;
-  const ownerDocument = target.ownerDocument;
-  if (!ownerDocument || !ownerDocument.documentElement.contains(target)) {
-    return false;
-  }
-  return node && !isOrContainsTarget(node, target);
+  return debounced;
 }
 function isOrContainsTarget(node, target) {
   return node === target || node.contains(target);
@@ -2436,29 +2808,894 @@ function isOrContainsTarget(node, target) {
 function getOwnerDocument(el) {
   return (el == null ? void 0 : el.ownerDocument) ?? document;
 }
-({
-  prefix: "",
-  disabled: readable(false),
-  required: readable(false),
-  name: readable(void 0)
-});
-function createLabel() {
-  const root = makeElement("label", {
-    action: (node) => {
-      const mouseDown = addMeltEventListener(node, "mousedown", (e) => {
-        if (!e.defaultPrevented && e.detail > 1) {
-          e.preventDefault();
+globalThis.bitsDismissableLayers ?? (globalThis.bitsDismissableLayers = /* @__PURE__ */ new Map());
+class DismissibleLayerState {
+  constructor(props) {
+    __privateAdd(this, _DismissibleLayerState_instances);
+    __privateAdd(this, _interactOutsideProp);
+    __privateAdd(this, _behaviorType);
+    __privateAdd(this, _interceptedEvents, { pointerdown: false });
+    __privateAdd(this, _isResponsibleLayer, false);
+    __publicField(this, "node", box(null));
+    __privateAdd(this, _documentObj);
+    __privateAdd(this, _enabled);
+    __privateAdd(this, _isFocusInsideDOMTree, false);
+    __privateAdd(this, _onFocusOutside);
+    __publicField(this, "currNode", null);
+    __privateAdd(this, _isValidEventProp);
+    __privateAdd(this, _unsubClickListener, noop);
+    __privateAdd(this, _handleFocus, (event) => {
+      if (event.defaultPrevented) return;
+      if (!this.currNode) return;
+      afterTick(() => {
+        var _a, _b;
+        if (!this.currNode || __privateGet(this, _isTargetWithinLayer).call(this, event.target)) return;
+        if (event.target && !__privateGet(this, _isFocusInsideDOMTree)) {
+          (_b = (_a = __privateGet(this, _onFocusOutside)).current) == null ? void 0 : _b.call(_a, event);
         }
       });
-      return {
-        destroy: mouseDown
-      };
+    });
+    __privateAdd(this, _handleDismiss, (e) => {
+      let event = e;
+      if (event.defaultPrevented) {
+        event = createWrappedEvent(e);
+      }
+      __privateGet(this, _interactOutsideProp).current(e);
+    });
+    __privateAdd(this, _handleInteractOutside, debounce(
+      (e) => {
+        if (!this.currNode) {
+          __privateGet(this, _unsubClickListener).call(this);
+          return;
+        }
+        const isEventValid = __privateGet(this, _isValidEventProp).current(e, this.currNode) || isValidEvent(e, this.currNode);
+        if (!__privateGet(this, _isResponsibleLayer) || __privateMethod(this, _DismissibleLayerState_instances, isAnyEventIntercepted_fn).call(this) || !isEventValid) {
+          __privateGet(this, _unsubClickListener).call(this);
+          return;
+        }
+        let event = e;
+        if (event.defaultPrevented) {
+          event = createWrappedEvent(event);
+        }
+        if (__privateGet(this, _behaviorType).current !== "close" && __privateGet(this, _behaviorType).current !== "defer-otherwise-close") {
+          __privateGet(this, _unsubClickListener).call(this);
+          return;
+        }
+        if (e.pointerType === "touch") {
+          __privateGet(this, _unsubClickListener).call(this);
+          __privateSet(this, _unsubClickListener, addEventListener$1(__privateGet(this, _documentObj), "click", __privateGet(this, _handleDismiss), { once: true }));
+        } else {
+          __privateGet(this, _interactOutsideProp).current(event);
+        }
+      },
+      10
+    ));
+    __privateAdd(this, _markInterceptedEvent, (e) => {
+      __privateGet(this, _interceptedEvents)[e.type] = true;
+    });
+    __privateAdd(this, _markNonInterceptedEvent, (e) => {
+      __privateGet(this, _interceptedEvents)[e.type] = false;
+    });
+    __privateAdd(this, _markResponsibleLayer, () => {
+      if (!this.node.current) return;
+      __privateSet(this, _isResponsibleLayer, isResponsibleLayer(this.node.current));
+    });
+    __privateAdd(this, _isTargetWithinLayer, (target) => {
+      if (!this.node.current) return false;
+      return isOrContainsTarget(this.node.current, target);
+    });
+    __privateAdd(this, _resetState, debounce(
+      () => {
+        for (const eventType in __privateGet(this, _interceptedEvents)) {
+          __privateGet(this, _interceptedEvents)[eventType] = false;
+        }
+        __privateSet(this, _isResponsibleLayer, false);
+      },
+      20
+    ));
+    __privateAdd(this, _onfocuscapture, () => {
+      __privateSet(this, _isFocusInsideDOMTree, true);
+    });
+    __privateAdd(this, _onblurcapture, () => {
+      __privateSet(this, _isFocusInsideDOMTree, false);
+    });
+    __publicField(this, "props", {
+      onfocuscapture: __privateGet(this, _onfocuscapture),
+      onblurcapture: __privateGet(this, _onblurcapture)
+    });
+    __privateSet(this, _enabled, props.enabled);
+    __privateSet(this, _isValidEventProp, props.isValidEvent);
+    useRefById({
+      id: props.id,
+      ref: this.node,
+      deps: () => __privateGet(this, _enabled).current,
+      onRefChange: (node) => {
+        this.currNode = node;
+      }
+    });
+    __privateSet(this, _behaviorType, props.interactOutsideBehavior);
+    __privateSet(this, _interactOutsideProp, props.onInteractOutside);
+    __privateSet(this, _onFocusOutside, props.onFocusOutside);
+  }
+}
+_interactOutsideProp = new WeakMap();
+_behaviorType = new WeakMap();
+_interceptedEvents = new WeakMap();
+_isResponsibleLayer = new WeakMap();
+_documentObj = new WeakMap();
+_enabled = new WeakMap();
+_isFocusInsideDOMTree = new WeakMap();
+_onFocusOutside = new WeakMap();
+_isValidEventProp = new WeakMap();
+_unsubClickListener = new WeakMap();
+_handleFocus = new WeakMap();
+_DismissibleLayerState_instances = new WeakSet();
+addEventListeners_fn = function() {
+  return executeCallbacks(
+    /**
+    * CAPTURE INTERACTION START
+    * mark interaction-start event as intercepted.
+    * mark responsible layer during interaction start
+    * to avoid checking if is responsible layer during interaction end
+    * when a new floating element may have been opened.
+    */
+    addEventListener$1(__privateGet(this, _documentObj), "pointerdown", executeCallbacks(__privateGet(this, _markInterceptedEvent), __privateGet(this, _markResponsibleLayer)), true),
+    /**
+    * BUBBLE INTERACTION START
+    * Mark interaction-start event as non-intercepted. Debounce `onInteractOutsideStart`
+    * to avoid prematurely checking if other events were intercepted.
+    */
+    addEventListener$1(__privateGet(this, _documentObj), "pointerdown", executeCallbacks(__privateGet(this, _markNonInterceptedEvent), __privateGet(this, _handleInteractOutside))),
+    /**
+    * HANDLE FOCUS OUTSIDE
+    */
+    addEventListener$1(__privateGet(this, _documentObj), "focusin", __privateGet(this, _handleFocus))
+  );
+};
+_handleDismiss = new WeakMap();
+_handleInteractOutside = new WeakMap();
+_markInterceptedEvent = new WeakMap();
+_markNonInterceptedEvent = new WeakMap();
+_markResponsibleLayer = new WeakMap();
+_isTargetWithinLayer = new WeakMap();
+_resetState = new WeakMap();
+isAnyEventIntercepted_fn = function() {
+  const i = Object.values(__privateGet(this, _interceptedEvents)).some(Boolean);
+  return i;
+};
+_onfocuscapture = new WeakMap();
+_onblurcapture = new WeakMap();
+function useDismissibleLayer(props) {
+  return new DismissibleLayerState(props);
+}
+function getTopMostLayer(layersArr) {
+  return layersArr.findLast(([_, { current: behaviorType }]) => behaviorType === "close" || behaviorType === "ignore");
+}
+function isResponsibleLayer(node) {
+  const layersArr = [...globalThis.bitsDismissableLayers];
+  const topMostLayer = getTopMostLayer(layersArr);
+  if (topMostLayer) return topMostLayer[0].node.current === node;
+  const [firstLayerNode] = layersArr[0];
+  return firstLayerNode.node.current === node;
+}
+function isValidEvent(e, node) {
+  if ("button" in e && e.button > 0) return false;
+  const target = e.target;
+  if (!isElement(target)) return false;
+  const ownerDocument = getOwnerDocument(target);
+  const isValid = ownerDocument.documentElement.contains(target) && !isOrContainsTarget(node, target);
+  return isValid;
+}
+function createWrappedEvent(e) {
+  const capturedCurrentTarget = e.currentTarget;
+  const capturedTarget = e.target;
+  let newEvent;
+  if (e instanceof PointerEvent) {
+    newEvent = new PointerEvent(e.type, e);
+  } else {
+    newEvent = new PointerEvent("pointerdown", e);
+  }
+  let isPrevented = false;
+  const wrappedEvent = new Proxy(newEvent, {
+    get: (target, prop) => {
+      if (prop === "currentTarget") {
+        return capturedCurrentTarget;
+      }
+      if (prop === "target") {
+        return capturedTarget;
+      }
+      if (prop === "preventDefault") {
+        return () => {
+          isPrevented = true;
+          if (typeof target.preventDefault === "function") {
+            target.preventDefault();
+          }
+        };
+      }
+      if (prop === "defaultPrevented") {
+        return isPrevented;
+      }
+      if (prop in target) {
+        return target[prop];
+      }
+      return e[prop];
     }
   });
+  return wrappedEvent;
+}
+function Dismissible_layer($$payload, $$props) {
+  push();
+  let {
+    interactOutsideBehavior = "close",
+    onInteractOutside = noop,
+    onFocusOutside = noop,
+    id,
+    children,
+    enabled,
+    isValidEvent: isValidEvent2 = () => false
+  } = $$props;
+  const dismissibleLayerState = useDismissibleLayer({
+    id: box.with(() => id),
+    interactOutsideBehavior: box.with(() => interactOutsideBehavior),
+    onInteractOutside: box.with(() => onInteractOutside),
+    enabled: box.with(() => enabled),
+    onFocusOutside: box.with(() => onFocusOutside),
+    isValidEvent: box.with(() => isValidEvent2)
+  });
+  children == null ? void 0 : children($$payload, { props: dismissibleLayerState.props });
+  $$payload.out += `<!---->`;
+  pop();
+}
+globalThis.bitsEscapeLayers ?? (globalThis.bitsEscapeLayers = /* @__PURE__ */ new Map());
+class EscapeLayerState {
+  constructor(props) {
+    __privateAdd(this, _onEscapeProp);
+    __privateAdd(this, _behaviorType2);
+    __privateAdd(this, _enabled2);
+    __privateAdd(this, _addEventListener, () => {
+      return addEventListener$1(document, "keydown", __privateGet(this, _onkeydown), { passive: false });
+    });
+    __privateAdd(this, _onkeydown, (e) => {
+      if (e.key !== ESCAPE || !isResponsibleEscapeLayer(this)) return;
+      const clonedEvent = new KeyboardEvent(e.type, e);
+      e.preventDefault();
+      const behaviorType = __privateGet(this, _behaviorType2).current;
+      if (behaviorType !== "close" && behaviorType !== "defer-otherwise-close") return;
+      __privateGet(this, _onEscapeProp).current(clonedEvent);
+    });
+    __privateSet(this, _behaviorType2, props.escapeKeydownBehavior);
+    __privateSet(this, _onEscapeProp, props.onEscapeKeydown);
+    __privateSet(this, _enabled2, props.enabled);
+  }
+}
+_onEscapeProp = new WeakMap();
+_behaviorType2 = new WeakMap();
+_enabled2 = new WeakMap();
+_addEventListener = new WeakMap();
+_onkeydown = new WeakMap();
+function useEscapeLayer(props) {
+  return new EscapeLayerState(props);
+}
+function isResponsibleEscapeLayer(instance) {
+  const layersArr = [...globalThis.bitsEscapeLayers];
+  const topMostLayer = layersArr.findLast(([_, { current: behaviorType }]) => behaviorType === "close" || behaviorType === "ignore");
+  if (topMostLayer) return topMostLayer[0] === instance;
+  const [firstLayerNode] = layersArr[0];
+  return firstLayerNode === instance;
+}
+function Escape_layer($$payload, $$props) {
+  push();
+  let {
+    escapeKeydownBehavior = "close",
+    onEscapeKeydown = noop,
+    children,
+    enabled
+  } = $$props;
+  useEscapeLayer({
+    escapeKeydownBehavior: box.with(() => escapeKeydownBehavior),
+    onEscapeKeydown: box.with(() => onEscapeKeydown),
+    enabled: box.with(() => enabled)
+  });
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!---->`;
+  pop();
+}
+function createFocusScopeAPI() {
+  let paused = false;
   return {
-    elements: {
-      root
+    id: useId(),
+    get paused() {
+      return paused;
+    },
+    pause() {
+      paused = true;
+    },
+    resume() {
+      paused = false;
     }
+  };
+}
+function focus(element2, { select = false } = {}) {
+  if (!(element2 && element2.focus))
+    return;
+  const previouslyFocusedElement = document.activeElement;
+  element2.focus({ preventScroll: true });
+  if (element2 !== previouslyFocusedElement && isSelectableInput(element2) && select) {
+    element2.select();
+  }
+}
+function findVisible(elements, container) {
+  for (const element2 of elements) {
+    if (!isElementHidden(element2, container))
+      return element2;
+  }
+}
+function getTabbableCandidates(container) {
+  const nodes = [];
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
+    // eslint-disable-next-line ts/no-explicit-any
+    acceptNode: (node) => {
+      const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
+      if (node.disabled || node.hidden || isHiddenInput)
+        return NodeFilter.FILTER_SKIP;
+      return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+    }
+  });
+  while (walker.nextNode())
+    nodes.push(walker.currentNode);
+  return nodes;
+}
+function getTabbableEdges(container) {
+  const candidates = getTabbableCandidates(container);
+  const first = findVisible(candidates, container);
+  const last = findVisible(candidates.reverse(), container);
+  return [first, last];
+}
+function useFocusScope({
+  id,
+  loop,
+  enabled,
+  onOpenAutoFocus,
+  onCloseAutoFocus,
+  forceMount
+}) {
+  const focusScope = createFocusScopeAPI();
+  const ref = box(null);
+  useRefById({ id, ref, deps: () => enabled.current });
+  function handleKeydown(e) {
+    if (!enabled.current) return;
+    if (!loop.current && !enabled.current) return;
+    if (focusScope.paused) return;
+    const isTabKey = e.key === TAB && !e.ctrlKey && !e.altKey && !e.metaKey;
+    const focusedElement = document.activeElement;
+    if (!(isTabKey && focusedElement)) return;
+    const container = ref.current;
+    if (!container) return;
+    const [first, last] = getTabbableEdges(container);
+    const hasTabbableElementsInside = first && last;
+    if (!hasTabbableElementsInside) {
+      if (focusedElement === container) {
+        e.preventDefault();
+      }
+    } else {
+      if (!e.shiftKey && focusedElement === last) {
+        e.preventDefault();
+        if (loop.current) focus(first, { select: true });
+      } else if (e.shiftKey && focusedElement === first) {
+        e.preventDefault();
+        if (loop.current) focus(last, { select: true });
+      }
+    }
+  }
+  const props = (() => ({
+    id: id.current,
+    tabindex: -1,
+    onkeydown: handleKeydown
+  }))();
+  return {
+    get props() {
+      return props;
+    }
+  };
+}
+function Focus_scope($$payload, $$props) {
+  push();
+  let {
+    id,
+    trapFocus = false,
+    loop = false,
+    onCloseAutoFocus = noop,
+    onOpenAutoFocus = noop,
+    focusScope,
+    forceMount = false
+  } = $$props;
+  const focusScopeState = useFocusScope({
+    enabled: box.with(() => trapFocus),
+    loop: box.with(() => loop),
+    onCloseAutoFocus: box.with(() => onCloseAutoFocus),
+    onOpenAutoFocus: box.with(() => onOpenAutoFocus),
+    id: box.with(() => id),
+    forceMount: box.with(() => forceMount)
+  });
+  focusScope == null ? void 0 : focusScope($$payload, { props: focusScopeState.props });
+  $$payload.out += `<!---->`;
+  pop();
+}
+globalThis.bitsTextSelectionLayers ?? (globalThis.bitsTextSelectionLayers = /* @__PURE__ */ new Map());
+class TextSelectionLayerState {
+  constructor(props) {
+    __privateAdd(this, _TextSelectionLayerState_instances);
+    __privateAdd(this, _id13);
+    __privateAdd(this, _onPointerDownProp);
+    __privateAdd(this, _onPointerUpProp);
+    __privateAdd(this, _enabled3);
+    __privateAdd(this, _unsubSelectionLock, noop);
+    __privateAdd(this, _ref13, box(null));
+    __privateAdd(this, _pointerdown, (e) => {
+      const node = __privateGet(this, _ref13).current;
+      const target = e.target;
+      if (!isHTMLElement(node) || !isHTMLElement(target) || !__privateGet(this, _enabled3).current) return;
+      if (!isHighestLayer(this) || !isOrContainsTarget(node, target)) return;
+      __privateGet(this, _onPointerDownProp).current(e);
+      if (e.defaultPrevented) return;
+      __privateSet(this, _unsubSelectionLock, preventTextSelectionOverflow(node));
+    });
+    __privateAdd(this, _resetSelectionLock, () => {
+      __privateGet(this, _unsubSelectionLock).call(this);
+      __privateSet(this, _unsubSelectionLock, noop);
+    });
+    __privateSet(this, _id13, props.id);
+    __privateSet(this, _enabled3, props.preventOverflowTextSelection);
+    __privateSet(this, _onPointerDownProp, props.onPointerDown);
+    __privateSet(this, _onPointerUpProp, props.onPointerUp);
+    useRefById({
+      id: __privateGet(this, _id13),
+      ref: __privateGet(this, _ref13),
+      deps: () => __privateGet(this, _enabled3).current
+    });
+  }
+}
+_id13 = new WeakMap();
+_onPointerDownProp = new WeakMap();
+_onPointerUpProp = new WeakMap();
+_enabled3 = new WeakMap();
+_unsubSelectionLock = new WeakMap();
+_ref13 = new WeakMap();
+_TextSelectionLayerState_instances = new WeakSet();
+addEventListeners_fn2 = function() {
+  return executeCallbacks(addEventListener$1(document, "pointerdown", __privateGet(this, _pointerdown)), addEventListener$1(document, "pointerup", composeHandlers(__privateGet(this, _resetSelectionLock), __privateGet(this, _onPointerUpProp))));
+};
+_pointerdown = new WeakMap();
+_resetSelectionLock = new WeakMap();
+function useTextSelectionLayer(props) {
+  return new TextSelectionLayerState(props);
+}
+const getUserSelect = (node) => node.style.userSelect || node.style.webkitUserSelect;
+function preventTextSelectionOverflow(node) {
+  const body = document.body;
+  const originalBodyUserSelect = getUserSelect(body);
+  const originalNodeUserSelect = getUserSelect(node);
+  setUserSelect(body, "none");
+  setUserSelect(node, "text");
+  return () => {
+    setUserSelect(body, originalBodyUserSelect);
+    setUserSelect(node, originalNodeUserSelect);
+  };
+}
+function setUserSelect(node, value) {
+  node.style.userSelect = value;
+  node.style.webkitUserSelect = value;
+}
+function isHighestLayer(instance) {
+  const layersArr = [...globalThis.bitsTextSelectionLayers];
+  if (!layersArr.length) return false;
+  const highestLayer = layersArr.at(-1);
+  if (!highestLayer) return false;
+  return highestLayer[0] === instance;
+}
+function Text_selection_layer($$payload, $$props) {
+  push();
+  let {
+    preventOverflowTextSelection = true,
+    onPointerDown = noop,
+    onPointerUp = noop,
+    id,
+    children,
+    enabled
+  } = $$props;
+  useTextSelectionLayer({
+    id: box.with(() => id),
+    preventOverflowTextSelection: box.with(() => preventOverflowTextSelection),
+    onPointerDown: box.with(() => onPointerDown),
+    onPointerUp: box.with(() => onPointerUp),
+    enabled: box.with(() => enabled)
+  });
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!---->`;
+  pop();
+}
+const SvelteMap = globalThis.Map;
+function createSharedHook(factory) {
+  let state = void 0;
+  return (...args) => {
+    return state;
+  };
+}
+const useBodyLockStackCount = createSharedHook();
+function useBodyScrollLock(initialState, restoreScrollDelay = () => null) {
+  const id = useId();
+  const countState = useBodyLockStackCount();
+  restoreScrollDelay();
+  countState.map.set(id, initialState ?? false);
+  const locked = box.with(() => countState.map.get(id) ?? false, (v) => countState.map.set(id, v));
+  return locked;
+}
+function Scroll_lock($$payload, $$props) {
+  push();
+  let {
+    preventScroll = true,
+    restoreScrollDelay = null
+  } = $$props;
+  useBodyScrollLock(preventScroll, () => restoreScrollDelay);
+  pop();
+}
+function shouldTrapFocus({ forceMount, present, trapFocus, open }) {
+  if (forceMount) {
+    return open && trapFocus;
+  }
+  return present && trapFocus && open;
+}
+function Alert_dialog_content$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    children,
+    child,
+    ref = null,
+    forceMount = false,
+    interactOutsideBehavior = "ignore",
+    onCloseAutoFocus = noop,
+    onEscapeKeydown = noop,
+    onOpenAutoFocus = noop,
+    onInteractOutside = noop,
+    preventScroll = true,
+    trapFocus = true,
+    restoreScrollDelay = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const contentState = useDialogContent({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, contentState.props);
+  {
+    let presence = function($$payload2, { present }) {
+      {
+        let focusScope = function($$payload3, { props: focusScopeProps }) {
+          Escape_layer($$payload3, spread_props([
+            mergedProps,
+            {
+              enabled: present.current,
+              onEscapeKeydown: (e) => {
+                onEscapeKeydown(e);
+                if (e.defaultPrevented) return;
+                contentState.root.handleClose();
+              },
+              children: ($$payload4) => {
+                Dismissible_layer($$payload4, spread_props([
+                  mergedProps,
+                  {
+                    enabled: present.current,
+                    interactOutsideBehavior,
+                    onInteractOutside: (e) => {
+                      onInteractOutside(e);
+                      if (e.defaultPrevented) return;
+                      contentState.root.handleClose();
+                    },
+                    children: ($$payload5) => {
+                      Text_selection_layer($$payload5, spread_props([
+                        mergedProps,
+                        {
+                          enabled: present.current,
+                          children: ($$payload6) => {
+                            if (child) {
+                              $$payload6.out += "<!--[-->";
+                              if (contentState.root.open.current) {
+                                $$payload6.out += "<!--[-->";
+                                Scroll_lock($$payload6, { preventScroll, restoreScrollDelay });
+                              } else {
+                                $$payload6.out += "<!--[!-->";
+                              }
+                              $$payload6.out += `<!--]--> `;
+                              child($$payload6, {
+                                props: mergeProps(mergedProps, focusScopeProps),
+                                ...contentState.snippetProps
+                              });
+                              $$payload6.out += `<!---->`;
+                            } else {
+                              $$payload6.out += "<!--[!-->";
+                              Scroll_lock($$payload6, { preventScroll });
+                              $$payload6.out += `<!----> <div${spread_attributes({
+                                ...mergeProps(mergedProps, focusScopeProps)
+                              })}>`;
+                              children == null ? void 0 : children($$payload6);
+                              $$payload6.out += `<!----></div>`;
+                            }
+                            $$payload6.out += `<!--]-->`;
+                          },
+                          $$slots: { default: true }
+                        }
+                      ]));
+                    },
+                    $$slots: { default: true }
+                  }
+                ]));
+              },
+              $$slots: { default: true }
+            }
+          ]));
+        };
+        Focus_scope($$payload2, spread_props([
+          {
+            loop: true,
+            trapFocus: shouldTrapFocus({
+              forceMount,
+              present: present.current,
+              trapFocus,
+              open: contentState.root.open.current
+            })
+          },
+          mergedProps,
+          {
+            onCloseAutoFocus: (e) => {
+              var _a;
+              onCloseAutoFocus(e);
+              if (e.defaultPrevented) return;
+              (_a = contentState.root.triggerNode) == null ? void 0 : _a.focus();
+            },
+            onOpenAutoFocus: (e) => {
+              var _a;
+              onOpenAutoFocus(e);
+              if (e.defaultPrevented) return;
+              e.preventDefault();
+              (_a = contentState.root.cancelNode) == null ? void 0 : _a.focus();
+            },
+            focusScope,
+            $$slots: { focusScope: true }
+          }
+        ]));
+      }
+    };
+    Presence_layer($$payload, spread_props([
+      mergedProps,
+      {
+        forceMount,
+        present: contentState.root.open.current || forceMount,
+        presence,
+        $$slots: { presence: true }
+      }
+    ]));
+  }
+  bind_props($$props, { ref });
+  pop();
+}
+function Dialog_overlay$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    forceMount = false,
+    child,
+    children,
+    ref = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const overlayState = useDialogOverlay({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, overlayState.props);
+  {
+    let presence = function($$payload2) {
+      if (child) {
+        $$payload2.out += "<!--[-->";
+        child($$payload2, {
+          props: mergeProps(mergedProps),
+          ...overlayState.snippetProps
+        });
+        $$payload2.out += `<!---->`;
+      } else {
+        $$payload2.out += "<!--[!-->";
+        $$payload2.out += `<div${spread_attributes({ ...mergeProps(mergedProps) })}>`;
+        children == null ? void 0 : children($$payload2, overlayState.snippetProps);
+        $$payload2.out += `<!----></div>`;
+      }
+      $$payload2.out += `<!--]-->`;
+    };
+    Presence_layer($$payload, {
+      id,
+      present: overlayState.root.open.current || forceMount,
+      presence,
+      $$slots: { presence: true }
+    });
+  }
+  bind_props($$props, { ref });
+  pop();
+}
+function Dialog_trigger($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    children,
+    child,
+    disabled = false,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const triggerState = useDialogTrigger({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    disabled: box.with(() => Boolean(disabled))
+  });
+  const mergedProps = mergeProps(restProps, triggerState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></button>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+const ASPECT_RATIO_ROOT_ATTR = "data-aspect-ratio-root";
+class AspectRatioRootState {
+  constructor(props) {
+    __privateAdd(this, _ref14);
+    __privateAdd(this, _id14);
+    __privateAdd(this, _ratio);
+    __privateAdd(this, _wrapperProps, once(() => ({
+      style: {
+        position: "relative",
+        width: "100%",
+        paddingBottom: `${__privateGet(this, _ratio).current ? 100 / __privateGet(this, _ratio).current : 0}%}`
+      }
+    })));
+    __privateAdd(this, _props13, once(() => ({
+      id: __privateGet(this, _id14).current,
+      style: {
+        position: "absolute",
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      },
+      [ASPECT_RATIO_ROOT_ATTR]: ""
+    })));
+    __privateSet(this, _ref14, props.ref);
+    __privateSet(this, _id14, props.id);
+    __privateSet(this, _ratio, props.ratio);
+    useRefById({ id: __privateGet(this, _id14), ref: __privateGet(this, _ref14) });
+  }
+  get wrapperProps() {
+    return __privateGet(this, _wrapperProps).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props13).call(this);
+  }
+}
+_ref14 = new WeakMap();
+_id14 = new WeakMap();
+_ratio = new WeakMap();
+_wrapperProps = new WeakMap();
+_props13 = new WeakMap();
+function useAspectRatioRoot(props) {
+  return new AspectRatioRootState(props);
+}
+function Aspect_ratio($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    id = useId(),
+    ratio = 1,
+    children,
+    child,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const rootState = useAspectRatioRoot({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    ratio: box.with(() => ratio)
+  });
+  const mergedProps = mergeProps(restProps, rootState.props);
+  $$payload.out += `<div${add_styles({
+    position: "relative",
+    width: "100%",
+    "padding-bottom": `${stringify(ratio ? 100 / ratio : 0)}%`
+  })}>`;
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]--></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function initAnnouncer() {
+  if (!isBrowser$2)
+    return null;
+  let el = document.querySelector("[data-bits-announcer]");
+  if (!isHTMLElement(el)) {
+    const div = document.createElement("div");
+    div.style.cssText = srOnlyStylesString;
+    div.setAttribute("data-bits-announcer", "");
+    div.appendChild(createLog("assertive"));
+    div.appendChild(createLog("polite"));
+    el = div;
+    document.body.insertBefore(el, document.body.firstChild);
+  }
+  function createLog(kind) {
+    const log = document.createElement("div");
+    log.role = "log";
+    log.ariaLive = kind;
+    log.setAttribute("aria-relevant", "additions");
+    return log;
+  }
+  function getLog(kind) {
+    if (!isHTMLElement(el))
+      return null;
+    const log = el.querySelector(`[aria-live="${kind}"]`);
+    if (!isHTMLElement(log))
+      return null;
+    return log;
+  }
+  return {
+    getLog
+  };
+}
+function getAnnouncer() {
+  const announcer = initAnnouncer();
+  function announce(value, kind = "assertive", timeout = 7500) {
+    if (!announcer || !isBrowser$2)
+      return;
+    const log = announcer.getLog(kind);
+    const content = document.createElement("div");
+    if (typeof value === "number") {
+      value = value.toString();
+    } else if (value === null) {
+      value = "Empty";
+    } else {
+      value = value.trim();
+    }
+    content.innerText = value;
+    if (kind === "assertive") {
+      log == null ? void 0 : log.replaceChildren(content);
+    } else {
+      log == null ? void 0 : log.appendChild(content);
+    }
+    return setTimeout(() => {
+      content.remove();
+    }, timeout);
+  }
+  return {
+    announce
   };
 }
 const defaultDateDefaults = {
@@ -2551,6 +3788,14 @@ function getNextLastDayOfWeek(date, firstDayOfWeek, locale) {
   }
   return date.add({ days: lastDayOfWeek - day });
 }
+const defaultPartOptions = {
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric"
+};
 function createFormatter(initialLocale) {
   let locale = initialLocale;
   function setLocale(newLocale) {
@@ -2596,30 +3841,23 @@ function createFormatter(initialLocale) {
   function dayOfWeek(date, length = "narrow") {
     return new DateFormatter(locale, { weekday: length }).format(date);
   }
-  function dayPeriod(date) {
+  function dayPeriod(date, hourCycle = void 0) {
     var _a;
     const parts = new DateFormatter(locale, {
       hour: "numeric",
-      minute: "numeric"
+      minute: "numeric",
+      hourCycle: hourCycle === 24 ? "h23" : void 0
     }).formatToParts(date);
-    const value = (_a = parts.find((p) => p.type === "dayPeriod")) == null ? void 0 : _a.value;
+    const value = (_a = parts.find((p2) => p2.type === "dayPeriod")) == null ? void 0 : _a.value;
     if (value === "PM") {
       return "PM";
     }
     return "AM";
   }
-  const defaultPartOptions = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric"
-  };
   function part(dateObj, type, options = {}) {
     const opts = { ...defaultPartOptions, ...options };
     const parts = toParts(dateObj, opts);
-    const part2 = parts.find((p) => p.type === type);
+    const part2 = parts.find((p2) => p2.type === type);
     return part2 ? part2.value : "";
   }
   return {
@@ -2636,142 +3874,19 @@ function createFormatter(initialLocale) {
     dayOfWeek
   };
 }
-function dateStore(store2, defaultValue) {
-  const { set, update: update2, subscribe: subscribe2, get } = withGet(store2);
-  function add(duration) {
-    update2((d2) => {
-      return d2.add(duration);
-    });
+function chunk(arr, size2) {
+  const result = [];
+  for (let i = 0; i < arr.length; i += size2) {
+    result.push(arr.slice(i, i + size2));
   }
-  function nextPage(amount) {
-    update2((d2) => {
-      return d2.set({ day: 1 }).add({ months: amount });
-    });
-  }
-  function prevPage(amount) {
-    update2((d2) => {
-      return d2.set({ day: 1 }).subtract({ months: amount });
-    });
-  }
-  function subtract(duration) {
-    update2((d2) => {
-      return d2.subtract(duration);
-    });
-  }
-  function setDate(fields, disambiguation) {
-    if (disambiguation) {
-      update2((d2) => {
-        return d2.set(fields, disambiguation);
-      });
-      return;
-    }
-    update2((d2) => {
-      return d2.set(fields);
-    });
-  }
-  function reset() {
-    update2(() => {
-      return defaultValue;
-    });
-  }
-  function toWritable() {
-    return {
-      set,
-      subscribe: subscribe2,
-      update: update2,
-      get
-    };
-  }
-  return {
-    get,
-    set,
-    update: update2,
-    subscribe: subscribe2,
-    add,
-    subtract,
-    setDate,
-    reset,
-    toWritable,
-    nextPage,
-    prevPage
-  };
+  return result;
 }
-function initAnnouncer() {
-  if (!isBrowser$3)
-    return null;
-  let el = document.querySelector("[data-melt-announcer]");
-  if (!isHTMLElement(el)) {
-    const div = document.createElement("div");
-    div.style.cssText = styleToString$3({
-      border: "0px",
-      clip: "rect(0px, 0px, 0px, 0px)",
-      "clip-path": "inset(50%)",
-      height: "1px",
-      margin: "-1px",
-      overflow: "hidden",
-      padding: "0px",
-      position: "absolute",
-      "white-space": "nowrap",
-      width: "1px"
-    });
-    div.setAttribute("data-melt-announcer", "");
-    div.appendChild(createLog("assertive"));
-    div.appendChild(createLog("polite"));
-    el = div;
-    document.body.insertBefore(el, document.body.firstChild);
-  }
-  function createLog(kind) {
-    const log = document.createElement("div");
-    log.role = "log";
-    log.ariaLive = kind;
-    log.setAttribute("aria-relevant", "additions");
-    return log;
-  }
-  function getLog(kind) {
-    if (!isHTMLElement(el))
-      return null;
-    const log = el.querySelector(`[aria-live="${kind}"]`);
-    if (!isHTMLElement(log))
-      return null;
-    return log;
-  }
-  return {
-    getLog
-  };
+function isValidIndex(index, arr) {
+  return index >= 0 && index < arr.length;
 }
-function getAnnouncer() {
-  const announcer = initAnnouncer();
-  function announce(value, kind = "assertive", timeout = 7500) {
-    if (!announcer || !isBrowser$3)
-      return;
-    const log = announcer.getLog(kind);
-    const content = document.createElement("div");
-    if (typeof value === "number") {
-      value = value.toString();
-    } else if (value === null) {
-      value = "Empty";
-    } else {
-      value = value.trim();
-    }
-    content.innerText = value;
-    if (kind === "assertive") {
-      log == null ? void 0 : log.replaceChildren(content);
-    } else {
-      log == null ? void 0 : log.appendChild(content);
-    }
-    return setTimeout(() => {
-      content.remove();
-    }, timeout);
-  }
-  return {
-    announce
-  };
-}
-function isCalendarCell(node) {
-  if (!isHTMLElement(node))
-    return false;
-  if (!node.hasAttribute("data-melt-calendar-cell"))
-    return false;
+function isCalendarDayNode(node) {
+  if (!isHTMLElement(node)) return false;
+  if (!node.hasAttribute("data-bits-day")) return false;
   return true;
 }
 function getDaysBetween(start, end) {
@@ -2787,7 +3902,7 @@ function getDaysBetween(start, end) {
 function createMonth(props) {
   const { dateObj, weekStartsOn, fixedWeeks, locale } = props;
   const daysInMonth = getDaysInMonth(dateObj);
-  const datesArray = Array.from({ length: daysInMonth }, (_2, i) => dateObj.set({ day: i + 1 }));
+  const datesArray = Array.from({ length: daysInMonth }, (_, i) => dateObj.set({ day: i + 1 }));
   const firstDayOfMonth = startOfMonth(dateObj);
   const lastDayOfMonth = endOfMonth(dateObj);
   const lastSunday = getLastFirstDayOfWeek(firstDayOfMonth, weekStartsOn, locale);
@@ -2801,7 +3916,12 @@ function createMonth(props) {
     if (!startFrom) {
       startFrom = dateObj.add({ months: 1 }).set({ day: 1 });
     }
-    const extraDaysArray = Array.from({ length: extraDays }, (_2, i) => {
+    let length = extraDays;
+    if (nextMonthDays.length === 0) {
+      length = extraDays - 1;
+      nextMonthDays.push(startFrom);
+    }
+    const extraDaysArray = Array.from({ length }, (_, i) => {
       const incr = i + 1;
       return startFrom.add({ days: incr });
     });
@@ -2809,3061 +3929,4832 @@ function createMonth(props) {
   }
   const allDays = lastMonthDays.concat(datesArray, nextMonthDays);
   const weeks = chunk(allDays, 7);
-  return {
-    value: dateObj,
-    dates: allDays,
-    weeks
-  };
+  return { value: dateObj, dates: allDays, weeks };
 }
 function createMonths(props) {
   const { numberOfMonths, dateObj, ...monthProps } = props;
   const months = [];
   if (!numberOfMonths || numberOfMonths === 1) {
-    months.push(createMonth({
-      ...monthProps,
-      dateObj
-    }));
+    months.push(createMonth({ ...monthProps, dateObj }));
     return months;
   }
-  months.push(createMonth({
-    ...monthProps,
-    dateObj
-  }));
+  months.push(createMonth({ ...monthProps, dateObj }));
   for (let i = 1; i < numberOfMonths; i++) {
     const nextMonth = dateObj.add({ months: i });
-    months.push(createMonth({
-      ...monthProps,
-      dateObj: nextMonth
-    }));
+    months.push(createMonth({ ...monthProps, dateObj: nextMonth }));
   }
   return months;
 }
-function getSelectableCells(calendarId) {
-  const node = document.getElementById(calendarId);
-  if (!node)
-    return [];
-  const selectableSelector = `[data-melt-calendar-cell]:not([data-disabled]):not([data-outside-visible-months])`;
-  return Array.from(node.querySelectorAll(selectableSelector)).filter((el) => isHTMLElement(el));
+function getSelectableCells(calendarNode) {
+  if (!calendarNode) return [];
+  const selectableSelector = `[data-bits-day]:not([data-disabled]):not([data-outside-visible-months])`;
+  return Array.from(calendarNode.querySelectorAll(selectableSelector)).filter((el) => isHTMLElement(el));
 }
 function setPlaceholderToNodeValue(node, placeholder) {
   const cellValue = node.getAttribute("data-value");
-  if (!cellValue)
-    return;
-  placeholder.set(parseStringToDateValue(cellValue, get_store_value(placeholder)));
+  if (!cellValue) return;
+  placeholder.current = parseStringToDateValue(cellValue, placeholder.current);
 }
-const defaults$4 = {
-  isDateDisabled: void 0,
-  isDateUnavailable: void 0,
-  value: void 0,
-  preventDeselect: false,
-  numberOfMonths: 1,
-  pagedNavigation: false,
-  weekStartsOn: 0,
-  fixedWeeks: false,
-  calendarLabel: "Event Date",
-  locale: "en",
-  minValue: void 0,
-  maxValue: void 0,
-  disabled: false,
-  readonly: false,
-  weekdayFormat: "narrow"
-};
-const { name: name$3 } = createElHelpers("calendar");
-const calendarIdParts = ["calendar", "accessibleHeading"];
-function createCalendar(props) {
-  const withDefaults = { ...defaults$4, ...props };
-  const options = toWritableStores$1({
-    ...omit$1(withDefaults, "value", "placeholder", "multiple", "ids"),
-    multiple: withDefaults.multiple ?? false
-  });
-  const { preventDeselect, numberOfMonths, pagedNavigation, weekStartsOn, fixedWeeks, calendarLabel, locale, minValue, maxValue, multiple, isDateUnavailable, disabled, readonly: readonly2, weekdayFormat } = options;
-  const ids = toWritableStores$1({ ...generateIds(calendarIdParts), ...withDefaults.ids });
-  const defaultDate = getDefaultDate({
-    defaultPlaceholder: withDefaults.defaultPlaceholder,
-    defaultValue: withDefaults.defaultValue
-  });
-  const formatter = createFormatter(withDefaults.locale);
-  const valueWritable = withDefaults.value ?? writable(withDefaults.defaultValue);
-  const value = overridable(valueWritable, withDefaults.onValueChange);
-  const placeholderWritable = withDefaults.placeholder ?? writable(withDefaults.defaultPlaceholder ?? defaultDate);
-  const placeholder = dateStore(overridable(placeholderWritable, withDefaults.onPlaceholderChange), withDefaults.defaultPlaceholder ?? defaultDate);
-  const months = withGet(writable(createMonths({
-    dateObj: placeholder.get(),
-    weekStartsOn: withDefaults.weekStartsOn,
-    locale: withDefaults.locale,
-    fixedWeeks: withDefaults.fixedWeeks,
-    numberOfMonths: withDefaults.numberOfMonths
-  })));
-  const visibleMonths = withGet.derived([months], ([$months]) => {
-    return $months.map((month) => {
-      return month.value;
+function shiftCalendarFocus({
+  node,
+  add,
+  placeholder,
+  calendarNode,
+  isPrevButtonDisabled,
+  isNextButtonDisabled,
+  months,
+  numberOfMonths
+}) {
+  var _a, _b;
+  const candidateCells = getSelectableCells(calendarNode);
+  if (!candidateCells.length) return;
+  const index = candidateCells.indexOf(node);
+  const nextIndex = index + add;
+  if (isValidIndex(nextIndex, candidateCells)) {
+    const nextCell = candidateCells[nextIndex];
+    setPlaceholderToNodeValue(nextCell, placeholder);
+    return nextCell.focus();
+  }
+  if (nextIndex < 0) {
+    if (isPrevButtonDisabled) return;
+    const firstMonth = (_a = months[0]) == null ? void 0 : _a.value;
+    if (!firstMonth) return;
+    placeholder.current = firstMonth.subtract({ months: numberOfMonths });
+    afterTick(() => {
+      const newCandidateCells = getSelectableCells(calendarNode);
+      if (!newCandidateCells.length) return;
+      const newIndex = newCandidateCells.length - Math.abs(nextIndex);
+      if (isValidIndex(newIndex, newCandidateCells)) {
+        const newCell = newCandidateCells[newIndex];
+        setPlaceholderToNodeValue(newCell, placeholder);
+        return newCell.focus();
+      }
     });
-  });
-  const isOutsideVisibleMonths = derived([visibleMonths], ([$visibleMonths]) => {
-    return (date) => {
-      return !$visibleMonths.some((month) => isSameMonth(date, month));
-    };
-  });
-  const isNextButtonDisabled = withGet.derived([months, maxValue, disabled], ([$months, $maxValue, $disabled]) => {
-    if (!$maxValue || !$months.length)
-      return false;
-    if ($disabled)
-      return true;
-    const lastMonthInView = $months[$months.length - 1].value;
-    const firstMonthOfNextPage = lastMonthInView.add({ months: 1 }).set({ day: 1 });
-    return isAfter(firstMonthOfNextPage, $maxValue);
-  });
-  const isPrevButtonDisabled = withGet.derived([months, minValue, disabled], ([$months, $minValue, $disabled]) => {
-    if (!$minValue || !$months.length)
-      return false;
-    if ($disabled)
-      return true;
-    const firstMonthInView = $months[0].value;
-    const lastMonthOfPrevPage = firstMonthInView.subtract({ months: 1 }).set({ day: 35 });
-    return isBefore(lastMonthOfPrevPage, $minValue);
-  });
-  const isDateDisabled = withGet.derived([options.isDateDisabled, minValue, maxValue, disabled], ([$isDateDisabled, $minValue, $maxValue, $disabled]) => {
-    return (date) => {
-      if (($isDateDisabled == null ? void 0 : $isDateDisabled(date)) || $disabled)
-        return true;
-      if ($minValue && isBefore(date, $minValue))
-        return true;
-      if ($maxValue && isBefore($maxValue, date))
-        return true;
-      return false;
-    };
-  });
-  const isDateSelected = derived([value], ([$value]) => {
-    return (date) => {
-      if (Array.isArray($value)) {
-        return $value.some((d2) => isSameDay(d2, date));
-      } else if (!$value) {
-        return false;
-      } else {
-        return isSameDay($value, date);
+  }
+  if (nextIndex >= candidateCells.length) {
+    if (isNextButtonDisabled) return;
+    const firstMonth = (_b = months[0]) == null ? void 0 : _b.value;
+    if (!firstMonth) return;
+    placeholder.current = firstMonth.add({ months: numberOfMonths });
+    afterTick(() => {
+      const newCandidateCells = getSelectableCells(calendarNode);
+      if (!newCandidateCells.length) return;
+      const newIndex = nextIndex - candidateCells.length;
+      if (isValidIndex(newIndex, newCandidateCells)) {
+        const nextCell = newCandidateCells[newIndex];
+        return nextCell.focus();
       }
-    };
-  });
-  const isInvalid = derived([value, isDateDisabled, options.isDateUnavailable], ([$value, $isDateDisabled, $isDateUnavailable]) => {
-    if (Array.isArray($value)) {
-      if (!$value.length)
-        return false;
-      for (const date of $value) {
-        if ($isDateDisabled == null ? void 0 : $isDateDisabled(date))
-          return true;
-        if ($isDateUnavailable == null ? void 0 : $isDateUnavailable(date))
-          return true;
-      }
-    } else {
-      if (!$value)
-        return false;
-      if ($isDateDisabled == null ? void 0 : $isDateDisabled($value))
-        return true;
-      if ($isDateUnavailable == null ? void 0 : $isDateUnavailable($value))
-        return true;
+    });
+  }
+}
+const ARROW_KEYS = [
+  ARROW_DOWN,
+  ARROW_UP,
+  ARROW_LEFT,
+  ARROW_RIGHT
+];
+const SELECT_KEYS = [ENTER, SPACE];
+function handleCalendarKeydown({
+  event,
+  handleCellClick,
+  shiftFocus,
+  placeholderValue
+}) {
+  const currentCell = event.target;
+  if (!isCalendarDayNode(currentCell)) return;
+  if (!ARROW_KEYS.includes(event.key) && !SELECT_KEYS.includes(event.key)) return;
+  event.preventDefault();
+  const kbdFocusMap = {
+    [ARROW_DOWN]: 7,
+    [ARROW_UP]: -7,
+    [ARROW_LEFT]: -1,
+    [ARROW_RIGHT]: 1
+  };
+  if (ARROW_KEYS.includes(event.key)) {
+    const add = kbdFocusMap[event.key];
+    if (add !== void 0) {
+      shiftFocus(currentCell, add);
     }
+  }
+  if (SELECT_KEYS.includes(event.key)) {
+    const cellValue = currentCell.getAttribute("data-value");
+    if (!cellValue) return;
+    handleCellClick(event, parseStringToDateValue(cellValue, placeholderValue));
+  }
+}
+function handleCalendarNextPage({
+  months,
+  setMonths,
+  numberOfMonths,
+  pagedNavigation,
+  weekStartsOn,
+  locale,
+  fixedWeeks,
+  setPlaceholder
+}) {
+  var _a;
+  const firstMonth = (_a = months[0]) == null ? void 0 : _a.value;
+  if (!firstMonth) return;
+  if (pagedNavigation) {
+    setPlaceholder(firstMonth.add({ months: numberOfMonths }));
+  } else {
+    const newMonths = createMonths({
+      dateObj: firstMonth.add({ months: 1 }),
+      weekStartsOn,
+      locale,
+      fixedWeeks,
+      numberOfMonths
+    });
+    setMonths(newMonths);
+    const firstNewMonth = newMonths[0];
+    if (!firstNewMonth) return;
+    setPlaceholder(firstNewMonth.value.set({ day: 1 }));
+  }
+}
+function handleCalendarPrevPage({
+  months,
+  setMonths,
+  numberOfMonths,
+  pagedNavigation,
+  weekStartsOn,
+  locale,
+  fixedWeeks,
+  setPlaceholder
+}) {
+  var _a;
+  const firstMonth = (_a = months[0]) == null ? void 0 : _a.value;
+  if (!firstMonth) return;
+  if (pagedNavigation) {
+    setPlaceholder(firstMonth.subtract({ months: numberOfMonths }));
+  } else {
+    const newMonths = createMonths({
+      dateObj: firstMonth.subtract({ months: 1 }),
+      weekStartsOn,
+      locale,
+      fixedWeeks,
+      numberOfMonths
+    });
+    setMonths(newMonths);
+    const firstNewMonth = newMonths[0];
+    if (!firstNewMonth) return;
+    setPlaceholder(firstNewMonth.value.set({ day: 1 }));
+  }
+}
+function getWeekdays({ months, formatter, weekdayFormat }) {
+  if (!months.length) return [];
+  const firstMonth = months[0];
+  const firstWeek = firstMonth.weeks[0];
+  if (!firstWeek) return [];
+  return firstWeek.map((date) => formatter.dayOfWeek(toDate(date), weekdayFormat));
+}
+function useMonthViewOptionsSync(props) {
+  const weekStartsOn = props.weekStartsOn.current;
+  const locale = props.locale.current;
+  const fixedWeeks = props.fixedWeeks.current;
+  const numberOfMonths = props.numberOfMonths.current;
+  run$1(() => {
+    const placeholder = props.placeholder.current;
+    if (!placeholder) return;
+    const defaultMonthProps = {
+      weekStartsOn,
+      locale,
+      fixedWeeks,
+      numberOfMonths
+    };
+    props.setMonths(createMonths({ ...defaultMonthProps, dateObj: placeholder }));
+  });
+}
+function useMonthViewPlaceholderSync({
+  placeholder,
+  getVisibleMonths,
+  weekStartsOn,
+  locale,
+  fixedWeeks,
+  numberOfMonths,
+  setMonths
+}) {
+}
+function getIsNextButtonDisabled({ maxValue, months, disabled }) {
+  var _a;
+  if (!maxValue || !months.length) return false;
+  if (disabled) return true;
+  const lastMonthInView = (_a = months[months.length - 1]) == null ? void 0 : _a.value;
+  if (!lastMonthInView) return false;
+  const firstMonthOfNextPage = lastMonthInView.add({ months: 1 }).set({ day: 1 });
+  return isAfter(firstMonthOfNextPage, maxValue);
+}
+function getIsPrevButtonDisabled({ minValue, months, disabled }) {
+  var _a;
+  if (!minValue || !months.length) return false;
+  if (disabled) return true;
+  const firstMonthInView = (_a = months[0]) == null ? void 0 : _a.value;
+  if (!firstMonthInView) return false;
+  const lastMonthOfPrevPage = firstMonthInView.subtract({ months: 1 }).set({ day: 35 });
+  return isBefore(lastMonthOfPrevPage, minValue);
+}
+function getCalendarHeadingValue({ months, locale, formatter }) {
+  if (!months.length) return "";
+  if (locale !== formatter.getLocale()) {
+    formatter.setLocale(locale);
+  }
+  if (months.length === 1) {
+    const month = toDate(months[0].value);
+    return `${formatter.fullMonthAndYear(month)}`;
+  }
+  const startMonth = toDate(months[0].value);
+  const endMonth = toDate(months[months.length - 1].value);
+  const startMonthName = formatter.fullMonth(startMonth);
+  const endMonthName = formatter.fullMonth(endMonth);
+  const startMonthYear = formatter.fullYear(startMonth);
+  const endMonthYear = formatter.fullYear(endMonth);
+  const content = startMonthYear === endMonthYear ? `${startMonthName} - ${endMonthName} ${endMonthYear}` : `${startMonthName} ${startMonthYear} - ${endMonthName} ${endMonthYear}`;
+  return content;
+}
+function getCalendarElementProps({
+  fullCalendarLabel,
+  id,
+  isInvalid,
+  disabled,
+  readonly
+}) {
+  return {
+    id,
+    role: "application",
+    "aria-label": fullCalendarLabel,
+    "data-invalid": getDataInvalid(isInvalid),
+    "data-disabled": getDataDisabled(disabled),
+    "data-readonly": getDataReadonly(readonly)
+  };
+}
+class CalendarRootState {
+  constructor(props) {
+    __publicField(this, "ref");
+    __publicField(this, "id");
+    __publicField(this, "value");
+    __publicField(this, "placeholder");
+    __publicField(this, "preventDeselect");
+    __publicField(this, "minValue");
+    __publicField(this, "maxValue");
+    __publicField(this, "disabled");
+    __publicField(this, "pagedNavigation");
+    __publicField(this, "weekStartsOn");
+    __publicField(this, "weekdayFormat");
+    __publicField(this, "isDateDisabledProp");
+    __publicField(this, "isDateUnavailableProp");
+    __publicField(this, "fixedWeeks");
+    __publicField(this, "numberOfMonths");
+    __publicField(this, "locale");
+    __publicField(this, "calendarLabel");
+    __publicField(this, "type");
+    __publicField(this, "readonly");
+    __publicField(this, "disableDaysOutsideMonth");
+    __publicField(this, "onDateSelect");
+    __publicField(this, "initialFocus");
+    __publicField(this, "months", []);
+    __privateAdd(this, _visibleMonths, once(() => this.months.map((month) => month.value)));
+    __publicField(this, "announcer");
+    __publicField(this, "formatter");
+    __publicField(this, "accessibleHeadingId", useId());
+    __privateAdd(this, _weekdays, once(() => {
+      return getWeekdays({
+        months: this.months,
+        formatter: this.formatter,
+        weekdayFormat: this.weekdayFormat.current
+      });
+    }));
+    __privateAdd(this, _isNextButtonDisabled, once(() => {
+      return getIsNextButtonDisabled({
+        maxValue: this.maxValue.current,
+        months: this.months,
+        disabled: this.disabled.current
+      });
+    }));
+    __privateAdd(this, _isPrevButtonDisabled, once(() => {
+      return getIsPrevButtonDisabled({
+        minValue: this.minValue.current,
+        months: this.months,
+        disabled: this.disabled.current
+      });
+    }));
+    __privateAdd(this, _isInvalid, once(() => {
+      const value = this.value.current;
+      const isDateDisabled = this.isDateDisabledProp.current;
+      const isDateUnavailable = this.isDateUnavailableProp.current;
+      if (Array.isArray(value)) {
+        if (!value.length) return false;
+        for (const date of value) {
+          if (isDateDisabled(date)) return true;
+          if (isDateUnavailable(date)) return true;
+        }
+      } else {
+        if (!value) return false;
+        if (isDateDisabled(value)) return true;
+        if (isDateUnavailable(value)) return true;
+      }
+      return false;
+    }));
+    __privateAdd(this, _headingValue, once(() => {
+      return getCalendarHeadingValue({
+        months: this.months,
+        formatter: this.formatter,
+        locale: this.locale.current
+      });
+    }));
+    __privateAdd(this, _fullCalendarLabel, once(() => {
+      return `${this.calendarLabel.current} ${this.headingValue}`;
+    }));
+    __privateAdd(this, _snippetProps4, once(() => ({ months: this.months, weekdays: this.weekdays })));
+    __privateAdd(this, _props14, once(() => ({
+      ...getCalendarElementProps({
+        fullCalendarLabel: this.fullCalendarLabel,
+        id: this.id.current,
+        isInvalid: this.isInvalid,
+        disabled: this.disabled.current,
+        readonly: this.readonly.current
+      }),
+      [this.getBitsAttr("root")]: "",
+      //
+      onkeydown: this.onkeydown
+    })));
+    this.value = props.value;
+    this.placeholder = props.placeholder;
+    this.preventDeselect = props.preventDeselect;
+    this.minValue = props.minValue;
+    this.maxValue = props.maxValue;
+    this.disabled = props.disabled;
+    this.pagedNavigation = props.pagedNavigation;
+    this.weekStartsOn = props.weekStartsOn;
+    this.weekdayFormat = props.weekdayFormat;
+    this.isDateDisabledProp = props.isDateDisabled;
+    this.isDateUnavailableProp = props.isDateUnavailable;
+    this.fixedWeeks = props.fixedWeeks;
+    this.numberOfMonths = props.numberOfMonths;
+    this.locale = props.locale;
+    this.calendarLabel = props.calendarLabel;
+    this.type = props.type;
+    this.readonly = props.readonly;
+    this.id = props.id;
+    this.ref = props.ref;
+    this.disableDaysOutsideMonth = props.disableDaysOutsideMonth;
+    this.onDateSelect = props.onDateSelect;
+    this.initialFocus = props.initialFocus;
+    this.announcer = getAnnouncer();
+    this.formatter = createFormatter(this.locale.current);
+    this.setMonths = this.setMonths.bind(this);
+    this.nextPage = this.nextPage.bind(this);
+    this.prevPage = this.prevPage.bind(this);
+    this.prevYear = this.prevYear.bind(this);
+    this.nextYear = this.nextYear.bind(this);
+    this.setYear = this.setYear.bind(this);
+    this.setMonth = this.setMonth.bind(this);
+    this.isOutsideVisibleMonths = this.isOutsideVisibleMonths.bind(this);
+    this.isDateDisabled = this.isDateDisabled.bind(this);
+    this.isDateSelected = this.isDateSelected.bind(this);
+    this.shiftFocus = this.shiftFocus.bind(this);
+    this.handleCellClick = this.handleCellClick.bind(this);
+    this.handleMultipleUpdate = this.handleMultipleUpdate.bind(this);
+    this.handleSingleUpdate = this.handleSingleUpdate.bind(this);
+    this.onkeydown = this.onkeydown.bind(this);
+    this.getBitsAttr = this.getBitsAttr.bind(this);
+    useRefById({ id: this.id, ref: this.ref });
+    this.months = createMonths({
+      dateObj: this.placeholder.current,
+      weekStartsOn: this.weekStartsOn.current,
+      locale: this.locale.current,
+      fixedWeeks: this.fixedWeeks.current,
+      numberOfMonths: this.numberOfMonths.current
+    });
+    useMonthViewPlaceholderSync({
+      placeholder: this.placeholder,
+      getVisibleMonths: () => this.visibleMonths,
+      weekStartsOn: this.weekStartsOn,
+      locale: this.locale,
+      fixedWeeks: this.fixedWeeks,
+      numberOfMonths: this.numberOfMonths,
+      setMonths: (months) => this.months = months
+    });
+    useMonthViewOptionsSync({
+      fixedWeeks: this.fixedWeeks,
+      locale: this.locale,
+      numberOfMonths: this.numberOfMonths,
+      placeholder: this.placeholder,
+      setMonths: this.setMonths,
+      weekStartsOn: this.weekStartsOn
+    });
+  }
+  get visibleMonths() {
+    return __privateGet(this, _visibleMonths).call(this);
+  }
+  setMonths(months) {
+    this.months = months;
+  }
+  get weekdays() {
+    return __privateGet(this, _weekdays).call(this);
+  }
+  /**
+   * Navigates to the next page of the calendar.
+   */
+  nextPage() {
+    handleCalendarNextPage({
+      fixedWeeks: this.fixedWeeks.current,
+      locale: this.locale.current,
+      numberOfMonths: this.numberOfMonths.current,
+      pagedNavigation: this.pagedNavigation.current,
+      setMonths: this.setMonths,
+      setPlaceholder: (date) => this.placeholder.current = date,
+      weekStartsOn: this.weekStartsOn.current,
+      months: this.months
+    });
+  }
+  /**
+   * Navigates to the previous page of the calendar.
+   */
+  prevPage() {
+    handleCalendarPrevPage({
+      fixedWeeks: this.fixedWeeks.current,
+      locale: this.locale.current,
+      numberOfMonths: this.numberOfMonths.current,
+      pagedNavigation: this.pagedNavigation.current,
+      setMonths: this.setMonths,
+      setPlaceholder: (date) => this.placeholder.current = date,
+      weekStartsOn: this.weekStartsOn.current,
+      months: this.months
+    });
+  }
+  nextYear() {
+    this.placeholder.current = this.placeholder.current.add({ years: 1 });
+  }
+  prevYear() {
+    this.placeholder.current = this.placeholder.current.subtract({ years: 1 });
+  }
+  setYear(year) {
+    this.placeholder.current = this.placeholder.current.set({ year });
+  }
+  setMonth(month) {
+    this.placeholder.current = this.placeholder.current.set({ month });
+  }
+  get isNextButtonDisabled() {
+    return __privateGet(this, _isNextButtonDisabled).call(this);
+  }
+  get isPrevButtonDisabled() {
+    return __privateGet(this, _isPrevButtonDisabled).call(this);
+  }
+  get isInvalid() {
+    return __privateGet(this, _isInvalid).call(this);
+  }
+  get headingValue() {
+    return __privateGet(this, _headingValue).call(this);
+  }
+  get fullCalendarLabel() {
+    return __privateGet(this, _fullCalendarLabel).call(this);
+  }
+  isOutsideVisibleMonths(date) {
+    return !this.visibleMonths.some((month) => isSameMonth(date, month));
+  }
+  isDateDisabled(date) {
+    if (this.isDateDisabledProp.current(date) || this.disabled.current) return true;
+    const minValue = this.minValue.current;
+    const maxValue = this.maxValue.current;
+    if (minValue && isBefore(date, minValue)) return true;
+    if (maxValue && isBefore(maxValue, date)) return true;
     return false;
-  });
-  let announcer = getAnnouncer();
-  const headingValue = withGet.derived([months, locale], ([$months, $locale]) => {
-    if (!$months.length)
-      return "";
-    if ($locale !== formatter.getLocale()) {
-      formatter.setLocale($locale);
+  }
+  isDateSelected(date) {
+    const value = this.value.current;
+    if (Array.isArray(value)) {
+      return value.some((d) => isSameDay(d, date));
+    } else if (!value) {
+      return false;
+    } else {
+      return isSameDay(value, date);
     }
-    if ($months.length === 1) {
-      const month = $months[0].value;
-      return `${formatter.fullMonthAndYear(toDate(month))}`;
-    }
-    const startMonth = toDate($months[0].value);
-    const endMonth = toDate($months[$months.length - 1].value);
-    const startMonthName = formatter.fullMonth(startMonth);
-    const endMonthName = formatter.fullMonth(endMonth);
-    const startMonthYear = formatter.fullYear(startMonth);
-    const endMonthYear = formatter.fullYear(endMonth);
-    const content = startMonthYear === endMonthYear ? `${startMonthName} - ${endMonthName} ${endMonthYear}` : `${startMonthName} ${startMonthYear} - ${endMonthName} ${endMonthYear}`;
-    return content;
-  });
-  const fullCalendarLabel = withGet.derived([headingValue, calendarLabel], ([$headingValue, $calendarLabel]) => {
-    return `${$calendarLabel}, ${$headingValue}`;
-  });
-  const calendar = makeElement(name$3(), {
-    stores: [fullCalendarLabel, isInvalid, disabled, readonly2, ids.calendar],
-    returned: ([$fullCalendarLabel, $isInvalid, $disabled, $readonly, $calendarId]) => {
-      return {
-        id: $calendarId,
-        role: "application",
-        "aria-label": $fullCalendarLabel,
-        "data-invalid": $isInvalid ? "" : void 0,
-        "data-disabled": $disabled ? "" : void 0,
-        "data-readonly": $readonly ? "" : void 0
-      };
-    },
-    action: (node) => {
-      createAccessibleHeading(node, fullCalendarLabel.get());
-      announcer = getAnnouncer();
-      const unsubKb = addMeltEventListener(node, "keydown", handleCalendarKeydown);
-      return {
-        destroy() {
-          unsubKb();
-        }
-      };
-    }
-  });
-  const heading = makeElement(name$3("heading"), {
-    stores: [disabled],
-    returned: ([$disabled]) => {
-      return {
-        "aria-hidden": true,
-        "data-disabled": $disabled ? "" : void 0
-      };
-    }
-  });
-  const grid = makeElement(name$3("grid"), {
-    stores: [readonly2, disabled],
-    returned: ([$readonly, $disabled]) => {
-      return {
-        tabindex: -1,
-        role: "grid",
-        "aria-readonly": $readonly ? "true" : void 0,
-        "aria-disabled": $disabled ? "true" : void 0,
-        "data-readonly": $readonly ? "" : void 0,
-        "data-disabled": $disabled ? "" : void 0
-      };
-    }
-  });
-  const prevButton = makeElement(name$3("prevButton"), {
-    stores: [isPrevButtonDisabled],
-    returned: ([$isPrevButtonDisabled]) => {
-      const disabled2 = $isPrevButtonDisabled;
-      return {
-        role: "button",
-        type: "button",
-        "aria-label": "Previous",
-        "aria-disabled": disabled2 ? "true" : void 0,
-        "data-disabled": disabled2 ? "" : void 0,
-        disabled: disabled2 ? true : void 0
-      };
-    },
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
-        if (isPrevButtonDisabled.get())
-          return;
-        prevPage();
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  const nextButton = makeElement(name$3("nextButton"), {
-    stores: [isNextButtonDisabled],
-    returned: ([$isNextButtonDisabled]) => {
-      const disabled2 = $isNextButtonDisabled;
-      return {
-        role: "button",
-        type: "button",
-        "aria-label": "Next",
-        "aria-disabled": disabled2 ? "true" : void 0,
-        "data-disabled": disabled2 ? "" : void 0,
-        disabled: disabled2 ? true : void 0
-      };
-    },
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
-        if (isNextButtonDisabled.get())
-          return;
-        nextPage();
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  const cell = makeElement(name$3("cell"), {
-    stores: [
-      isDateSelected,
-      isDateDisabled,
-      isDateUnavailable,
-      isOutsideVisibleMonths,
-      placeholder
-    ],
-    returned: ([$isDateSelected, $isDateDisabled, $isDateUnavailable, $isOutsideVisibleMonths, $placeholder]) => {
-      return (cellValue, monthValue) => {
-        const cellDate = toDate(cellValue);
-        const isDisabled = $isDateDisabled == null ? void 0 : $isDateDisabled(cellValue);
-        const isUnavailable = $isDateUnavailable == null ? void 0 : $isDateUnavailable(cellValue);
-        const isDateToday = isToday(cellValue, getLocalTimeZone());
-        const isOutsideMonth = !isSameMonth(cellValue, monthValue);
-        const isOutsideVisibleMonths2 = $isOutsideVisibleMonths(cellValue);
-        const isFocusedDate = isSameDay(cellValue, $placeholder);
-        const isSelectedDate = $isDateSelected(cellValue);
-        const labelText = formatter.custom(cellDate, {
-          weekday: "long",
-          month: "long",
-          day: "numeric",
-          year: "numeric"
-        });
-        return {
-          role: "button",
-          "aria-label": labelText,
-          "aria-selected": isSelectedDate ? true : void 0,
-          "aria-disabled": isOutsideMonth || isDisabled || isUnavailable ? true : void 0,
-          "data-selected": isSelectedDate ? true : void 0,
-          "data-value": cellValue.toString(),
-          "data-disabled": isDisabled || isOutsideMonth ? "" : void 0,
-          "data-unavailable": isUnavailable ? "" : void 0,
-          "data-today": isDateToday ? "" : void 0,
-          "data-outside-month": isOutsideMonth ? "" : void 0,
-          "data-outside-visible-months": isOutsideVisibleMonths2 ? "" : void 0,
-          "data-focused": isFocusedDate ? "" : void 0,
-          tabindex: isFocusedDate ? 0 : isOutsideMonth || isDisabled ? void 0 : -1
-        };
-      };
-    },
-    action: (node) => {
-      const getElArgs = () => {
-        const value2 = node.getAttribute("data-value");
-        const label = node.getAttribute("data-label");
-        const disabled2 = node.hasAttribute("data-disabled");
-        return {
-          value: value2,
-          label: label ?? node.textContent ?? null,
-          disabled: disabled2 ? true : false
-        };
-      };
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
-        const args = getElArgs();
-        if (args.disabled)
-          return;
-        if (!args.value)
-          return;
-        handleCellClick(parseStringToDateValue(args.value, placeholder.get()));
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  effect$1([locale], ([$locale]) => {
-    if (formatter.getLocale() === $locale)
-      return;
-    formatter.setLocale($locale);
-  });
-  effect$1([placeholder], ([$placeholder]) => {
-    if (!isBrowser$3 || !$placeholder)
-      return;
-    const $visibleMonths = visibleMonths.get();
-    if ($visibleMonths.some((month) => isSameMonth(month, $placeholder))) {
-      return;
-    }
-    const $weekStartsOn = weekStartsOn.get();
-    const $locale = locale.get();
-    const $fixedWeeks = fixedWeeks.get();
-    const $numberOfMonths = numberOfMonths.get();
-    const defaultMonthProps = {
-      weekStartsOn: $weekStartsOn,
-      locale: $locale,
-      fixedWeeks: $fixedWeeks,
-      numberOfMonths: $numberOfMonths
-    };
-    months.set(createMonths({
-      ...defaultMonthProps,
-      dateObj: $placeholder
-    }));
-  });
-  effect$1([weekStartsOn, locale, fixedWeeks, numberOfMonths], ([$weekStartsOn, $locale, $fixedWeeks, $numberOfMonths]) => {
-    const $placeholder = placeholder.get();
-    if (!isBrowser$3 || !$placeholder)
-      return;
-    const defaultMonthProps = {
-      weekStartsOn: $weekStartsOn,
-      locale: $locale,
-      fixedWeeks: $fixedWeeks,
-      numberOfMonths: $numberOfMonths
-    };
-    months.set(createMonths({
-      ...defaultMonthProps,
-      dateObj: $placeholder
-    }));
-  });
-  effect$1([fullCalendarLabel], ([$fullCalendarLabel]) => {
-    if (!isBrowser$3)
-      return;
-    const node = document.getElementById(ids.accessibleHeading.get());
-    if (!isHTMLElement(node))
-      return;
-    node.textContent = $fullCalendarLabel;
-  });
-  effect$1([value], ([$value]) => {
-    if (Array.isArray($value) && $value.length) {
-      const lastValue = $value[$value.length - 1];
-      if (lastValue && placeholder.get() !== lastValue) {
-        placeholder.set(lastValue);
+  }
+  shiftFocus(node, add) {
+    return shiftCalendarFocus({
+      node,
+      add,
+      placeholder: this.placeholder,
+      calendarNode: this.ref.current,
+      isPrevButtonDisabled: this.isPrevButtonDisabled,
+      isNextButtonDisabled: this.isNextButtonDisabled,
+      months: this.months,
+      numberOfMonths: this.numberOfMonths.current
+    });
+  }
+  handleCellClick(_, date) {
+    var _a, _b;
+    const readonly = this.readonly.current;
+    if (readonly) return;
+    const isDateDisabled = this.isDateDisabledProp.current;
+    const isDateUnavailable = this.isDateUnavailableProp.current;
+    if ((isDateDisabled == null ? void 0 : isDateDisabled(date)) || (isDateUnavailable == null ? void 0 : isDateUnavailable(date))) return;
+    const prev = this.value.current;
+    const multiple = this.type.current === "multiple";
+    if (multiple) {
+      if (Array.isArray(prev) || prev === void 0) {
+        this.value.current = this.handleMultipleUpdate(prev, date);
       }
-    } else if (!Array.isArray($value) && $value && placeholder.get() !== $value) {
-      placeholder.set($value);
-    }
-  });
-  const weekdays = derived([months, weekdayFormat, locale], ([$months, $weekdayFormat, _2]) => {
-    if (!$months.length)
-      return [];
-    return $months[0].weeks[0].map((date) => {
-      return formatter.dayOfWeek(toDate(date), $weekdayFormat);
-    });
-  });
-  function createAccessibleHeading(node, label) {
-    if (!isBrowser$3)
-      return;
-    const div = document.createElement("div");
-    div.style.cssText = styleToString$3({
-      border: "0px",
-      clip: "rect(0px, 0px, 0px, 0px)",
-      "clip-path": "inset(50%)",
-      height: "1px",
-      margin: "-1px",
-      overflow: "hidden",
-      padding: "0px",
-      position: "absolute",
-      "white-space": "nowrap",
-      width: "1px"
-    });
-    const h2 = document.createElement("div");
-    h2.textContent = label;
-    h2.id = ids.accessibleHeading.get();
-    h2.role = "heading";
-    h2.ariaLevel = "2";
-    node.insertBefore(div, node.firstChild);
-    div.appendChild(h2);
-  }
-  function nextPage() {
-    const $months = months.get();
-    const $numberOfMonths = numberOfMonths.get();
-    if (pagedNavigation.get()) {
-      const firstMonth = $months[0].value;
-      placeholder.set(firstMonth.add({ months: $numberOfMonths }));
     } else {
-      const firstMonth = $months[0].value;
-      const newMonths = createMonths({
-        dateObj: firstMonth.add({ months: 1 }),
-        weekStartsOn: weekStartsOn.get(),
-        locale: locale.get(),
-        fixedWeeks: fixedWeeks.get(),
-        numberOfMonths: $numberOfMonths
-      });
-      months.set(newMonths);
-      placeholder.set(newMonths[0].value.set({ day: 1 }));
-    }
-  }
-  function prevPage() {
-    const $months = months.get();
-    const $numberOfMonths = numberOfMonths.get();
-    if (pagedNavigation.get()) {
-      const firstMonth = $months[0].value;
-      placeholder.set(firstMonth.subtract({ months: $numberOfMonths }));
-    } else {
-      const firstMonth = $months[0].value;
-      const newMonths = createMonths({
-        dateObj: firstMonth.subtract({ months: 1 }),
-        weekStartsOn: weekStartsOn.get(),
-        locale: locale.get(),
-        fixedWeeks: fixedWeeks.get(),
-        numberOfMonths: $numberOfMonths
-      });
-      months.set(newMonths);
-      placeholder.set(newMonths[0].value.set({ day: 1 }));
-    }
-  }
-  function nextYear() {
-    placeholder.add({ years: 1 });
-  }
-  function prevYear() {
-    placeholder.subtract({ years: 1 });
-  }
-  const ARROW_KEYS = [kbd$2.ARROW_DOWN, kbd$2.ARROW_UP, kbd$2.ARROW_LEFT, kbd$2.ARROW_RIGHT];
-  function setYear(year) {
-    placeholder.setDate({ year });
-  }
-  function setMonth(month) {
-    placeholder.setDate({ month });
-  }
-  function handleCellClick(date) {
-    const $readonly = readonly2.get();
-    if ($readonly)
-      return;
-    const $isDateDisabled = isDateDisabled.get();
-    const $isUnavailable = options.isDateUnavailable.get();
-    if (($isDateDisabled == null ? void 0 : $isDateDisabled(date)) || ($isUnavailable == null ? void 0 : $isUnavailable(date)))
-      return;
-    value.update((prev2) => {
-      const $multiple = multiple.get();
-      if ($multiple) {
-        return handleMultipleUpdate(prev2, date);
-      } else {
-        const next2 = handleSingleUpdate(prev2, date);
-        if (!next2) {
-          announcer.announce("Selected date is now empty.", "polite", 5e3);
+      if (!Array.isArray(prev)) {
+        const next = this.handleSingleUpdate(prev, date);
+        if (!next) {
+          this.announcer.announce("Selected date is now empty.", "polite", 5e3);
         } else {
-          announcer.announce(`Selected Date: ${formatter.selectedDate(next2, false)}`, "polite");
+          this.announcer.announce(`Selected Date: ${this.formatter.selectedDate(next, false)}`, "polite");
         }
-        return next2;
+        this.value.current = next;
+        if (next !== void 0) {
+          (_b = (_a = this.onDateSelect) == null ? void 0 : _a.current) == null ? void 0 : _b.call(_a);
+        }
       }
-    });
+    }
   }
-  function handleSingleUpdate(prev2, date) {
-    if (Array.isArray(prev2))
-      throw new Error("Invalid value for multiple prop.");
-    if (!prev2)
-      return date;
-    const $preventDeselect = preventDeselect.get();
-    if (!$preventDeselect && isSameDay(prev2, date)) {
-      placeholder.set(date);
+  handleMultipleUpdate(prev, date) {
+    if (!prev) return [date];
+    if (!Array.isArray(prev)) {
+      if (DEV) throw new Error("Invalid value for multiple prop.");
+      return;
+    }
+    const index = prev.findIndex((d) => isSameDay(d, date));
+    const preventDeselect = this.preventDeselect.current;
+    if (index === -1) {
+      return [...prev, date];
+    } else if (preventDeselect) {
+      return prev;
+    } else {
+      const next = prev.filter((d) => !isSameDay(d, date));
+      if (!next.length) {
+        this.placeholder.current = date;
+        return void 0;
+      }
+      return next;
+    }
+  }
+  handleSingleUpdate(prev, date) {
+    if (Array.isArray(prev)) {
+      if (DEV) throw new Error("Invalid value for single prop.");
+    }
+    if (!prev) return date;
+    const preventDeselect = this.preventDeselect.current;
+    if (!preventDeselect && isSameDay(prev, date)) {
+      this.placeholder.current = date;
       return void 0;
     }
     return date;
   }
-  function handleMultipleUpdate(prev2, date) {
-    if (!prev2)
-      return [date];
-    if (!Array.isArray(prev2))
-      throw new Error("Invalid value for multiple prop.");
-    const index = prev2.findIndex((d2) => isSameDay(d2, date));
-    const $preventDeselect = preventDeselect.get();
-    if (index === -1) {
-      return [...prev2, date];
-    } else if ($preventDeselect) {
-      return prev2;
-    } else {
-      const next2 = prev2.filter((d2) => !isSameDay(d2, date));
-      if (!next2.length) {
-        placeholder.set(date);
-        return void 0;
-      }
-      return next2;
-    }
-  }
-  const SELECT_KEYS = [kbd$2.ENTER, kbd$2.SPACE];
-  function handleCalendarKeydown(e) {
-    const currentCell = e.target;
-    if (!isCalendarCell(currentCell))
-      return;
-    if (!ARROW_KEYS.includes(e.key) && !SELECT_KEYS.includes(e.key))
-      return;
-    e.preventDefault();
-    if (e.key === kbd$2.ARROW_DOWN) {
-      shiftFocus(currentCell, 7);
-    }
-    if (e.key === kbd$2.ARROW_UP) {
-      shiftFocus(currentCell, -7);
-    }
-    if (e.key === kbd$2.ARROW_LEFT) {
-      shiftFocus(currentCell, -1);
-    }
-    if (e.key === kbd$2.ARROW_RIGHT) {
-      shiftFocus(currentCell, 1);
-    }
-    if (e.key === kbd$2.SPACE || e.key === kbd$2.ENTER) {
-      const cellValue = currentCell.getAttribute("data-value");
-      if (!cellValue)
-        return;
-      handleCellClick(parseStringToDateValue(cellValue, placeholder.get()));
-    }
-  }
-  function shiftFocus(node, add) {
-    const candidateCells = getSelectableCells(ids.calendar.get());
-    if (!candidateCells.length)
-      return;
-    const index = candidateCells.indexOf(node);
-    const nextIndex = index + add;
-    if (isValidIndex(nextIndex, candidateCells)) {
-      const nextCell = candidateCells[nextIndex];
-      setPlaceholderToNodeValue(nextCell, placeholder);
-      return nextCell.focus();
-    }
-    if (nextIndex < 0) {
-      if (isPrevButtonDisabled.get())
-        return;
-      const $months = months.get();
-      const firstMonth = $months[0].value;
-      const $numberOfMonths = numberOfMonths.get();
-      placeholder.set(firstMonth.subtract({ months: $numberOfMonths }));
-      tick$1().then(() => {
-        const newCandidateCells = getSelectableCells(ids.calendar.get());
-        if (!newCandidateCells.length) {
-          return;
-        }
-        const newIndex = newCandidateCells.length - Math.abs(nextIndex);
-        if (isValidIndex(newIndex, newCandidateCells)) {
-          const newCell = newCandidateCells[newIndex];
-          setPlaceholderToNodeValue(newCell, placeholder);
-          return newCell.focus();
-        }
-      });
-    }
-    if (nextIndex >= candidateCells.length) {
-      if (isNextButtonDisabled.get())
-        return;
-      const $months = months.get();
-      const firstMonth = $months[0].value;
-      const $numberOfMonths = numberOfMonths.get();
-      placeholder.set(firstMonth.add({ months: $numberOfMonths }));
-      tick$1().then(() => {
-        const newCandidateCells = getSelectableCells(ids.calendar.get());
-        if (!newCandidateCells.length) {
-          return;
-        }
-        const newIndex = nextIndex - candidateCells.length;
-        if (isValidIndex(newIndex, newCandidateCells)) {
-          const nextCell = newCandidateCells[newIndex];
-          return nextCell.focus();
-        }
-      });
-    }
-  }
-  const _isDateDisabled = derived([isDateDisabled, placeholder, minValue, maxValue, disabled], ([$isDateDisabled, $placeholder, $minValue, $maxValue, $disabled]) => {
-    return (date) => {
-      if (($isDateDisabled == null ? void 0 : $isDateDisabled(date)) || $disabled)
-        return true;
-      if ($minValue && isBefore(date, $minValue))
-        return true;
-      if ($maxValue && isAfter(date, $maxValue))
-        return true;
-      if (!isSameMonth(date, $placeholder))
-        return true;
-      return false;
-    };
-  });
-  const _isDateUnavailable = derived(isDateUnavailable, ($isDateUnavailable) => {
-    return (date) => $isDateUnavailable == null ? void 0 : $isDateUnavailable(date);
-  });
-  return {
-    elements: {
-      calendar,
-      heading,
-      grid,
-      cell,
-      nextButton,
-      prevButton
-    },
-    states: {
-      placeholder: placeholder.toWritable(),
-      months,
-      value,
-      weekdays,
-      headingValue
-    },
-    helpers: {
-      nextPage,
-      prevPage,
-      nextYear,
-      prevYear,
-      setYear,
-      setMonth,
-      isDateDisabled: _isDateDisabled,
-      isDateSelected,
-      isDateUnavailable: _isDateUnavailable
-    },
-    options,
-    ids
-  };
-}
-({
-  isDateDisabled: void 0,
-  isDateUnavailable: void 0,
-  value: void 0,
-  positioning: {
-    placement: "bottom"
-  },
-  closeOnEscape: true,
-  closeOnOutsideClick: true,
-  onOutsideClick: void 0,
-  preventScroll: false,
-  forceVisible: false,
-  locale: "en",
-  granularity: void 0,
-  disabled: false,
-  readonly: false,
-  minValue: void 0,
-  maxValue: void 0,
-  weekdayFormat: "narrow",
-  ...omit$1(defaults$4, "isDateDisabled", "isDateUnavailable", "value", "locale", "disabled", "readonly", "minValue", "maxValue", "weekdayFormat")
-});
-const { name: name$2 } = createElHelpers("dialog");
-const defaults$3 = {
-  preventScroll: true,
-  closeOnEscape: true,
-  closeOnOutsideClick: true,
-  role: "dialog",
-  defaultOpen: false,
-  portal: void 0,
-  forceVisible: false,
-  openFocus: void 0,
-  closeFocus: void 0,
-  onOutsideClick: void 0
-};
-const dialogIdParts = ["content", "title", "description"];
-function createDialog(props) {
-  const withDefaults = { ...defaults$3, ...props };
-  const options = toWritableStores$1(omit$1(withDefaults, "ids"));
-  const { preventScroll, closeOnEscape, closeOnOutsideClick, role, portal, forceVisible, openFocus, closeFocus, onOutsideClick } = options;
-  const activeTrigger = withGet.writable(null);
-  const ids = toWritableStores$1({
-    ...generateIds(dialogIdParts),
-    ...withDefaults.ids
-  });
-  const openWritable = withDefaults.open ?? writable(withDefaults.defaultOpen);
-  const open = overridable(openWritable, withDefaults == null ? void 0 : withDefaults.onOpenChange);
-  const isVisible = derived([open, forceVisible], ([$open, $forceVisible]) => {
-    return $open || $forceVisible;
-  });
-  let unsubScroll = noop;
-  function handleOpen(e) {
-    const el = e.currentTarget;
-    const triggerEl = e.currentTarget;
-    if (!isHTMLElement(el) || !isHTMLElement(triggerEl))
-      return;
-    open.set(true);
-    activeTrigger.set(triggerEl);
-  }
-  function handleClose() {
-    open.set(false);
-    handleFocus({
-      prop: closeFocus.get(),
-      defaultEl: activeTrigger.get()
+  onkeydown(event) {
+    handleCalendarKeydown({
+      event,
+      handleCellClick: this.handleCellClick,
+      shiftFocus: this.shiftFocus,
+      placeholderValue: this.placeholder.current
     });
   }
-  const trigger = makeElement(name$2("trigger"), {
-    stores: [open],
-    returned: ([$open]) => {
-      return {
-        "aria-haspopup": "dialog",
-        "aria-expanded": $open,
-        type: "button"
-      };
-    },
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", (e) => {
-        handleOpen(e);
-      }), addMeltEventListener(node, "keydown", (e) => {
-        if (e.key !== kbd$2.ENTER && e.key !== kbd$2.SPACE)
-          return;
-        e.preventDefault();
-        handleOpen(e);
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  const overlay = makeElement(name$2("overlay"), {
-    stores: [isVisible, open],
-    returned: ([$isVisible, $open]) => {
-      return {
-        hidden: $isVisible ? void 0 : true,
-        tabindex: -1,
-        style: styleToString$3({
-          display: $isVisible ? void 0 : "none"
-        }),
-        "aria-hidden": true,
-        "data-state": $open ? "open" : "closed"
-      };
-    },
-    action: (node) => {
-      let unsubEscapeKeydown = noop;
-      if (closeOnEscape.get()) {
-        const escapeKeydown = useEscapeKeydown(node, {
-          handler: () => {
-            handleClose();
-          }
-        });
-        if (escapeKeydown && escapeKeydown.destroy) {
-          unsubEscapeKeydown = escapeKeydown.destroy;
-        }
-      }
-      return {
-        destroy() {
-          unsubEscapeKeydown();
-        }
-      };
-    }
-  });
-  const content = makeElement(name$2("content"), {
-    stores: [isVisible, ids.content, ids.description, ids.title, open],
-    returned: ([$isVisible, $contentId, $descriptionId, $titleId, $open]) => {
-      return {
-        id: $contentId,
-        role: role.get(),
-        "aria-describedby": $descriptionId,
-        "aria-labelledby": $titleId,
-        "aria-modal": $isVisible ? "true" : void 0,
-        "data-state": $open ? "open" : "closed",
-        tabindex: -1,
-        hidden: $isVisible ? void 0 : true,
-        style: styleToString$3({
-          display: $isVisible ? void 0 : "none"
-        })
-      };
-    },
-    action: (node) => {
-      let activate = noop;
-      let deactivate = noop;
-      const destroy = executeCallbacks$1(effect$1([open, closeOnOutsideClick, closeOnEscape], ([$open, $closeOnOutsideClick, $closeOnEscape]) => {
-        if (!$open)
-          return;
-        const focusTrap = createFocusTrap({
-          immediate: false,
-          escapeDeactivates: $closeOnEscape,
-          clickOutsideDeactivates: $closeOnOutsideClick,
-          allowOutsideClick: true,
-          returnFocusOnDeactivate: false,
-          fallbackFocus: node
-        });
-        activate = focusTrap.activate;
-        deactivate = focusTrap.deactivate;
-        const ac = focusTrap.useFocusTrap(node);
-        if (ac && ac.destroy) {
-          return ac.destroy;
-        } else {
-          return focusTrap.deactivate;
-        }
-      }), effect$1([closeOnOutsideClick, open], ([$closeOnOutsideClick, $open]) => {
-        return useModal(node, {
-          open: $open,
-          closeOnInteractOutside: $closeOnOutsideClick,
-          onClose() {
-            handleClose();
-          },
-          shouldCloseOnInteractOutside(e) {
-            var _a;
-            (_a = onOutsideClick.get()) == null ? void 0 : _a(e);
-            if (e.defaultPrevented)
-              return false;
-            return true;
-          }
-        }).destroy;
-      }), effect$1([closeOnEscape], ([$closeOnEscape]) => {
-        if (!$closeOnEscape)
-          return noop;
-        return useEscapeKeydown(node, { handler: handleClose }).destroy;
-      }), effect$1([isVisible], ([$isVisible]) => {
-        tick$1().then(() => {
-          if (!$isVisible) {
-            deactivate();
-          } else {
-            activate();
-          }
-        });
-      }));
-      return {
-        destroy: () => {
-          unsubScroll();
-          destroy();
-        }
-      };
-    }
-  });
-  const portalled = makeElement(name$2("portalled"), {
-    stores: portal,
-    returned: ($portal) => ({
-      "data-portal": portalAttr($portal)
-    }),
-    action: (node) => {
-      const unsubPortal = effect$1([portal], ([$portal]) => {
-        if ($portal === null)
-          return noop;
-        const portalDestination = getPortalDestination(node, $portal);
-        if (portalDestination === null)
-          return noop;
-        return usePortal(node, portalDestination).destroy;
-      });
-      return {
-        destroy() {
-          unsubPortal();
-        }
-      };
-    }
-  });
-  const title = makeElement(name$2("title"), {
-    stores: [ids.title],
-    returned: ([$titleId]) => ({
-      id: $titleId
-    })
-  });
-  const description = makeElement(name$2("description"), {
-    stores: [ids.description],
-    returned: ([$descriptionId]) => ({
-      id: $descriptionId
-    })
-  });
-  const close = makeElement(name$2("close"), {
-    returned: () => ({
-      type: "button"
-    }),
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
-        handleClose();
-      }), addMeltEventListener(node, "keydown", (e) => {
-        if (e.key !== kbd$2.SPACE && e.key !== kbd$2.ENTER)
-          return;
-        e.preventDefault();
-        handleClose();
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  effect$1([open, preventScroll], ([$open, $preventScroll]) => {
-    if (!isBrowser$3)
-      return;
-    if ($preventScroll && $open)
-      unsubScroll = removeScroll();
-    if ($open) {
-      const contentEl = document.getElementById(ids.content.get());
-      handleFocus({ prop: openFocus.get(), defaultEl: contentEl });
-    }
-    return () => {
-      if (!forceVisible.get()) {
-        unsubScroll();
-      }
-    };
-  });
-  return {
-    ids,
-    elements: {
-      content,
-      trigger,
-      title,
-      description,
-      overlay,
-      close,
-      portalled
-    },
-    states: {
-      open
-    },
-    options
-  };
-}
-const defaults$2 = {
-  positioning: {
-    placement: "bottom"
-  },
-  arrowSize: 8,
-  defaultOpen: false,
-  disableFocusTrap: false,
-  closeOnEscape: true,
-  preventScroll: false,
-  onOpenChange: void 0,
-  closeOnOutsideClick: true,
-  portal: void 0,
-  forceVisible: false,
-  openFocus: void 0,
-  closeFocus: void 0,
-  onOutsideClick: void 0
-};
-const { name: name$1 } = createElHelpers("popover");
-const popoverIdParts = ["trigger", "content"];
-function createPopover(args) {
-  const withDefaults = { ...defaults$2, ...args };
-  const options = toWritableStores$1(omit$1(withDefaults, "open", "ids"));
-  const { positioning, arrowSize, disableFocusTrap, preventScroll, closeOnEscape, closeOnOutsideClick, portal, forceVisible, openFocus, closeFocus, onOutsideClick } = options;
-  const openWritable = withDefaults.open ?? writable(withDefaults.defaultOpen);
-  const open = overridable(openWritable, withDefaults == null ? void 0 : withDefaults.onOpenChange);
-  const activeTrigger = withGet.writable(null);
-  const ids = toWritableStores$1({ ...generateIds(popoverIdParts), ...withDefaults.ids });
-  safeOnMount(() => {
-    activeTrigger.set(document.getElementById(ids.trigger.get()));
-  });
-  function handleClose() {
-    open.set(false);
-    const triggerEl = document.getElementById(ids.trigger.get());
-    handleFocus({ prop: closeFocus.get(), defaultEl: triggerEl });
+  get snippetProps() {
+    return __privateGet(this, _snippetProps4).call(this);
   }
-  const isVisible = derivedVisible({ open, activeTrigger, forceVisible });
-  const content = makeElement(name$1("content"), {
-    stores: [isVisible, portal, ids.content],
-    returned: ([$isVisible, $portal, $contentId]) => {
-      return {
-        hidden: $isVisible && isBrowser$3 ? void 0 : true,
-        tabindex: -1,
-        style: styleToString$3({
-          display: $isVisible ? void 0 : "none"
-        }),
-        id: $contentId,
-        "data-state": $isVisible ? "open" : "closed",
-        "data-portal": portalAttr($portal)
-      };
-    },
-    action: (node) => {
-      let unsubPopper = noop;
-      const unsubDerived = effect$1([
-        isVisible,
-        activeTrigger,
-        positioning,
-        disableFocusTrap,
-        closeOnEscape,
-        closeOnOutsideClick,
-        portal
-      ], ([$isVisible, $activeTrigger, $positioning, $disableFocusTrap, $closeOnEscape, $closeOnOutsideClick, $portal]) => {
-        unsubPopper();
-        if (!$isVisible || !$activeTrigger)
-          return;
-        tick$1().then(() => {
-          unsubPopper();
-          unsubPopper = usePopper(node, {
-            anchorElement: $activeTrigger,
-            open,
-            options: {
-              floating: $positioning,
-              focusTrap: $disableFocusTrap ? null : {
-                returnFocusOnDeactivate: false,
-                clickOutsideDeactivates: $closeOnOutsideClick,
-                allowOutsideClick: true,
-                escapeDeactivates: $closeOnEscape
-              },
-              modal: {
-                shouldCloseOnInteractOutside,
-                onClose: handleClose,
-                open: $isVisible,
-                closeOnInteractOutside: $closeOnOutsideClick
-              },
-              escapeKeydown: $closeOnEscape ? {
-                handler: () => {
-                  handleClose();
-                }
-              } : null,
-              portal: getPortalDestination(node, $portal)
-            }
-          }).destroy;
-        });
-      });
-      return {
-        destroy() {
-          unsubDerived();
-          unsubPopper();
-        }
-      };
-    }
-  });
-  function toggleOpen(triggerEl) {
-    open.update((prev2) => {
-      return !prev2;
+  getBitsAttr(part) {
+    return `data-bits-calendar-${part}`;
+  }
+  get props() {
+    return __privateGet(this, _props14).call(this);
+  }
+}
+_visibleMonths = new WeakMap();
+_weekdays = new WeakMap();
+_isNextButtonDisabled = new WeakMap();
+_isPrevButtonDisabled = new WeakMap();
+_isInvalid = new WeakMap();
+_headingValue = new WeakMap();
+_fullCalendarLabel = new WeakMap();
+_snippetProps4 = new WeakMap();
+_props14 = new WeakMap();
+class CalendarHeadingState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _headingValue2, once(() => this.root.headingValue));
+    __privateAdd(this, _props15, once(() => ({
+      id: this.id.current,
+      "aria-hidden": getAriaHidden(true),
+      "data-disabled": getDataDisabled(this.root.disabled.current),
+      "data-readonly": getDataReadonly(this.root.readonly.current),
+      [this.root.getBitsAttr("heading")]: ""
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get headingValue() {
+    return __privateGet(this, _headingValue2).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props15).call(this);
+  }
+}
+_headingValue2 = new WeakMap();
+_props15 = new WeakMap();
+class CalendarCellState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __publicField(this, "date");
+    __publicField(this, "month");
+    __privateAdd(this, _cellDate, once(() => toDate(this.date.current)));
+    __privateAdd(this, _isDisabled3, once(() => this.root.isDateDisabled(this.date.current)));
+    __privateAdd(this, _isUnavailable, once(() => this.root.isDateUnavailableProp.current(this.date.current)));
+    __privateAdd(this, _isDateToday, once(() => isToday(this.date.current, getLocalTimeZone())));
+    __privateAdd(this, _isOutsideMonth, once(() => !isSameMonth(this.date.current, this.month.current)));
+    __privateAdd(this, _isOutsideVisibleMonths, once(() => this.root.isOutsideVisibleMonths(this.date.current)));
+    __privateAdd(this, _isFocusedDate, once(() => isSameDay(this.date.current, this.root.placeholder.current)));
+    __privateAdd(this, _isSelectedDate, once(() => this.root.isDateSelected(this.date.current)));
+    __privateAdd(this, _labelText, once(() => this.root.formatter.custom(this.cellDate, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    })));
+    __privateAdd(this, _snippetProps5, once(() => ({
+      disabled: this.isDisabled,
+      unavailable: this.isUnavailable,
+      selected: this.isSelectedDate
+    })));
+    __privateAdd(this, _ariaDisabled, once(() => {
+      return this.isDisabled || this.isOutsideMonth && this.root.disableDaysOutsideMonth.current || this.isUnavailable;
+    }));
+    __privateAdd(this, _sharedDataAttrs, once(() => ({
+      "data-unavailable": getDataUnavailable(this.isUnavailable),
+      "data-today": this.isDateToday ? "" : void 0,
+      "data-outside-month": this.isOutsideMonth ? "" : void 0,
+      "data-outside-visible-months": this.isOutsideVisibleMonths ? "" : void 0,
+      "data-focused": this.isFocusedDate ? "" : void 0,
+      "data-selected": getDataSelected(this.isSelectedDate),
+      "data-value": this.date.current.toString(),
+      "data-disabled": getDataDisabled(this.isDisabled || this.isOutsideMonth && this.root.disableDaysOutsideMonth.current)
+    })));
+    __privateAdd(this, _props16, once(() => ({
+      id: this.id.current,
+      role: "gridcell",
+      "aria-selected": getAriaSelected(this.isSelectedDate),
+      "aria-disabled": getAriaDisabled(this.ariaDisabled),
+      ...this.sharedDataAttrs,
+      [this.root.getBitsAttr("cell")]: ""
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    this.date = props.date;
+    this.month = props.month;
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get cellDate() {
+    return __privateGet(this, _cellDate).call(this);
+  }
+  get isDisabled() {
+    return __privateGet(this, _isDisabled3).call(this);
+  }
+  get isUnavailable() {
+    return __privateGet(this, _isUnavailable).call(this);
+  }
+  get isDateToday() {
+    return __privateGet(this, _isDateToday).call(this);
+  }
+  get isOutsideMonth() {
+    return __privateGet(this, _isOutsideMonth).call(this);
+  }
+  get isOutsideVisibleMonths() {
+    return __privateGet(this, _isOutsideVisibleMonths).call(this);
+  }
+  get isFocusedDate() {
+    return __privateGet(this, _isFocusedDate).call(this);
+  }
+  get isSelectedDate() {
+    return __privateGet(this, _isSelectedDate).call(this);
+  }
+  get labelText() {
+    return __privateGet(this, _labelText).call(this);
+  }
+  get snippetProps() {
+    return __privateGet(this, _snippetProps5).call(this);
+  }
+  get ariaDisabled() {
+    return __privateGet(this, _ariaDisabled).call(this);
+  }
+  get sharedDataAttrs() {
+    return __privateGet(this, _sharedDataAttrs).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props16).call(this);
+  }
+}
+_cellDate = new WeakMap();
+_isDisabled3 = new WeakMap();
+_isUnavailable = new WeakMap();
+_isDateToday = new WeakMap();
+_isOutsideMonth = new WeakMap();
+_isOutsideVisibleMonths = new WeakMap();
+_isFocusedDate = new WeakMap();
+_isSelectedDate = new WeakMap();
+_labelText = new WeakMap();
+_snippetProps5 = new WeakMap();
+_ariaDisabled = new WeakMap();
+_sharedDataAttrs = new WeakMap();
+_props16 = new WeakMap();
+class CalendarDayState {
+  constructor(props, cell) {
+    __publicField(this, "cell");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _tabindex, once(() => this.cell.isFocusedDate ? 0 : this.cell.isOutsideMonth && this.cell.root.disableDaysOutsideMonth.current || this.cell.isDisabled ? void 0 : -1));
+    __privateAdd(this, _snippetProps6, once(() => ({
+      disabled: this.cell.isDisabled,
+      unavailable: this.cell.isUnavailable,
+      selected: this.cell.isSelectedDate,
+      day: `${this.cell.date.current.day}`
+    })));
+    __privateAdd(this, _props17, once(() => ({
+      id: this.id.current,
+      role: "button",
+      "aria-label": this.cell.labelText,
+      "aria-disabled": getAriaDisabled(this.cell.ariaDisabled),
+      ...this.cell.sharedDataAttrs,
+      tabindex: __privateGet(this, _tabindex).call(this),
+      [this.cell.root.getBitsAttr("day")]: "",
+      // Shared logic for range calendar and calendar
+      "data-bits-day": "",
+      //
+      onclick: this.onclick
+    })));
+    this.cell = cell;
+    this.id = props.id;
+    this.ref = props.ref;
+    this.onclick = this.onclick.bind(this);
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  onclick(e) {
+    if (this.cell.isDisabled) return;
+    this.cell.root.handleCellClick(e, this.cell.date.current);
+  }
+  get snippetProps() {
+    return __privateGet(this, _snippetProps6).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props17).call(this);
+  }
+}
+_tabindex = new WeakMap();
+_snippetProps6 = new WeakMap();
+_props17 = new WeakMap();
+class CalendarNextButtonState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _isDisabled4, once(() => this.root.isNextButtonDisabled));
+    __privateAdd(this, _props18, once(() => ({
+      id: this.id.current,
+      role: "button",
+      type: "button",
+      "aria-label": "Next",
+      "aria-disabled": getAriaDisabled(this.isDisabled),
+      "data-disabled": getDataDisabled(this.isDisabled),
+      disabled: this.isDisabled,
+      [this.root.getBitsAttr("next-button")]: "",
+      //
+      onclick: this.onclick
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    this.onclick = this.onclick.bind(this);
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get isDisabled() {
+    return __privateGet(this, _isDisabled4).call(this);
+  }
+  onclick(_) {
+    if (this.isDisabled) return;
+    this.root.nextPage();
+  }
+  get props() {
+    return __privateGet(this, _props18).call(this);
+  }
+}
+_isDisabled4 = new WeakMap();
+_props18 = new WeakMap();
+class CalendarPrevButtonState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _isDisabled5, once(() => this.root.isPrevButtonDisabled));
+    __privateAdd(this, _props19, once(() => ({
+      id: this.id.current,
+      role: "button",
+      type: "button",
+      "aria-label": "Previous",
+      "aria-disabled": getAriaDisabled(this.isDisabled),
+      "data-disabled": getDataDisabled(this.isDisabled),
+      disabled: this.isDisabled,
+      [this.root.getBitsAttr("prev-button")]: "",
+      //
+      onclick: this.onclick
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    this.onclick = this.onclick.bind(this);
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get isDisabled() {
+    return __privateGet(this, _isDisabled5).call(this);
+  }
+  onclick(_) {
+    if (this.isDisabled) return;
+    this.root.prevPage();
+  }
+  get props() {
+    return __privateGet(this, _props19).call(this);
+  }
+}
+_isDisabled5 = new WeakMap();
+_props19 = new WeakMap();
+class CalendarGridState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _props20, once(() => ({
+      id: this.id.current,
+      tabindex: -1,
+      role: "grid",
+      "aria-readonly": getAriaReadonly(this.root.readonly.current),
+      "aria-disabled": getAriaDisabled(this.root.disabled.current),
+      "data-readonly": getDataReadonly(this.root.readonly.current),
+      "data-disabled": getDataDisabled(this.root.disabled.current),
+      [this.root.getBitsAttr("grid")]: ""
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get props() {
+    return __privateGet(this, _props20).call(this);
+  }
+}
+_props20 = new WeakMap();
+class CalendarGridBodyState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _props21, once(() => ({
+      id: this.id.current,
+      "data-disabled": getDataDisabled(this.root.disabled.current),
+      "data-readonly": getDataReadonly(this.root.readonly.current),
+      [this.root.getBitsAttr("grid-body")]: ""
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get props() {
+    return __privateGet(this, _props21).call(this);
+  }
+}
+_props21 = new WeakMap();
+class CalendarGridHeadState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _props22, once(() => ({
+      id: this.id.current,
+      "data-disabled": getDataDisabled(this.root.disabled.current),
+      "data-readonly": getDataReadonly(this.root.readonly.current),
+      [this.root.getBitsAttr("grid-head")]: ""
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get props() {
+    return __privateGet(this, _props22).call(this);
+  }
+}
+_props22 = new WeakMap();
+class CalendarGridRowState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _props23, once(() => ({
+      id: this.id.current,
+      "data-disabled": getDataDisabled(this.root.disabled.current),
+      "data-readonly": getDataReadonly(this.root.readonly.current),
+      [this.root.getBitsAttr("grid-row")]: ""
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get props() {
+    return __privateGet(this, _props23).call(this);
+  }
+}
+_props23 = new WeakMap();
+class CalendarHeadCellState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _props24, once(() => ({
+      id: this.id.current,
+      "data-disabled": getDataDisabled(this.root.disabled.current),
+      "data-readonly": getDataReadonly(this.root.readonly.current),
+      [this.root.getBitsAttr("head-cell")]: ""
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get props() {
+    return __privateGet(this, _props24).call(this);
+  }
+}
+_props24 = new WeakMap();
+class CalendarHeaderState {
+  constructor(props, root) {
+    __publicField(this, "root");
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __privateAdd(this, _props25, once(() => ({
+      id: this.id.current,
+      "data-disabled": getDataDisabled(this.root.disabled.current),
+      "data-readonly": getDataReadonly(this.root.readonly.current),
+      [this.root.getBitsAttr("header")]: ""
+    })));
+    this.root = root;
+    this.id = props.id;
+    this.ref = props.ref;
+    useRefById({ id: this.id, ref: this.ref });
+  }
+  get props() {
+    return __privateGet(this, _props25).call(this);
+  }
+}
+_props25 = new WeakMap();
+const [
+  setCalendarRootContext,
+  getCalendarRootContext
+] = createContext(["Calendar.Root", "RangeCalendar.Root"], "Calendar.Root", false);
+const [
+  setCalendarCellContext,
+  getCalendarCellContext
+] = createContext("Calendar.Cell");
+function useCalendarRoot(props) {
+  return setCalendarRootContext(new CalendarRootState(props));
+}
+function useCalendarGrid(props) {
+  const root = getCalendarRootContext();
+  return new CalendarGridState(props, root);
+}
+function useCalendarCell(props) {
+  const root = getCalendarRootContext();
+  return setCalendarCellContext(new CalendarCellState(props, root));
+}
+function useCalendarNextButton(props) {
+  const root = getCalendarRootContext();
+  return new CalendarNextButtonState(props, root);
+}
+function useCalendarPrevButton(props) {
+  const root = getCalendarRootContext();
+  return new CalendarPrevButtonState(props, root);
+}
+function useCalendarDay(props) {
+  const cell = getCalendarCellContext();
+  return new CalendarDayState(props, cell);
+}
+function useCalendarGridBody(props) {
+  const root = getCalendarRootContext();
+  return new CalendarGridBodyState(props, root);
+}
+function useCalendarGridHead(props) {
+  const root = getCalendarRootContext();
+  return new CalendarGridHeadState(props, root);
+}
+function useCalendarGridRow(props) {
+  const root = getCalendarRootContext();
+  return new CalendarGridRowState(props, root);
+}
+function useCalendarHeadCell(props) {
+  const root = getCalendarRootContext();
+  return new CalendarHeadCellState(props, root);
+}
+function useCalendarHeader(props) {
+  const root = getCalendarRootContext();
+  return new CalendarHeaderState(props, root);
+}
+function useCalendarHeading(props) {
+  const root = getCalendarRootContext();
+  return new CalendarHeadingState(props, root);
+}
+function Calendar$1($$payload, $$props) {
+  push();
+  let {
+    child,
+    children,
+    id = useId(),
+    ref = null,
+    value = void 0,
+    onValueChange = noop,
+    placeholder = void 0,
+    onPlaceholderChange = noop,
+    weekdayFormat = "narrow",
+    weekStartsOn = 0,
+    pagedNavigation = false,
+    isDateDisabled = () => false,
+    isDateUnavailable = () => false,
+    fixedWeeks = false,
+    numberOfMonths = 1,
+    locale = "en",
+    calendarLabel = "Event",
+    disabled = false,
+    readonly = false,
+    minValue = void 0,
+    maxValue = void 0,
+    preventDeselect = false,
+    type,
+    disableDaysOutsideMonth = true,
+    initialFocus = false,
+    controlledValue = false,
+    controlledPlaceholder = false,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  if (placeholder === void 0) {
+    const defaultPlaceholder = getDefaultDate({
+      defaultPlaceholder: void 0,
+      defaultValue: value
     });
-    if (triggerEl && triggerEl !== activeTrigger.get()) {
-      activeTrigger.set(triggerEl);
-    }
-  }
-  function shouldCloseOnInteractOutside(e) {
-    var _a;
-    (_a = onOutsideClick.get()) == null ? void 0 : _a(e);
-    if (e.defaultPrevented)
-      return false;
-    const target = e.target;
-    const triggerEl = document.getElementById(ids.trigger.get());
-    if (triggerEl && isElement(target)) {
-      if (target === triggerEl || triggerEl.contains(target))
-        return false;
-    }
-    return true;
-  }
-  const trigger = makeElement(name$1("trigger"), {
-    stores: [isVisible, ids.content, ids.trigger],
-    returned: ([$isVisible, $contentId, $triggerId]) => {
-      return {
-        role: "button",
-        "aria-haspopup": "dialog",
-        "aria-expanded": $isVisible ? "true" : "false",
-        "data-state": stateAttr($isVisible),
-        "aria-controls": $contentId,
-        id: $triggerId
-      };
-    },
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", () => {
-        toggleOpen(node);
-      }), addMeltEventListener(node, "keydown", (e) => {
-        if (e.key !== kbd$2.ENTER && e.key !== kbd$2.SPACE)
-          return;
-        e.preventDefault();
-        toggleOpen(node);
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  const overlay = makeElement(name$1("overlay"), {
-    stores: [isVisible],
-    returned: ([$isVisible]) => {
-      return {
-        hidden: $isVisible ? void 0 : true,
-        tabindex: -1,
-        style: styleToString$3({
-          display: $isVisible ? void 0 : "none"
-        }),
-        "aria-hidden": "true",
-        "data-state": stateAttr($isVisible)
-      };
-    },
-    action: (node) => {
-      let unsubEscapeKeydown = noop;
-      let unsubDerived = noop;
-      let unsubPortal = noop;
-      if (closeOnEscape.get()) {
-        const escapeKeydown = useEscapeKeydown(node, {
-          handler: () => {
-            handleClose();
-          }
-        });
-        if (escapeKeydown && escapeKeydown.destroy) {
-          unsubEscapeKeydown = escapeKeydown.destroy;
-        }
-      }
-      unsubDerived = effect$1([portal], ([$portal]) => {
-        unsubPortal();
-        if ($portal === null)
-          return;
-        const portalDestination = getPortalDestination(node, $portal);
-        if (portalDestination === null)
-          return;
-        unsubPortal = usePortal(node, portalDestination).destroy;
-      });
-      return {
-        destroy() {
-          unsubEscapeKeydown();
-          unsubDerived();
-          unsubPortal();
-        }
-      };
-    }
-  });
-  const arrow2 = makeElement(name$1("arrow"), {
-    stores: arrowSize,
-    returned: ($arrowSize) => ({
-      "data-arrow": true,
-      style: styleToString$3({
-        position: "absolute",
-        width: `var(--arrow-size, ${$arrowSize}px)`,
-        height: `var(--arrow-size, ${$arrowSize}px)`
-      })
-    })
-  });
-  const close = makeElement(name$1("close"), {
-    returned: () => ({
-      type: "button"
-    }),
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "click", (e) => {
-        if (e.defaultPrevented)
-          return;
-        handleClose();
-      }), addMeltEventListener(node, "keydown", (e) => {
-        if (e.defaultPrevented)
-          return;
-        if (e.key !== kbd$2.ENTER && e.key !== kbd$2.SPACE)
-          return;
-        e.preventDefault();
-        toggleOpen();
-      }));
-      return {
-        destroy: unsub
-      };
-    }
-  });
-  effect$1([open, activeTrigger, preventScroll], ([$open, $activeTrigger, $preventScroll]) => {
-    if (!isBrowser$3)
-      return;
-    const unsubs = [];
-    if ($open) {
-      if (!$activeTrigger) {
-        tick$1().then(() => {
-          const triggerEl2 = document.getElementById(ids.trigger.get());
-          if (!isHTMLElement(triggerEl2))
-            return;
-          activeTrigger.set(triggerEl2);
-        });
-      }
-      if ($preventScroll) {
-        unsubs.push(removeScroll());
-      }
-      const triggerEl = $activeTrigger ?? document.getElementById(ids.trigger.get());
-      handleFocus({ prop: openFocus.get(), defaultEl: triggerEl });
-    }
-    return () => {
-      unsubs.forEach((unsub) => unsub());
-    };
-  });
-  return {
-    ids,
-    elements: {
-      trigger,
-      content,
-      arrow: arrow2,
-      close,
-      overlay
-    },
-    states: {
-      open
-    },
-    options
-  };
-}
-function stateAttr(open) {
-  return open ? "open" : "closed";
-}
-const defaults$1 = {
-  orientation: "horizontal",
-  activateOnFocus: true,
-  loop: true,
-  autoSet: true
-};
-const { name, selector } = createElHelpers("tabs");
-function createTabs(props) {
-  const withDefaults = { ...defaults$1, ...props };
-  const options = toWritableStores$1(omit$1(withDefaults, "defaultValue", "value", "onValueChange", "autoSet"));
-  const { orientation, activateOnFocus, loop } = options;
-  const valueWritable = withDefaults.value ?? writable(withDefaults.defaultValue);
-  const value = overridable(valueWritable, withDefaults == null ? void 0 : withDefaults.onValueChange);
-  let ssrValue = withDefaults.defaultValue ?? value.get();
-  const root = makeElement(name(), {
-    stores: orientation,
-    returned: ($orientation) => {
-      return {
-        "data-orientation": $orientation
-      };
-    }
-  });
-  const list = makeElement(name("list"), {
-    stores: orientation,
-    returned: ($orientation) => {
-      return {
-        role: "tablist",
-        "aria-orientation": $orientation,
-        "data-orientation": $orientation
-      };
-    }
-  });
-  const parseTriggerProps = (props2) => {
-    if (typeof props2 === "string") {
-      return { value: props2 };
+    if (controlledPlaceholder) {
+      onPlaceholderChange(defaultPlaceholder);
     } else {
-      return props2;
+      placeholder = defaultPlaceholder;
     }
-  };
-  const trigger = makeElement(name("trigger"), {
-    stores: [value, orientation],
-    returned: ([$value, $orientation]) => {
-      return (props2) => {
-        const { value: tabValue, disabled } = parseTriggerProps(props2);
-        if (!$value && !ssrValue && withDefaults.autoSet) {
-          ssrValue = tabValue;
-          $value = tabValue;
-          value.set(tabValue);
-        }
-        const sourceOfTruth = isBrowser$3 ? $value : ssrValue;
-        const isActive = sourceOfTruth === tabValue;
-        return {
-          type: "button",
-          role: "tab",
-          "data-state": isActive ? "active" : "inactive",
-          tabindex: isActive ? 0 : -1,
-          "data-value": tabValue,
-          "data-orientation": $orientation,
-          "data-disabled": disabledAttr(disabled),
-          disabled: disabledAttr(disabled)
-        };
-      };
-    },
-    action: (node) => {
-      const unsub = executeCallbacks$1(addMeltEventListener(node, "focus", () => {
-        const disabled = node.dataset.disabled === "true";
-        const tabValue = node.dataset.value;
-        if (activateOnFocus.get() && !disabled && tabValue !== void 0) {
-          value.set(tabValue);
-        }
-      }), addMeltEventListener(node, "click", (e) => {
-        node.focus();
-        e.preventDefault();
-        const disabled = node.dataset.disabled === "true";
-        if (disabled)
-          return;
-        const tabValue = node.dataset.value;
-        node.focus();
-        if (tabValue !== void 0) {
-          value.set(tabValue);
-        }
-      }), addMeltEventListener(node, "keydown", (e) => {
-        const tabValue = node.dataset.value;
-        if (!tabValue)
-          return;
-        const el = e.currentTarget;
-        if (!isHTMLElement(el))
-          return;
-        const rootEl = el.closest(selector());
-        if (!isHTMLElement(rootEl))
-          return;
-        const $loop = loop.get();
-        const triggers = Array.from(rootEl.querySelectorAll('[role="tab"]')).filter((trigger2) => isHTMLElement(trigger2));
-        const enabledTriggers = triggers.filter((el2) => !el2.hasAttribute("data-disabled"));
-        const triggerIdx = enabledTriggers.findIndex((el2) => el2 === e.target);
-        const dir = getElemDirection(rootEl);
-        const { nextKey, prevKey } = getDirectionalKeys(dir, orientation.get());
-        if (e.key === nextKey) {
-          e.preventDefault();
-          const nextEl = next(enabledTriggers, triggerIdx, $loop);
-          nextEl.focus();
-        } else if (e.key === prevKey) {
-          e.preventDefault();
-          const prevEl = prev(enabledTriggers, triggerIdx, $loop);
-          prevEl.focus();
-        } else if (e.key === kbd$2.ENTER || e.key === kbd$2.SPACE) {
-          e.preventDefault();
-          value.set(tabValue);
-        } else if (e.key === kbd$2.HOME) {
-          e.preventDefault();
-          const firstTrigger = enabledTriggers[0];
-          firstTrigger.focus();
-        } else if (e.key === kbd$2.END) {
-          e.preventDefault();
-          const lastTrigger = last(enabledTriggers);
-          lastTrigger.focus();
-        }
-      }));
-      return {
-        destroy: unsub
-      };
+  }
+  if (value === void 0) {
+    const defaultValue = type === "single" ? "" : [];
+    if (controlledValue) {
+      onValueChange(defaultValue);
+    } else {
+      value = defaultValue;
     }
+  }
+  value === void 0 && (value = type === "single" ? void 0 : []);
+  const rootState = useCalendarRoot({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    weekdayFormat: box.with(() => weekdayFormat),
+    weekStartsOn: box.with(() => weekStartsOn),
+    pagedNavigation: box.with(() => pagedNavigation),
+    isDateDisabled: box.with(() => isDateDisabled),
+    isDateUnavailable: box.with(() => isDateUnavailable),
+    fixedWeeks: box.with(() => fixedWeeks),
+    numberOfMonths: box.with(() => numberOfMonths),
+    locale: box.with(() => locale),
+    calendarLabel: box.with(() => calendarLabel),
+    readonly: box.with(() => readonly),
+    disabled: box.with(() => disabled),
+    minValue: box.with(() => minValue),
+    maxValue: box.with(() => maxValue),
+    disableDaysOutsideMonth: box.with(() => disableDaysOutsideMonth),
+    initialFocus: box.with(() => initialFocus),
+    placeholder: box.with(() => placeholder, (v) => {
+      if (controlledPlaceholder) {
+        onPlaceholderChange(v);
+      } else {
+        placeholder = v;
+        onPlaceholderChange(v);
+      }
+    }),
+    preventDeselect: box.with(() => preventDeselect),
+    value: box.with(() => value, (v) => {
+      if (controlledValue) {
+        onValueChange(v);
+      } else {
+        value = v;
+        onValueChange(v);
+      }
+    }),
+    type: box.with(() => type)
   });
-  const content = makeElement(name("content"), {
-    stores: value,
-    returned: ($value) => {
-      return (tabValue) => {
-        return {
-          role: "tabpanel",
-          // TODO: improve
-          "aria-labelledby": tabValue,
-          hidden: isBrowser$3 ? $value === tabValue ? void 0 : true : ssrValue === tabValue ? void 0 : true,
-          tabindex: 0
-        };
-      };
-    }
-  });
-  return {
-    elements: {
-      root,
-      list,
-      trigger,
-      content
-    },
-    states: {
-      value
-    },
-    options
-  };
+  const mergedProps = mergeProps(restProps, rootState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps, ...rootState.snippetProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload, rootState.snippetProps);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref, value, placeholder });
+  pop();
 }
-function createBitAttrs$1(bit, parts) {
-  const attrs = {};
-  parts.forEach((part) => {
-    attrs[part] = {
-      [`data-${bit}-${part}`]: ""
-    };
+function Calendar_day$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    ref = null,
+    id = useId(),
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const dayState = useCalendarDay({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
   });
-  return (part) => attrs[part];
+  const mergedProps = mergeProps(restProps, dayState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps, ...dayState.snippetProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    if (children) {
+      $$payload.out += "<!--[-->";
+      children == null ? void 0 : children($$payload, dayState.snippetProps);
+      $$payload.out += `<!---->`;
+    } else {
+      $$payload.out += "<!--[!-->";
+      $$payload.out += `${escape_html(dayState.cell.date.current.day)}`;
+    }
+    $$payload.out += `<!--]--></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
 }
-function createDispatcher() {
-  const dispatch = createEventDispatcher();
-  return (e) => {
-    const { originalEvent } = e.detail;
-    const { cancelable } = e;
-    const type = originalEvent.type;
-    const shouldContinue = dispatch(type, { originalEvent, currentTarget: originalEvent.currentTarget }, { cancelable });
-    if (!shouldContinue) {
+function Calendar_grid$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    ref = null,
+    id = useId(),
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const gridState = useCalendarGrid({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, gridState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<table${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></table>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_grid_body$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    ref = null,
+    id = useId(),
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const gridBodyState = useCalendarGridBody({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, gridBodyState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<tbody${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></tbody>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_cell$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    ref = null,
+    id = useId(),
+    date,
+    month,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const cellState = useCalendarCell({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    date: box.with(() => date),
+    month: box.with(() => month)
+  });
+  const mergedProps = mergeProps(restProps, cellState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps, ...cellState.snippetProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<td${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload, cellState.snippetProps);
+    $$payload.out += `<!----></td>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_grid_head$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    ref = null,
+    id = useId(),
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const gridHeadState = useCalendarGridHead({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, gridHeadState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<thead${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></thead>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_head_cell$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    ref = null,
+    id = useId(),
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const headCellState = useCalendarHeadCell({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, headCellState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<th${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></th>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_grid_row$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    ref = null,
+    id = useId(),
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const gridRowState = useCalendarGridRow({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, gridRowState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<tr${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></tr>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_header$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    ref = null,
+    id = useId(),
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const headerState = useCalendarHeader({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, headerState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<header${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></header>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_heading$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    ref = null,
+    id = useId(),
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const headingState = useCalendarHeading({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, headingState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, {
+      props: mergedProps,
+      headingValue: headingState.headingValue
+    });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    if (children) {
+      $$payload.out += "<!--[-->";
+      children == null ? void 0 : children($$payload, { headingValue: headingState.headingValue });
+      $$payload.out += `<!---->`;
+    } else {
+      $$payload.out += "<!--[!-->";
+      $$payload.out += `${escape_html(headingState.headingValue)}`;
+    }
+    $$payload.out += `<!--]--></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_next_button$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    id = useId(),
+    ref = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const nextButtonState = useCalendarNextButton({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, nextButtonState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></button>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_prev_button$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    id = useId(),
+    ref = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const prevButtonState = useCalendarPrevButton({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, prevButtonState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></button>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+const CHECKBOX_ROOT_ATTR = "data-checkbox-root";
+class CheckboxRootState {
+  constructor(props, group = null) {
+    __privateAdd(this, _CheckboxRootState_instances);
+    __privateAdd(this, _id15);
+    __privateAdd(this, _ref15);
+    __privateAdd(this, _type);
+    __publicField(this, "checked");
+    __privateAdd(this, _disabled5);
+    __privateAdd(this, _required);
+    __privateAdd(this, _name);
+    __publicField(this, "value");
+    __publicField(this, "indeterminate");
+    __publicField(this, "group", null);
+    __privateAdd(this, _trueName, once(() => {
+      if (this.group && this.group.name.current) {
+        return this.group.name.current;
+      } else {
+        return __privateGet(this, _name).current;
+      }
+    }));
+    __privateAdd(this, _trueRequired, once(() => {
+      if (this.group && this.group.required.current) {
+        return true;
+      }
+      return __privateGet(this, _required).current;
+    }));
+    __privateAdd(this, _trueDisabled, once(() => {
+      if (this.group && this.group.disabled.current) {
+        return true;
+      }
+      return __privateGet(this, _disabled5).current;
+    }));
+    __privateAdd(this, _snippetProps7, once(() => ({
+      checked: this.checked.current,
+      indeterminate: this.indeterminate.current
+    })));
+    __privateAdd(this, _props26, once(() => ({
+      id: __privateGet(this, _id15).current,
+      role: "checkbox",
+      type: __privateGet(this, _type).current,
+      disabled: this.trueDisabled,
+      "aria-checked": getAriaChecked(this.checked.current, this.indeterminate.current),
+      "aria-required": getAriaRequired(this.trueRequired),
+      "data-disabled": getDataDisabled(this.trueDisabled),
+      "data-state": getCheckboxDataState(this.checked.current, this.indeterminate.current),
+      [CHECKBOX_ROOT_ATTR]: "",
+      //
+      onclick: this.onclick,
+      onkeydown: this.onkeydown
+    })));
+    this.checked = props.checked;
+    __privateSet(this, _disabled5, props.disabled);
+    __privateSet(this, _required, props.required);
+    __privateSet(this, _name, props.name);
+    this.value = props.value;
+    __privateSet(this, _ref15, props.ref);
+    __privateSet(this, _id15, props.id);
+    this.indeterminate = props.indeterminate;
+    __privateSet(this, _type, props.type);
+    this.group = group;
+    this.onkeydown = this.onkeydown.bind(this);
+    this.onclick = this.onclick.bind(this);
+    useRefById({ id: __privateGet(this, _id15), ref: __privateGet(this, _ref15) });
+  }
+  get trueName() {
+    return __privateGet(this, _trueName).call(this);
+  }
+  get trueRequired() {
+    return __privateGet(this, _trueRequired).call(this);
+  }
+  get trueDisabled() {
+    return __privateGet(this, _trueDisabled).call(this);
+  }
+  onkeydown(e) {
+    if (__privateGet(this, _disabled5).current) return;
+    if (e.key === ENTER) e.preventDefault();
+    if (e.key === SPACE) {
       e.preventDefault();
-    }
-  };
-}
-function removeUndefined$1(obj) {
-  const result = {};
-  for (const key in obj) {
-    const value = obj[key];
-    if (value !== void 0) {
-      result[key] = value;
+      __privateMethod(this, _CheckboxRootState_instances, toggle_fn).call(this);
     }
   }
-  return result;
-}
-function getOptionUpdater(options) {
-  return function(key, value) {
-    if (value === void 0)
-      return;
-    const store2 = options[key];
-    if (store2) {
-      store2.set(value);
-    }
-  };
-}
-function getAccordionData() {
-  const NAME2 = "accordion";
-  const ITEM_NAME = "accordion-item";
-  const PARTS2 = ["root", "content", "header", "item", "trigger"];
-  return { NAME: NAME2, ITEM_NAME, PARTS: PARTS2 };
-}
-function setCtx$5(props) {
-  const initAccordion = createAccordion(removeUndefined$1(props));
-  const { NAME: NAME2, PARTS: PARTS2 } = getAccordionData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const accordion = {
-    ...initAccordion,
-    getAttrs: getAttrs2,
-    updateOption: getOptionUpdater(initAccordion.options)
-  };
-  setContext(NAME2, accordion);
-  return accordion;
-}
-function getCtx$6() {
-  const { NAME: NAME2 } = getAccordionData();
-  return getContext(NAME2);
-}
-function setItem(props) {
-  const { ITEM_NAME } = getAccordionData();
-  setContext(ITEM_NAME, { ...props });
-  const ctx = getCtx$6();
-  return { ...ctx, props };
-}
-function getItemProps() {
-  const { ITEM_NAME } = getAccordionData();
-  return getContext(ITEM_NAME);
-}
-function getContent() {
-  const ctx = getCtx$6();
-  const { value: props } = getItemProps();
-  return {
-    ...ctx,
-    props
-  };
-}
-function getTrigger() {
-  const ctx = getCtx$6();
-  const { value, disabled } = getItemProps();
-  return {
-    ...ctx,
-    props: { value, disabled }
-  };
-}
-function arraysAreEqual(arr1, arr2) {
-  if (arr1.length !== arr2.length) {
-    return false;
+  onclick(_) {
+    if (__privateGet(this, _disabled5).current) return;
+    __privateMethod(this, _CheckboxRootState_instances, toggle_fn).call(this);
   }
-  return arr1.every((value, index) => value === arr2[index]);
+  get snippetProps() {
+    return __privateGet(this, _snippetProps7).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props26).call(this);
+  }
 }
-const Accordion = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["multiple", "value", "onValueChange", "disabled", "asChild", "el"]);
-  let $root, $$unsubscribe_root;
-  let { multiple = false } = $$props;
-  let { value = void 0 } = $$props;
-  let { onValueChange = void 0 } = $$props;
-  let { disabled = false } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { root }, states: { value: localValue }, updateOption, getAttrs: getAttrs2 } = setCtx$5({
-    multiple,
-    disabled,
-    defaultValue: value,
-    onValueChange: ({ next: next2 }) => {
-      if (Array.isArray(next2)) {
-        if (!Array.isArray(value) || !arraysAreEqual(value, next2)) {
-          onValueChange == null ? void 0 : onValueChange(next2);
-          value = next2;
-          return next2;
+_id15 = new WeakMap();
+_ref15 = new WeakMap();
+_type = new WeakMap();
+_disabled5 = new WeakMap();
+_required = new WeakMap();
+_name = new WeakMap();
+_trueName = new WeakMap();
+_trueRequired = new WeakMap();
+_trueDisabled = new WeakMap();
+_CheckboxRootState_instances = new WeakSet();
+toggle_fn = function() {
+  if (this.indeterminate.current) {
+    this.indeterminate.current = false;
+    this.checked.current = true;
+  } else {
+    this.checked.current = !this.checked.current;
+  }
+};
+_snippetProps7 = new WeakMap();
+_props26 = new WeakMap();
+class CheckboxInputState {
+  constructor(root) {
+    __publicField(this, "root");
+    __privateAdd(this, _trueChecked, once(() => {
+      if (this.root.group) {
+        if (this.root.value.current !== void 0 && this.root.group.value.current.includes(this.root.value.current)) {
+          return true;
         }
-        return next2;
+        return false;
       }
-      if (value !== next2) {
-        onValueChange == null ? void 0 : onValueChange(next2);
-        value = next2;
-      }
-      return next2;
-    }
-  });
-  $$unsubscribe_root = subscribe(root, (value2) => $root = value2);
-  const attrs = getAttrs2("root");
-  if ($$props.multiple === void 0 && $$bindings.multiple && multiple !== void 0) $$bindings.multiple(multiple);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.onValueChange === void 0 && $$bindings.onValueChange && onValueChange !== void 0) $$bindings.onValueChange(onValueChange);
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  value !== void 0 && localValue.set(Array.isArray(value) ? [...value] : value);
-  {
-    updateOption("multiple", multiple);
+      return this.root.checked.current;
+    }));
+    __privateAdd(this, _shouldRender, once(() => Boolean(this.root.trueName)));
+    __privateAdd(this, _props27, once(() => ({
+      type: "checkbox",
+      checked: this.root.checked.current === true,
+      disabled: this.root.trueDisabled,
+      required: this.root.trueRequired,
+      name: this.root.trueName,
+      value: this.root.value.current,
+      "aria-hidden": "true",
+      style: styleToString(srOnlyStyles)
+    })));
+    this.root = root;
   }
-  {
-    updateOption("disabled", disabled);
+  get trueChecked() {
+    return __privateGet(this, _trueChecked).call(this);
   }
-  builder = $root;
-  {
-    Object.assign(builder, attrs);
+  get shouldRender() {
+    return __privateGet(this, _shouldRender).call(this);
   }
-  $$unsubscribe_root();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>`}`;
-});
-const Accordion_item$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["value", "disabled", "asChild", "el"]);
-  let $item, $$unsubscribe_item;
-  let { value } = $$props;
-  let { disabled = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { item }, props, getAttrs: getAttrs2 } = setItem({ value, disabled });
-  $$unsubscribe_item = subscribe(item, (value2) => $item = value2);
-  const attrs = getAttrs2("item");
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $item(props);
-  {
-    Object.assign(builder, attrs);
+  get props() {
+    return __privateGet(this, _props27).call(this);
   }
-  $$unsubscribe_item();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>`}`;
-});
-const Accordion_header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["level", "asChild", "el"]);
-  let $header, $$unsubscribe_header;
-  let { level = 3 } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { heading: header }, getAttrs: getAttrs2 } = getCtx$6();
-  $$unsubscribe_header = subscribe(header, (value) => $header = value);
-  const attrs = getAttrs2("header");
-  if ($$props.level === void 0 && $$bindings.level && level !== void 0) $$bindings.level(level);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $header(level);
-  {
-    Object.assign(builder, attrs);
+}
+_trueChecked = new WeakMap();
+_shouldRender = new WeakMap();
+_props27 = new WeakMap();
+function getCheckboxDataState(checked, indeterminate) {
+  if (indeterminate) {
+    return "indeterminate";
   }
-  $$unsubscribe_header();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>`}`;
-});
-const Accordion_trigger$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $trigger, $$unsubscribe_trigger;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { trigger }, props, getAttrs: getAttrs2 } = getTrigger();
-  $$unsubscribe_trigger = subscribe(trigger, (value) => $trigger = value);
-  createDispatcher();
-  const attrs = getAttrs2("trigger");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $trigger(props);
-  {
-    Object.assign(builder, attrs);
+  return checked ? "checked" : "unchecked";
+}
+const [
+  setCheckboxGroupContext,
+  getCheckboxGroupContext
+] = createContext("Checkbox.Group");
+const [
+  setCheckboxRootContext,
+  getCheckboxRootContext
+] = createContext("Checkbox.Root");
+function useCheckboxRoot(props) {
+  return setCheckboxRootContext(new CheckboxRootState(props, getCheckboxGroupContext(null)));
+}
+function useCheckboxInput() {
+  const root = getCheckboxRootContext();
+  return new CheckboxInputState(root);
+}
+function Visually_hidden($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const style = {
+    position: "absolute",
+    border: 0,
+    width: "1px",
+    display: "inline-block",
+    height: "1px",
+    padding: 0,
+    margin: "-1px",
+    overflow: "hidden",
+    clip: "rect(0 0 0 0)",
+    whiteSpace: "nowrap",
+    wordWrap: "normal"
+  };
+  const mergedProps = mergeProps(restProps, { style });
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<span${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></span>`;
   }
-  $$unsubscribe_trigger();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-const Accordion_content$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "transition",
-    "transitionConfig",
-    "inTransition",
-    "inTransitionConfig",
-    "outTransition",
-    "outTransitionConfig",
-    "asChild",
-    "el"
-  ]);
-  let $content, $$unsubscribe_content;
-  let $isSelected, $$unsubscribe_isSelected;
-  let { transition = void 0 } = $$props;
-  let { transitionConfig = void 0 } = $$props;
-  let { inTransition = void 0 } = $$props;
-  let { inTransitionConfig = void 0 } = $$props;
-  let { outTransition = void 0 } = $$props;
-  let { outTransitionConfig = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { content }, helpers: { isSelected }, props, getAttrs: getAttrs2 } = getContent();
-  $$unsubscribe_content = subscribe(content, (value) => $content = value);
-  $$unsubscribe_isSelected = subscribe(isSelected, (value) => $isSelected = value);
-  const attrs = getAttrs2("content");
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
-  if ($$props.inTransitionConfig === void 0 && $$bindings.inTransitionConfig && inTransitionConfig !== void 0) $$bindings.inTransitionConfig(inTransitionConfig);
-  if ($$props.outTransition === void 0 && $$bindings.outTransition && outTransition !== void 0) $$bindings.outTransition(outTransition);
-  if ($$props.outTransitionConfig === void 0 && $$bindings.outTransitionConfig && outTransitionConfig !== void 0) $$bindings.outTransitionConfig(outTransitionConfig);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $content(props);
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_content();
-  $$unsubscribe_isSelected();
-  return `${asChild && $isSelected(props) ? `${slots.default ? slots.default({ builder }) : ``}` : `${transition && $isSelected(props) ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && outTransition && $isSelected(props) ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && $isSelected(props) ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${outTransition && $isSelected(props) ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${$isSelected(props) ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : ``}`}`}`}`}`}`;
-});
-const Aspect_ratio = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["ratio", "el"]);
-  let { ratio = 1 / 1 } = $$props;
-  let { el = void 0 } = $$props;
-  const attrs = { "data-aspect-ratio-root": "" };
-  if ($$props.ratio === void 0 && $$bindings.ratio && ratio !== void 0) $$bindings.ratio(ratio);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  return `<div${add_styles({
-    "position": `relative`,
-    "width": `100%`,
-    "padding-bottom": `${ratio ? 100 / ratio : 0}%`
-  })}><div${spread([escape_object($$restProps), escape_object(attrs)], {
-    styles: {
-      "position": `absolute`,
-      "top": `0`,
-      "right": `0`,
-      "bottom": `0`,
-      "left": `0`
-    }
-  })}${add_attribute("this", el, 0)}>${slots.default ? slots.default({}) : ``}</div></div>`;
-});
-function getAttrs(builders) {
-  const attrs = {};
-  builders.forEach((builder) => {
-    Object.keys(builder).forEach((key) => {
-      if (key !== "action") {
-        attrs[key] = builder[key];
-      }
+  $$payload.out += `<!--]-->`;
+  pop();
+}
+function Checkbox_input($$payload, $$props) {
+  push();
+  const inputState = useCheckboxInput();
+  if (inputState.shouldRender) {
+    $$payload.out += "<!--[-->";
+    Visually_hidden($$payload, {
+      "aria-hidden": "true",
+      children: ($$payload2) => {
+        $$payload2.out += `<input${spread_attributes({
+          ...inputState.props,
+          type: "checkbox",
+          style: "display: none !important;"
+        })}>`;
+      },
+      $$slots: { default: true }
     });
-  });
-  return attrs;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]-->`;
+  pop();
 }
-const Button$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["href", "type", "builders", "el"]);
-  let { href = void 0 } = $$props;
-  let { type = void 0 } = $$props;
-  let { builders = [] } = $$props;
-  let { el = void 0 } = $$props;
-  const attrs = { "data-button-root": "" };
-  if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
-  if ($$props.type === void 0 && $$bindings.type && type !== void 0) $$bindings.type(type);
-  if ($$props.builders === void 0 && $$bindings.builders && builders !== void 0) $$bindings.builders(builders);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  return `${builders && builders.length ? ` ${((tag) => {
-    return tag ? `<${href ? "a" : "button"}${spread(
-      [
-        {
-          type: escape_attribute_value(href ? void 0 : type)
-        },
-        { href: escape_attribute_value(href) },
-        { tabindex: "0" },
-        escape_object(getAttrs(builders)),
-        escape_object($$restProps),
-        escape_object(attrs)
-      ],
-      {}
-    )}${add_attribute("this", el, 0)}>${is_void(tag) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag) ? "" : `</${tag}>`}` : "";
-  })(href ? "a" : "button")}` : ` ${((tag) => {
-    return tag ? `<${href ? "a" : "button"}${spread(
-      [
-        {
-          type: escape_attribute_value(href ? void 0 : type)
-        },
-        { href: escape_attribute_value(href) },
-        { tabindex: "0" },
-        escape_object($$restProps),
-        escape_object(attrs)
-      ],
-      {}
-    )}${add_attribute("this", el, 0)}>${is_void(tag) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag) ? "" : `</${tag}>`}` : "";
-  })(href ? "a" : "button")}`}`;
-});
-function getCalendarData() {
-  const NAME2 = "calendar";
-  const PARTS2 = [
-    "root",
-    "prev-button",
-    "next-button",
-    "heading",
-    "grid",
-    "day",
-    "header",
-    "grid-head",
-    "head-cell",
-    "grid-body",
-    "cell",
-    "grid-row"
-  ];
-  return { NAME: NAME2, PARTS: PARTS2 };
-}
-function setCtx$4(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getCalendarData();
-  const getCalendarAttrs = createBitAttrs$1(NAME2, PARTS2);
-  const calendar = { ...createCalendar(removeUndefined$1(props)), getCalendarAttrs };
-  setContext(NAME2, calendar);
-  return {
-    ...calendar,
-    updateOption: getOptionUpdater(calendar.options)
-  };
-}
-function getCtx$5() {
-  const { NAME: NAME2 } = getCalendarData();
-  const ctx = getContext(NAME2);
-  return ctx;
-}
-const Calendar$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "placeholder",
-    "onPlaceholderChange",
-    "value",
-    "onValueChange",
-    "preventDeselect",
-    "minValue",
-    "maxValue",
-    "pagedNavigation",
-    "weekStartsOn",
-    "locale",
-    "isDateUnavailable",
-    "isDateDisabled",
-    "disabled",
-    "readonly",
-    "fixedWeeks",
-    "calendarLabel",
-    "weekdayFormat",
-    "multiple",
-    "asChild",
-    "id",
-    "numberOfMonths",
-    "initialFocus",
-    "el"
-  ]);
-  let $localMonths, $$unsubscribe_localMonths;
-  let $calendar, $$unsubscribe_calendar;
-  let $weekdays, $$unsubscribe_weekdays;
-  let { placeholder = void 0 } = $$props;
-  let { onPlaceholderChange = void 0 } = $$props;
-  let { value = void 0 } = $$props;
-  let { onValueChange = void 0 } = $$props;
-  let { preventDeselect = void 0 } = $$props;
-  let { minValue = void 0 } = $$props;
-  let { maxValue = void 0 } = $$props;
-  let { pagedNavigation = void 0 } = $$props;
-  let { weekStartsOn = void 0 } = $$props;
-  let { locale = void 0 } = $$props;
-  let { isDateUnavailable = void 0 } = $$props;
-  let { isDateDisabled = void 0 } = $$props;
-  let { disabled = void 0 } = $$props;
-  let { readonly: readonly2 = void 0 } = $$props;
-  let { fixedWeeks = void 0 } = $$props;
-  let { calendarLabel = void 0 } = $$props;
-  let { weekdayFormat = void 0 } = $$props;
-  let { multiple = false } = $$props;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { numberOfMonths = void 0 } = $$props;
-  let { initialFocus = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { calendar }, states: { value: localValue, placeholder: localPlaceholder, months: localMonths, weekdays }, updateOption, ids, getCalendarAttrs } = setCtx$4({
-    defaultPlaceholder: placeholder,
-    defaultValue: value,
-    preventDeselect,
-    minValue,
-    maxValue,
-    pagedNavigation,
-    weekStartsOn,
-    locale,
-    isDateUnavailable,
-    isDateDisabled,
-    disabled,
-    readonly: readonly2,
-    fixedWeeks,
-    calendarLabel,
-    weekdayFormat,
-    multiple,
-    numberOfMonths,
-    onPlaceholderChange: ({ next: next2 }) => {
-      if (placeholder !== next2) {
-        onPlaceholderChange == null ? void 0 : onPlaceholderChange(next2);
-        placeholder = next2;
+function Checkbox$1($$payload, $$props) {
+  push();
+  let {
+    checked = false,
+    ref = null,
+    onCheckedChange,
+    children,
+    disabled = false,
+    required = false,
+    name = void 0,
+    value = "on",
+    id = useId(),
+    controlledChecked = false,
+    indeterminate = false,
+    controlledIndeterminate = false,
+    onIndeterminateChange,
+    child,
+    type = "button",
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const rootState = useCheckboxRoot({
+    checked: box.with(() => checked, (v) => {
+      if (controlledChecked) {
+        onCheckedChange == null ? void 0 : onCheckedChange(v);
+      } else {
+        checked = v;
+        onCheckedChange == null ? void 0 : onCheckedChange(v);
       }
-      return next2;
-    },
-    onValueChange: ({ next: next2 }) => {
-      if (Array.isArray(next2)) {
-        if (!Array.isArray(value) || !arraysAreEqual(value, next2)) {
-          onValueChange == null ? void 0 : onValueChange(next2);
-          value = next2;
-          return next2;
-        }
-        return next2;
-      }
-      if (value !== next2) {
-        onValueChange == null ? void 0 : onValueChange(next2);
-        value = next2;
-      }
-      return next2;
-    }
-  });
-  $$unsubscribe_calendar = subscribe(calendar, (value2) => $calendar = value2);
-  $$unsubscribe_localMonths = subscribe(localMonths, (value2) => $localMonths = value2);
-  $$unsubscribe_weekdays = subscribe(weekdays, (value2) => $weekdays = value2);
-  const attrs = getCalendarAttrs("root");
-  createDispatcher();
-  let months = $localMonths;
-  if ($$props.placeholder === void 0 && $$bindings.placeholder && placeholder !== void 0) $$bindings.placeholder(placeholder);
-  if ($$props.onPlaceholderChange === void 0 && $$bindings.onPlaceholderChange && onPlaceholderChange !== void 0) $$bindings.onPlaceholderChange(onPlaceholderChange);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.onValueChange === void 0 && $$bindings.onValueChange && onValueChange !== void 0) $$bindings.onValueChange(onValueChange);
-  if ($$props.preventDeselect === void 0 && $$bindings.preventDeselect && preventDeselect !== void 0) $$bindings.preventDeselect(preventDeselect);
-  if ($$props.minValue === void 0 && $$bindings.minValue && minValue !== void 0) $$bindings.minValue(minValue);
-  if ($$props.maxValue === void 0 && $$bindings.maxValue && maxValue !== void 0) $$bindings.maxValue(maxValue);
-  if ($$props.pagedNavigation === void 0 && $$bindings.pagedNavigation && pagedNavigation !== void 0) $$bindings.pagedNavigation(pagedNavigation);
-  if ($$props.weekStartsOn === void 0 && $$bindings.weekStartsOn && weekStartsOn !== void 0) $$bindings.weekStartsOn(weekStartsOn);
-  if ($$props.locale === void 0 && $$bindings.locale && locale !== void 0) $$bindings.locale(locale);
-  if ($$props.isDateUnavailable === void 0 && $$bindings.isDateUnavailable && isDateUnavailable !== void 0) $$bindings.isDateUnavailable(isDateUnavailable);
-  if ($$props.isDateDisabled === void 0 && $$bindings.isDateDisabled && isDateDisabled !== void 0) $$bindings.isDateDisabled(isDateDisabled);
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  if ($$props.readonly === void 0 && $$bindings.readonly && readonly2 !== void 0) $$bindings.readonly(readonly2);
-  if ($$props.fixedWeeks === void 0 && $$bindings.fixedWeeks && fixedWeeks !== void 0) $$bindings.fixedWeeks(fixedWeeks);
-  if ($$props.calendarLabel === void 0 && $$bindings.calendarLabel && calendarLabel !== void 0) $$bindings.calendarLabel(calendarLabel);
-  if ($$props.weekdayFormat === void 0 && $$bindings.weekdayFormat && weekdayFormat !== void 0) $$bindings.weekdayFormat(weekdayFormat);
-  if ($$props.multiple === void 0 && $$bindings.multiple && multiple !== void 0) $$bindings.multiple(multiple);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.numberOfMonths === void 0 && $$bindings.numberOfMonths && numberOfMonths !== void 0) $$bindings.numberOfMonths(numberOfMonths);
-  if ($$props.initialFocus === void 0 && $$bindings.initialFocus && initialFocus !== void 0) $$bindings.initialFocus(initialFocus);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    if (id) {
-      ids.calendar.set(id);
-    }
-  }
-  value !== void 0 && localValue.set(Array.isArray(value) ? [...value] : value);
-  placeholder !== void 0 && localPlaceholder.set(placeholder);
-  {
-    updateOption("preventDeselect", preventDeselect);
-  }
-  {
-    updateOption("minValue", minValue);
-  }
-  {
-    updateOption("maxValue", maxValue);
-  }
-  {
-    updateOption("pagedNavigation", pagedNavigation);
-  }
-  {
-    updateOption("weekStartsOn", weekStartsOn);
-  }
-  {
-    updateOption("locale", locale);
-  }
-  {
-    updateOption("isDateUnavailable", isDateUnavailable);
-  }
-  {
-    updateOption("isDateDisabled", isDateDisabled);
-  }
-  {
-    updateOption("disabled", disabled);
-  }
-  {
-    updateOption("readonly", readonly2);
-  }
-  {
-    updateOption("fixedWeeks", fixedWeeks);
-  }
-  {
-    updateOption("calendarLabel", calendarLabel);
-  }
-  {
-    updateOption("weekdayFormat", weekdayFormat);
-  }
-  {
-    updateOption("numberOfMonths", numberOfMonths);
-  }
-  builder = $calendar;
-  {
-    Object.assign(builder, attrs);
-  }
-  months = $localMonths;
-  $$unsubscribe_localMonths();
-  $$unsubscribe_calendar();
-  $$unsubscribe_weekdays();
-  return `${asChild ? `${slots.default ? slots.default({ months, weekdays: $weekdays, builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ months, weekdays: $weekdays, builder }) : ``}</div>`}`;
-});
-const Calendar_day$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let disabled;
-  let unavailable;
-  let selected;
-  let $$restProps = compute_rest_props($$props, ["date", "month", "asChild", "el"]);
-  let $isDateSelected, $$unsubscribe_isDateSelected;
-  let $isDateUnavailable, $$unsubscribe_isDateUnavailable;
-  let $isDateDisabled, $$unsubscribe_isDateDisabled;
-  let $cell, $$unsubscribe_cell;
-  let { date } = $$props;
-  let { month } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { cell }, helpers: { isDateDisabled, isDateUnavailable, isDateSelected }, getCalendarAttrs } = getCtx$5();
-  $$unsubscribe_cell = subscribe(cell, (value) => $cell = value);
-  $$unsubscribe_isDateDisabled = subscribe(isDateDisabled, (value) => $isDateDisabled = value);
-  $$unsubscribe_isDateUnavailable = subscribe(isDateUnavailable, (value) => $isDateUnavailable = value);
-  $$unsubscribe_isDateSelected = subscribe(isDateSelected, (value) => $isDateSelected = value);
-  const attrs = getCalendarAttrs("day");
-  createDispatcher();
-  if ($$props.date === void 0 && $$bindings.date && date !== void 0) $$bindings.date(date);
-  if ($$props.month === void 0 && $$bindings.month && month !== void 0) $$bindings.month(month);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $cell(date, month);
-  {
-    Object.assign(builder, attrs);
-  }
-  disabled = $isDateDisabled(date);
-  unavailable = $isDateUnavailable(date);
-  selected = $isDateSelected(date);
-  $$unsubscribe_isDateSelected();
-  $$unsubscribe_isDateUnavailable();
-  $$unsubscribe_isDateDisabled();
-  $$unsubscribe_cell();
-  return `${asChild ? `${slots.default ? slots.default({ builder, disabled, unavailable, selected }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder, disabled, unavailable, selected }) : ` ${escape(date.day)} `}</div>`}`;
-});
-const Calendar_grid$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $grid, $$unsubscribe_grid;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { grid }, getCalendarAttrs } = getCtx$5();
-  $$unsubscribe_grid = subscribe(grid, (value) => $grid = value);
-  const attrs = getCalendarAttrs("grid");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $grid;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_grid();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<table${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</table>`}`;
-});
-const Calendar_grid_body$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { getCalendarAttrs } = getCtx$5();
-  const attrs = getCalendarAttrs("grid-body");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<tbody${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ attrs }) : ``}</tbody>`}`;
-});
-const Calendar_cell$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let attrs;
-  let $$restProps = compute_rest_props($$props, ["date", "asChild", "el"]);
-  let $isDateDisabled, $$unsubscribe_isDateDisabled;
-  let $isDateUnavailable, $$unsubscribe_isDateUnavailable;
-  let { date } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { helpers: { isDateDisabled, isDateUnavailable }, getCalendarAttrs } = getCtx$5();
-  $$unsubscribe_isDateDisabled = subscribe(isDateDisabled, (value) => $isDateDisabled = value);
-  $$unsubscribe_isDateUnavailable = subscribe(isDateUnavailable, (value) => $isDateUnavailable = value);
-  if ($$props.date === void 0 && $$bindings.date && date !== void 0) $$bindings.date(date);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  attrs = {
-    ...getCalendarAttrs("cell"),
-    "aria-disabled": $isDateDisabled(date) || $isDateUnavailable(date),
-    "data-disabled": $isDateDisabled(date) ? "" : void 0,
-    role: "gridcell"
-  };
-  $$unsubscribe_isDateDisabled();
-  $$unsubscribe_isDateUnavailable();
-  return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<td${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ attrs }) : ``}</td>`}`;
-});
-const Calendar_grid_head$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { getCalendarAttrs } = getCtx$5();
-  const attrs = {
-    ...getCalendarAttrs("grid-head"),
-    "aria-hidden": true
-  };
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<thead${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ attrs }) : ``}</thead>`}`;
-});
-const Calendar_head_cell$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { getCalendarAttrs } = getCtx$5();
-  const attrs = getCalendarAttrs("head-cell");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<th${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ attrs }) : ``}</th>`}`;
-});
-const Calendar_grid_row$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { getCalendarAttrs } = getCtx$5();
-  const attrs = getCalendarAttrs("grid-row");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<tr${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ attrs }) : ``}</tr>`}`;
-});
-const Calendar_header$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { getCalendarAttrs } = getCtx$5();
-  const attrs = getCalendarAttrs("header");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  return `${asChild ? `${slots.default ? slots.default({ attrs }) : ``}` : `<header${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ attrs }) : ``}</header>`}`;
-});
-const Calendar_heading$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $heading, $$unsubscribe_heading;
-  let $headingValue, $$unsubscribe_headingValue;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { heading }, states: { headingValue }, getCalendarAttrs } = getCtx$5();
-  $$unsubscribe_heading = subscribe(heading, (value) => $heading = value);
-  $$unsubscribe_headingValue = subscribe(headingValue, (value) => $headingValue = value);
-  const attrs = getCalendarAttrs("heading");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $heading;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_heading();
-  $$unsubscribe_headingValue();
-  return `${asChild ? `${slots.default ? slots.default({ builder, headingValue: $headingValue }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder, headingValue: $headingValue }) : ` ${escape($headingValue)} `}</div>`}`;
-});
-const Calendar_next_button$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $nextButton, $$unsubscribe_nextButton;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { nextButton }, getCalendarAttrs } = getCtx$5();
-  $$unsubscribe_nextButton = subscribe(nextButton, (value) => $nextButton = value);
-  const attrs = getCalendarAttrs("next-button");
-  createDispatcher();
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $nextButton;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_nextButton();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-const Calendar_prev_button$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $prevButton, $$unsubscribe_prevButton;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { prevButton }, getCalendarAttrs } = getCtx$5();
-  $$unsubscribe_prevButton = subscribe(prevButton, (value) => $prevButton = value);
-  const attrs = getCalendarAttrs("prev-button");
-  createDispatcher();
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $prevButton;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_prevButton();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-function getCheckboxData() {
-  const NAME2 = "checkbox";
-  const PARTS2 = ["root", "input", "indicator"];
-  return {
-    NAME: NAME2,
-    PARTS: PARTS2
-  };
-}
-function setCtx$3(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getCheckboxData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const checkbox = { ...createCheckbox(removeUndefined$1(props)), getAttrs: getAttrs2 };
-  setContext(NAME2, checkbox);
-  return {
-    ...checkbox,
-    updateOption: getOptionUpdater(checkbox.options)
-  };
-}
-function getCtx$4() {
-  const { NAME: NAME2 } = getCheckboxData();
-  return getContext(NAME2);
-}
-const Checkbox$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let attrs;
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "checked",
-    "disabled",
-    "name",
-    "required",
-    "value",
-    "onCheckedChange",
-    "asChild",
-    "el"
-  ]);
-  let $root, $$unsubscribe_root;
-  let { checked = false } = $$props;
-  let { disabled = void 0 } = $$props;
-  let { name: name2 = void 0 } = $$props;
-  let { required = void 0 } = $$props;
-  let { value = void 0 } = $$props;
-  let { onCheckedChange = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { root }, states: { checked: localChecked }, updateOption, getAttrs: getAttrs2 } = setCtx$3({
-    defaultChecked: checked,
-    disabled,
-    name: name2,
-    required,
-    value,
-    onCheckedChange: ({ next: next2 }) => {
-      if (checked !== next2) {
-        onCheckedChange == null ? void 0 : onCheckedChange(next2);
-        checked = next2;
-      }
-      return next2;
-    }
-  });
-  $$unsubscribe_root = subscribe(root, (value2) => $root = value2);
-  createDispatcher();
-  if ($$props.checked === void 0 && $$bindings.checked && checked !== void 0) $$bindings.checked(checked);
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  if ($$props.name === void 0 && $$bindings.name && name2 !== void 0) $$bindings.name(name2);
-  if ($$props.required === void 0 && $$bindings.required && required !== void 0) $$bindings.required(required);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.onCheckedChange === void 0 && $$bindings.onCheckedChange && onCheckedChange !== void 0) $$bindings.onCheckedChange(onCheckedChange);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  attrs = {
-    ...getAttrs2("root"),
-    disabled: disabled ? true : void 0
-  };
-  checked !== void 0 && localChecked.set(checked);
-  {
-    updateOption("disabled", disabled);
-  }
-  {
-    updateOption("name", name2);
-  }
-  {
-    updateOption("required", required);
-  }
-  {
-    updateOption("value", value);
-  }
-  builder = $root;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_root();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-function getStateAttr(state) {
-  if (state === "indeterminate") return "indeterminate";
-  if (state) return "checked";
-  return "unchecked";
-}
-const Checkbox_indicator = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let attrs;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $checked, $$unsubscribe_checked;
-  let $isChecked, $$unsubscribe_isChecked;
-  let $isIndeterminate, $$unsubscribe_isIndeterminate;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { helpers: { isChecked, isIndeterminate }, states: { checked }, getAttrs: getAttrs2 } = getCtx$4();
-  $$unsubscribe_isChecked = subscribe(isChecked, (value) => $isChecked = value);
-  $$unsubscribe_isIndeterminate = subscribe(isIndeterminate, (value) => $isIndeterminate = value);
-  $$unsubscribe_checked = subscribe(checked, (value) => $checked = value);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  attrs = {
-    ...getAttrs2("indicator"),
-    "data-state": getStateAttr($checked)
-  };
-  $$unsubscribe_checked();
-  $$unsubscribe_isChecked();
-  $$unsubscribe_isIndeterminate();
-  return `${asChild ? `${slots.default ? slots.default({
-    attrs,
-    isChecked: $isChecked,
-    isIndeterminate: $isIndeterminate
-  }) : ``}` : `<div${spread([escape_object($$restProps), escape_object(attrs)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({
-    attrs,
-    isChecked: $isChecked,
-    isIndeterminate: $isIndeterminate
-  }) : ``}</div>`}`;
-});
-function getPositioningUpdater(store2) {
-  return (props = {}) => {
-    return updatePositioning$1(store2, props);
-  };
-}
-function updatePositioning$1(store2, props) {
-  const defaultPositioningProps = {
-    side: "bottom",
-    align: "center",
-    sideOffset: 0,
-    alignOffset: 0,
-    sameWidth: false,
-    avoidCollisions: true,
-    collisionPadding: 8,
-    fitViewport: false,
-    strategy: "absolute",
-    overlap: false
-  };
-  const withDefaults = { ...defaultPositioningProps, ...props };
-  store2.update((prev2) => {
-    return {
-      ...prev2,
-      placement: joinPlacement(withDefaults.side, withDefaults.align),
-      offset: {
-        ...prev2.offset,
-        mainAxis: withDefaults.sideOffset,
-        crossAxis: withDefaults.alignOffset
-      },
-      gutter: 0,
-      sameWidth: withDefaults.sameWidth,
-      flip: withDefaults.avoidCollisions,
-      overflowPadding: withDefaults.collisionPadding,
-      boundary: withDefaults.collisionBoundary,
-      fitViewport: withDefaults.fitViewport,
-      strategy: withDefaults.strategy,
-      overlap: withDefaults.overlap
-    };
-  });
-}
-function joinPlacement(side, align) {
-  if (align === "center")
-    return side;
-  return `${side}-${align}`;
-}
-function getPopoverData() {
-  const NAME2 = "popover";
-  const PARTS2 = ["arrow", "close", "content", "trigger"];
-  return {
-    NAME: NAME2,
-    PARTS: PARTS2
-  };
-}
-function setCtx$2(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getPopoverData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const popover = {
-    ...createPopover({
-      positioning: {
-        placement: "bottom",
-        gutter: 0
-      },
-      ...removeUndefined$1(props),
-      forceVisible: true
     }),
-    getAttrs: getAttrs2
-  };
-  setContext(NAME2, popover);
-  return {
-    ...popover,
-    updateOption: getOptionUpdater(popover.options)
-  };
-}
-function getCtx$3() {
-  const { NAME: NAME2 } = getPopoverData();
-  return getContext(NAME2);
-}
-function updatePositioning(props) {
-  const defaultPlacement = {
-    side: "bottom",
-    align: "center"
-  };
-  const withDefaults = { ...defaultPlacement, ...props };
-  const { options: { positioning } } = getCtx$3();
-  const updater = getPositioningUpdater(positioning);
-  updater(withDefaults);
-}
-function getDialogData() {
-  const NAME2 = "dialog";
-  const PARTS2 = [
-    "close",
-    "content",
-    "description",
-    "overlay",
-    "portal",
-    "title",
-    "trigger"
-  ];
-  return {
-    NAME: NAME2,
-    PARTS: PARTS2
-  };
-}
-function setCtx$1(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getDialogData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const dialog = {
-    ...createDialog({ ...removeUndefined$1(props), role: "dialog", forceVisible: true }),
-    getAttrs: getAttrs2
-  };
-  setContext(NAME2, dialog);
-  return {
-    ...dialog,
-    updateOption: getOptionUpdater(dialog.options)
-  };
-}
-function getCtx$2() {
-  const { NAME: NAME2 } = getDialogData();
-  return getContext(NAME2);
-}
-const Dialog = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $idValues, $$unsubscribe_idValues;
-  let { preventScroll = void 0 } = $$props;
-  let { closeOnEscape = void 0 } = $$props;
-  let { closeOnOutsideClick = void 0 } = $$props;
-  let { portal = void 0 } = $$props;
-  let { open = void 0 } = $$props;
-  let { onOpenChange = void 0 } = $$props;
-  let { openFocus = void 0 } = $$props;
-  let { closeFocus = void 0 } = $$props;
-  let { onOutsideClick = void 0 } = $$props;
-  const { states: { open: localOpen }, updateOption, ids } = setCtx$1({
-    closeOnEscape,
-    preventScroll,
-    closeOnOutsideClick,
-    portal,
-    forceVisible: true,
-    defaultOpen: open,
-    openFocus,
-    closeFocus,
-    onOutsideClick,
-    onOpenChange: ({ next: next2 }) => {
-      if (open !== next2) {
-        onOpenChange == null ? void 0 : onOpenChange(next2);
-        open = next2;
+    disabled: box.with(() => disabled ?? false),
+    required: box.with(() => required),
+    name: box.with(() => name),
+    value: box.with(() => value),
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    indeterminate: box.with(() => indeterminate, (v) => {
+      if (controlledIndeterminate) {
+        onIndeterminateChange == null ? void 0 : onIndeterminateChange(v);
+      } else {
+        indeterminate = v;
+        onIndeterminateChange == null ? void 0 : onIndeterminateChange(v);
       }
-      return next2;
-    }
+    }),
+    type: box.with(() => type)
   });
-  const idValues = derived([ids.content, ids.description, ids.title], ([$contentId, $descriptionId, $titleId]) => ({
-    content: $contentId,
-    description: $descriptionId,
-    title: $titleId
-  }));
-  $$unsubscribe_idValues = subscribe(idValues, (value) => $idValues = value);
-  if ($$props.preventScroll === void 0 && $$bindings.preventScroll && preventScroll !== void 0) $$bindings.preventScroll(preventScroll);
-  if ($$props.closeOnEscape === void 0 && $$bindings.closeOnEscape && closeOnEscape !== void 0) $$bindings.closeOnEscape(closeOnEscape);
-  if ($$props.closeOnOutsideClick === void 0 && $$bindings.closeOnOutsideClick && closeOnOutsideClick !== void 0) $$bindings.closeOnOutsideClick(closeOnOutsideClick);
-  if ($$props.portal === void 0 && $$bindings.portal && portal !== void 0) $$bindings.portal(portal);
-  if ($$props.open === void 0 && $$bindings.open && open !== void 0) $$bindings.open(open);
-  if ($$props.onOpenChange === void 0 && $$bindings.onOpenChange && onOpenChange !== void 0) $$bindings.onOpenChange(onOpenChange);
-  if ($$props.openFocus === void 0 && $$bindings.openFocus && openFocus !== void 0) $$bindings.openFocus(openFocus);
-  if ($$props.closeFocus === void 0 && $$bindings.closeFocus && closeFocus !== void 0) $$bindings.closeFocus(closeFocus);
-  if ($$props.onOutsideClick === void 0 && $$bindings.onOutsideClick && onOutsideClick !== void 0) $$bindings.onOutsideClick(onOutsideClick);
-  open !== void 0 && localOpen.set(open);
-  {
-    updateOption("preventScroll", preventScroll);
+  const mergedProps = mergeProps({ ...restProps }, rootState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps, ...rootState.snippetProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload, rootState.snippetProps);
+    $$payload.out += `<!----></button>`;
   }
-  {
-    updateOption("closeOnEscape", closeOnEscape);
-  }
-  {
-    updateOption("closeOnOutsideClick", closeOnOutsideClick);
-  }
-  {
-    updateOption("portal", portal);
-  }
-  {
-    updateOption("openFocus", openFocus);
-  }
-  {
-    updateOption("closeFocus", closeFocus);
-  }
-  {
-    updateOption("onOutsideClick", onOutsideClick);
-  }
-  $$unsubscribe_idValues();
-  return `${slots.default ? slots.default({ ids: $idValues }) : ``}`;
-});
-const Dialog_title$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["level", "asChild", "id", "el"]);
-  let $title, $$unsubscribe_title;
-  let { level = "h2" } = $$props;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { title }, ids, getAttrs: getAttrs2 } = getCtx$2();
-  $$unsubscribe_title = subscribe(title, (value) => $title = value);
-  const attrs = getAttrs2("title");
-  if ($$props.level === void 0 && $$bindings.level && level !== void 0) $$bindings.level(level);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    if (id) {
-      ids.title.set(id);
-    }
-  }
-  builder = $title;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_title();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `${((tag) => {
-    return tag ? `<${level}${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${is_void(tag) ? "" : `${slots.default ? slots.default({ builder }) : ``}`}${is_void(tag) ? "" : `</${tag}>`}` : "";
-  })(level)}`}`;
-});
-const Dialog_close = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $close, $$unsubscribe_close;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { close }, getAttrs: getAttrs2 } = getCtx$2();
-  $$unsubscribe_close = subscribe(close, (value) => $close = value);
-  createDispatcher();
-  const attrs = getAttrs2("close");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $close;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_close();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-const Dialog_portal$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $portalled, $$unsubscribe_portalled;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { portalled }, getAttrs: getAttrs2 } = getCtx$2();
-  $$unsubscribe_portalled = subscribe(portalled, (value) => $portalled = value);
-  const attrs = getAttrs2("portal");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $portalled;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_portalled();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>`}`;
-});
-const Dialog_content$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "transition",
-    "transitionConfig",
-    "inTransition",
-    "inTransitionConfig",
-    "outTransition",
-    "outTransitionConfig",
-    "asChild",
-    "id",
-    "el"
-  ]);
-  let $content, $$unsubscribe_content;
-  let $open, $$unsubscribe_open;
-  let { transition = void 0 } = $$props;
-  let { transitionConfig = void 0 } = $$props;
-  let { inTransition = void 0 } = $$props;
-  let { inTransitionConfig = void 0 } = $$props;
-  let { outTransition = void 0 } = $$props;
-  let { outTransitionConfig = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { content }, states: { open }, ids, getAttrs: getAttrs2 } = getCtx$2();
-  $$unsubscribe_content = subscribe(content, (value) => $content = value);
-  $$unsubscribe_open = subscribe(open, (value) => $open = value);
-  const attrs = getAttrs2("content");
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
-  if ($$props.inTransitionConfig === void 0 && $$bindings.inTransitionConfig && inTransitionConfig !== void 0) $$bindings.inTransitionConfig(inTransitionConfig);
-  if ($$props.outTransition === void 0 && $$bindings.outTransition && outTransition !== void 0) $$bindings.outTransition(outTransition);
-  if ($$props.outTransitionConfig === void 0 && $$bindings.outTransitionConfig && outTransitionConfig !== void 0) $$bindings.outTransitionConfig(outTransitionConfig);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    if (id) {
-      ids.content.set(id);
-    }
-  }
-  builder = $content;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_content();
-  $$unsubscribe_open();
-  return `${asChild && $open ? `${slots.default ? slots.default({ builder }) : ``}` : `${transition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && outTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${outTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${$open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : ``}`}`}`}`}`}`;
-});
-const Dialog_overlay$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "transition",
-    "transitionConfig",
-    "inTransition",
-    "inTransitionConfig",
-    "outTransition",
-    "outTransitionConfig",
-    "asChild",
-    "el"
-  ]);
-  let $overlay, $$unsubscribe_overlay;
-  let $open, $$unsubscribe_open;
-  let { transition = void 0 } = $$props;
-  let { transitionConfig = void 0 } = $$props;
-  let { inTransition = void 0 } = $$props;
-  let { inTransitionConfig = void 0 } = $$props;
-  let { outTransition = void 0 } = $$props;
-  let { outTransitionConfig = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { overlay }, states: { open }, getAttrs: getAttrs2 } = getCtx$2();
-  $$unsubscribe_overlay = subscribe(overlay, (value) => $overlay = value);
-  $$unsubscribe_open = subscribe(open, (value) => $open = value);
-  const attrs = getAttrs2("overlay");
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
-  if ($$props.inTransitionConfig === void 0 && $$bindings.inTransitionConfig && inTransitionConfig !== void 0) $$bindings.inTransitionConfig(inTransitionConfig);
-  if ($$props.outTransition === void 0 && $$bindings.outTransition && outTransition !== void 0) $$bindings.outTransition(outTransition);
-  if ($$props.outTransitionConfig === void 0 && $$bindings.outTransitionConfig && outTransitionConfig !== void 0) $$bindings.outTransitionConfig(outTransitionConfig);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $overlay;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_overlay();
-  $$unsubscribe_open();
-  return `${asChild && $open ? `${slots.default ? slots.default({ builder }) : ``}` : `${transition && $open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : `${inTransition && outTransition && $open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : `${inTransition && $open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : `${outTransition && $open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : `${$open ? ` <div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}></div>` : ``}`}`}`}`}`}`;
-});
-function getLabelData() {
-  const NAME2 = "label";
-  const PARTS2 = ["root"];
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
+  $$payload.out += `<!--]--> `;
+  Checkbox_input($$payload);
+  $$payload.out += `<!---->`;
+  bind_props($$props, { checked, ref, indeterminate });
+  pop();
+}
+function get(valueOrGetValue) {
+  return typeof valueOrGetValue === "function" ? valueOrGetValue() : valueOrGetValue;
+}
+function getDPR(element2) {
+  if (typeof window === "undefined") return 1;
+  const win = element2.ownerDocument.defaultView || window;
+  return win.devicePixelRatio || 1;
+}
+function roundByDPR(element2, value) {
+  const dpr = getDPR(element2);
+  return Math.round(value * dpr) / dpr;
+}
+function getFloatingContentCSSVars(name) {
   return {
-    NAME: NAME2,
-    getAttrs: getAttrs2
+    [`--bits-${name}-content-transform-origin`]: `var(--bits-floating-transform-origin)`,
+    [`--bits-${name}-content-available-width`]: `var(--bits-floating-available-width)`,
+    [`--bits-${name}-content-available-height`]: `var(--bits-floating-available-height)`,
+    [`--bits-${name}-anchor-width`]: `var(--bits-floating-anchor-width)`,
+    [`--bits-${name}-anchor-height`]: `var(--bits-floating-anchor-height)`
   };
 }
-const Label$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $root, $$unsubscribe_root;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { root } } = createLabel();
-  $$unsubscribe_root = subscribe(root, (value) => $root = value);
-  createDispatcher();
-  const { getAttrs: getAttrs2 } = getLabelData();
-  const attrs = getAttrs2("root");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $root;
-  {
-    Object.assign(builder, attrs);
+function useFloating(options) {
+  get(options.open) ?? true;
+  const middlewareOption = get(options.middleware);
+  const transformOption = get(options.transform) ?? true;
+  const placementOption = get(options.placement) ?? "bottom";
+  const strategyOption = get(options.strategy) ?? "absolute";
+  const reference = options.reference;
+  let x = 0;
+  let y = 0;
+  const floating = box(null);
+  let strategy = strategyOption;
+  let placement = placementOption;
+  let middlewareData = {};
+  let isPositioned = false;
+  const floatingStyles = (() => {
+    const initialStyles = { position: strategy, left: "0", top: "0" };
+    if (!floating.current) {
+      return initialStyles;
+    }
+    const xVal = roundByDPR(floating.current, x);
+    const yVal = roundByDPR(floating.current, y);
+    if (transformOption) {
+      return {
+        ...initialStyles,
+        transform: `translate(${xVal}px, ${yVal}px)`,
+        ...getDPR(floating.current) >= 1.5 && { willChange: "transform" }
+      };
+    }
+    return {
+      position: strategy,
+      left: `${xVal}px`,
+      top: `${yVal}px`
+    };
+  })();
+  function update() {
+    if (reference.current === null || floating.current === null) return;
+    computePosition(reference.current, floating.current, {
+      middleware: middlewareOption,
+      placement: placementOption,
+      strategy: strategyOption
+    }).then((position) => {
+      x = position.x;
+      y = position.y;
+      strategy = position.strategy;
+      placement = position.placement;
+      middlewareData = position.middlewareData;
+      isPositioned = true;
+    });
   }
-  $$unsubscribe_root();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<label${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</label>`}`;
-});
-const Popover = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $idValues, $$unsubscribe_idValues;
-  let { disableFocusTrap = void 0 } = $$props;
-  let { closeOnEscape = void 0 } = $$props;
-  let { closeOnOutsideClick = void 0 } = $$props;
-  let { preventScroll = void 0 } = $$props;
-  let { portal = void 0 } = $$props;
-  let { open = void 0 } = $$props;
-  let { onOpenChange = void 0 } = $$props;
-  let { openFocus = void 0 } = $$props;
-  let { closeFocus = void 0 } = $$props;
-  let { onOutsideClick = void 0 } = $$props;
-  const { updateOption, states: { open: localOpen }, ids } = setCtx$2({
-    disableFocusTrap,
-    closeOnEscape,
-    closeOnOutsideClick,
-    preventScroll,
-    portal,
-    defaultOpen: open,
-    openFocus,
-    closeFocus,
-    onOutsideClick,
-    onOpenChange: ({ next: next2 }) => {
-      if (open !== next2) {
-        onOpenChange == null ? void 0 : onOpenChange(next2);
-        open = next2;
-      }
-      return next2;
+  return {
+    floating,
+    reference,
+    get strategy() {
+      return strategy;
     },
-    positioning: { gutter: 0, offset: { mainAxis: 1 } }
-  });
-  const idValues = derived([ids.content, ids.trigger], ([$contentId, $triggerId]) => ({ content: $contentId, trigger: $triggerId }));
-  $$unsubscribe_idValues = subscribe(idValues, (value) => $idValues = value);
-  if ($$props.disableFocusTrap === void 0 && $$bindings.disableFocusTrap && disableFocusTrap !== void 0) $$bindings.disableFocusTrap(disableFocusTrap);
-  if ($$props.closeOnEscape === void 0 && $$bindings.closeOnEscape && closeOnEscape !== void 0) $$bindings.closeOnEscape(closeOnEscape);
-  if ($$props.closeOnOutsideClick === void 0 && $$bindings.closeOnOutsideClick && closeOnOutsideClick !== void 0) $$bindings.closeOnOutsideClick(closeOnOutsideClick);
-  if ($$props.preventScroll === void 0 && $$bindings.preventScroll && preventScroll !== void 0) $$bindings.preventScroll(preventScroll);
-  if ($$props.portal === void 0 && $$bindings.portal && portal !== void 0) $$bindings.portal(portal);
-  if ($$props.open === void 0 && $$bindings.open && open !== void 0) $$bindings.open(open);
-  if ($$props.onOpenChange === void 0 && $$bindings.onOpenChange && onOpenChange !== void 0) $$bindings.onOpenChange(onOpenChange);
-  if ($$props.openFocus === void 0 && $$bindings.openFocus && openFocus !== void 0) $$bindings.openFocus(openFocus);
-  if ($$props.closeFocus === void 0 && $$bindings.closeFocus && closeFocus !== void 0) $$bindings.closeFocus(closeFocus);
-  if ($$props.onOutsideClick === void 0 && $$bindings.onOutsideClick && onOutsideClick !== void 0) $$bindings.onOutsideClick(onOutsideClick);
-  open !== void 0 && localOpen.set(open);
-  {
-    updateOption("disableFocusTrap", disableFocusTrap);
-  }
-  {
-    updateOption("closeOnEscape", closeOnEscape);
-  }
-  {
-    updateOption("closeOnOutsideClick", closeOnOutsideClick);
-  }
-  {
-    updateOption("preventScroll", preventScroll);
-  }
-  {
-    updateOption("portal", portal);
-  }
-  {
-    updateOption("openFocus", openFocus);
-  }
-  {
-    updateOption("closeFocus", closeFocus);
-  }
-  {
-    updateOption("onOutsideClick", onOutsideClick);
-  }
-  $$unsubscribe_idValues();
-  return `${slots.default ? slots.default({ ids: $idValues }) : ``}`;
-});
-const Popover_content$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "transition",
-    "transitionConfig",
-    "inTransition",
-    "inTransitionConfig",
-    "outTransition",
-    "outTransitionConfig",
-    "asChild",
-    "id",
-    "side",
-    "align",
-    "sideOffset",
-    "alignOffset",
-    "collisionPadding",
-    "avoidCollisions",
-    "collisionBoundary",
-    "sameWidth",
-    "fitViewport",
-    "strategy",
-    "overlap",
-    "el"
-  ]);
-  let $open, $$unsubscribe_open;
-  let $content, $$unsubscribe_content;
-  let { transition = void 0 } = $$props;
-  let { transitionConfig = void 0 } = $$props;
-  let { inTransition = void 0 } = $$props;
-  let { inTransitionConfig = void 0 } = $$props;
-  let { outTransition = void 0 } = $$props;
-  let { outTransitionConfig = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { side = "bottom" } = $$props;
-  let { align = "center" } = $$props;
-  let { sideOffset = 0 } = $$props;
-  let { alignOffset = 0 } = $$props;
-  let { collisionPadding = 8 } = $$props;
-  let { avoidCollisions = true } = $$props;
-  let { collisionBoundary = void 0 } = $$props;
-  let { sameWidth = false } = $$props;
-  let { fitViewport = false } = $$props;
-  let { strategy = "absolute" } = $$props;
-  let { overlap = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { content }, states: { open }, ids, getAttrs: getAttrs2 } = getCtx$3();
-  $$unsubscribe_content = subscribe(content, (value) => $content = value);
-  $$unsubscribe_open = subscribe(open, (value) => $open = value);
-  const attrs = getAttrs2("content");
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  if ($$props.inTransition === void 0 && $$bindings.inTransition && inTransition !== void 0) $$bindings.inTransition(inTransition);
-  if ($$props.inTransitionConfig === void 0 && $$bindings.inTransitionConfig && inTransitionConfig !== void 0) $$bindings.inTransitionConfig(inTransitionConfig);
-  if ($$props.outTransition === void 0 && $$bindings.outTransition && outTransition !== void 0) $$bindings.outTransition(outTransition);
-  if ($$props.outTransitionConfig === void 0 && $$bindings.outTransitionConfig && outTransitionConfig !== void 0) $$bindings.outTransitionConfig(outTransitionConfig);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.side === void 0 && $$bindings.side && side !== void 0) $$bindings.side(side);
-  if ($$props.align === void 0 && $$bindings.align && align !== void 0) $$bindings.align(align);
-  if ($$props.sideOffset === void 0 && $$bindings.sideOffset && sideOffset !== void 0) $$bindings.sideOffset(sideOffset);
-  if ($$props.alignOffset === void 0 && $$bindings.alignOffset && alignOffset !== void 0) $$bindings.alignOffset(alignOffset);
-  if ($$props.collisionPadding === void 0 && $$bindings.collisionPadding && collisionPadding !== void 0) $$bindings.collisionPadding(collisionPadding);
-  if ($$props.avoidCollisions === void 0 && $$bindings.avoidCollisions && avoidCollisions !== void 0) $$bindings.avoidCollisions(avoidCollisions);
-  if ($$props.collisionBoundary === void 0 && $$bindings.collisionBoundary && collisionBoundary !== void 0) $$bindings.collisionBoundary(collisionBoundary);
-  if ($$props.sameWidth === void 0 && $$bindings.sameWidth && sameWidth !== void 0) $$bindings.sameWidth(sameWidth);
-  if ($$props.fitViewport === void 0 && $$bindings.fitViewport && fitViewport !== void 0) $$bindings.fitViewport(fitViewport);
-  if ($$props.strategy === void 0 && $$bindings.strategy && strategy !== void 0) $$bindings.strategy(strategy);
-  if ($$props.overlap === void 0 && $$bindings.overlap && overlap !== void 0) $$bindings.overlap(overlap);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    if (id) {
-      ids.content.set(id);
+    get placement() {
+      return placement;
+    },
+    get middlewareData() {
+      return middlewareData;
+    },
+    get isPositioned() {
+      return isPositioned;
+    },
+    get floatingStyles() {
+      return floatingStyles;
+    },
+    get update() {
+      return update;
     }
+  };
+}
+const OPPOSITE_SIDE = {
+  top: "bottom",
+  right: "left",
+  bottom: "top",
+  left: "right"
+};
+class FloatingRootState {
+  constructor() {
+    __publicField(this, "anchorNode", box(null));
+    __publicField(this, "customAnchorNode", box(null));
+    __publicField(this, "triggerNode", box(null));
   }
-  builder = $content;
-  {
-    Object.assign(builder, attrs);
+}
+class FloatingContentState {
+  constructor(props, root) {
+    // state
+    __publicField(this, "root");
+    // nodes
+    __publicField(this, "contentRef", box(null));
+    __publicField(this, "wrapperRef", box(null));
+    __publicField(this, "arrowRef", box(null));
+    // ids
+    __publicField(this, "arrowId", box(useId()));
+    __publicField(this, "id");
+    __publicField(this, "wrapperId");
+    __publicField(this, "style");
+    __privateAdd(this, _transformedStyle, once(() => {
+      if (typeof this.style === "string") return cssToStyleObj(this.style);
+      if (!this.style) return {};
+    }));
+    __privateAdd(this, _dir);
+    __privateAdd(this, _side);
+    __privateAdd(this, _sideOffset);
+    __privateAdd(this, _align);
+    __privateAdd(this, _alignOffset);
+    __privateAdd(this, _arrowPadding);
+    __privateAdd(this, _avoidCollisions);
+    __privateAdd(this, _collisionBoundary);
+    __privateAdd(this, _collisionPadding);
+    __privateAdd(this, _sticky);
+    __privateAdd(this, _hideWhenDetached);
+    __privateAdd(this, _strategy);
+    __privateAdd(this, _updatePositionStrategy);
+    __publicField(this, "onPlaced");
+    __publicField(this, "enabled");
+    __privateAdd(this, _arrowSize, new ElementSize(() => this.arrowRef.current ?? void 0));
+    __privateAdd(this, _arrowWidth, once(() => {
+      var _a;
+      return ((_a = __privateGet(this, _arrowSize)) == null ? void 0 : _a.width) ?? 0;
+    }));
+    __privateAdd(this, _arrowHeight, once(() => {
+      var _a;
+      return ((_a = __privateGet(this, _arrowSize)) == null ? void 0 : _a.height) ?? 0;
+    }));
+    __privateAdd(this, _desiredPlacement, once(() => {
+      var _a;
+      return ((_a = __privateGet(this, _side)) == null ? void 0 : _a.current) + (__privateGet(this, _align).current !== "center" ? `-${__privateGet(this, _align).current}` : "");
+    }));
+    __privateAdd(this, _boundary, once(() => Array.isArray(__privateGet(this, _collisionBoundary).current) ? __privateGet(this, _collisionBoundary).current : [__privateGet(this, _collisionBoundary).current]));
+    __privateAdd(this, _hasExplicitBoundaries, once(() => __privateGet(this, _boundary).call(this).length > 0));
+    __privateAdd(this, _detectOverflowOptions, once(() => ({
+      padding: __privateGet(this, _collisionPadding).current,
+      boundary: __privateGet(this, _boundary).call(this).filter(isNotNull),
+      altBoundary: this.hasExplicitBoundaries
+    })));
+    __privateAdd(this, _availableWidth);
+    __privateAdd(this, _availableHeight);
+    __privateAdd(this, _anchorWidth);
+    __privateAdd(this, _anchorHeight);
+    __privateAdd(this, _middleware, once(() => [
+      offset({
+        mainAxis: __privateGet(this, _sideOffset).current + __privateGet(this, _arrowHeight).call(this),
+        alignmentAxis: __privateGet(this, _alignOffset).current
+      }),
+      __privateGet(this, _avoidCollisions).current && shift({
+        mainAxis: true,
+        crossAxis: false,
+        limiter: __privateGet(this, _sticky).current === "partial" ? limitShift() : void 0,
+        ...this.detectOverflowOptions
+      }),
+      __privateGet(this, _avoidCollisions).current && flip({ ...this.detectOverflowOptions }),
+      size({
+        ...this.detectOverflowOptions,
+        apply: ({ rects, availableWidth, availableHeight }) => {
+          const { width: anchorWidth, height: anchorHeight } = rects.reference;
+          __privateSet(this, _availableWidth, availableWidth);
+          __privateSet(this, _availableHeight, availableHeight);
+          __privateSet(this, _anchorWidth, anchorWidth);
+          __privateSet(this, _anchorHeight, anchorHeight);
+        }
+      }),
+      this.arrowRef.current && arrow({
+        element: this.arrowRef.current,
+        padding: __privateGet(this, _arrowPadding).current
+      }),
+      transformOrigin({
+        arrowWidth: __privateGet(this, _arrowWidth).call(this),
+        arrowHeight: __privateGet(this, _arrowHeight).call(this)
+      }),
+      __privateGet(this, _hideWhenDetached).current && hide({
+        strategy: "referenceHidden",
+        ...this.detectOverflowOptions
+      })
+    ].filter(Boolean)));
+    __publicField(this, "floating");
+    __privateAdd(this, _placedSide, once(() => getSideFromPlacement(this.floating.placement)));
+    __privateAdd(this, _placedAlign, once(() => getAlignFromPlacement(this.floating.placement)));
+    __privateAdd(this, _arrowX, once(() => {
+      var _a;
+      return ((_a = this.floating.middlewareData.arrow) == null ? void 0 : _a.x) ?? 0;
+    }));
+    __privateAdd(this, _arrowY, once(() => {
+      var _a;
+      return ((_a = this.floating.middlewareData.arrow) == null ? void 0 : _a.y) ?? 0;
+    }));
+    __privateAdd(this, _cannotCenterArrow, once(() => {
+      var _a;
+      return ((_a = this.floating.middlewareData.arrow) == null ? void 0 : _a.centerOffset) !== 0;
+    }));
+    __publicField(this, "contentZIndex");
+    __privateAdd(this, _arrowBaseSide, once(() => OPPOSITE_SIDE[this.placedSide]));
+    __privateAdd(this, _wrapperProps2, once(() => {
+      var _a, _b, _c;
+      return {
+        id: this.wrapperId.current,
+        "data-bits-floating-content-wrapper": "",
+        style: {
+          ...this.floating.floatingStyles,
+          // keep off page when measuring
+          transform: this.floating.isPositioned ? this.floating.floatingStyles.transform : "translate(0, -200%)",
+          minWidth: "max-content",
+          zIndex: this.contentZIndex,
+          "--bits-floating-transform-origin": `${(_a = this.floating.middlewareData.transformOrigin) == null ? void 0 : _a.x} ${(_b = this.floating.middlewareData.transformOrigin) == null ? void 0 : _b.y}`,
+          "--bits-floating-available-width": `${__privateGet(this, _availableWidth)}px`,
+          "--bits-floating-available-height": `${__privateGet(this, _availableHeight)}px`,
+          "--bits-floating-anchor-width": `${__privateGet(this, _anchorWidth)}px`,
+          "--bits-floating-anchor-height": `${__privateGet(this, _anchorHeight)}px`,
+          // hide the content if using the hide middleware and should be hidden
+          ...((_c = this.floating.middlewareData.hide) == null ? void 0 : _c.referenceHidden) && {
+            visibility: "hidden",
+            "pointer-events": "none"
+          },
+          ...__privateGet(this, _transformedStyle).call(this)
+        },
+        // Floating UI calculates logical alignment based the `dir` attribute
+        dir: __privateGet(this, _dir).current
+      };
+    }));
+    __privateAdd(this, _props28, once(() => ({
+      "data-side": this.placedSide,
+      "data-align": this.placedAlign,
+      style: styleToString({
+        ...__privateGet(this, _transformedStyle).call(this)
+        // if the FloatingContent hasn't been placed yet (not all measurements done)
+      })
+    })));
+    __privateAdd(this, _arrowStyle, once(() => ({
+      position: "absolute",
+      left: this.arrowX ? `${this.arrowX}px` : void 0,
+      top: this.arrowY ? `${this.arrowY}px` : void 0,
+      [this.arrowBaseSide]: 0,
+      "transform-origin": {
+        top: "",
+        right: "0 0",
+        bottom: "center 0",
+        left: "100% 0"
+      }[this.placedSide],
+      transform: {
+        top: "translateY(100%)",
+        right: "translateY(50%) rotate(90deg) translateX(-50%)",
+        bottom: "rotate(180deg)",
+        left: "translateY(50%) rotate(-90deg) translateX(50%)"
+      }[this.placedSide],
+      visibility: this.cannotCenterArrow ? "hidden" : void 0
+    })));
+    this.id = props.id;
+    __privateSet(this, _side, props.side);
+    __privateSet(this, _sideOffset, props.sideOffset);
+    __privateSet(this, _align, props.align);
+    __privateSet(this, _alignOffset, props.alignOffset);
+    __privateSet(this, _arrowPadding, props.arrowPadding);
+    __privateSet(this, _avoidCollisions, props.avoidCollisions);
+    __privateSet(this, _collisionBoundary, props.collisionBoundary);
+    __privateSet(this, _collisionPadding, props.collisionPadding);
+    __privateSet(this, _sticky, props.sticky);
+    __privateSet(this, _hideWhenDetached, props.hideWhenDetached);
+    __privateSet(this, _updatePositionStrategy, props.updatePositionStrategy);
+    this.onPlaced = props.onPlaced;
+    __privateSet(this, _strategy, props.strategy);
+    __privateSet(this, _dir, props.dir);
+    this.style = props.style;
+    this.root = root;
+    this.enabled = props.enabled;
+    this.wrapperId = props.wrapperId;
+    if (props.customAnchor) {
+      this.root.customAnchorNode.current = props.customAnchor.current;
+    }
+    useRefById({
+      id: this.wrapperId,
+      ref: this.wrapperRef,
+      deps: () => this.enabled.current
+    });
+    useRefById({
+      id: this.id,
+      ref: this.contentRef,
+      deps: () => this.enabled.current
+    });
+    this.floating = useFloating({
+      strategy: () => __privateGet(this, _strategy).current,
+      placement: () => __privateGet(this, _desiredPlacement).call(this),
+      middleware: () => this.middleware,
+      reference: this.root.anchorNode,
+      whileElementsMounted: (...args) => {
+        var _a;
+        const cleanup = autoUpdate(...args, {
+          animationFrame: ((_a = __privateGet(this, _updatePositionStrategy)) == null ? void 0 : _a.current) === "always"
+        });
+        return cleanup;
+      },
+      open: () => this.enabled.current
+    });
   }
-  {
-    if ($open) {
-      updatePositioning({
-        side,
-        align,
-        sideOffset,
-        alignOffset,
-        collisionPadding,
-        avoidCollisions,
-        collisionBoundary,
-        sameWidth,
-        fitViewport,
-        strategy,
-        overlap
+  get hasExplicitBoundaries() {
+    return __privateGet(this, _hasExplicitBoundaries).call(this);
+  }
+  get detectOverflowOptions() {
+    return __privateGet(this, _detectOverflowOptions).call(this);
+  }
+  get middleware() {
+    return __privateGet(this, _middleware).call(this);
+  }
+  get placedSide() {
+    return __privateGet(this, _placedSide).call(this);
+  }
+  get placedAlign() {
+    return __privateGet(this, _placedAlign).call(this);
+  }
+  get arrowX() {
+    return __privateGet(this, _arrowX).call(this);
+  }
+  get arrowY() {
+    return __privateGet(this, _arrowY).call(this);
+  }
+  get cannotCenterArrow() {
+    return __privateGet(this, _cannotCenterArrow).call(this);
+  }
+  get arrowBaseSide() {
+    return __privateGet(this, _arrowBaseSide).call(this);
+  }
+  get wrapperProps() {
+    return __privateGet(this, _wrapperProps2).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props28).call(this);
+  }
+  get arrowStyle() {
+    return __privateGet(this, _arrowStyle).call(this);
+  }
+}
+_transformedStyle = new WeakMap();
+_dir = new WeakMap();
+_side = new WeakMap();
+_sideOffset = new WeakMap();
+_align = new WeakMap();
+_alignOffset = new WeakMap();
+_arrowPadding = new WeakMap();
+_avoidCollisions = new WeakMap();
+_collisionBoundary = new WeakMap();
+_collisionPadding = new WeakMap();
+_sticky = new WeakMap();
+_hideWhenDetached = new WeakMap();
+_strategy = new WeakMap();
+_updatePositionStrategy = new WeakMap();
+_arrowSize = new WeakMap();
+_arrowWidth = new WeakMap();
+_arrowHeight = new WeakMap();
+_desiredPlacement = new WeakMap();
+_boundary = new WeakMap();
+_hasExplicitBoundaries = new WeakMap();
+_detectOverflowOptions = new WeakMap();
+_availableWidth = new WeakMap();
+_availableHeight = new WeakMap();
+_anchorWidth = new WeakMap();
+_anchorHeight = new WeakMap();
+_middleware = new WeakMap();
+_placedSide = new WeakMap();
+_placedAlign = new WeakMap();
+_arrowX = new WeakMap();
+_arrowY = new WeakMap();
+_cannotCenterArrow = new WeakMap();
+_arrowBaseSide = new WeakMap();
+_wrapperProps2 = new WeakMap();
+_props28 = new WeakMap();
+_arrowStyle = new WeakMap();
+class FloatingAnchorState {
+  constructor(props, root) {
+    __publicField(this, "ref", box(null));
+    if (props.virtualEl && props.virtualEl.current) {
+      root.triggerNode = box.from(props.virtualEl.current);
+    } else {
+      useRefById({
+        id: props.id,
+        ref: this.ref,
+        onRefChange: (node) => {
+          root.triggerNode.current = node;
+        }
       });
     }
   }
-  $$unsubscribe_open();
-  $$unsubscribe_content();
-  return `${asChild && $open ? `${slots.default ? slots.default({ builder }) : ``}` : `${transition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && outTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${inTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${outTransition && $open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : `${$open ? `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>` : ``}`}`}`}`}`}`;
-});
-const Popover_trigger = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let attrs;
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "id", "el"]);
-  let $trigger, $$unsubscribe_trigger;
-  let $open, $$unsubscribe_open;
-  let { asChild = false } = $$props;
-  let { id = void 0 } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { trigger }, states: { open }, ids, getAttrs: getAttrs2 } = getCtx$3();
-  $$unsubscribe_trigger = subscribe(trigger, (value) => $trigger = value);
-  $$unsubscribe_open = subscribe(open, (value) => $open = value);
-  createDispatcher();
-  const bitsAttrs = getAttrs2("trigger");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
+}
+const [
+  setFloatingRootContext,
+  getFloatingRootContext
+] = createContext("Floating.Root");
+const [
+  setFloatingContentContext,
+  getFloatingContentContext
+] = createContext("Floating.Content");
+function useFloatingRootState() {
+  return setFloatingRootContext(new FloatingRootState());
+}
+function useFloatingContentState(props) {
+  return setFloatingContentContext(new FloatingContentState(props, getFloatingRootContext()));
+}
+function useFloatingAnchorState(props) {
+  return new FloatingAnchorState(props, getFloatingRootContext());
+}
+function transformOrigin(options) {
+  return {
+    name: "transformOrigin",
+    options,
+    fn(data) {
+      var _a, _b, _c;
+      const { placement, rects, middlewareData } = data;
+      const cannotCenterArrow = ((_a = middlewareData.arrow) == null ? void 0 : _a.centerOffset) !== 0;
+      const isArrowHidden = cannotCenterArrow;
+      const arrowWidth = isArrowHidden ? 0 : options.arrowWidth;
+      const arrowHeight = isArrowHidden ? 0 : options.arrowHeight;
+      const [placedSide, placedAlign] = getSideAndAlignFromPlacement(placement);
+      const noArrowAlign = { start: "0%", center: "50%", end: "100%" }[placedAlign];
+      const arrowXCenter = (((_b = middlewareData.arrow) == null ? void 0 : _b.x) ?? 0) + arrowWidth / 2;
+      const arrowYCenter = (((_c = middlewareData.arrow) == null ? void 0 : _c.y) ?? 0) + arrowHeight / 2;
+      let x = "";
+      let y = "";
+      if (placedSide === "bottom") {
+        x = isArrowHidden ? noArrowAlign : `${arrowXCenter}px`;
+        y = `${-arrowHeight}px`;
+      } else if (placedSide === "top") {
+        x = isArrowHidden ? noArrowAlign : `${arrowXCenter}px`;
+        y = `${rects.floating.height + arrowHeight}px`;
+      } else if (placedSide === "right") {
+        x = `${-arrowHeight}px`;
+        y = isArrowHidden ? noArrowAlign : `${arrowYCenter}px`;
+      } else if (placedSide === "left") {
+        x = `${rects.floating.width + arrowHeight}px`;
+        y = isArrowHidden ? noArrowAlign : `${arrowYCenter}px`;
+      }
+      return { data: { x, y } };
+    }
+  };
+}
+function getSideAndAlignFromPlacement(placement) {
+  const [side, align = "center"] = placement.split("-");
+  return [side, align];
+}
+function getSideFromPlacement(placement) {
+  return getSideAndAlignFromPlacement(placement)[0];
+}
+function getAlignFromPlacement(placement) {
+  return getSideAndAlignFromPlacement(placement)[1];
+}
+function Floating_layer($$payload, $$props) {
+  push();
+  let { children } = $$props;
+  useFloatingRootState();
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!---->`;
+  pop();
+}
+function Floating_layer_anchor($$payload, $$props) {
+  push();
+  let { id, children, virtualEl } = $$props;
+  useFloatingAnchorState({
+    id: box.with(() => id),
+    virtualEl: box.with(() => virtualEl)
+  });
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!---->`;
+  pop();
+}
+function Floating_layer_content($$payload, $$props) {
+  push();
+  let {
+    content,
+    side = "bottom",
+    sideOffset = 0,
+    align = "center",
+    alignOffset = 0,
+    id,
+    arrowPadding = 0,
+    avoidCollisions = true,
+    collisionBoundary = [],
+    collisionPadding = 0,
+    hideWhenDetached = false,
+    onPlaced = () => {
+    },
+    sticky = "partial",
+    updatePositionStrategy = "optimized",
+    strategy = "fixed",
+    dir = "ltr",
+    style = {},
+    wrapperId = useId(),
+    customAnchor = null
+  } = $$props;
+  const contentState = useFloatingContentState({
+    side: box.with(() => side),
+    sideOffset: box.with(() => sideOffset),
+    align: box.with(() => align),
+    alignOffset: box.with(() => alignOffset),
+    id: box.with(() => id),
+    arrowPadding: box.with(() => arrowPadding),
+    avoidCollisions: box.with(() => avoidCollisions),
+    collisionBoundary: box.with(() => collisionBoundary),
+    collisionPadding: box.with(() => collisionPadding),
+    hideWhenDetached: box.with(() => hideWhenDetached),
+    onPlaced: box.with(() => onPlaced),
+    sticky: box.with(() => sticky),
+    updatePositionStrategy: box.with(() => updatePositionStrategy),
+    strategy: box.with(() => strategy),
+    dir: box.with(() => dir),
+    style: box.with(() => style),
+    enabled: box.with(() => false),
+    wrapperId: box.with(() => wrapperId),
+    customAnchor: box.with(() => customAnchor)
+  });
+  const mergedProps = mergeProps(contentState.wrapperProps, { style: { pointerEvents: "auto" } });
+  content == null ? void 0 : content($$payload, {
+    props: contentState.props,
+    wrapperProps: mergedProps
+  });
+  $$payload.out += `<!---->`;
+  pop();
+}
+function Floating_layer_content_static($$payload, $$props) {
+  push();
+  let { content, onPlaced } = $$props;
+  content == null ? void 0 : content($$payload, { props: {}, wrapperProps: {} });
+  $$payload.out += `<!---->`;
+  pop();
+}
+function Popper_content($$payload, $$props) {
+  let {
+    content,
+    isStatic = false,
+    onPlaced,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  if (isStatic) {
+    $$payload.out += "<!--[-->";
+    Floating_layer_content_static($$payload, { content, onPlaced });
+  } else {
+    $$payload.out += "<!--[!-->";
+    Floating_layer_content($$payload, spread_props([{ content, onPlaced }, restProps]));
+  }
+  $$payload.out += `<!--]-->`;
+}
+function Popper_layer_inner($$payload, $$props) {
+  push();
+  let {
+    popper,
+    onEscapeKeydown,
+    escapeKeydownBehavior,
+    preventOverflowTextSelection,
+    id,
+    onPointerDown,
+    onPointerUp,
+    side,
+    sideOffset,
+    align,
+    alignOffset,
+    arrowPadding,
+    avoidCollisions,
+    collisionBoundary,
+    collisionPadding,
+    sticky,
+    hideWhenDetached,
+    updatePositionStrategy,
+    strategy,
+    dir,
+    preventScroll,
+    wrapperId,
+    style,
+    onPlaced,
+    onInteractOutside,
+    onCloseAutoFocus,
+    onOpenAutoFocus,
+    onFocusOutside,
+    interactOutsideBehavior = "close",
+    loop,
+    trapFocus = true,
+    isValidEvent: isValidEvent2 = () => false,
+    customAnchor = null,
+    isStatic = false,
+    enabled,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
   {
-    if (id) {
-      ids.trigger.set(id);
+    let content = function($$payload2, { props: floatingProps, wrapperProps }) {
+      if (restProps.forceMount && enabled) {
+        $$payload2.out += "<!--[-->";
+        Scroll_lock($$payload2, { preventScroll });
+      } else {
+        $$payload2.out += "<!--[!-->";
+        if (!restProps.forceMount) {
+          $$payload2.out += "<!--[-->";
+          Scroll_lock($$payload2, { preventScroll });
+        } else {
+          $$payload2.out += "<!--[!-->";
+        }
+        $$payload2.out += `<!--]-->`;
+      }
+      $$payload2.out += `<!--]--> `;
+      {
+        let focusScope = function($$payload3, { props: focusScopeProps }) {
+          Escape_layer($$payload3, {
+            onEscapeKeydown,
+            escapeKeydownBehavior,
+            enabled,
+            children: ($$payload4) => {
+              {
+                let children = function($$payload5, { props: dismissibleProps }) {
+                  Text_selection_layer($$payload5, {
+                    id,
+                    preventOverflowTextSelection,
+                    onPointerDown,
+                    onPointerUp,
+                    enabled,
+                    children: ($$payload6) => {
+                      popper == null ? void 0 : popper($$payload6, {
+                        props: mergeProps(restProps, floatingProps, dismissibleProps, focusScopeProps, { style: { pointerEvents: "auto" } }),
+                        wrapperProps
+                      });
+                      $$payload6.out += `<!---->`;
+                    },
+                    $$slots: { default: true }
+                  });
+                };
+                Dismissible_layer($$payload4, {
+                  id,
+                  onInteractOutside,
+                  onFocusOutside,
+                  interactOutsideBehavior,
+                  isValidEvent: isValidEvent2,
+                  enabled,
+                  children,
+                  $$slots: { default: true }
+                });
+              }
+            },
+            $$slots: { default: true }
+          });
+        };
+        Focus_scope($$payload2, {
+          id,
+          onOpenAutoFocus,
+          onCloseAutoFocus,
+          loop,
+          trapFocus: enabled && trapFocus,
+          forceMount: restProps.forceMount,
+          focusScope,
+          $$slots: { focusScope: true }
+        });
+      }
+      $$payload2.out += `<!---->`;
+    };
+    Popper_content($$payload, {
+      isStatic,
+      id,
+      side,
+      sideOffset,
+      align,
+      alignOffset,
+      arrowPadding,
+      avoidCollisions,
+      collisionBoundary,
+      collisionPadding,
+      sticky,
+      hideWhenDetached,
+      updatePositionStrategy,
+      strategy,
+      dir,
+      wrapperId,
+      style,
+      onPlaced,
+      customAnchor,
+      content,
+      $$slots: { content: true }
+    });
+  }
+  pop();
+}
+function Popper_layer($$payload, $$props) {
+  let {
+    popper,
+    present,
+    onEscapeKeydown,
+    escapeKeydownBehavior,
+    preventOverflowTextSelection,
+    id,
+    onPointerDown,
+    onPointerUp,
+    side,
+    sideOffset,
+    align,
+    alignOffset,
+    arrowPadding,
+    avoidCollisions,
+    collisionBoundary,
+    collisionPadding,
+    sticky,
+    hideWhenDetached,
+    updatePositionStrategy,
+    strategy,
+    dir,
+    preventScroll,
+    wrapperId,
+    style,
+    onPlaced,
+    onInteractOutside,
+    onCloseAutoFocus,
+    onOpenAutoFocus,
+    onFocusOutside,
+    interactOutsideBehavior = "close",
+    loop,
+    trapFocus = true,
+    isValidEvent: isValidEvent2 = () => false,
+    customAnchor = null,
+    isStatic = false,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  {
+    let presence = function($$payload2, { present: present2 }) {
+      Popper_layer_inner($$payload2, spread_props([
+        {
+          popper,
+          onEscapeKeydown,
+          escapeKeydownBehavior,
+          preventOverflowTextSelection,
+          id,
+          onPointerDown,
+          onPointerUp,
+          side,
+          sideOffset,
+          align,
+          alignOffset,
+          arrowPadding,
+          avoidCollisions,
+          collisionBoundary,
+          collisionPadding,
+          sticky,
+          hideWhenDetached,
+          updatePositionStrategy,
+          strategy,
+          dir,
+          preventScroll,
+          wrapperId,
+          style,
+          onPlaced,
+          customAnchor,
+          isStatic,
+          enabled: present2.current,
+          onInteractOutside,
+          onCloseAutoFocus,
+          onOpenAutoFocus,
+          interactOutsideBehavior,
+          loop,
+          trapFocus,
+          isValidEvent: isValidEvent2,
+          onFocusOutside,
+          forceMount: false
+        },
+        restProps
+      ]));
+    };
+    Presence_layer($$payload, spread_props([
+      { id, present },
+      restProps,
+      { presence, $$slots: { presence: true } }
+    ]));
+  }
+}
+function Popper_layer_force_mount($$payload, $$props) {
+  let {
+    popper,
+    onEscapeKeydown,
+    escapeKeydownBehavior,
+    preventOverflowTextSelection,
+    id,
+    onPointerDown,
+    onPointerUp,
+    side,
+    sideOffset,
+    align,
+    alignOffset,
+    arrowPadding,
+    avoidCollisions,
+    collisionBoundary,
+    collisionPadding,
+    sticky,
+    hideWhenDetached,
+    updatePositionStrategy,
+    strategy,
+    dir,
+    preventScroll,
+    wrapperId,
+    style,
+    onPlaced,
+    onInteractOutside,
+    onCloseAutoFocus,
+    onOpenAutoFocus,
+    onFocusOutside,
+    interactOutsideBehavior = "close",
+    loop,
+    trapFocus = true,
+    isValidEvent: isValidEvent2 = () => false,
+    customAnchor = null,
+    isStatic = false,
+    enabled,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  Popper_layer_inner($$payload, spread_props([
+    {
+      popper,
+      onEscapeKeydown,
+      escapeKeydownBehavior,
+      preventOverflowTextSelection,
+      id,
+      onPointerDown,
+      onPointerUp,
+      side,
+      sideOffset,
+      align,
+      alignOffset,
+      arrowPadding,
+      avoidCollisions,
+      collisionBoundary,
+      collisionPadding,
+      sticky,
+      hideWhenDetached,
+      updatePositionStrategy,
+      strategy,
+      dir,
+      preventScroll,
+      wrapperId,
+      style,
+      onPlaced,
+      customAnchor,
+      isStatic,
+      enabled,
+      onInteractOutside,
+      onCloseAutoFocus,
+      onOpenAutoFocus,
+      interactOutsideBehavior,
+      loop,
+      trapFocus,
+      isValidEvent: isValidEvent2,
+      onFocusOutside
+    },
+    restProps,
+    { forceMount: true }
+  ]));
+}
+function findNextSibling(el, selector) {
+  let sibling = el.nextElementSibling;
+  while (sibling) {
+    if (sibling.matches(selector))
+      return sibling;
+    sibling = sibling.nextElementSibling;
+  }
+}
+function findPreviousSibling(el, selector) {
+  let sibling = el.previousElementSibling;
+  while (sibling) {
+    if (sibling.matches(selector))
+      return sibling;
+    sibling = sibling.previousElementSibling;
+  }
+}
+const SCORE_CONTINUE_MATCH = 1;
+const SCORE_SPACE_WORD_JUMP = 0.9;
+const SCORE_NON_SPACE_WORD_JUMP = 0.8;
+const SCORE_CHARACTER_JUMP = 0.17;
+const SCORE_TRANSPOSITION = 0.1;
+const PENALTY_SKIPPED = 0.999;
+const PENALTY_CASE_MISMATCH = 0.9999;
+const PENALTY_NOT_COMPLETE = 0.99;
+const IS_GAP_REGEXP = /[\\/_+.#"@[({&]/;
+const COUNT_GAPS_REGEXP = /[\\/_+.#"@[({&]/g;
+const IS_SPACE_REGEXP = /[\s-]/;
+const COUNT_SPACE_REGEXP = /[\s-]/g;
+function commandScoreInner(string, abbreviation, lowerString, lowerAbbreviation, stringIndex, abbreviationIndex, memoizedResults) {
+  if (abbreviationIndex === abbreviation.length) {
+    if (stringIndex === string.length) {
+      return SCORE_CONTINUE_MATCH;
+    }
+    return PENALTY_NOT_COMPLETE;
+  }
+  const memoizeKey = `${stringIndex},${abbreviationIndex}`;
+  if (memoizedResults[memoizeKey] !== void 0) {
+    return memoizedResults[memoizeKey];
+  }
+  const abbreviationChar = lowerAbbreviation.charAt(abbreviationIndex);
+  let index = lowerString.indexOf(abbreviationChar, stringIndex);
+  let highScore = 0;
+  let score, transposedScore, wordBreaks, spaceBreaks;
+  while (index >= 0) {
+    score = commandScoreInner(string, abbreviation, lowerString, lowerAbbreviation, index + 1, abbreviationIndex + 1, memoizedResults);
+    if (score > highScore) {
+      if (index === stringIndex) {
+        score *= SCORE_CONTINUE_MATCH;
+      } else if (IS_GAP_REGEXP.test(string.charAt(index - 1))) {
+        score *= SCORE_NON_SPACE_WORD_JUMP;
+        wordBreaks = string.slice(stringIndex, index - 1).match(COUNT_GAPS_REGEXP);
+        if (wordBreaks && stringIndex > 0) {
+          score *= PENALTY_SKIPPED ** wordBreaks.length;
+        }
+      } else if (IS_SPACE_REGEXP.test(string.charAt(index - 1))) {
+        score *= SCORE_SPACE_WORD_JUMP;
+        spaceBreaks = string.slice(stringIndex, index - 1).match(COUNT_SPACE_REGEXP);
+        if (spaceBreaks && stringIndex > 0) {
+          score *= PENALTY_SKIPPED ** spaceBreaks.length;
+        }
+      } else {
+        score *= SCORE_CHARACTER_JUMP;
+        if (stringIndex > 0) {
+          score *= PENALTY_SKIPPED ** (index - stringIndex);
+        }
+      }
+      if (string.charAt(index) !== abbreviation.charAt(abbreviationIndex)) {
+        score *= PENALTY_CASE_MISMATCH;
+      }
+    }
+    if (score < SCORE_TRANSPOSITION && lowerString.charAt(index - 1) === lowerAbbreviation.charAt(abbreviationIndex + 1) || lowerAbbreviation.charAt(abbreviationIndex + 1) === lowerAbbreviation.charAt(abbreviationIndex) && // allow duplicate letters. Ref #7428
+    lowerString.charAt(index - 1) !== lowerAbbreviation.charAt(abbreviationIndex)) {
+      transposedScore = commandScoreInner(string, abbreviation, lowerString, lowerAbbreviation, index + 1, abbreviationIndex + 2, memoizedResults);
+      if (transposedScore * SCORE_TRANSPOSITION > score) {
+        score = transposedScore * SCORE_TRANSPOSITION;
+      }
+    }
+    if (score > highScore) {
+      highScore = score;
+    }
+    index = lowerString.indexOf(abbreviationChar, index + 1);
+  }
+  memoizedResults[memoizeKey] = highScore;
+  return highScore;
+}
+function formatInput(string) {
+  return string.toLowerCase().replace(COUNT_SPACE_REGEXP, " ");
+}
+function commandScore(string, abbreviation, aliases) {
+  string = aliases && aliases.length > 0 ? `${`${string} ${aliases == null ? void 0 : aliases.join(" ")}`}` : string;
+  return commandScoreInner(string, abbreviation, formatInput(string), formatInput(abbreviation), 0, 0, {});
+}
+function getFirstNonCommentChild(element2) {
+  if (!element2)
+    return null;
+  for (const child of element2.childNodes) {
+    if (child.nodeType !== Node.COMMENT_NODE) {
+      return child;
     }
   }
-  attrs = {
-    ...bitsAttrs,
-    "aria-controls": $open ? ids.content : void 0
-  };
-  builder = $trigger;
-  {
-    Object.assign(builder, attrs);
-  }
-  $$unsubscribe_trigger();
-  $$unsubscribe_open();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-function getTabsData() {
-  const NAME2 = "tabs";
-  const PARTS2 = ["root", "content", "list", "trigger"];
-  return {
-    NAME: NAME2,
-    PARTS: PARTS2
-  };
+  return null;
 }
-function setCtx(props) {
-  const { NAME: NAME2, PARTS: PARTS2 } = getTabsData();
-  const getAttrs2 = createBitAttrs$1(NAME2, PARTS2);
-  const tabs = { ...createTabs(removeUndefined$1(props)), getAttrs: getAttrs2 };
-  setContext(NAME2, tabs);
-  return {
-    ...tabs,
-    updateOption: getOptionUpdater(tabs.options)
-  };
+const ROOT_ATTR$2 = "data-command-root";
+const INPUT_ATTR = "data-command-input";
+const EMPTY_ATTR = "data-command-empty";
+const GROUP_ATTR = "data-command-group";
+const GROUP_ITEMS_ATTR = "data-command-group-items";
+const GROUP_HEADING_ATTR = "data-command-group-heading";
+const ITEM_ATTR = "data-command-item";
+const VALUE_ATTR = `data-value`;
+const INPUT_LABEL_ATTR = "data-command-input-label";
+const GROUP_SELECTOR = `[${GROUP_ATTR}]`;
+const GROUP_ITEMS_SELECTOR = `[${GROUP_ITEMS_ATTR}]`;
+const GROUP_HEADING_SELECTOR = `[${GROUP_HEADING_ATTR}]`;
+const ITEM_SELECTOR = `[${ITEM_ATTR}]`;
+const VALID_ITEM_SELECTOR = `${ITEM_SELECTOR}:not([aria-disabled="true"])`;
+function defaultFilter(value, search, keywords) {
+  return commandScore(value, search, keywords);
 }
-function getCtx$1() {
-  const { NAME: NAME2 } = getTabsData();
-  return getContext(NAME2);
-}
-const Tabs = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, [
-    "orientation",
-    "activateOnFocus",
-    "loop",
-    "autoSet",
-    "value",
-    "onValueChange",
-    "asChild",
-    "el"
-  ]);
-  let $root, $$unsubscribe_root;
-  let $localValue, $$unsubscribe_localValue;
-  let { orientation = void 0 } = $$props;
-  let { activateOnFocus = void 0 } = $$props;
-  let { loop = void 0 } = $$props;
-  let { autoSet = void 0 } = $$props;
-  let { value = void 0 } = $$props;
-  let { onValueChange = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { root }, states: { value: localValue }, updateOption, getAttrs: getAttrs2 } = setCtx({
-    orientation,
-    activateOnFocus,
-    loop,
-    autoSet,
-    defaultValue: value,
-    onValueChange: ({ next: next2 }) => {
-      if (value !== next2) {
-        onValueChange == null ? void 0 : onValueChange(next2);
-        value = next2;
+const [setCommandRootContext, getCommandRootContext] = createContext("Command.Root");
+createContext("Command.List");
+const [
+  setCommandGroupContainerContext,
+  getCommandGroupContainerContext
+] = createContext("Command.Group");
+class CommandRootState {
+  constructor(props) {
+    __privateAdd(this, _CommandRootState_instances);
+    __privateAdd(this, _updateScheduled, false);
+    __publicField(this, "allItems", /* @__PURE__ */ new Set());
+    __publicField(this, "allGroups", /* @__PURE__ */ new Map());
+    __publicField(this, "allIds", /* @__PURE__ */ new Map());
+    __publicField(this, "id");
+    __publicField(this, "ref");
+    __publicField(this, "filter");
+    __publicField(this, "shouldFilter");
+    __publicField(this, "onStateChange");
+    __publicField(this, "loop");
+    // attempt to prevent the harsh delay when user is typing fast
+    __publicField(this, "key", 0);
+    __publicField(this, "viewportNode", null);
+    __publicField(this, "inputNode", null);
+    __publicField(this, "labelNode", null);
+    __publicField(this, "valueProp");
+    __privateAdd(this, _vimBindings);
+    __publicField(this, "disablePointerSelection");
+    // published state that the components and other things can react to
+    __publicField(this, "commandState", null);
+    // internal state that we mutate in batches and publish to the `state` at once
+    __publicField(this, "_commandState", null);
+    __privateAdd(this, _props29, once(() => ({
+      id: this.id.current,
+      role: "application",
+      [ROOT_ATTR$2]: "",
+      tabindex: -1,
+      onkeydown: this.onkeydown
+    })));
+    this.id = props.id;
+    this.ref = props.ref;
+    this.filter = props.filter;
+    this.shouldFilter = props.shouldFilter;
+    this.loop = props.loop;
+    this.valueProp = props.value;
+    __privateSet(this, _vimBindings, props.vimBindings);
+    this.disablePointerSelection = props.disablePointerSelection;
+    this.onStateChange = props.onStateChange;
+    const defaultState = {
+      /** Value of the search query */
+      search: "",
+      /** Currently selected item value */
+      value: this.valueProp.current ?? "",
+      filtered: {
+        /** The count of all visible items. */
+        count: 0,
+        /** Map from visible item id to its search store. */
+        items: /* @__PURE__ */ new Map(),
+        /** Set of groups with at least one visible item. */
+        groups: /* @__PURE__ */ new Set()
       }
-      return next2;
+    };
+    this._commandState = defaultState;
+    this.commandState = defaultState;
+    useRefById({ id: this.id, ref: this.ref });
+    this.onkeydown = this.onkeydown.bind(this);
+  }
+  setState(key, value, opts) {
+    if (Object.is(this._commandState[key], value)) return;
+    this._commandState[key] = value;
+    if (key === "search") {
+      __privateMethod(this, _CommandRootState_instances, filterItems_fn).call(this);
+      __privateMethod(this, _CommandRootState_instances, sort_fn).call(this);
+      __privateMethod(this, _CommandRootState_instances, selectFirstItem_fn).call(this);
+    } else if (key === "value") {
+      if (!opts) {
+        __privateMethod(this, _CommandRootState_instances, scrollSelectedIntoView_fn).call(this);
+      }
+    }
+    __privateMethod(this, _CommandRootState_instances, scheduleUpdate_fn).call(this);
+  }
+  setValue(value, opts) {
+    if (value !== this.valueProp.current && value === "") {
+      afterTick(() => {
+        this.key++;
+      });
+    }
+    this.setState("value", value, opts);
+    this.valueProp.current = value;
+  }
+  // keep id -> { value, keywords } mapping up to date
+  registerValue(id, value, keywords) {
+    var _a;
+    if (value === ((_a = this.allIds.get(id)) == null ? void 0 : _a.value)) return;
+    this.allIds.set(id, { value, keywords });
+    this._commandState.filtered.items.set(id, __privateMethod(this, _CommandRootState_instances, score_fn).call(this, value, keywords));
+    __privateMethod(this, _CommandRootState_instances, sort_fn).call(this);
+    return () => {
+      this.allIds.delete(id);
+    };
+  }
+  registerItem(id, groupId) {
+    this.allItems.add(id);
+    if (groupId) {
+      if (!this.allGroups.has(groupId)) {
+        this.allGroups.set(groupId, /* @__PURE__ */ new Set([id]));
+      } else {
+        this.allGroups.get(groupId).add(id);
+      }
+    }
+    __privateMethod(this, _CommandRootState_instances, filterItems_fn).call(this);
+    __privateMethod(this, _CommandRootState_instances, sort_fn).call(this);
+    __privateMethod(this, _CommandRootState_instances, scheduleUpdate_fn).call(this);
+    return () => {
+      this.allIds.delete(id);
+      this.allItems.delete(id);
+      this.commandState.filtered.items.delete(id);
+      const selectedItem = __privateMethod(this, _CommandRootState_instances, getSelectedItem_fn).call(this);
+      __privateMethod(this, _CommandRootState_instances, filterItems_fn).call(this);
+      if ((selectedItem == null ? void 0 : selectedItem.getAttribute("id")) === id) __privateMethod(this, _CommandRootState_instances, selectFirstItem_fn).call(this);
+      __privateMethod(this, _CommandRootState_instances, scheduleUpdate_fn).call(this);
+    };
+  }
+  registerGroup(id) {
+    if (!this.allGroups.has(id)) {
+      this.allGroups.set(id, /* @__PURE__ */ new Set());
+    }
+    return () => {
+      this.allIds.delete(id);
+      this.allGroups.delete(id);
+    };
+  }
+  onkeydown(e) {
+    switch (e.key) {
+      case n:
+      case j: {
+        if (__privateGet(this, _vimBindings).current && e.ctrlKey) {
+          __privateMethod(this, _CommandRootState_instances, next_fn).call(this, e);
+        }
+        break;
+      }
+      case ARROW_DOWN:
+        __privateMethod(this, _CommandRootState_instances, next_fn).call(this, e);
+        break;
+      case p:
+      case k: {
+        if (__privateGet(this, _vimBindings).current && e.ctrlKey) {
+          __privateMethod(this, _CommandRootState_instances, prev_fn).call(this, e);
+        }
+        break;
+      }
+      case ARROW_UP:
+        __privateMethod(this, _CommandRootState_instances, prev_fn).call(this, e);
+        break;
+      case HOME:
+        e.preventDefault();
+        __privateMethod(this, _CommandRootState_instances, updateSelectedToIndex_fn).call(this, 0);
+        break;
+      case END:
+        e.preventDefault();
+        __privateMethod(this, _CommandRootState_instances, last_fn).call(this);
+        break;
+      case ENTER: {
+        if (!e.isComposing && e.keyCode !== 229) {
+          e.preventDefault();
+          const item = __privateMethod(this, _CommandRootState_instances, getSelectedItem_fn).call(this);
+          if (item) {
+            item == null ? void 0 : item.click();
+          }
+        }
+      }
+    }
+  }
+  get props() {
+    return __privateGet(this, _props29).call(this);
+  }
+}
+_updateScheduled = new WeakMap();
+_vimBindings = new WeakMap();
+_CommandRootState_instances = new WeakSet();
+snapshot_fn = function() {
+  return this._commandState;
+};
+scheduleUpdate_fn = function() {
+  if (__privateGet(this, _updateScheduled)) return;
+  __privateSet(this, _updateScheduled, true);
+  afterTick(() => {
+    var _a, _b;
+    __privateSet(this, _updateScheduled, false);
+    const currentState = __privateMethod(this, _CommandRootState_instances, snapshot_fn).call(this);
+    const hasStateChanged = !Object.is(this.commandState, currentState);
+    if (hasStateChanged) {
+      this.commandState = currentState;
+      (_b = (_a = this.onStateChange) == null ? void 0 : _a.current) == null ? void 0 : _b.call(_a, snapshot(currentState));
     }
   });
-  $$unsubscribe_root = subscribe(root, (value2) => $root = value2);
-  $$unsubscribe_localValue = subscribe(localValue, (value2) => $localValue = value2);
-  const attrs = getAttrs2("root");
-  if ($$props.orientation === void 0 && $$bindings.orientation && orientation !== void 0) $$bindings.orientation(orientation);
-  if ($$props.activateOnFocus === void 0 && $$bindings.activateOnFocus && activateOnFocus !== void 0) $$bindings.activateOnFocus(activateOnFocus);
-  if ($$props.loop === void 0 && $$bindings.loop && loop !== void 0) $$bindings.loop(loop);
-  if ($$props.autoSet === void 0 && $$bindings.autoSet && autoSet !== void 0) $$bindings.autoSet(autoSet);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.onValueChange === void 0 && $$bindings.onValueChange && onValueChange !== void 0) $$bindings.onValueChange(onValueChange);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  value !== void 0 && localValue.set(value);
-  {
-    updateOption("orientation", orientation);
+};
+score_fn = function(value, keywords) {
+  const filter = this.filter.current ?? defaultFilter;
+  const score = value ? filter(value, this._commandState.search, keywords) : 0;
+  return score;
+};
+sort_fn = function() {
+  var _a;
+  if (!this._commandState.search || this.shouldFilter.current === false) {
+    if (!this.commandState.value) __privateMethod(this, _CommandRootState_instances, selectFirstItem_fn).call(this);
+    return;
   }
-  {
-    updateOption("activateOnFocus", activateOnFocus);
+  const scores = this._commandState.filtered.items;
+  const groups = [];
+  for (const value of this._commandState.filtered.groups) {
+    const items = this.allGroups.get(value);
+    let max = 0;
+    if (!items) {
+      groups.push([value, max]);
+      continue;
+    }
+    for (const item of items) {
+      const score = scores.get(item);
+      max = Math.max(score ?? 0, max);
+    }
+    groups.push([value, max]);
   }
-  {
-    updateOption("loop", loop);
+  const listInsertionElement = this.viewportNode;
+  const sorted = __privateMethod(this, _CommandRootState_instances, getValidItems_fn).call(this).sort((a, b) => {
+    const valueA = a.getAttribute("id");
+    const valueB = b.getAttribute("id");
+    const scoresA = scores.get(valueA) ?? 0;
+    const scoresB = scores.get(valueB) ?? 0;
+    return scoresB - scoresA;
+  });
+  for (const item of sorted) {
+    const group = item.closest(GROUP_ITEMS_SELECTOR);
+    if (group) {
+      const itemToAppend = item.parentElement === group ? item : item.closest(`${GROUP_ITEMS_SELECTOR} > *`);
+      if (itemToAppend) {
+        group.appendChild(itemToAppend);
+      }
+    } else {
+      const itemToAppend = item.parentElement === listInsertionElement ? item : item.closest(`${GROUP_ITEMS_SELECTOR} > *`);
+      if (itemToAppend) {
+        listInsertionElement == null ? void 0 : listInsertionElement.appendChild(itemToAppend);
+      }
+    }
   }
-  {
-    updateOption("autoSet", autoSet);
+  const sortedGroups = groups.sort((a, b) => b[1] - a[1]);
+  for (const group of sortedGroups) {
+    const element2 = listInsertionElement == null ? void 0 : listInsertionElement.querySelector(`${GROUP_SELECTOR}[${VALUE_ATTR}="${encodeURIComponent(group[0])}"]`);
+    (_a = element2 == null ? void 0 : element2.parentElement) == null ? void 0 : _a.appendChild(element2);
   }
-  builder = $root;
-  {
-    Object.assign(builder, attrs);
+};
+selectFirstItem_fn = function() {
+  afterTick(() => {
+    const item = __privateMethod(this, _CommandRootState_instances, getValidItems_fn).call(this).find((item2) => item2.getAttribute("aria-disabled") !== "true");
+    const value = item == null ? void 0 : item.getAttribute(VALUE_ATTR);
+    this.setValue(value || "");
+  });
+};
+filterItems_fn = function() {
+  var _a, _b;
+  if (!this._commandState.search || this.shouldFilter.current === false) {
+    this._commandState.filtered.count = this.allItems.size;
+    return;
   }
-  $$unsubscribe_root();
-  $$unsubscribe_localValue();
-  return `${asChild ? `${slots.default ? slots.default({ builder, value: $localValue }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder, value: $localValue }) : ``}</div>`}`;
-});
-const Tabs_content$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["value", "asChild", "el"]);
-  let $content, $$unsubscribe_content;
-  let { value } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { content }, getAttrs: getAttrs2 } = getCtx$1();
-  $$unsubscribe_content = subscribe(content, (value2) => $content = value2);
-  const attrs = getAttrs2("content");
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $content(value);
-  {
-    Object.assign(builder, attrs);
+  this._commandState.filtered.groups = /* @__PURE__ */ new Set();
+  let itemCount = 0;
+  for (const id of this.allItems) {
+    const value = ((_a = this.allIds.get(id)) == null ? void 0 : _a.value) ?? "";
+    const keywords = ((_b = this.allIds.get(id)) == null ? void 0 : _b.keywords) ?? [];
+    const rank = __privateMethod(this, _CommandRootState_instances, score_fn).call(this, value, keywords);
+    this._commandState.filtered.items.set(id, rank);
+    if (rank > 0) itemCount++;
   }
-  $$unsubscribe_content();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>`}`;
-});
-const Tabs_list$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["asChild", "el"]);
-  let $list, $$unsubscribe_list;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { list }, getAttrs: getAttrs2 } = getCtx$1();
-  $$unsubscribe_list = subscribe(list, (value) => $list = value);
-  const attrs = getAttrs2("list");
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $list;
-  {
-    Object.assign(builder, attrs);
+  for (const [groupId, group] of this.allGroups) {
+    for (const itemId of group) {
+      const currItem = this._commandState.filtered.items.get(itemId);
+      if (currItem && currItem > 0) {
+        this._commandState.filtered.groups.add(groupId);
+        break;
+      }
+    }
   }
-  $$unsubscribe_list();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<div${spread([escape_object(builder), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</div>`}`;
-});
-const Tabs_trigger$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let builder;
-  let $$restProps = compute_rest_props($$props, ["value", "disabled", "asChild", "el"]);
-  let $trigger, $$unsubscribe_trigger;
-  let { value } = $$props;
-  let { disabled = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const { elements: { trigger }, getAttrs: getAttrs2 } = getCtx$1();
-  $$unsubscribe_trigger = subscribe(trigger, (value2) => $trigger = value2);
-  createDispatcher();
-  const attrs = getAttrs2("trigger");
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  builder = $trigger({ value, disabled });
-  {
-    Object.assign(builder, attrs);
+  this._commandState.filtered.count = itemCount;
+};
+getValidItems_fn = function() {
+  const node = this.ref.current;
+  if (!node) return [];
+  const validItems = Array.from(node.querySelectorAll(VALID_ITEM_SELECTOR)).filter((el) => !!el);
+  return validItems;
+};
+getSelectedItem_fn = function() {
+  const node = this.ref.current;
+  if (!node) return;
+  const selectedNode = node.querySelector(`${VALID_ITEM_SELECTOR}[aria-selected="true"]`);
+  if (!selectedNode) return;
+  return selectedNode;
+};
+scrollSelectedIntoView_fn = function() {
+  afterSleep(1, () => {
+    var _a, _b, _c, _d, _e;
+    const item = __privateMethod(this, _CommandRootState_instances, getSelectedItem_fn).call(this);
+    if (!item) return;
+    const grandparent = (_a = item.parentElement) == null ? void 0 : _a.parentElement;
+    if (!grandparent) return;
+    const firstChildOfParent = getFirstNonCommentChild(grandparent);
+    if (firstChildOfParent && ((_b = firstChildOfParent.dataset) == null ? void 0 : _b.value) === ((_c = item.dataset) == null ? void 0 : _c.value)) {
+      (_e = (_d = item == null ? void 0 : item.closest(GROUP_SELECTOR)) == null ? void 0 : _d.querySelector(GROUP_HEADING_SELECTOR)) == null ? void 0 : _e.scrollIntoView({ block: "nearest" });
+      return;
+    }
+    item.scrollIntoView({ block: "nearest" });
+  });
+};
+updateSelectedToIndex_fn = function(index) {
+  const items = __privateMethod(this, _CommandRootState_instances, getValidItems_fn).call(this);
+  const item = items[index];
+  if (item) {
+    this.setValue(item.getAttribute(VALUE_ATTR) ?? "");
   }
-  $$unsubscribe_trigger();
-  return `${asChild ? `${slots.default ? slots.default({ builder }) : ``}` : `<button${spread([escape_object(builder), { type: "button" }, escape_object($$restProps)], {})}${add_attribute("this", el, 0)}>${slots.default ? slots.default({ builder }) : ``}</button>`}`;
-});
-function cubicOut(t) {
-  const f = t - 1;
-  return f * f * f + 1;
+};
+updateSelectedByItem_fn = function(change) {
+  const selected = __privateMethod(this, _CommandRootState_instances, getSelectedItem_fn).call(this);
+  const items = __privateMethod(this, _CommandRootState_instances, getValidItems_fn).call(this);
+  const index = items.findIndex((item) => item === selected);
+  let newSelected = items[index + change];
+  if (this.loop.current) {
+    newSelected = index + change < 0 ? items[items.length - 1] : index + change === items.length ? items[0] : items[index + change];
+  }
+  if (newSelected) {
+    this.setValue(newSelected.getAttribute(VALUE_ATTR) ?? "");
+  }
+};
+updateSelectedByGroup_fn = function(change) {
+  const selected = __privateMethod(this, _CommandRootState_instances, getSelectedItem_fn).call(this);
+  let group = selected == null ? void 0 : selected.closest(GROUP_SELECTOR);
+  let item;
+  while (group && !item) {
+    group = change > 0 ? findNextSibling(group, GROUP_SELECTOR) : findPreviousSibling(group, GROUP_SELECTOR);
+    item = group == null ? void 0 : group.querySelector(VALID_ITEM_SELECTOR);
+  }
+  if (item) {
+    this.setValue(item.getAttribute(VALUE_ATTR) ?? "");
+  } else {
+    __privateMethod(this, _CommandRootState_instances, updateSelectedByItem_fn).call(this, change);
+  }
+};
+last_fn = function() {
+  return __privateMethod(this, _CommandRootState_instances, updateSelectedToIndex_fn).call(this, __privateMethod(this, _CommandRootState_instances, getValidItems_fn).call(this).length - 1);
+};
+next_fn = function(e) {
+  e.preventDefault();
+  if (e.metaKey) {
+    __privateMethod(this, _CommandRootState_instances, last_fn).call(this);
+  } else if (e.altKey) {
+    __privateMethod(this, _CommandRootState_instances, updateSelectedByGroup_fn).call(this, 1);
+  } else {
+    __privateMethod(this, _CommandRootState_instances, updateSelectedByItem_fn).call(this, 1);
+  }
+};
+prev_fn = function(e) {
+  e.preventDefault();
+  if (e.metaKey) {
+    __privateMethod(this, _CommandRootState_instances, updateSelectedToIndex_fn).call(this, 0);
+  } else if (e.altKey) {
+    __privateMethod(this, _CommandRootState_instances, updateSelectedByGroup_fn).call(this, -1);
+  } else {
+    __privateMethod(this, _CommandRootState_instances, updateSelectedByItem_fn).call(this, -1);
+  }
+};
+_props29 = new WeakMap();
+class CommandEmptyState {
+  constructor(props, root) {
+    __privateAdd(this, _ref16);
+    __privateAdd(this, _id16);
+    __privateAdd(this, _root7);
+    __privateAdd(this, _forceMount2);
+    __privateAdd(this, _isInitialRender, true);
+    __privateAdd(this, _shouldRender2, once(() => __privateGet(this, _root7)._commandState.filtered.count === 0 && __privateGet(this, _isInitialRender) === false || __privateGet(this, _forceMount2).current));
+    __privateAdd(this, _props30, once(() => ({
+      id: __privateGet(this, _id16).current,
+      role: "presentation",
+      [EMPTY_ATTR]: ""
+    })));
+    __privateSet(this, _ref16, props.ref);
+    __privateSet(this, _id16, props.id);
+    __privateSet(this, _root7, root);
+    __privateSet(this, _forceMount2, props.forceMount);
+    useRefById({
+      id: __privateGet(this, _id16),
+      ref: __privateGet(this, _ref16),
+      deps: () => this.shouldRender
+    });
+  }
+  get shouldRender() {
+    return __privateGet(this, _shouldRender2).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props30).call(this);
+  }
 }
-function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
-  const o = +getComputedStyle(node).opacity;
-  return {
-    delay,
-    duration,
-    easing,
-    css: (t) => `opacity: ${t * o}`
-  };
+_ref16 = new WeakMap();
+_id16 = new WeakMap();
+_root7 = new WeakMap();
+_forceMount2 = new WeakMap();
+_isInitialRender = new WeakMap();
+_shouldRender2 = new WeakMap();
+_props30 = new WeakMap();
+class CommandGroupContainerState {
+  constructor(props, root) {
+    __privateAdd(this, _ref17);
+    __publicField(this, "id");
+    __publicField(this, "forceMount");
+    __privateAdd(this, _value3);
+    __privateAdd(this, _root8);
+    __publicField(this, "headingNode", null);
+    __privateAdd(this, _shouldRender3, once(() => {
+      if (this.forceMount.current) return true;
+      if (__privateGet(this, _root8).shouldFilter.current === false) return true;
+      if (!__privateGet(this, _root8).commandState.search) return true;
+      return __privateGet(this, _root8).commandState.filtered.groups.has(this.id.current);
+    }));
+    __publicField(this, "trueValue", "");
+    __privateAdd(this, _props31, once(() => ({
+      id: this.id.current,
+      role: "presentation",
+      hidden: this.shouldRender ? void 0 : true,
+      "data-value": this.trueValue,
+      [GROUP_ATTR]: ""
+    })));
+    __privateSet(this, _ref17, props.ref);
+    this.id = props.id;
+    __privateSet(this, _root8, root);
+    this.forceMount = props.forceMount;
+    __privateSet(this, _value3, props.value);
+    this.trueValue = props.value.current;
+    useRefById({
+      id: this.id,
+      ref: __privateGet(this, _ref17),
+      deps: () => this.shouldRender
+    });
+  }
+  get shouldRender() {
+    return __privateGet(this, _shouldRender3).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props31).call(this);
+  }
 }
-function slide(node, { delay = 0, duration = 400, easing = cubicOut, axis = "y" } = {}) {
-  const style = getComputedStyle(node);
-  const opacity = +style.opacity;
-  const primary_property = axis === "y" ? "height" : "width";
-  const primary_property_value = parseFloat(style[primary_property]);
-  const secondary_properties = axis === "y" ? ["top", "bottom"] : ["left", "right"];
-  const capitalized_secondary_properties = secondary_properties.map(
-    (e) => `${e[0].toUpperCase()}${e.slice(1)}`
-  );
-  const padding_start_value = parseFloat(style[`padding${capitalized_secondary_properties[0]}`]);
-  const padding_end_value = parseFloat(style[`padding${capitalized_secondary_properties[1]}`]);
-  const margin_start_value = parseFloat(style[`margin${capitalized_secondary_properties[0]}`]);
-  const margin_end_value = parseFloat(style[`margin${capitalized_secondary_properties[1]}`]);
-  const border_width_start_value = parseFloat(
-    style[`border${capitalized_secondary_properties[0]}Width`]
-  );
-  const border_width_end_value = parseFloat(
-    style[`border${capitalized_secondary_properties[1]}Width`]
-  );
-  return {
-    delay,
-    duration,
-    easing,
-    css: (t) => `overflow: hidden;opacity: ${Math.min(t * 20, 1) * opacity};${primary_property}: ${t * primary_property_value}px;padding-${secondary_properties[0]}: ${t * padding_start_value}px;padding-${secondary_properties[1]}: ${t * padding_end_value}px;margin-${secondary_properties[0]}: ${t * margin_start_value}px;margin-${secondary_properties[1]}: ${t * margin_end_value}px;border-${secondary_properties[0]}-width: ${t * border_width_start_value}px;border-${secondary_properties[1]}-width: ${t * border_width_end_value}px;`
-  };
+_ref17 = new WeakMap();
+_value3 = new WeakMap();
+_root8 = new WeakMap();
+_shouldRender3 = new WeakMap();
+_props31 = new WeakMap();
+class CommandGroupHeadingState {
+  constructor(props, group) {
+    __privateAdd(this, _ref18);
+    __privateAdd(this, _id17);
+    __privateAdd(this, _group);
+    __privateAdd(this, _props32, once(() => ({
+      id: __privateGet(this, _id17).current,
+      [GROUP_HEADING_ATTR]: ""
+    })));
+    __privateSet(this, _ref18, props.ref);
+    __privateSet(this, _id17, props.id);
+    __privateSet(this, _group, group);
+    useRefById({
+      id: __privateGet(this, _id17),
+      ref: __privateGet(this, _ref18),
+      onRefChange: (node) => {
+        __privateGet(this, _group).headingNode = node;
+      }
+    });
+  }
+  get props() {
+    return __privateGet(this, _props32).call(this);
+  }
+}
+_ref18 = new WeakMap();
+_id17 = new WeakMap();
+_group = new WeakMap();
+_props32 = new WeakMap();
+class CommandGroupItemsState {
+  constructor(props, group) {
+    __privateAdd(this, _ref19);
+    __privateAdd(this, _id18);
+    __privateAdd(this, _group2);
+    __privateAdd(this, _props33, once(() => {
+      var _a;
+      return {
+        id: __privateGet(this, _id18).current,
+        role: "group",
+        [GROUP_ITEMS_ATTR]: "",
+        "aria-labelledby": ((_a = __privateGet(this, _group2).headingNode) == null ? void 0 : _a.id) ?? void 0
+      };
+    }));
+    __privateSet(this, _ref19, props.ref);
+    __privateSet(this, _id18, props.id);
+    __privateSet(this, _group2, group);
+    useRefById({ id: __privateGet(this, _id18), ref: __privateGet(this, _ref19) });
+  }
+  get props() {
+    return __privateGet(this, _props33).call(this);
+  }
+}
+_ref19 = new WeakMap();
+_id18 = new WeakMap();
+_group2 = new WeakMap();
+_props33 = new WeakMap();
+class CommandInputState {
+  constructor(props, root) {
+    __privateAdd(this, _ref20);
+    __privateAdd(this, _id19);
+    __privateAdd(this, _root9);
+    __privateAdd(this, _value4);
+    __privateAdd(this, _autofocus);
+    __privateAdd(this, _selectedItemId, once(() => {
+      var _a;
+      const item = (_a = __privateGet(this, _root9).viewportNode) == null ? void 0 : _a.querySelector(`${ITEM_SELECTOR}[${VALUE_ATTR}="${encodeURIComponent(__privateGet(this, _value4).current)}"]`);
+      if (!item) return;
+      return (item == null ? void 0 : item.getAttribute("id")) ?? void 0;
+    }));
+    __privateAdd(this, _props34, once(() => {
+      var _a, _b;
+      return {
+        id: __privateGet(this, _id19).current,
+        type: "text",
+        [INPUT_ATTR]: "",
+        autocomplete: "off",
+        autocorrect: "off",
+        spellcheck: false,
+        "aria-autocomplete": "list",
+        role: "combobox",
+        "aria-expanded": getAriaExpanded(true),
+        "aria-controls": ((_a = __privateGet(this, _root9).viewportNode) == null ? void 0 : _a.id) ?? void 0,
+        "aria-labelledby": ((_b = __privateGet(this, _root9).labelNode) == null ? void 0 : _b.id) ?? void 0,
+        "aria-activedescendant": __privateGet(this, _selectedItemId).call(this)
+      };
+    }));
+    __privateSet(this, _ref20, props.ref);
+    __privateSet(this, _id19, props.id);
+    __privateSet(this, _root9, root);
+    __privateSet(this, _value4, props.value);
+    __privateSet(this, _autofocus, props.autofocus);
+    useRefById({
+      id: __privateGet(this, _id19),
+      ref: __privateGet(this, _ref20),
+      onRefChange: (node) => {
+        __privateGet(this, _root9).inputNode = node;
+      }
+    });
+  }
+  get props() {
+    return __privateGet(this, _props34).call(this);
+  }
+}
+_ref20 = new WeakMap();
+_id19 = new WeakMap();
+_root9 = new WeakMap();
+_value4 = new WeakMap();
+_autofocus = new WeakMap();
+_selectedItemId = new WeakMap();
+_props34 = new WeakMap();
+class CommandItemState {
+  constructor(props, root) {
+    __privateAdd(this, _CommandItemState_instances);
+    __privateAdd(this, _ref21);
+    __publicField(this, "id");
+    __publicField(this, "root");
+    __privateAdd(this, _value5);
+    __privateAdd(this, _disabled6);
+    __privateAdd(this, _onSelectProp);
+    __privateAdd(this, _forceMount3);
+    __privateAdd(this, _group3, null);
+    __privateAdd(this, _trueForceMount, once(() => {
+      var _a;
+      return __privateGet(this, _forceMount3).current || ((_a = __privateGet(this, _group3)) == null ? void 0 : _a.forceMount.current) === true;
+    }));
+    __publicField(this, "trueValue", "");
+    __privateAdd(this, _shouldRender4, once(() => {
+      if (__privateGet(this, _trueForceMount).call(this) || this.root.shouldFilter.current === false || !this.root.commandState.search) {
+        return true;
+      }
+      const currentScore = this.root.commandState.filtered.items.get(this.id.current);
+      if (currentScore === void 0) return false;
+      return currentScore > 0;
+    }));
+    __privateAdd(this, _isSelected, once(() => this.root.valueProp.current === this.trueValue && this.trueValue !== ""));
+    __privateAdd(this, _props35, once(() => ({
+      id: this.id.current,
+      "aria-disabled": getAriaDisabled(__privateGet(this, _disabled6).current),
+      "aria-selected": getAriaSelected(this.isSelected),
+      "data-disabled": getDataDisabled(__privateGet(this, _disabled6).current),
+      "data-selected": getDataSelected(this.isSelected),
+      "data-value": this.trueValue,
+      [ITEM_ATTR]: "",
+      role: "option",
+      onpointermove: this.onpointermove,
+      onclick: this.onclick
+    })));
+    __privateSet(this, _ref21, props.ref);
+    this.id = props.id;
+    this.root = root;
+    __privateSet(this, _value5, props.value);
+    __privateSet(this, _disabled6, props.disabled);
+    __privateSet(this, _onSelectProp, props.onSelect);
+    __privateSet(this, _forceMount3, props.forceMount);
+    __privateSet(this, _group3, getCommandGroupContainerContext(null));
+    this.trueValue = props.value.current;
+    useRefById({
+      id: this.id,
+      ref: __privateGet(this, _ref21),
+      deps: () => Boolean(this.root.commandState.search)
+    });
+    this.onclick = this.onclick.bind(this);
+    this.onpointermove = this.onpointermove.bind(this);
+  }
+  get shouldRender() {
+    return __privateGet(this, _shouldRender4).call(this);
+  }
+  get isSelected() {
+    return __privateGet(this, _isSelected).call(this);
+  }
+  onpointermove(_) {
+    if (__privateGet(this, _disabled6).current || this.root.disablePointerSelection.current) return;
+    __privateMethod(this, _CommandItemState_instances, select_fn).call(this);
+  }
+  onclick(_) {
+    if (__privateGet(this, _disabled6).current) return;
+    __privateMethod(this, _CommandItemState_instances, onSelect_fn).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props35).call(this);
+  }
+}
+_ref21 = new WeakMap();
+_value5 = new WeakMap();
+_disabled6 = new WeakMap();
+_onSelectProp = new WeakMap();
+_forceMount3 = new WeakMap();
+_group3 = new WeakMap();
+_trueForceMount = new WeakMap();
+_shouldRender4 = new WeakMap();
+_isSelected = new WeakMap();
+_CommandItemState_instances = new WeakSet();
+onSelect_fn = function() {
+  var _a;
+  if (__privateGet(this, _disabled6).current) return;
+  __privateMethod(this, _CommandItemState_instances, select_fn).call(this);
+  (_a = __privateGet(this, _onSelectProp)) == null ? void 0 : _a.current();
+};
+select_fn = function() {
+  if (__privateGet(this, _disabled6).current) return;
+  this.root.setValue(this.trueValue, true);
+};
+_props35 = new WeakMap();
+class CommandLabelState {
+  constructor(props, root) {
+    __privateAdd(this, _ref22);
+    __privateAdd(this, _id20);
+    __privateAdd(this, _root10);
+    __privateAdd(this, _for);
+    __privateAdd(this, _props36, once(() => {
+      var _a;
+      return {
+        id: __privateGet(this, _id20).current,
+        [INPUT_LABEL_ATTR]: "",
+        for: (_a = __privateGet(this, _for)) == null ? void 0 : _a.current,
+        style: srOnlyStyles
+      };
+    }));
+    __privateSet(this, _ref22, props.ref);
+    __privateSet(this, _id20, props.id);
+    __privateSet(this, _root10, root);
+    __privateSet(this, _for, props.for);
+    useRefById({
+      id: __privateGet(this, _id20),
+      ref: __privateGet(this, _ref22),
+      onRefChange: (node) => {
+        __privateGet(this, _root10).labelNode = node;
+      }
+    });
+  }
+  get props() {
+    return __privateGet(this, _props36).call(this);
+  }
+}
+_ref22 = new WeakMap();
+_id20 = new WeakMap();
+_root10 = new WeakMap();
+_for = new WeakMap();
+_props36 = new WeakMap();
+function useCommandRoot(props) {
+  return setCommandRootContext(new CommandRootState(props));
+}
+function useCommandEmpty(props) {
+  const root = getCommandRootContext();
+  return new CommandEmptyState(props, root);
+}
+function useCommandItem(props) {
+  const root = getCommandRootContext();
+  return new CommandItemState(props, root);
+}
+function useCommandGroupContainer(props) {
+  const root = getCommandRootContext();
+  return setCommandGroupContainerContext(new CommandGroupContainerState(props, root));
+}
+function useCommandGroupHeading(props) {
+  const groupContainer = getCommandGroupContainerContext();
+  return new CommandGroupHeadingState(props, groupContainer);
+}
+function useCommandGroupItems(props) {
+  const groupContainer = getCommandGroupContainerContext();
+  return new CommandGroupItemsState(props, groupContainer);
+}
+function useCommandInput(props) {
+  const root = getCommandRootContext();
+  return new CommandInputState(props, root);
+}
+function useCommandLabel(props) {
+  const root = getCommandRootContext();
+  return new CommandLabelState(props, root);
+}
+function _command_label($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const labelState = useCommandLabel({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, labelState.props);
+  $$payload.out += `<label${spread_attributes({ ...mergedProps })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></label>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Command$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    value = "",
+    onValueChange = noop,
+    onStateChange = noop,
+    loop = false,
+    shouldFilter = true,
+    filter = defaultFilter,
+    label = "",
+    vimBindings = true,
+    disablePointerSelection = false,
+    controlledValue = false,
+    children,
+    child,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const rootState = useCommandRoot({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    filter: box.with(() => filter),
+    shouldFilter: box.with(() => shouldFilter),
+    loop: box.with(() => loop),
+    value: box.with(() => value, (v) => {
+      if (controlledValue) {
+        onValueChange(v);
+      } else {
+        value = v;
+        onValueChange(v);
+      }
+    }),
+    vimBindings: box.with(() => vimBindings),
+    disablePointerSelection: box.with(() => disablePointerSelection),
+    onStateChange: box.with(() => onStateChange)
+  });
+  const mergedProps = mergeProps(restProps, rootState.props);
+  function Label2($$payload2) {
+    _command_label($$payload2, {
+      children: ($$payload3) => {
+        $$payload3.out += `<!---->${escape_html(label)}`;
+      },
+      $$slots: { default: true }
+    });
+  }
+  if (child) {
+    $$payload.out += "<!--[-->";
+    Label2($$payload);
+    $$payload.out += `<!----> `;
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    Label2($$payload);
+    $$payload.out += `<!----> `;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref, value });
+  pop();
+}
+function Command_empty$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    children,
+    child,
+    forceMount = false,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const emptyState = useCommandEmpty({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    forceMount: box.with(() => forceMount)
+  });
+  const mergedProps = mergeProps(emptyState.props, restProps);
+  if (emptyState.shouldRender) {
+    $$payload.out += "<!--[-->";
+    if (child) {
+      $$payload.out += "<!--[-->";
+      child($$payload, { props: mergedProps });
+      $$payload.out += `<!---->`;
+    } else {
+      $$payload.out += "<!--[!-->";
+      $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+      children == null ? void 0 : children($$payload);
+      $$payload.out += `<!----></div>`;
+    }
+    $$payload.out += `<!--]-->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Command_group$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    value = "",
+    forceMount = false,
+    children,
+    child,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const groupState = useCommandGroupContainer({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    forceMount: box.with(() => forceMount),
+    value: box.with(() => value)
+  });
+  const mergedProps = mergeProps(restProps, groupState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Command_group_heading($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    children,
+    child,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const headingState = useCommandGroupHeading({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, headingState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Command_group_items($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    children,
+    child,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const groupItemsState = useCommandGroupItems({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, groupItemsState.props);
+  $$payload.out += `<div style="display: contents;">`;
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]--></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Command_input$1($$payload, $$props) {
+  push();
+  let {
+    value = "",
+    autofocus = false,
+    id = useId(),
+    ref = null,
+    child,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const inputState = useCommandInput({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    value: box.with(() => value, (v) => {
+      value = v;
+    }),
+    autofocus: box.with(() => autofocus ?? false)
+  });
+  const mergedProps = mergeProps(restProps, inputState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<input${spread_attributes({ ...mergedProps, value })}>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { value, ref });
+  pop();
+}
+function Command_item$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    value = "",
+    disabled = false,
+    children,
+    child,
+    onSelect = noop,
+    forceMount = false,
+    keywords = [],
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const group = getCommandGroupContainerContext(null);
+  const itemState = useCommandItem({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    value: box.with(() => value),
+    disabled: box.with(() => disabled),
+    onSelect: box.with(() => onSelect),
+    forceMount: box.with(() => forceMount),
+    keywords: box.with(() => keywords),
+    group
+  });
+  const mergedProps = mergeProps(restProps, itemState.props);
+  $$payload.out += `<!---->`;
+  {
+    $$payload.out += `<div style="display: contents;" data-item-wrapper=""${attr("data-value", value)}>`;
+    if (itemState.shouldRender) {
+      $$payload.out += "<!--[-->";
+      if (child) {
+        $$payload.out += "<!--[-->";
+        child($$payload, { props: mergedProps });
+        $$payload.out += `<!---->`;
+      } else {
+        $$payload.out += "<!--[!-->";
+        $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+        children == null ? void 0 : children($$payload);
+        $$payload.out += `<!----></div>`;
+      }
+      $$payload.out += `<!--]-->`;
+    } else {
+      $$payload.out += "<!--[!-->";
+    }
+    $$payload.out += `<!--]--></div>`;
+  }
+  $$payload.out += `<!---->`;
+  bind_props($$props, { ref });
+  pop();
+}
+class PopoverRootState {
+  constructor(props) {
+    __publicField(this, "open");
+    __publicField(this, "contentNode", null);
+    __publicField(this, "contentId");
+    __publicField(this, "triggerNode", null);
+    this.open = props.open;
+  }
+  toggleOpen() {
+    this.open.current = !this.open.current;
+  }
+  handleClose() {
+    if (!this.open.current) return;
+    this.open.current = false;
+  }
+}
+class PopoverTriggerState {
+  constructor(props, root) {
+    __privateAdd(this, _PopoverTriggerState_instances);
+    __privateAdd(this, _id21);
+    __privateAdd(this, _ref23);
+    __privateAdd(this, _disabled7);
+    __privateAdd(this, _root11);
+    __privateAdd(this, _props37, once(() => ({
+      id: __privateGet(this, _id21).current,
+      "aria-haspopup": "dialog",
+      "aria-expanded": getAriaExpanded(__privateGet(this, _root11).open.current),
+      "data-state": getDataOpenClosed(__privateGet(this, _root11).open.current),
+      "aria-controls": __privateMethod(this, _PopoverTriggerState_instances, getAriaControls_fn).call(this),
+      "data-popover-trigger": "",
+      disabled: __privateGet(this, _disabled7).current,
+      //
+      onpointerdown: this.onpointerdown,
+      onkeydown: this.onkeydown,
+      onclick: this.onclick
+    })));
+    __privateSet(this, _id21, props.id);
+    __privateSet(this, _root11, root);
+    __privateSet(this, _ref23, props.ref);
+    __privateSet(this, _disabled7, props.disabled);
+    useRefById({
+      id: __privateGet(this, _id21),
+      ref: __privateGet(this, _ref23),
+      onRefChange: (node) => {
+        __privateGet(this, _root11).triggerNode = node;
+      }
+    });
+    this.onclick = this.onclick.bind(this);
+    this.onpointerdown = this.onpointerdown.bind(this);
+    this.onkeydown = this.onkeydown.bind(this);
+  }
+  onclick(e) {
+    if (__privateGet(this, _disabled7).current) return;
+    if (e.button !== 0) return;
+    __privateGet(this, _root11).toggleOpen();
+  }
+  onpointerdown(e) {
+    if (__privateGet(this, _disabled7).current) return;
+    if (e.button !== 0) return;
+    e.preventDefault();
+  }
+  onkeydown(e) {
+    if (__privateGet(this, _disabled7).current) return;
+    if (!(e.key === ENTER || e.key === SPACE)) return;
+    e.preventDefault();
+    __privateGet(this, _root11).toggleOpen();
+  }
+  get props() {
+    return __privateGet(this, _props37).call(this);
+  }
+}
+_id21 = new WeakMap();
+_ref23 = new WeakMap();
+_disabled7 = new WeakMap();
+_root11 = new WeakMap();
+_PopoverTriggerState_instances = new WeakSet();
+getAriaControls_fn = function() {
+  if (__privateGet(this, _root11).open.current && __privateGet(this, _root11).contentId) {
+    return __privateGet(this, _root11).contentId;
+  }
+  return void 0;
+};
+_props37 = new WeakMap();
+class PopoverContentState {
+  constructor(props, root) {
+    __privateAdd(this, _id22);
+    __privateAdd(this, _ref24);
+    __publicField(this, "root");
+    __privateAdd(this, _snippetProps8, once(() => ({ open: this.root.open.current })));
+    __privateAdd(this, _props38, once(() => ({
+      id: __privateGet(this, _id22).current,
+      tabindex: -1,
+      "data-state": getDataOpenClosed(this.root.open.current),
+      "data-popover-content": "",
+      style: { pointerEvents: "auto" }
+    })));
+    __privateSet(this, _id22, props.id);
+    this.root = root;
+    __privateSet(this, _ref24, props.ref);
+    useRefById({
+      id: __privateGet(this, _id22),
+      ref: __privateGet(this, _ref24),
+      deps: () => this.root.open.current,
+      onRefChange: (node) => {
+        this.root.contentNode = node;
+        this.root.contentId = node == null ? void 0 : node.id;
+      }
+    });
+  }
+  get snippetProps() {
+    return __privateGet(this, _snippetProps8).call(this);
+  }
+  get props() {
+    return __privateGet(this, _props38).call(this);
+  }
+}
+_id22 = new WeakMap();
+_ref24 = new WeakMap();
+_snippetProps8 = new WeakMap();
+_props38 = new WeakMap();
+const [setPopoverRootContext, getPopoverRootContext] = createContext("Popover.Root");
+function usePopoverRoot(props) {
+  return setPopoverRootContext(new PopoverRootState(props));
+}
+function usePopoverTrigger(props) {
+  return new PopoverTriggerState(props, getPopoverRootContext());
+}
+function usePopoverContent(props) {
+  return new PopoverContentState(props, getPopoverRootContext());
+}
+function Popover_content$1($$payload, $$props) {
+  push();
+  let {
+    child,
+    children,
+    ref = null,
+    id = useId(),
+    forceMount = false,
+    onCloseAutoFocus = noop,
+    onEscapeKeydown = noop,
+    onInteractOutside = noop,
+    trapFocus = true,
+    preventScroll = false,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const contentState = usePopoverContent({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, contentState.props);
+  function handleInteractOutside(e) {
+    onInteractOutside(e);
+    if (e.defaultPrevented) return;
+    if (isHTMLElement(e.target) && e.target.closest("[data-popover-trigger")) return;
+    contentState.root.handleClose();
+  }
+  function handleEscapeKeydown(e) {
+    onEscapeKeydown(e);
+    if (e.defaultPrevented) return;
+    contentState.root.handleClose();
+  }
+  function handleCloseAutoFocus(e) {
+    var _a;
+    onCloseAutoFocus(e);
+    if (e.defaultPrevented) return;
+    e.preventDefault();
+    (_a = contentState.root.triggerNode) == null ? void 0 : _a.focus();
+  }
+  if (forceMount) {
+    $$payload.out += "<!--[-->";
+    {
+      let popper = function($$payload2, { props, wrapperProps }) {
+        const finalProps = mergeProps(props, {
+          style: getFloatingContentCSSVars("popover")
+        });
+        if (child) {
+          $$payload2.out += "<!--[-->";
+          child($$payload2, {
+            props: finalProps,
+            wrapperProps,
+            ...contentState.snippetProps
+          });
+          $$payload2.out += `<!---->`;
+        } else {
+          $$payload2.out += "<!--[!-->";
+          $$payload2.out += `<div${spread_attributes({ ...wrapperProps })}><div${spread_attributes({ ...finalProps })}>`;
+          children == null ? void 0 : children($$payload2);
+          $$payload2.out += `<!----></div></div>`;
+        }
+        $$payload2.out += `<!--]-->`;
+      };
+      Popper_layer_force_mount($$payload, spread_props([
+        mergedProps,
+        {
+          enabled: contentState.root.open.current,
+          id,
+          onInteractOutside: handleInteractOutside,
+          onEscapeKeydown: handleEscapeKeydown,
+          onCloseAutoFocus: handleCloseAutoFocus,
+          trapFocus,
+          preventScroll,
+          loop: true,
+          forceMount: true,
+          popper,
+          $$slots: { popper: true }
+        }
+      ]));
+    }
+  } else {
+    $$payload.out += "<!--[!-->";
+    if (!forceMount) {
+      $$payload.out += "<!--[-->";
+      {
+        let popper = function($$payload2, { props, wrapperProps }) {
+          const finalProps = mergeProps(props, {
+            style: getFloatingContentCSSVars("popover")
+          });
+          if (child) {
+            $$payload2.out += "<!--[-->";
+            child($$payload2, {
+              props: finalProps,
+              wrapperProps,
+              ...contentState.snippetProps
+            });
+            $$payload2.out += `<!---->`;
+          } else {
+            $$payload2.out += "<!--[!-->";
+            $$payload2.out += `<div${spread_attributes({ ...wrapperProps })}><div${spread_attributes({ ...finalProps })}>`;
+            children == null ? void 0 : children($$payload2);
+            $$payload2.out += `<!----></div></div>`;
+          }
+          $$payload2.out += `<!--]-->`;
+        };
+        Popper_layer($$payload, spread_props([
+          mergedProps,
+          {
+            present: contentState.root.open.current,
+            id,
+            onInteractOutside: handleInteractOutside,
+            onEscapeKeydown: handleEscapeKeydown,
+            onCloseAutoFocus: handleCloseAutoFocus,
+            trapFocus,
+            preventScroll,
+            loop: true,
+            forceMount: false,
+            popper,
+            $$slots: { popper: true }
+          }
+        ]));
+      }
+    } else {
+      $$payload.out += "<!--[!-->";
+    }
+    $$payload.out += `<!--]-->`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Popover_trigger($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    id = useId(),
+    ref = null,
+    type = "button",
+    disabled = false,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const triggerState = usePopoverTrigger({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    disabled: box.with(() => Boolean(disabled))
+  });
+  const mergedProps = mergeProps(restProps, triggerState.props, { type });
+  Floating_layer_anchor($$payload, {
+    id,
+    children: ($$payload2) => {
+      if (child) {
+        $$payload2.out += "<!--[-->";
+        child($$payload2, { props: mergedProps });
+        $$payload2.out += `<!---->`;
+      } else {
+        $$payload2.out += "<!--[!-->";
+        $$payload2.out += `<button${spread_attributes({ ...mergedProps })}>`;
+        children == null ? void 0 : children($$payload2);
+        $$payload2.out += `<!----></button>`;
+      }
+      $$payload2.out += `<!--]-->`;
+    },
+    $$slots: { default: true }
+  });
+  bind_props($$props, { ref });
+  pop();
+}
+function Dialog($$payload, $$props) {
+  push();
+  let {
+    open = false,
+    onOpenChange = noop,
+    controlledOpen = false,
+    children
+  } = $$props;
+  useDialogRoot({
+    variant: box.with(() => "dialog"),
+    open: box.with(() => open, (v) => {
+      if (controlledOpen) {
+        onOpenChange(v);
+      } else {
+        open = v;
+        onOpenChange(v);
+      }
+    })
+  });
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!---->`;
+  bind_props($$props, { open });
+  pop();
+}
+function Dialog_close($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    id = useId(),
+    ref = null,
+    disabled = false,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const closeState = useDialogClose({
+    variant: box.with(() => "close"),
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v),
+    disabled: box.with(() => Boolean(disabled))
+  });
+  const mergedProps = mergeProps(restProps, closeState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></button>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Dialog_content$1($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    children,
+    child,
+    ref = null,
+    forceMount = false,
+    onCloseAutoFocus = noop,
+    onEscapeKeydown = noop,
+    onInteractOutside = noop,
+    trapFocus = true,
+    preventScroll = true,
+    restoreScrollDelay = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const contentState = useDialogContent({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, contentState.props);
+  {
+    let presence = function($$payload2, { present }) {
+      {
+        let focusScope = function($$payload3, { props: focusScopeProps }) {
+          Escape_layer($$payload3, spread_props([
+            mergedProps,
+            {
+              enabled: present.current,
+              onEscapeKeydown: (e) => {
+                onEscapeKeydown(e);
+                if (e.defaultPrevented) return;
+                contentState.root.handleClose();
+              },
+              children: ($$payload4) => {
+                Dismissible_layer($$payload4, spread_props([
+                  mergedProps,
+                  {
+                    enabled: present.current,
+                    onInteractOutside: (e) => {
+                      onInteractOutside(e);
+                      if (e.defaultPrevented) return;
+                      contentState.root.handleClose();
+                    },
+                    children: ($$payload5) => {
+                      Text_selection_layer($$payload5, spread_props([
+                        mergedProps,
+                        {
+                          enabled: present.current,
+                          children: ($$payload6) => {
+                            if (child) {
+                              $$payload6.out += "<!--[-->";
+                              if (contentState.root.open.current) {
+                                $$payload6.out += "<!--[-->";
+                                Scroll_lock($$payload6, { preventScroll, restoreScrollDelay });
+                              } else {
+                                $$payload6.out += "<!--[!-->";
+                              }
+                              $$payload6.out += `<!--]--> `;
+                              child($$payload6, {
+                                props: mergeProps(mergedProps, focusScopeProps),
+                                ...contentState.snippetProps
+                              });
+                              $$payload6.out += `<!---->`;
+                            } else {
+                              $$payload6.out += "<!--[!-->";
+                              Scroll_lock($$payload6, { preventScroll });
+                              $$payload6.out += `<!----> <div${spread_attributes({
+                                ...mergeProps(mergedProps, focusScopeProps)
+                              })}>`;
+                              children == null ? void 0 : children($$payload6);
+                              $$payload6.out += `<!----></div>`;
+                            }
+                            $$payload6.out += `<!--]-->`;
+                          },
+                          $$slots: { default: true }
+                        }
+                      ]));
+                    },
+                    $$slots: { default: true }
+                  }
+                ]));
+              },
+              $$slots: { default: true }
+            }
+          ]));
+        };
+        Focus_scope($$payload2, spread_props([
+          {
+            loop: true,
+            trapFocus: shouldTrapFocus({
+              forceMount,
+              present: present.current,
+              trapFocus,
+              open: contentState.root.open.current
+            })
+          },
+          mergedProps,
+          {
+            onCloseAutoFocus: (e) => {
+              var _a;
+              onCloseAutoFocus(e);
+              if (e.defaultPrevented) return;
+              (_a = contentState.root.triggerNode) == null ? void 0 : _a.focus();
+            },
+            focusScope,
+            $$slots: { focusScope: true }
+          }
+        ]));
+      }
+    };
+    Presence_layer($$payload, spread_props([
+      mergedProps,
+      {
+        forceMount,
+        present: contentState.root.open.current || forceMount,
+        presence,
+        $$slots: { presence: true }
+      }
+    ]));
+  }
+  bind_props($$props, { ref });
+  pop();
+}
+const ROOT_ATTR$1 = "data-label-root";
+class LabelRootState {
+  constructor(props) {
+    __privateAdd(this, _id23);
+    __privateAdd(this, _ref25);
+    __privateAdd(this, _props39, once(() => ({
+      [ROOT_ATTR$1]: "",
+      onmousedown: this.onmousedown
+    })));
+    __privateSet(this, _id23, props.id);
+    __privateSet(this, _ref25, props.ref);
+    this.onmousedown = this.onmousedown.bind(this);
+    useRefById({ id: __privateGet(this, _id23), ref: __privateGet(this, _ref25) });
+  }
+  onmousedown(e) {
+    if (e.detail > 1) e.preventDefault();
+  }
+  get props() {
+    return __privateGet(this, _props39).call(this);
+  }
+}
+_id23 = new WeakMap();
+_ref25 = new WeakMap();
+_props39 = new WeakMap();
+function setLabelRootState(props) {
+  return new LabelRootState(props);
+}
+function Label$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    id = useId(),
+    ref = null,
+    for: forProp,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const rootState = setLabelRootState({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, rootState.props, { for: forProp });
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<label${spread_attributes({ ...mergedProps, for: forProp })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></label>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Popover($$payload, $$props) {
+  push();
+  let {
+    open = false,
+    onOpenChange = noop,
+    controlledOpen = false,
+    children
+  } = $$props;
+  usePopoverRoot({
+    open: box.with(() => open, (v) => {
+      if (controlledOpen) {
+        onOpenChange(v);
+      } else {
+        open = v;
+        onOpenChange(v);
+      }
+    })
+  });
+  Floating_layer($$payload, {
+    children: ($$payload2) => {
+      children == null ? void 0 : children($$payload2);
+      $$payload2.out += `<!---->`;
+    },
+    $$slots: { default: true }
+  });
+  bind_props($$props, { open });
+  pop();
+}
+const ROOT_ATTR = "data-tabs-root";
+const LIST_ATTR = "data-tabs-list";
+const TRIGGER_ATTR = "data-tabs-trigger";
+const CONTENT_ATTR = "data-tabs-content";
+class TabsRootState {
+  constructor(props) {
+    __privateAdd(this, _id24);
+    __publicField(this, "ref");
+    __publicField(this, "orientation");
+    __publicField(this, "loop");
+    __publicField(this, "activationMode");
+    __publicField(this, "value");
+    __publicField(this, "disabled");
+    __publicField(this, "rovingFocusGroup");
+    __publicField(this, "triggerIds", []);
+    // holds the trigger ID for each value to associate it with the content
+    __publicField(this, "valueToTriggerId", new SvelteMap());
+    // holds the content ID for each value to associate it with the trigger
+    __publicField(this, "valueToContentId", new SvelteMap());
+    __privateAdd(this, _props40, once(() => ({
+      id: __privateGet(this, _id24).current,
+      "data-orientation": getDataOrientation(this.orientation.current),
+      [ROOT_ATTR]: ""
+    })));
+    __privateSet(this, _id24, props.id);
+    this.ref = props.ref;
+    this.orientation = props.orientation;
+    this.loop = props.loop;
+    this.activationMode = props.activationMode;
+    this.value = props.value;
+    this.disabled = props.disabled;
+    useRefById({ id: __privateGet(this, _id24), ref: this.ref });
+    this.rovingFocusGroup = useRovingFocus({
+      candidateAttr: TRIGGER_ATTR,
+      rootNodeId: __privateGet(this, _id24),
+      loop: this.loop,
+      orientation: this.orientation
+    });
+  }
+  registerTrigger(id, value) {
+    this.triggerIds.push(id);
+    this.valueToTriggerId.set(value, id);
+    return () => {
+      this.triggerIds = this.triggerIds.filter((triggerId) => triggerId !== id);
+      this.valueToTriggerId.delete(value);
+    };
+  }
+  registerContent(id, value) {
+    this.valueToContentId.set(value, id);
+    return () => {
+      this.valueToContentId.delete(value);
+    };
+  }
+  setValue(v) {
+    this.value.current = v;
+  }
+  get props() {
+    return __privateGet(this, _props40).call(this);
+  }
+}
+_id24 = new WeakMap();
+_props40 = new WeakMap();
+class TabsListState {
+  constructor(props, root) {
+    __privateAdd(this, _id25);
+    __privateAdd(this, _ref26);
+    __privateAdd(this, _root12);
+    __privateAdd(this, _isDisabled6, once(() => __privateGet(this, _root12).disabled.current));
+    __privateAdd(this, _props41, once(() => ({
+      id: __privateGet(this, _id25).current,
+      role: "tablist",
+      "aria-orientation": getAriaOrientation(__privateGet(this, _root12).orientation.current),
+      "data-orientation": getDataOrientation(__privateGet(this, _root12).orientation.current),
+      [LIST_ATTR]: "",
+      "data-disabled": getDataDisabled(__privateGet(this, _isDisabled6).call(this))
+    })));
+    __privateSet(this, _root12, root);
+    __privateSet(this, _id25, props.id);
+    __privateSet(this, _ref26, props.ref);
+    useRefById({ id: __privateGet(this, _id25), ref: __privateGet(this, _ref26) });
+  }
+  get props() {
+    return __privateGet(this, _props41).call(this);
+  }
+}
+_id25 = new WeakMap();
+_ref26 = new WeakMap();
+_root12 = new WeakMap();
+_isDisabled6 = new WeakMap();
+_props41 = new WeakMap();
+class TabsTriggerState {
+  constructor(props, root) {
+    __privateAdd(this, _TabsTriggerState_instances);
+    __privateAdd(this, _root13);
+    __privateAdd(this, _id26);
+    __privateAdd(this, _ref27);
+    __privateAdd(this, _disabled8);
+    __privateAdd(this, _value6);
+    __privateAdd(this, _isActive2, once(() => __privateGet(this, _root13).value.current === __privateGet(this, _value6).current));
+    __privateAdd(this, _isDisabled7, once(() => __privateGet(this, _disabled8).current || __privateGet(this, _root13).disabled.current));
+    __privateAdd(this, _tabIndex, 0);
+    __privateAdd(this, _ariaControls, once(() => __privateGet(this, _root13).valueToContentId.get(__privateGet(this, _value6).current)));
+    __publicField(this, "onfocus", (_) => {
+      if (__privateGet(this, _root13).activationMode.current !== "automatic" || __privateGet(this, _isDisabled7).call(this)) return;
+      __privateMethod(this, _TabsTriggerState_instances, activate_fn).call(this);
+    });
+    __publicField(this, "onclick", (_) => {
+      if (__privateGet(this, _isDisabled7).call(this)) return;
+      __privateMethod(this, _TabsTriggerState_instances, activate_fn).call(this);
+    });
+    __publicField(this, "onkeydown", (e) => {
+      if (__privateGet(this, _isDisabled7).call(this)) return;
+      if (e.key === SPACE || e.key === ENTER) {
+        e.preventDefault();
+        __privateMethod(this, _TabsTriggerState_instances, activate_fn).call(this);
+        return;
+      }
+      __privateGet(this, _root13).rovingFocusGroup.handleKeydown(__privateGet(this, _ref27).current, e);
+    });
+    __privateAdd(this, _props42, once(() => ({
+      id: __privateGet(this, _id26).current,
+      role: "tab",
+      "data-state": getTabDataState(__privateGet(this, _isActive2).call(this)),
+      "data-value": __privateGet(this, _value6).current,
+      "data-orientation": getDataOrientation(__privateGet(this, _root13).orientation.current),
+      "data-disabled": getDataDisabled(__privateGet(this, _isDisabled7).call(this)),
+      "aria-selected": getAriaSelected(__privateGet(this, _isActive2).call(this)),
+      "aria-controls": __privateGet(this, _ariaControls).call(this),
+      [TRIGGER_ATTR]: "",
+      disabled: getDisabled(__privateGet(this, _isDisabled7).call(this)),
+      tabindex: __privateGet(this, _tabIndex),
+      //
+      onclick: this.onclick,
+      onfocus: this.onfocus,
+      onkeydown: this.onkeydown
+    })));
+    __privateSet(this, _root13, root);
+    __privateSet(this, _id26, props.id);
+    __privateSet(this, _ref27, props.ref);
+    __privateSet(this, _value6, props.value);
+    __privateSet(this, _disabled8, props.disabled);
+    useRefById({ id: __privateGet(this, _id26), ref: __privateGet(this, _ref27) });
+    this.onfocus = this.onfocus.bind(this);
+    this.onclick = this.onclick.bind(this);
+    this.onkeydown = this.onkeydown.bind(this);
+  }
+  get props() {
+    return __privateGet(this, _props42).call(this);
+  }
+}
+_root13 = new WeakMap();
+_id26 = new WeakMap();
+_ref27 = new WeakMap();
+_disabled8 = new WeakMap();
+_value6 = new WeakMap();
+_isActive2 = new WeakMap();
+_isDisabled7 = new WeakMap();
+_tabIndex = new WeakMap();
+_ariaControls = new WeakMap();
+_TabsTriggerState_instances = new WeakSet();
+activate_fn = function() {
+  if (__privateGet(this, _root13).value.current === __privateGet(this, _value6).current) return;
+  __privateGet(this, _root13).setValue(__privateGet(this, _value6).current);
+};
+_props42 = new WeakMap();
+class TabsContentState {
+  constructor(props, root) {
+    __privateAdd(this, _root14);
+    __privateAdd(this, _id27);
+    __privateAdd(this, _ref28);
+    __privateAdd(this, _value7);
+    __privateAdd(this, _isActive3, once(() => __privateGet(this, _root14).value.current === __privateGet(this, _value7).current));
+    __privateAdd(this, _ariaLabelledBy, once(() => __privateGet(this, _root14).valueToTriggerId.get(__privateGet(this, _value7).current)));
+    __privateAdd(this, _props43, once(() => ({
+      id: __privateGet(this, _id27).current,
+      role: "tabpanel",
+      hidden: getHidden(!__privateGet(this, _isActive3).call(this)),
+      tabindex: 0,
+      "data-value": __privateGet(this, _value7).current,
+      "data-state": getTabDataState(__privateGet(this, _isActive3).call(this)),
+      "aria-labelledby": __privateGet(this, _ariaLabelledBy).call(this),
+      [CONTENT_ATTR]: ""
+    })));
+    __privateSet(this, _root14, root);
+    __privateSet(this, _value7, props.value);
+    __privateSet(this, _id27, props.id);
+    __privateSet(this, _ref28, props.ref);
+    useRefById({ id: __privateGet(this, _id27), ref: __privateGet(this, _ref28) });
+  }
+  get props() {
+    return __privateGet(this, _props43).call(this);
+  }
+}
+_root14 = new WeakMap();
+_id27 = new WeakMap();
+_ref28 = new WeakMap();
+_value7 = new WeakMap();
+_isActive3 = new WeakMap();
+_ariaLabelledBy = new WeakMap();
+_props43 = new WeakMap();
+const [setTabsRootContext, getTabsRootContext] = createContext("Tabs.Root");
+function useTabsRoot(props) {
+  return setTabsRootContext(new TabsRootState(props));
+}
+function useTabsTrigger(props) {
+  return new TabsTriggerState(props, getTabsRootContext());
+}
+function useTabsList(props) {
+  return new TabsListState(props, getTabsRootContext());
+}
+function useTabsContent(props) {
+  return new TabsContentState(props, getTabsRootContext());
+}
+function getTabDataState(condition) {
+  return condition ? "active" : "inactive";
+}
+function Tabs($$payload, $$props) {
+  push();
+  let {
+    id = useId(),
+    ref = null,
+    value = "",
+    onValueChange = noop,
+    orientation = "horizontal",
+    loop = true,
+    activationMode = "automatic",
+    disabled = false,
+    controlledValue = false,
+    children,
+    child,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const rootState = useTabsRoot({
+    id: box.with(() => id),
+    value: box.with(() => value, (v) => {
+      if (controlledValue) {
+        onValueChange(v);
+      } else {
+        value = v;
+        onValueChange(v);
+      }
+    }),
+    orientation: box.with(() => orientation),
+    loop: box.with(() => loop),
+    activationMode: box.with(() => activationMode),
+    disabled: box.with(() => disabled),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, rootState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref, value });
+  pop();
+}
+function Tabs_content$1($$payload, $$props) {
+  push();
+  let {
+    children,
+    child,
+    id = useId(),
+    ref = null,
+    value,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const contentState = useTabsContent({
+    value: box.with(() => value),
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, contentState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Tabs_list$1($$payload, $$props) {
+  push();
+  let {
+    child,
+    children,
+    id = useId(),
+    ref = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const listState = useTabsList({
+    id: box.with(() => id),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, listState.props);
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Tabs_trigger$1($$payload, $$props) {
+  push();
+  let {
+    child,
+    children,
+    disabled = false,
+    id = useId(),
+    type = "button",
+    value,
+    ref = null,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const triggerState = useTabsTrigger({
+    id: box.with(() => id),
+    disabled: box.with(() => disabled ?? false),
+    value: box.with(() => value),
+    ref: box.with(() => ref, (v) => ref = v)
+  });
+  const mergedProps = mergeProps(restProps, triggerState.props, { type });
+  if (child) {
+    $$payload.out += "<!--[-->";
+    child($$payload, { props: mergedProps });
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({ ...mergedProps })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></button>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
 }
 function cn$1(...inputs) {
   return twMerge(clsx(inputs));
 }
-const flyAndScale = (node, params = { y: -8, x: 0, start: 0.95, duration: 150 }) => {
-  const style = getComputedStyle(node);
-  const transform = style.transform === "none" ? "" : style.transform;
-  const scaleConversion = (valueA, scaleA, scaleB) => {
-    const [minA, maxA] = scaleA;
-    const [minB, maxB] = scaleB;
-    const percentage = (valueA - minA) / (maxA - minA);
-    const valueB = percentage * (maxB - minB) + minB;
-    return valueB;
-  };
-  const styleToString2 = (style2) => {
-    return Object.keys(style2).reduce((str, key) => {
-      if (style2[key] === void 0) return str;
-      return str + `${key}:${style2[key]};`;
-    }, "");
-  };
-  return {
-    duration: params.duration ?? 200,
-    delay: 0,
-    css: (t) => {
-      const y = scaleConversion(t, [0, 1], [params.y ?? 5, 0]);
-      const x2 = scaleConversion(t, [0, 1], [params.x ?? 0, 0]);
-      const scale = scaleConversion(t, [0, 1], [params.start ?? 0.95, 1]);
-      return styleToString2({
-        transform: `${transform} translate3d(${x2}px, ${y}px, 0) scale(${scale})`,
-        opacity: t
-      });
-    },
-    easing: cubicOut
-  };
-};
-const Accordion_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "transition", "transitionConfig"]);
-  let { class: className = void 0 } = $$props;
-  let { transition = slide } = $$props;
-  let { transitionConfig = { duration: 200 } } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  return `${validate_component(Accordion_content$1, "AccordionPrimitive.Content").$$render(
-    $$result,
-    Object.assign(
-      {},
+function Accordion_content($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Accordion_content$1($$payload2, spread_props([
       {
-        class: cn$1("overflow-hidden text-sm transition-all", className)
+        class: cn$1("data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm transition-all", className)
       },
-      { transition },
-      { transitionConfig },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `<div class="pb-4 pt-0">${slots.default ? slots.default({}) : ``}</div>`;
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        },
+        children: ($$payload3) => {
+          $$payload3.out += `<div class="pb-4 pt-0">`;
+          children == null ? void 0 : children($$payload3);
+          $$payload3.out += `<!----></div>`;
+        },
+        $$slots: { default: true }
       }
-    }
-  )}`;
-});
-const Accordion_item = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "value"]);
-  let { class: className = void 0 } = $$props;
-  let { value } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  return `${validate_component(Accordion_item$1, "AccordionPrimitive.Item").$$render($$result, Object.assign({}, { value }, { class: cn$1("border-b", className) }, $$restProps), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Accordion_item($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Accordion_item$1($$payload2, spread_props([
+      { class: cn$1("border-b", className) },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
 /**
- * @license lucide-svelte v0.399.0 - ISC
+ * @license lucide-svelte v0.460.1 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
@@ -5879,252 +8770,350 @@ const defaultAttributes = {
   "stroke-linecap": "round",
   "stroke-linejoin": "round"
 };
-const Icon$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["name", "color", "size", "strokeWidth", "absoluteStrokeWidth", "iconNode"]);
-  let { name: name2 = void 0 } = $$props;
-  let { color = "currentColor" } = $$props;
-  let { size: size2 = 24 } = $$props;
-  let { strokeWidth = 2 } = $$props;
-  let { absoluteStrokeWidth = false } = $$props;
-  let { iconNode = [] } = $$props;
+function Icon$1($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, [
+    "name",
+    "color",
+    "size",
+    "strokeWidth",
+    "absoluteStrokeWidth",
+    "iconNode"
+  ]);
+  push();
+  let name = fallback($$props["name"], void 0);
+  let color = fallback($$props["color"], "currentColor");
+  let size2 = fallback($$props["size"], 24);
+  let strokeWidth = fallback($$props["strokeWidth"], 2);
+  let absoluteStrokeWidth = fallback($$props["absoluteStrokeWidth"], false);
+  let iconNode = fallback($$props["iconNode"], () => [], true);
   const mergeClasses = (...classes) => classes.filter((className, index, array) => {
     return Boolean(className) && array.indexOf(className) === index;
   }).join(" ");
-  if ($$props.name === void 0 && $$bindings.name && name2 !== void 0) $$bindings.name(name2);
-  if ($$props.color === void 0 && $$bindings.color && color !== void 0) $$bindings.color(color);
-  if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
-  if ($$props.strokeWidth === void 0 && $$bindings.strokeWidth && strokeWidth !== void 0) $$bindings.strokeWidth(strokeWidth);
-  if ($$props.absoluteStrokeWidth === void 0 && $$bindings.absoluteStrokeWidth && absoluteStrokeWidth !== void 0) $$bindings.absoluteStrokeWidth(absoluteStrokeWidth);
-  if ($$props.iconNode === void 0 && $$bindings.iconNode && iconNode !== void 0) $$bindings.iconNode(iconNode);
-  return `<svg${spread(
-    [
-      escape_object(defaultAttributes),
-      escape_object($$restProps),
-      { width: escape_attribute_value(size2) },
-      { height: escape_attribute_value(size2) },
-      { stroke: escape_attribute_value(color) },
-      {
-        "stroke-width": escape_attribute_value(absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size2) : strokeWidth)
-      },
-      {
-        class: escape_attribute_value(mergeClasses("lucide-icon", "lucide", name2 ? `lucide-${name2}` : "", $$props.class))
-      }
-    ],
-    {}
-  )}>${each(iconNode, ([tag, attrs]) => {
-    return `${((tag$1) => {
-      return tag$1 ? `<${tag}${spread([escape_object(attrs)], {})}>${is_void(tag$1) ? "" : ``}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
-    })(tag)}`;
-  })}${slots.default ? slots.default({}) : ``}</svg>`;
-});
-const Chevron_down = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  const each_array = ensure_array_like(iconNode);
+  $$payload.out += `<svg${spread_attributes(
+    {
+      ...defaultAttributes,
+      ...$$restProps,
+      width: size2,
+      height: size2,
+      stroke: color,
+      "stroke-width": absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size2) : strokeWidth,
+      class: mergeClasses("lucide-icon", "lucide", name ? `lucide-${name}` : "", $$sanitized_props.class)
+    },
+    void 0,
+    void 0,
+    3
+  )}><!--[-->`;
+  for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+    let [tag, attrs] = each_array[$$index];
+    element($$payload, tag, () => {
+      $$payload.out += `${spread_attributes({ ...attrs }, void 0, void 0, 3)}`;
+    });
+  }
+  $$payload.out += `<!--]--><!---->`;
+  slot($$payload, $$props, "default", {}, null);
+  $$payload.out += `<!----></svg>`;
+  bind_props($$props, {
+    name,
+    color,
+    size: size2,
+    strokeWidth,
+    absoluteStrokeWidth,
+    iconNode
+  });
+  pop();
+}
+function Chevron_down($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [["path", { "d": "m6 9 6 6 6-6" }]];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "chevron-down" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "chevron-down" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Accordion_trigger = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "level"]);
-  let { class: className = void 0 } = $$props;
-  let { level = 3 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.level === void 0 && $$bindings.level && level !== void 0) $$bindings.level(level);
-  return `${validate_component(Accordion_header, "AccordionPrimitive.Header").$$render($$result, { level, class: "flex" }, {}, {
-    default: () => {
-      return `${validate_component(Accordion_trigger$1, "AccordionPrimitive.Trigger").$$render(
-        $$result,
-        Object.assign(
-          {},
+  ]));
+}
+function Accordion_trigger($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    level = 3,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Accordion_header($$payload2, {
+      level,
+      class: "flex",
+      children: ($$payload3) => {
+        $$payload3.out += `<!---->`;
+        Accordion_trigger$1($$payload3, spread_props([
           {
             class: cn$1("flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180", className)
           },
-          $$restProps
-        ),
-        {},
-        {
-          default: () => {
-            return `${slots.default ? slots.default({}) : ``} ${validate_component(Chevron_down, "ChevronDown").$$render(
-              $$result,
-              {
-                class: "h-4 w-4 transition-transform duration-200"
-              },
-              {},
-              {}
-            )}`;
+          restProps,
+          {
+            get ref() {
+              return ref;
+            },
+            set ref($$value) {
+              ref = $$value;
+              $$settled = false;
+            },
+            children: ($$payload4) => {
+              children == null ? void 0 : children($$payload4);
+              $$payload4.out += `<!----> `;
+              Chevron_down($$payload4, {
+                class: "size-4 shrink-0 transition-transform duration-200"
+              });
+              $$payload4.out += `<!---->`;
+            },
+            $$slots: { default: true }
           }
-        }
-      )}`;
-    }
-  })}`;
-});
-const Root$3 = Accordion;
-const Link_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["href", "target", "xhr"]);
-  let { href } = $$props;
-  let { target = "" } = $$props;
-  let { xhr = false } = $$props;
-  if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
-  if ($$props.target === void 0 && $$bindings.target && target !== void 0) $$bindings.target(target);
-  if ($$props.xhr === void 0 && $$bindings.xhr && xhr !== void 0) $$bindings.xhr(xhr);
-  return `${xhr ? `${validate_component(Link, "Link").$$render(
-    $$result,
-    {
+        ]));
+        $$payload3.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+const Root$5 = Accordion;
+function Link_1($$payload, $$props) {
+  push();
+  let {
+    href,
+    target = "",
+    xhr = false,
+    children,
+    $$slots,
+    $$events,
+    ...rest
+  } = $$props;
+  if (xhr) {
+    $$payload.out += "<!--[-->";
+    Link($$payload, {
       href,
       target,
-      class: "md:hover:font-semibold md:transition-all " + $$restProps.class
-    },
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}` : `<a${add_attribute("href", href, 0)}${add_attribute("target", target, 0)} class="${"md:hover:font-semibold md:transition-all " + escape($$restProps.class, true)}">${slots.default ? slots.default({}) : ``}</a>`}`;
-});
-const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+      class: `md:hover:font-semibold md:transition-all ${stringify(rest.class)}`,
+      children: ($$payload2) => {
+        children == null ? void 0 : children($$payload2);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    });
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<a${attr("href", href)}${attr("target", target)}${attr("class", `md:hover:font-semibold md:transition-all ${stringify(rest.class)}`)}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></a>`;
+  }
+  $$payload.out += `<!--]-->`;
+  pop();
+}
+const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Link_1
 }, Symbol.toStringTag, { value: "Module" }));
-const FooterInfoLinks = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(Link_1, "FooterLink").$$render($$result, { href: "/gallery", xhr: true }, {}, {
-    default: () => {
-      return `Galerija`;
-    }
-  })} ${validate_component(Link_1, "FooterLink").$$render($$result, { href: "/webtools", xhr: true }, {}, {
-    default: () => {
-      return `Webtools`;
-    }
-  })} ${validate_component(Link_1, "FooterLink").$$render($$result, { href: "https://blog.bjelopic.com" }, {}, {
-    default: () => {
-      return `Blog`;
-    }
-  })} ${validate_component(Link_1, "FooterLink").$$render(
-    $$result,
-    {
-      href: "https://blog.bjelopic.com/kontakt/"
+function FooterInfoLinks($$payload) {
+  Link_1($$payload, {
+    href: "/gallery",
+    xhr: true,
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Galerija`;
     },
-    {},
-    {
-      default: () => {
-        return `Kontakt`;
-      }
-    }
-  )}`;
-});
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  Link_1($$payload, {
+    href: "/webtools",
+    xhr: true,
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Webtools`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  Link_1($$payload, {
+    href: "https://blog.bjelopic.com",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Blog`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  Link_1($$payload, {
+    href: "https://blog.bjelopic.com/kontakt/",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Kontakt`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!---->`;
+}
 const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: FooterInfoLinks
 }, Symbol.toStringTag, { value: "Module" }));
-const FooterSocials = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${validate_component(Link_1, "FooterLink").$$render(
-    $$result,
-    {
-      href: "https://www.youtube.com/@bjelopic",
-      target: "_blank"
+function FooterSocials($$payload) {
+  Link_1($$payload, {
+    href: "https://www.youtube.com/@bjelopic",
+    target: "_blank",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->YouTube`;
     },
-    {},
-    {
-      default: () => {
-        return `YouTube`;
-      }
-    }
-  )} ${validate_component(Link_1, "FooterLink").$$render(
-    $$result,
-    {
-      href: "https://www.facebook.com/bjelopic",
-      target: "_blank"
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  Link_1($$payload, {
+    href: "https://www.facebook.com/bjelopic",
+    target: "_blank",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Facebook`;
     },
-    {},
-    {
-      default: () => {
-        return `Facebook`;
-      }
-    }
-  )} ${validate_component(Link_1, "FooterLink").$$render(
-    $$result,
-    {
-      href: "https://www.instagram.com/bjelopic/",
-      target: "_blank"
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  Link_1($$payload, {
+    href: "https://www.instagram.com/bjelopic/",
+    target: "_blank",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Instagram`;
     },
-    {},
-    {
-      default: () => {
-        return `Instagram`;
-      }
-    }
-  )} ${validate_component(Link_1, "FooterLink").$$render(
-    $$result,
-    {
-      href: "https://github.com/OrakMoya/bjelopic",
-      target: "_blank"
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  Link_1($$payload, {
+    href: "https://github.com/OrakMoya/bjelopicdotcom",
+    target: "_blank",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Github`;
     },
-    {},
-    {
-      default: () => {
-        return `Github`;
-      }
-    }
-  )}`;
-});
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!---->`;
+}
 const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: FooterSocials
 }, Symbol.toStringTag, { value: "Module" }));
-const Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return ` <footer class="px-4 py-8 bg-black text-white w-full border-t border-t-neutral-800"><div class="max-w-screen-lg mx-auto flex flex-col gap-y-4 justify-center items-center md:items-start md:justify-between md:flex-row"><div class="flex flex-col items-center md:items-start gap-y-1 md:basis-1/2">${validate_component(Link, "Link").$$render($$result, { href: "/" }, {}, {
-    default: () => {
-      return `${validate_component(TheBjeloPICLogo, "TheBjeloPicLogo").$$render($$result, { class: "w-10 h-10 md:w-8 md:h-8" }, {}, {})}`;
-    }
-  })} ${validate_component(Link, "Link").$$render($$result, { href: "/", class: "mb-1" }, {}, {
-    default: () => {
-      return `${validate_component(TheBjeloPIC, "TheBjeloPic").$$render($$result, { class: "text-3xl md:text-2xl" }, {}, {})}`;
-    }
-  })} <span class="text-lg md:text-base" data-svelte-h="svelte-oiwjpz">Bjelovarski filmski studio</span></div> <div class="w-full max-w-96 md:basis-1/2 flex">${`${validate_component(Root$3, "Accordion.Root").$$render(
-    $$result,
-    {
-      multiple: true,
-      class: "flex flex-col justify-center w-full"
+function Footer($$payload, $$props) {
+  push();
+  $$payload.out += `<footer class="px-4 py-8 bg-black text-white w-full border-t border-t-neutral-800"><div class="max-w-screen-lg mx-auto flex flex-col gap-y-4 justify-center items-center md:items-start md:justify-between md:flex-row"><div class="flex flex-col items-center md:items-start gap-y-1 md:basis-1/2">`;
+  Link($$payload, {
+    href: "/",
+    children: ($$payload2) => {
+      TheBjeloPICLogo($$payload2, { class: "w-10 h-10 md:w-8 md:h-8" });
     },
-    {},
-    {
-      default: () => {
-        return `${validate_component(Accordion_item, "Accordion.Item").$$render($$result, { value: "info_links", class: "border-0" }, {}, {
-          default: () => {
-            return `${validate_component(Accordion_trigger, "Accordion.Trigger").$$render($$result, { class: "py-2" }, {}, {
-              default: () => {
-                return `<h2 class="text-lg font-bold" data-svelte-h="svelte-azy5w6">Informacije</h2>`;
-              }
-            })} ${validate_component(Accordion_content, "Accordion.Content").$$render($$result, {}, {}, {
-              default: () => {
-                return `<div class="flex flex-col gap-y-2 text-lg">${validate_component(FooterInfoLinks, "FooterInfoLinks").$$render($$result, {}, {}, {})}</div>`;
-              }
-            })}`;
-          }
-        })} ${validate_component(Accordion_item, "Accordion.Item").$$render($$result, { value: "socials", class: "border-0" }, {}, {
-          default: () => {
-            return `${validate_component(Accordion_trigger, "Accordion.Trigger").$$render($$result, { class: "py-2" }, {}, {
-              default: () => {
-                return `<h2 class="text-lg font-bold" data-svelte-h="svelte-1lsr8s0">Društvene mreže</h2>`;
-              }
-            })} ${validate_component(Accordion_content, "Accordion.Content").$$render($$result, {}, {}, {
-              default: () => {
-                return `<div class="flex flex-col gap-y-2 text-lg">${validate_component(FooterSocials, "FooterSocials").$$render($$result, {}, {}, {})}</div>`;
-              }
-            })}`;
-          }
-        })}`;
-      }
-    }
-  )}`}</div></div> <span class="font-semibold block w-fit mx-auto my-4" data-svelte-h="svelte-5fatlj">© BjeloPIC | Sva prava pridržana</span></footer>`;
-});
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  Link($$payload, {
+    href: "/",
+    class: "mb-1",
+    children: ($$payload2) => {
+      TheBjeloPIC($$payload2, { class: "text-3xl md:text-2xl" });
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> <span class="text-lg md:text-base">Bjelovarski filmski studio</span></div> <div class="w-full max-w-96 md:basis-1/2 flex">`;
+  {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<!---->`;
+    Root$5($$payload, {
+      type: "multiple",
+      class: "flex flex-col justify-center w-full",
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        Accordion_item($$payload2, {
+          value: "info_links",
+          class: "border-0",
+          children: ($$payload3) => {
+            $$payload3.out += `<!---->`;
+            Accordion_trigger($$payload3, {
+              class: "py-2",
+              children: ($$payload4) => {
+                $$payload4.out += `<h2 class="text-lg font-bold">Informacije</h2>`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload3.out += `<!----> <!---->`;
+            Accordion_content($$payload3, {
+              children: ($$payload4) => {
+                $$payload4.out += `<div class="flex flex-col gap-y-2 text-lg">`;
+                FooterInfoLinks($$payload4);
+                $$payload4.out += `<!----></div>`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload3.out += `<!---->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload2.out += `<!----> <!---->`;
+        Accordion_item($$payload2, {
+          value: "socials",
+          class: "border-0",
+          children: ($$payload3) => {
+            $$payload3.out += `<!---->`;
+            Accordion_trigger($$payload3, {
+              class: "py-2",
+              children: ($$payload4) => {
+                $$payload4.out += `<h2 class="text-lg font-bold">Društvene mreže</h2>`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload3.out += `<!----> <!---->`;
+            Accordion_content($$payload3, {
+              children: ($$payload4) => {
+                $$payload4.out += `<div class="flex flex-col gap-y-2 text-lg">`;
+                FooterSocials($$payload4);
+                $$payload4.out += `<!----></div>`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload3.out += `<!---->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload.out += `<!---->`;
+  }
+  $$payload.out += `<!--]--></div></div> <span class="font-semibold block w-fit mx-auto my-4">© BjeloPIC ${escape_html((/* @__PURE__ */ new Date()).getFullYear())} | Sva prava pridržana</span></footer>`;
+  pop();
+}
 const __vite_glob_0_0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Footer
 }, Symbol.toStringTag, { value: "Module" }));
-const TheSubtitle = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, []);
+function TheSubtitle($$payload, $$props) {
+  push();
+  let { $$slots, $$events, ...rest } = $$props;
   let subtitles = [
     'Producenti "ORIGINALNIH BJELOVARSKIH BLOCKBUSTERA"',
     "Jednostavno superiorniji",
@@ -6136,239 +9125,48 @@ const TheSubtitle = create_ssr_component(($$result, $$props, $$bindings, slots) 
     if (random >= 0.9 && random < 0.99) return subtitles[1];
     else return subtitles[2];
   }
-  return `<span${add_attribute("class", $$restProps.class, 0)}>${escape(pickSubtitle())}</span>`;
-});
-const Header$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `<header class="bg-black p-4 border-b border-b-neutral-800"><div class="max-w-screen-lg gap-y-2 mx-auto flex justify-between items-center flex-col md:flex-row">${validate_component(Link, "Link").$$render($$result, { href: "/" }, {}, {
-    default: () => {
-      return `<div class="h-20 flex gap-x-4 items-center" data-svelte-h="svelte-ixsntw"><img class="h-full object-contain" src="/bjelopic_banner.png" alt="BjeloPIC"></div>`;
-    }
-  })} <div class="text-center"><span class="text-center text-xs sm:text-base md:text-lg lg:text-xl text-white uppercase font-semibold">${validate_component(TheSubtitle, "TheSubtitle").$$render(
-    $$result,
-    {
-      class: "tracking-tight whitespace-nowrap"
+  $$payload.out += `<span${attr("class", rest.class)}>${escape_html(pickSubtitle())}</span>`;
+  pop();
+}
+function Header$1($$payload) {
+  $$payload.out += `<header class="bg-black p-4 border-b border-b-neutral-800"><div class="max-w-screen-lg gap-y-2 mx-auto flex justify-between items-center flex-col md:flex-row">`;
+  Link($$payload, {
+    href: "/",
+    children: ($$payload2) => {
+      $$payload2.out += `<div class="h-20 flex gap-x-4 items-center"><img class="h-full object-contain" src="/bjelopic_banner.png" alt="BjeloPIC"></div>`;
     },
-    {},
-    {}
-  )}</span></div></div></header>`;
-});
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> <div class="text-center"><span class="text-center text-xs sm:text-base md:text-lg lg:text-xl text-white uppercase font-semibold">`;
+  TheSubtitle($$payload, { class: "tracking-tight whitespace-nowrap" });
+  $$payload.out += `<!----></span></div></div></header>`;
+}
 const __vite_glob_0_3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Header$1
 }, Symbol.toStringTag, { value: "Module" }));
-const EMBLA_CAROUSEL_CONTEXT = Symbol("EMBLA_CAROUSEL_CONTEXT");
-function setEmblaContext(config) {
-  setContext(EMBLA_CAROUSEL_CONTEXT, config);
-  return config;
-}
-function getEmblaContext(name2 = "This component") {
-  if (!hasContext(EMBLA_CAROUSEL_CONTEXT)) {
-    throw new Error(`${name2} must be used within a <Carousel.Root> component`);
-  }
-  return getContext(EMBLA_CAROUSEL_CONTEXT);
-}
-const Carousel = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["opts", "plugins", "api", "orientation", "class"]);
-  let { opts = {} } = $$props;
-  let { plugins = [] } = $$props;
-  let { api = void 0 } = $$props;
-  let { orientation = "horizontal" } = $$props;
-  let { class: className = void 0 } = $$props;
-  const apiStore = writable(void 0);
-  const orientationStore = writable(orientation);
-  const canScrollPrev = writable(false);
-  const canScrollNext = writable(false);
-  const optionsStore = writable(opts);
-  const pluginStore = writable(plugins);
-  const scrollSnapsStore = writable([]);
-  const selectedIndexStore = writable(0);
-  function scrollPrev() {
-    api == null ? void 0 : api.scrollPrev();
-  }
-  function scrollNext() {
-    api == null ? void 0 : api.scrollNext();
-  }
-  function scrollTo(index, jump) {
-    api == null ? void 0 : api.scrollTo(index, jump);
-  }
-  function onSelect(api2) {
-    if (!api2) return;
-    canScrollPrev.set(api2.canScrollPrev());
-    canScrollNext.set(api2.canScrollNext());
-  }
-  function handleKeyDown(e) {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      scrollPrev();
-    } else if (e.key === "ArrowRight") {
-      e.preventDefault();
-      scrollNext();
-    }
-  }
-  setEmblaContext({
-    api: apiStore,
-    scrollPrev,
-    scrollNext,
-    orientation: orientationStore,
-    canScrollNext,
-    canScrollPrev,
-    handleKeyDown,
-    options: optionsStore,
-    plugins: pluginStore,
-    onInit,
-    scrollSnaps: scrollSnapsStore,
-    selectedIndex: selectedIndexStore,
-    scrollTo
-  });
-  function onInit(event) {
-    api = event.detail;
-    apiStore.set(api);
-    scrollSnapsStore.set(api.scrollSnapList());
-  }
-  onDestroy(() => {
-    api == null ? void 0 : api.off("select", onSelect);
-  });
-  if ($$props.opts === void 0 && $$bindings.opts && opts !== void 0) $$bindings.opts(opts);
-  if ($$props.plugins === void 0 && $$bindings.plugins && plugins !== void 0) $$bindings.plugins(plugins);
-  if ($$props.api === void 0 && $$bindings.api && api !== void 0) $$bindings.api(api);
-  if ($$props.orientation === void 0 && $$bindings.orientation && orientation !== void 0) $$bindings.orientation(orientation);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  {
-    orientationStore.set(orientation);
-  }
-  {
-    pluginStore.set(plugins);
-  }
-  {
-    optionsStore.set(opts);
-  }
-  {
-    if (api) {
-      onSelect(api);
-      api.on("select", onSelect);
-      api.on("reInit", onSelect);
-    }
-  }
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn$1("relative", className))
-      },
-      { role: "region" },
-      { "aria-roledescription": "carousel" },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Carousel_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let $$unsubscribe_options;
-  let $orientation, $$unsubscribe_orientation;
-  let $$unsubscribe_plugins;
-  let { class: className = void 0 } = $$props;
-  const { orientation, options, plugins, onInit } = getEmblaContext("<Carousel.Content/>");
-  $$unsubscribe_orientation = subscribe(orientation, (value) => $orientation = value);
-  $$unsubscribe_options = subscribe(options, (value) => value);
-  $$unsubscribe_plugins = subscribe(plugins, (value) => value);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  $$unsubscribe_options();
-  $$unsubscribe_orientation();
-  $$unsubscribe_plugins();
-  return `<div class="overflow-visible"><div${spread(
-    [
-      {
-        class: escape_attribute_value(cn$1(
-          "flex",
-          $orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-          className
-        ))
-      },
-      { "data-embla-container": "" },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div></div>`;
-});
-const Carousel_item = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let $orientation, $$unsubscribe_orientation;
-  let { class: className = void 0 } = $$props;
-  const { orientation } = getEmblaContext("<Carousel.Item/>");
-  $$unsubscribe_orientation = subscribe(orientation, (value) => $orientation = value);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  $$unsubscribe_orientation();
-  return `<div${spread(
-    [
-      { role: "group" },
-      { "aria-roledescription": "slide" },
-      {
-        class: escape_attribute_value(cn$1("min-w-0 shrink-0 grow-0 basis-full", $orientation === "horizontal" ? "pl-4" : "pt-4", className))
-      },
-      { "data-embla-slide": "" },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Button = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "variant", "size", "builders"]);
-  let { class: className = void 0 } = $$props;
-  let { variant = "default" } = $$props;
-  let { size: size2 = "default" } = $$props;
-  let { builders = [] } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.variant === void 0 && $$bindings.variant && variant !== void 0) $$bindings.variant(variant);
-  if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
-  if ($$props.builders === void 0 && $$bindings.builders && builders !== void 0) $$bindings.builders(builders);
-  return `${validate_component(Button$1, "ButtonPrimitive.Root").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { builders },
-      {
-        class: cn$1(buttonVariants({ variant, size: size2, className }))
-      },
-      { type: "button" },
-      $$restProps
-    ),
-    {},
+function Arrow_up($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["path", { "d": "m5 12 7-7 7 7" }],
+    ["path", { "d": "M12 19V5" }]
+  ];
+  Icon$1($$payload, spread_props([
+    { name: "arrow-up" },
+    $$sanitized_props,
     {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  )}`;
-});
-const buttonVariants = tv({
-  base: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-  variants: {
-    variant: {
-      default: "bg-primary text-primary-foreground hover:bg-primary/90",
-      destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-      outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-      ghost: "hover:bg-accent hover:text-accent-foreground",
-      link: "text-primary underline-offset-4 hover:underline"
-    },
-    size: {
-      default: "h-10 px-4 py-2",
-      sm: "h-9 rounded-md px-3",
-      lg: "h-11 rounded-md px-8",
-      icon: "h-10 w-10"
-    }
-  },
-  defaultVariants: {
-    variant: "default",
-    size: "default"
-  }
-});
-const FilmReel = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { width = 24 } = $$props;
-  if ($$props.width === void 0 && $$bindings.width && width !== void 0) $$bindings.width(width);
-  return `<div class="flex w-full h-4 md:h-6 bg-repeat relative " style="${"background-image: url('rect1.svg'); background-size: auto " + escape(width, true) + "px; background-repeat: repeat;"}"></div>`;
-});
-const Badge_x = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Badge_x($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
     [
       "path",
@@ -6395,13 +9193,22 @@ const Badge_x = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       }
     ]
   ];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "badge-x" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "badge-x" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Calendar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Calendar($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
     ["path", { "d": "M8 2v4" }],
     ["path", { "d": "M16 2v4" }],
@@ -6417,53 +9224,239 @@ const Calendar = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     ],
     ["path", { "d": "M3 10h18" }]
   ];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "calendar" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "calendar" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Check = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Check($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [["path", { "d": "M20 6 9 17l-5-5" }]];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "check" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "check" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Chevron_left = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Chevron_left($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [["path", { "d": "m15 18-6-6 6-6" }]];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "chevron-left" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "chevron-left" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Chevron_right = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Chevron_right($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [["path", { "d": "m9 18 6-6-6-6" }]];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "chevron-right" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "chevron-right" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Eye = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Copy($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "rect",
+      {
+        "width": "14",
+        "height": "14",
+        "x": "8",
+        "y": "8",
+        "rx": "2",
+        "ry": "2"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+      }
+    ]
+  ];
+  Icon$1($$payload, spread_props([
+    { name: "copy" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Eye($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
     [
       "path",
       {
-        "d": "M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
+        "d": "M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
       }
     ],
-    ["circle", { "cx": "12", "cy": "12", "r": "3" }]
+    [
+      "circle",
+      { "cx": "12", "cy": "12", "r": "3" }
+    ]
   ];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "eye" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "eye" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Menu = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function File($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+      }
+    ],
+    ["path", { "d": "M14 2v4a2 2 0 0 0 2 2h4" }]
+  ];
+  Icon$1($$payload, spread_props([
+    { name: "file" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Image($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "rect",
+      {
+        "width": "18",
+        "height": "18",
+        "x": "3",
+        "y": "3",
+        "rx": "2",
+        "ry": "2"
+      }
+    ],
+    [
+      "circle",
+      { "cx": "9", "cy": "9", "r": "2" }
+    ],
+    [
+      "path",
+      {
+        "d": "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"
+      }
+    ]
+  ];
+  Icon$1($$payload, spread_props([
+    { name: "image" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Images($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["path", { "d": "M18 22H4a2 2 0 0 1-2-2V6" }],
+    [
+      "path",
+      {
+        "d": "m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"
+      }
+    ],
+    [
+      "circle",
+      { "cx": "12", "cy": "8", "r": "2" }
+    ],
+    [
+      "rect",
+      {
+        "width": "16",
+        "height": "16",
+        "x": "6",
+        "y": "2",
+        "rx": "2"
+      }
+    ]
+  ];
+  Icon$1($$payload, spread_props([
+    { name: "images" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Menu($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
     [
       "line",
@@ -6476,12 +9469,7 @@ const Menu = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     ],
     [
       "line",
-      {
-        "x1": "4",
-        "x2": "20",
-        "y1": "6",
-        "y2": "6"
-      }
+      { "x1": "4", "x2": "20", "y1": "6", "y2": "6" }
     ],
     [
       "line",
@@ -6493,40 +9481,82 @@ const Menu = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       }
     ]
   ];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "menu" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "menu" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Minus = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Minus($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [["path", { "d": "M5 12h14" }]];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "minus" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "minus" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Plus = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [["path", { "d": "M5 12h14" }], ["path", { "d": "M12 5v14" }]];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "plus" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Search = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Plus($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
-    ["circle", { "cx": "11", "cy": "11", "r": "8" }],
+    ["path", { "d": "M5 12h14" }],
+    ["path", { "d": "M12 5v14" }]
+  ];
+  Icon$1($$payload, spread_props([
+    { name: "plus" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Search($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "circle",
+      { "cx": "11", "cy": "11", "r": "8" }
+    ],
     ["path", { "d": "m21 21-4.3-4.3" }]
   ];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "search" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "search" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Square_arrow_out_up_right = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Square_arrow_out_up_right($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
     [
       "path",
@@ -6537,470 +9567,909 @@ const Square_arrow_out_up_right = create_ssr_component(($$result, $$props, $$bin
     ["path", { "d": "m21 3-9 9" }],
     ["path", { "d": "M15 3h6v6" }]
   ];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "square-arrow-out-up-right" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "square-arrow-out-up-right" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const Trash = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  ]));
+}
+function Trash($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
     ["path", { "d": "M3 6h18" }],
     [
       "path",
-      {
-        "d": "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"
-      }
+      { "d": "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" }
     ],
     [
       "path",
-      {
-        "d": "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"
-      }
+      { "d": "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" }
     ]
   ];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "trash" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  Icon$1($$payload, spread_props([
+    { name: "trash" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
-});
-const X = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const iconNode = [["path", { "d": "M18 6 6 18" }], ["path", { "d": "m6 6 12 12" }]];
-  return `${validate_component(Icon$1, "Icon").$$render($$result, Object.assign({}, { name: "x" }, $$props, { iconNode }), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
+  ]));
+}
+function X($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["path", { "d": "M18 6 6 18" }],
+    ["path", { "d": "m6 6 12 12" }]
+  ];
+  Icon$1($$payload, spread_props([
+    { name: "x" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->`;
+        slot($$payload2, $$props, "default", {}, null);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
     }
-  })}`;
+  ]));
+}
+const EMBLA_CAROUSEL_CONTEXT = Symbol("EMBLA_CAROUSEL_CONTEXT");
+function setEmblaContext(config) {
+  setContext$1(EMBLA_CAROUSEL_CONTEXT, config);
+  return config;
+}
+function getEmblaContext(name = "This component") {
+  if (!hasContext(EMBLA_CAROUSEL_CONTEXT)) {
+    throw new Error(`${name} must be used within a <Carousel.Root> component`);
+  }
+  return getContext$1(EMBLA_CAROUSEL_CONTEXT);
+}
+function Carousel($$payload, $$props) {
+  push();
+  let {
+    opts = {},
+    plugins = [],
+    setApi = () => {
+    },
+    orientation = "horizontal",
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let carouselState = {
+    api: void 0,
+    scrollPrev,
+    scrollNext,
+    orientation,
+    canScrollNext: false,
+    canScrollPrev: false,
+    handleKeyDown,
+    options: opts,
+    plugins,
+    onInit,
+    scrollSnaps: [],
+    selectedIndex: 0,
+    scrollTo
+  };
+  setEmblaContext(carouselState);
+  function scrollPrev() {
+    var _a;
+    (_a = carouselState.api) == null ? void 0 : _a.scrollPrev();
+  }
+  function scrollNext() {
+    var _a;
+    (_a = carouselState.api) == null ? void 0 : _a.scrollNext();
+  }
+  function scrollTo(index, jump) {
+    var _a;
+    (_a = carouselState.api) == null ? void 0 : _a.scrollTo(index, jump);
+  }
+  function handleKeyDown(e) {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      scrollPrev();
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      scrollNext();
+    }
+  }
+  function onInit(event) {
+    carouselState.api = event.detail;
+    carouselState.scrollSnaps = carouselState.api.scrollSnapList();
+  }
+  $$payload.out += `<div${spread_attributes({
+    class: cn$1("relative", className),
+    role: "region",
+    "aria-roledescription": "carousel",
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  pop();
+}
+function Carousel_content($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const emblaCtx = getEmblaContext("<Carousel.Content/>");
+  $$payload.out += `<div class="overflow-hidden"><div${spread_attributes({
+    class: cn$1("flex", emblaCtx.orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className),
+    "data-embla-container": "",
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Carousel_item($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  const emblaCtx = getEmblaContext("<Carousel.Item/>");
+  $$payload.out += `<div${spread_attributes({
+    role: "group",
+    "aria-roledescription": "slide",
+    class: cn$1("min-w-0 shrink-0 grow-0 basis-full", emblaCtx.orientation === "horizontal" ? "pl-4" : "pt-4", className),
+    "data-embla-slide": "",
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+const buttonVariants = tv({
+  base: "ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  variants: {
+    variant: {
+      default: "bg-primary text-primary-foreground hover:bg-primary/90",
+      destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+      outline: "border-input bg-background hover:bg-accent hover:text-accent-foreground border",
+      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+      ghost: "hover:bg-accent hover:text-accent-foreground",
+      link: "text-primary underline-offset-4 hover:underline"
+    },
+    size: {
+      default: "h-10 px-4 py-2",
+      sm: "h-9 rounded-md px-3",
+      lg: "h-11 rounded-md px-8",
+      icon: "h-10 w-10"
+    }
+  },
+  defaultVariants: { variant: "default", size: "default" }
 });
-const Layout$2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `<div class="flex flex-col h-screen font-sans"><div class="flex-grow bg-black text-white">${slots.default ? slots.default({}) : ``}</div> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</div>`;
-});
-const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: Layout$2
-}, Symbol.toStringTag, { value: "Module" }));
-let autoscroll_resume_delay = 3e3;
-const Hero = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+function Button($$payload, $$props) {
+  push();
+  let {
+    class: className,
+    variant = "default",
+    size: size2 = "default",
+    ref = null,
+    href = void 0,
+    type = "button",
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  if (href) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<a${spread_attributes({
+      class: cn$1(buttonVariants({ variant, size: size2, className })),
+      href,
+      ...restProps
+    })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></a>`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<button${spread_attributes({
+      class: cn$1(buttonVariants({ variant, size: size2, className })),
+      type,
+      ...restProps
+    })}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></button>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { ref });
+  pop();
+}
+const Root$4 = Aspect_ratio;
+function FilmReel($$payload, $$props) {
+  let { width = 24 } = $$props;
+  $$payload.out += `<div class="flex w-full h-4 md:h-6 bg-repeat relative"${attr("style", ` background-image: url('rect1.svg'); background-size: auto ${stringify(width)}px; background-repeat: repeat; `)}></div>`;
+}
+function HeroCarousel($$payload, $$props) {
+  push();
   let { videos } = $$props;
+  const screensize_md = 768;
   const autoscroll = AutoScroll({
     speed: 0.3,
     startDelay: 0,
     stopOnMouseEnter: true
   });
+  const carousel_opts = { loop: true, dragFree: true };
   let autoplay_resume_timeout_id = 0;
-  let carousel_api;
+  let autoscroll_resume_delay = 3e3;
+  $$payload.out += `<div${attr("class", `flex w-screen basis-1/3 overflow-x-clip overflow-y-visible drop-shadow-glow-xs ${stringify("")} transition duration-300`)}><!---->`;
+  Carousel($$payload, {
+    setApi: (emblaApi) => emblaApi,
+    onmouseleave: () => autoplay_resume_timeout_id = setTimeout(() => autoscroll.play(), autoscroll_resume_delay),
+    onmouseenter: () => clearTimeout(autoplay_resume_timeout_id),
+    plugins: [autoscroll],
+    opts: carousel_opts,
+    class: "w-auto max-w-full mx-auto overflow-visible",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->`;
+      Carousel_content($$payload2, {
+        class: "overflow-visible",
+        children: ($$payload3) => {
+          const each_array = ensure_array_like(videos);
+          $$payload3.out += `<!--[-->`;
+          for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+            let video = each_array[$$index];
+            $$payload3.out += `<!---->`;
+            Carousel_item($$payload3, {
+              class: " basis-auto z-0 relative md:hover:z-10 overflow-visible p-0 outline outline-black outline-1",
+              children: ($$payload4) => {
+                FilmReel($$payload4, { width: innerWidth < screensize_md ? 16 : 24 });
+                $$payload4.out += `<!----> <div class="overflow-visible"><div class="p-1 w-48 md:w-72 bg-black overflow-visible"><div${attr("class", `w-full h-full relative transition md:hover:drop-shadow-glow-md md:hover:scale-105 ${stringify("")} md:hover:brightness-100 overflow-visible `)}><!---->`;
+                Root$4($$payload4, {
+                  ratio: 16 / 9,
+                  children: ($$payload5) => {
+                    Link($$payload5, {
+                      href: `/gallery?focus=${stringify(video.uuid)}`,
+                      target: "_blank",
+                      children: ($$payload6) => {
+                        $$payload6.out += `<img${attr("src", video.thumbnail_url)} class="w-full h-full rounded-md overflow-clip relative z-50 md:hover:drop-shadow-lg transition duration-300 object-cover"${attr("alt", `${stringify(video.title)} thumbnail`)}>`;
+                      },
+                      $$slots: { default: true }
+                    });
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload4.out += `<!----></div></div> `;
+                FilmReel($$payload4, { width: innerWidth < screensize_md ? 16 : 24 });
+                $$payload4.out += `<!----></div>`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload3.out += `<!---->`;
+          }
+          $$payload3.out += `<!--]-->`;
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!---->`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----></div>`;
+  pop();
+}
+const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: HeroCarousel
+}, Symbol.toStringTag, { value: "Module" }));
+function HeroLinks($$payload) {
+  $$payload.out += `<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-1 text-sm sm:text-base items-center">`;
+  Link($$payload, {
+    href: "/gallery",
+    class: "px-4 py-2 rounded-xl bg-bjelopic-red-2 transition duration-300 text-white hover:bg-bjelopic-red-1 drop-shadow-md text-center text-base",
+    children: ($$payload2) => {
+      $$payload2.out += `<span class="drop-shadow">Naši radovi</span>`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> <div class="grid grid-cols-2 gap-4 sm:col-span-2"><a href="mailto:info@bjelopic.com" class="px-4 py-2 rounded-xl bg-black/50 drop-shadow-md transition duration-300 border border-neutral-700 text-white text-center hover:bg-neutral-800/75">Kontaktirajte nas</a> <a href="https://blog.bjelopic.com" class="px-4 py-2 rounded-xl bg-black/50 drop-shadow-md transition duration-300 border border-neutral-700 text-white text-center hover:bg-neutral-800/75">BjeloPIC Blog</a></div></div>`;
+}
+const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: HeroLinks
+}, Symbol.toStringTag, { value: "Module" }));
+function Layout$2($$payload, $$props) {
+  push();
+  let { children } = $$props;
+  $$payload.out += `<div class="flex flex-col h-screen font-sans"><div class="flex-grow bg-black text-white relative">`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div> `;
+  Footer($$payload);
+  $$payload.out += `<!----></div>`;
+  pop();
+}
+const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Layout$2
+}, Symbol.toStringTag, { value: "Module" }));
+function Hero($$payload, $$props) {
+  push();
+  let { videos, heroUrl } = $$props;
   let window_scrolled = false;
   let arrows_shown = false;
   setTimeout(() => arrows_shown = true, 4e3);
-  let carousel_opts = { loop: true, dragFree: true };
-  if ($$props.videos === void 0 && $$bindings.videos && videos !== void 0) $$bindings.videos(videos);
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
-  do {
-    $$settled = true;
-    $$result.head = previous_head;
-    {
-      if (carousel_api) {
-        carousel_api.on("pointerDown", () => {
-          autoscroll.stop();
-          clearTimeout(autoplay_resume_timeout_id);
-        });
-        carousel_api.on("pointerUp", () => {
-          autoplay_resume_timeout_id = setTimeout(() => autoscroll.play(), autoscroll_resume_delay);
-        });
-      }
-    }
-    $$rendered = `${$$result.head += `<!-- HEAD_svelte-ajh58f_START -->${$$result.title = `<title>BjeloPIC</title>`, ""}<!-- HEAD_svelte-ajh58f_END -->`, ""}  <main class="max-w-screen-xl h-screen mx-auto"><div class="absolute top-0 left-0 overflow-clip w-screen h-full flex justify-center items-center" data-svelte-h="svelte-7nl56u"><div class="brightness-50 w-full h-full object-cover"><video class="w-full h-full object-cover" autoplay loop muted><source src="/hero.webm" type="video/webm"></video></div></div> ${arrows_shown && !window_scrolled ? `<div class="absolute left-0 bottom-0 mx-8 my-6 hidden md:block">${validate_component(Chevron_down, "ChevronDown").$$render(
-      $$result,
-      {
-        class: "drop-shadow w-8 h-8 animate-bounce "
-      },
-      {},
-      {}
-    )}</div> <div class="absolute right-0 bottom-0 mx-8 my-6 hidden md:block">${validate_component(Chevron_down, "ChevronDown").$$render(
-      $$result,
-      {
-        class: "drop-shadow w-8 h-8 animate-bounce"
-      },
-      {},
-      {}
-    )}</div> <div class="absolute left-0 bottom-0 right-0 w-8 mx-auto mb-6">${validate_component(Chevron_down, "ChevronDown").$$render(
-      $$result,
-      {
-        class: "drop-shadow w-8 h-8 animate-bounce  md:hidden"
-      },
-      {},
-      {}
-    )}</div>` : ``} <section class="w-full h-full flex flex-col justify-center items-center relative gap-y-4"><div class="basis-1/3 flex place-items-end"><div class="flex flex-col items-center">${validate_component(TheBjeloPIC, "TheBjeloPic").$$render(
-      $$result,
-      {
-        class: "drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-4 sm:mb-6"
-      },
-      {},
-      {}
-    )} <div class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3 mb-2 sm:mb-5"><div class="border-b border-white w-full h-min"></div> ${validate_component(TheSubtitle, "TheSubtitle").$$render(
-      $$result,
-      {
-        class: "font-semibold  uppercase text-xs transition-all duration-500 md:text-sm w-fit whitespace-nowrap tracking-tighter"
-      },
-      {},
-      {}
-    )} <div class="bg-white w-full h-[1px]"></div></div></div></div> <div class="${"flex w-screen basis-1/3 overflow-x-clip overflow-y-visible drop-shadow-glow-sm " + escape("", true) + " transition duration-300"}">${validate_component(Carousel, "Carousel.Root").$$render(
-      $$result,
-      {
-        plugins: [autoscroll],
-        opts: carousel_opts,
-        class: "w-auto max-w-full mx-auto overflow-visible",
-        api: carousel_api
-      },
-      {
-        api: ($$value) => {
-          carousel_api = $$value;
-          $$settled = false;
-        }
-      },
-      {
-        default: () => {
-          return `${validate_component(Carousel_content, "Carousel.Content").$$render($$result, { class: "overflow-visible" }, {}, {
-            default: () => {
-              return `${each(videos, (video) => {
-                return `${validate_component(Carousel_item, "Carousel.Item").$$render(
-                  $$result,
-                  {
-                    class: " basis-auto z-0 relative md:hover:z-10 overflow-visible p-0 outline outline-black outline-1"
-                  },
-                  {},
-                  {
-                    default: () => {
-                      return `${validate_component(FilmReel, "FilmReel").$$render(
-                        $$result,
-                        {
-                          width: 16
-                        },
-                        {},
-                        {}
-                      )} <div class="overflow-visible"> <div class="p-1 w-48 md:w-72 bg-black overflow-visible"><div class="${"w-full h-full relative transition md:hover:drop-shadow-glow-md md:hover:scale-105 " + escape("", true) + " md:hover:brightness-100 overflow-visible"}">${validate_component(Aspect_ratio, "AspectRatio.Root").$$render($$result, { ratio: 16 / 9 }, {}, {
-                        default: () => {
-                          return `${validate_component(Link, "Link").$$render(
-                            $$result,
-                            {
-                              href: "/gallery?focus=" + video.uuid,
-                              target: "_blank"
-                            },
-                            {},
-                            {
-                              default: () => {
-                                return `<img${add_attribute("src", video.thumbnail_path, 0)} class="w-full h-full rounded-md overflow-clip relative z-50 md:hover:drop-shadow-lg transition duration-300" alt="${escape(video.title, true) + " thumbnail"}"> `;
-                              }
-                            }
-                          )} `;
-                        }
-                      })} </div></div> ${validate_component(FilmReel, "FilmReel").$$render(
-                        $$result,
-                        {
-                          width: 16
-                        },
-                        {},
-                        {}
-                      )}</div> `;
-                    }
-                  }
-                )}`;
-              })}`;
-            }
-          })}`;
-        }
-      }
-    )}</div></section></main>`;
-  } while (!$$settled);
-  return $$rendered;
-});
+  head($$payload, ($$payload2) => {
+    $$payload2.title = `<title>BjeloPIC</title>`;
+  });
+  $$payload.out += `<main class="max-w-screen-xl h-screen mx-auto"><div class="absolute top-0 left-0 overflow-clip w-screen h-full flex justify-center items-center"><div class="brightness-50 w-full h-full object-cover"><video class="w-full h-full object-cover" autoplay loop muted><source${attr("src", heroUrl)} type="video/webm"></video></div></div> `;
+  if (arrows_shown && !window_scrolled) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<div class="absolute left-0 bottom-0 mx-8 my-6 hidden md:block">`;
+    Chevron_down($$payload, { class: "drop-shadow w-8 h-8 animate-bounce " });
+    $$payload.out += `<!----></div> <div class="absolute right-0 bottom-0 mx-8 my-6 hidden md:block">`;
+    Chevron_down($$payload, { class: "drop-shadow w-8 h-8 animate-bounce" });
+    $$payload.out += `<!----></div> <div class="absolute left-0 bottom-0 right-0 w-8 mx-auto mb-6">`;
+    Chevron_down($$payload, {
+      class: "drop-shadow w-8 h-8 animate-bounce  md:hidden"
+    });
+    $$payload.out += `<!----></div>`;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]--> <section class="w-full h-full flex flex-col justify-center items-center relative gap-y-4"><div class="basis-1/3 flex place-items-end"><div class="flex flex-col items-center">`;
+  TheBjeloPIC($$payload, {
+    class: "drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-4 sm:mb-6 text-center relative md:right-1 right-[2px]"
+  });
+  $$payload.out += `<!----> <div class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3"><div class="border-b border-white w-full h-min"></div> `;
+  TheSubtitle($$payload, {
+    class: "font-semibold  uppercase text-xs transition-all duration-500 md:text-sm w-fit whitespace-nowrap tracking-tighter"
+  });
+  $$payload.out += `<!----> <div class="border-b border-white w-full h-min"></div></div></div></div> `;
+  HeroLinks($$payload);
+  $$payload.out += `<!----> `;
+  HeroCarousel($$payload, { videos });
+  $$payload.out += `<!----></section></main>`;
+  pop();
+}
 const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Hero,
   layout: Layout$2
 }, Symbol.toStringTag, { value: "Module" }));
-const Layout$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `<div class="flex flex-col h-screen">${validate_component(Header$1, "Header").$$render($$result, {}, {}, {})} <div class="flex-grow bg-black text-white">${slots.default ? slots.default({}) : ``}</div> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</div>`;
-});
-const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+function Layout$1($$payload, $$props) {
+  push();
+  let { children } = $$props;
+  $$payload.out += `<div class="flex flex-col h-screen">`;
+  Header$1($$payload);
+  $$payload.out += `<!----> <div class="flex-grow bg-black text-white">`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div> `;
+  Footer($$payload);
+  $$payload.out += `<!----></div>`;
+  pop();
+}
+const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Layout$1
 }, Symbol.toStringTag, { value: "Module" }));
-const GalleryVideo = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let focused;
-  let $$restProps = compute_rest_props($$props, [
-    "preview_src",
-    "thumbnail_src",
-    "alt",
-    "selected_id",
-    "this_id",
-    "href",
-    "poster_src",
-    "title",
-    "year"
-  ]);
-  let { preview_src = null } = $$props;
-  let { thumbnail_src = null } = $$props;
-  let { alt = "" } = $$props;
-  let { selected_id = "" } = $$props;
-  let { this_id = "" } = $$props;
-  let { href = "" } = $$props;
-  let { poster_src = "" } = $$props;
-  let { title = "" } = $$props;
-  let { year = "" } = $$props;
-  let poster_shown = false;
-  if ($$props.preview_src === void 0 && $$bindings.preview_src && preview_src !== void 0) $$bindings.preview_src(preview_src);
-  if ($$props.thumbnail_src === void 0 && $$bindings.thumbnail_src && thumbnail_src !== void 0) $$bindings.thumbnail_src(thumbnail_src);
-  if ($$props.alt === void 0 && $$bindings.alt && alt !== void 0) $$bindings.alt(alt);
-  if ($$props.selected_id === void 0 && $$bindings.selected_id && selected_id !== void 0) $$bindings.selected_id(selected_id);
-  if ($$props.this_id === void 0 && $$bindings.this_id && this_id !== void 0) $$bindings.this_id(this_id);
-  if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
-  if ($$props.poster_src === void 0 && $$bindings.poster_src && poster_src !== void 0) $$bindings.poster_src(poster_src);
-  if ($$props.title === void 0 && $$bindings.title && title !== void 0) $$bindings.title(title);
-  if ($$props.year === void 0 && $$bindings.year && year !== void 0) $$bindings.year(year);
-  focused = this_id === selected_id;
-  poster_shown = focused && poster_shown;
-  return `  <div class="${escape(focused ? "scale-[104%]" : "", true) + " transition-all duration-300 w-full h-full"}"><div class="${"w-full h-full overflow-hidden relative bg-black " + escape($$restProps.class, true)}">${focused && preview_src ? `<div class="absolute flex items-center align-middle w-full h-full top-0"><a${add_attribute("href", href, 0)} target="_blank" class="block object-cover"><video muted autoplay loop><source${add_attribute("src", preview_src, 0)}></video></a></div>` : `<div class="absolute w-full h-full">${focused ? `<a${add_attribute("href", href, 0)} target="_blank" class="block absolute"><img${add_attribute("src", thumbnail_src, 0)}${add_attribute("alt", alt, 0)} class="object-cover"></a>` : `<img${add_attribute("src", thumbnail_src, 0)}${add_attribute("alt", alt, 0)} class="absolute">`}</div>`} ${focused && title ? `<div class="absolute font-semibold w-full bottom-0 bg-black/80 p-2 text-left">${escape(title)} <span class="text-bjelopic-blue-1">(${escape(year)})</span></div>` : ``} ${!poster_shown && poster_src && focused ? `<button class="absolute top-[15%] transition-all hover:pr-4 right-0 bg-black/80 rounded-tl-2xl rounded-bl-2xl p-2 z-10 block">${validate_component(Chevron_left, "ChevronLeft").$$render($$result, { class: "w-6 h-6" }, {}, {})}</button>` : ``} ${focused && poster_src && poster_shown ? `<button class="w-1/3 p-4 z-10 hover:cursor-pointer block absolute right-0 top-0">${validate_component(Aspect_ratio, "AspectRatio.Root").$$render($$result, { ratio: 707 / 1e3 }, {}, {
-    default: () => {
-      return `<img${add_attribute("src", poster_src, 0)} alt="">`;
+function run(fn) {
+  fn();
+}
+function GalleryVideo($$payload, $$props) {
+  push();
+  let {
+    preview_src = null,
+    thumbnail_src = null,
+    alt = "",
+    selected_id,
+    this_id = "",
+    href = "",
+    poster_src = "",
+    title = "",
+    year = "",
+    stillsAvailable = false,
+    uuid = "",
+    $$slots,
+    $$events,
+    ...rest
+  } = $$props;
+  let focused = this_id === selected_id;
+  $$payload.out += `<div${attr("class", `${stringify(focused ? "scale-[104%] md:scale-[102%]" : "")} transition-all duration-300 w-full h-full`)}><div${attr("class", `w-full h-full overflow-hidden relative bg-black ${stringify(rest.class)}`)}>`;
+  if (focused && preview_src) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<div class="absolute flex items-center align-middle w-full h-full top-0"><a aria-label="View video"${attr("href", href)} target="_blank" class="block w-full h-full object-cover"><video muted autoplay loop class="w-full h-full object-cover"><source${attr("src", preview_src)}></video></a></div>`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<div class="absolute w-full h-full">`;
+    if (focused) {
+      $$payload.out += "<!--[-->";
+      $$payload.out += `<a${attr("href", href)} target="_blank" class="block absolute w-full h-full"><img${attr("src", thumbnail_src)}${attr("alt", alt)} class="object-cover w-full h-full"></a>`;
+    } else {
+      $$payload.out += "<!--[!-->";
+      $$payload.out += `<img${attr("src", thumbnail_src)}${attr("alt", alt)} class="absolute w-full h-full object-cover">`;
     }
-  })}</button>` : ``}</div></div>`;
-});
-const Gallery = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+    $$payload.out += `<!--]--></div>`;
+  }
+  $$payload.out += `<!--]--> `;
+  if (focused && (title || stillsAvailable)) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<div class="absolute flex items-center justify-between font-semibold w-full bottom-0 bg-black/80 p-1 text-left"><div${attr("class", title ? "" : "invisible")}>${escape_html(title)} <span class="text-bjelopic-blue-1">(${escape_html(year)})</span></div> <div${attr("class", stillsAvailable ? "" : "invisible")}>`;
+    Link($$payload, {
+      href: "/gallery/" + uuid,
+      children: ($$payload2) => {
+        Images($$payload2, { class: "w-5 h-5 m-2" });
+      },
+      $$slots: { default: true }
+    });
+    $$payload.out += `<!----></div></div>`;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]--> `;
+  if (poster_src && focused) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<button class="absolute top-[15%] transition-all hover:pr-4 right-0 bg-black/80 rounded-tl-2xl rounded-bl-2xl p-2 z-10 block">`;
+    Chevron_left($$payload, { class: "w-6 h-6" });
+    $$payload.out += `<!----></button>`;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]--> `;
+  {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]--></div></div>`;
+  pop();
+}
+function GalleryVideoDescription($$payload, $$props) {
+  push();
+  let { children } = $$props;
+  $$payload.out += `<div class="md:hidden lg:block">`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  pop();
+}
+const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: GalleryVideoDescription
+}, Symbol.toStringTag, { value: "Module" }));
+function Gallery($$payload, $$props) {
+  push();
   let { by_collection } = $$props;
-  let { focus = "" } = $$props;
-  let selected_video_uuid = focus;
+  const params = new URLSearchParams(window.location.search);
+  const focus2 = params.get("focus");
+  let selected_video_uuid = focus2;
   Promise.all(Array.from(document.images).filter((img) => !img.complete).map((img) => new Promise((resolve) => {
     img.onload = img.onerror = resolve;
   }))).then(() => {
-    if (focus) {
-      const yOffset = -30;
-      const el = document.getElementById(focus);
+    if (focus2) {
+      const el = document.getElementById(focus2);
       if (el) {
-        const y = el.getBoundingClientRect().top + yOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
+        el.scrollIntoView({ block: "center", behavior: "smooth" });
       }
     }
   });
-  if ($$props.by_collection === void 0 && $$bindings.by_collection && by_collection !== void 0) $$bindings.by_collection(by_collection);
-  if ($$props.focus === void 0 && $$bindings.focus && focus !== void 0) $$bindings.focus(focus);
-  return `${$$result.head += `<!-- HEAD_svelte-1fyhqyy_START -->${$$result.title = `<title>Gallery - BjeloPIC</title>`, ""}<!-- HEAD_svelte-1fyhqyy_END -->`, ""} ${each(by_collection, (collection, i) => {
-    return `<section class="${"mx-auto " + escape(
-      i % 2 ? "bg-bjelopic-neutral-8" : "bg-bjelopic-neutral-7",
-      true
-    ) + " py-4 px-4 relative"}" role="none"><div class="max-w-screen-lg mx-auto px-4">${collection.videos[0].collection ? `<div class="flex w-full justify-center mb-4 items-center gap-x-4 mx-auto transition-all duration-500 drop-shadow"><div class="h-[1px] relative top-[2px] bg-white min-w-8 grow"></div> <div class="whitespace-normal w-auto max-w-[570px] font-bold text-2xl md:text-4xl text-center">${escape(collection.collection)}</div> <div class="h-[1px] relative top-[2px] bg-white min-w-8 grow"></div></div> <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4" role="none">${each(collection.videos, (video) => {
-      return `<div class="drop-shadow-lg"${add_attribute("id", video.uuid, 0)}> <button class="w-full block">${validate_component(Aspect_ratio, "AspectRatio.Root").$$render($$result, { ratio: 16 / 9 }, {}, {
-        default: () => {
-          return `${validate_component(GalleryVideo, "GalleryVideo").$$render(
-            $$result,
-            {
+  function getUniqueRoles(videos) {
+    let set2 = /* @__PURE__ */ new Set();
+    videos.forEach((video) => {
+      video.roles.forEach((role) => set2.add(role));
+    });
+    return set2;
+  }
+  const each_array = ensure_array_like(by_collection);
+  head($$payload, ($$payload2) => {
+    $$payload2.title = `<title>Gallery - BjeloPIC</title>`;
+  });
+  $$payload.out += `<!--[-->`;
+  for (let i = 0, $$length = each_array.length; i < $$length; i++) {
+    let collection = each_array[i];
+    $$payload.out += `<section${attr("class", ` mx-auto ${stringify(i % 2 ? "bg-bjelopic-neutral-8" : "bg-bjelopic-neutral-7")} py-4 px-4 relative`)} role="none"><div class="max-w-screen-xl mx-auto px-4">`;
+    if (collection.videos[0].collection) {
+      $$payload.out += "<!--[-->";
+      const firstVideo = collection.videos[0];
+      const uniqueRoles = getUniqueRoles(collection.videos);
+      const each_array_2 = ensure_array_like(collection.videos);
+      $$payload.out += `<div class="flex w-full justify-center items-center gap-x-4 mx-auto transition-all duration-500 drop-shadow"><div class="h-[1px] relative top-[2px] bg-white min-w-8 grow"></div> <div class="whitespace-normal w-auto max-w-[570px] font-bold text-2xl md:text-4xl text-center">${escape_html(collection.collection)}</div> <div class="h-[1px] relative top-[2px] bg-white min-w-8 grow"></div></div> <div class="flex justify-center mb-2 text-lg lg:text-xl font-semibold">`;
+      if (firstVideo.subject === "BjeloPIC") {
+        $$payload.out += "<!--[-->";
+        TheBjeloPIC($$payload, {});
+      } else {
+        $$payload.out += "<!--[!-->";
+        $$payload.out += `${escape_html(firstVideo.subject)}`;
+      }
+      $$payload.out += `<!--]--></div> `;
+      if (uniqueRoles.size) {
+        $$payload.out += "<!--[-->";
+        const each_array_1 = ensure_array_like(uniqueRoles);
+        $$payload.out += `<div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 mb-4"><!--[-->`;
+        for (let $$index = 0, $$length2 = each_array_1.length; $$index < $$length2; $$index++) {
+          let role = each_array_1[$$index];
+          $$payload.out += `<div class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm lg:text-base px-1 py-[0.5px]"><span class="drop-shadow">${escape_html(role)}</span></div>`;
+        }
+        $$payload.out += `<!--]--></div>`;
+      } else {
+        $$payload.out += "<!--[!-->";
+      }
+      $$payload.out += `<!--]--> <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4" role="none"><!--[-->`;
+      for (let $$index_1 = 0, $$length2 = each_array_2.length; $$index_1 < $$length2; $$index_1++) {
+        let video = each_array_2[$$index_1];
+        $$payload.out += `<div class="drop-shadow-lg"${attr("id", video.uuid)}><button class="w-full block"><!---->`;
+        Aspect_ratio($$payload, {
+          ratio: 16 / 9,
+          children: ($$payload2) => {
+            GalleryVideo($$payload2, {
               title: video.title,
               year: new Date(video.publication_date).getUTCFullYear().toString(),
-              class: "rounded-md transition-all overflow-clip",
-              href: video.link,
-              this_id: video.uuid,
-              selected_id: selected_video_uuid,
-              thumbnail_src: video.thumbnail_path,
-              preview_src: video.preview_path,
-              poster_src: video.poster_path
-            },
-            {},
-            {}
-          )} `;
-        }
-      })}</button> </div>`;
-    })} </div>` : `${each(collection.videos, (video) => {
-      return `<div role="none"${add_attribute("id", video.uuid, 0)} class="${"w-full flex-col-reverse text-center flex gap-x-4 " + escape(
-        i % 2 ? "md:flex-row-reverse md:text-right" : "md:flex-row md:text-left",
-        true
-      )}"> <button class="w-full block basis-3/5">${validate_component(Aspect_ratio, "AspectRatio.Root").$$render($$result, { ratio: 16 / 9 }, {}, {
-        default: () => {
-          return `${validate_component(GalleryVideo, "GalleryVideo").$$render(
-            $$result,
-            {
               class: "rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip",
               href: video.link,
               this_id: video.uuid,
               selected_id: selected_video_uuid,
-              thumbnail_src: video.thumbnail_path,
-              preview_src: video.preview_path,
-              poster_src: video.poster_path
-            },
-            {},
-            {}
-          )} `;
+              thumbnail_src: video.thumbnail_url,
+              preview_src: video.preview_url,
+              poster_src: video.poster_url,
+              stillsAvailable: video.stillsAvailable,
+              uuid: video.uuid
+            });
+          },
+          $$slots: { default: true }
+        });
+        $$payload.out += `<!----></button></div>`;
+      }
+      $$payload.out += `<!--]--></div>`;
+    } else {
+      $$payload.out += "<!--[!-->";
+      const each_array_3 = ensure_array_like(collection.videos);
+      $$payload.out += `<!--[-->`;
+      for (let $$index_3 = 0, $$length2 = each_array_3.length; $$index_3 < $$length2; $$index_3++) {
+        let video = each_array_3[$$index_3];
+        const each_array_4 = ensure_array_like(video.roles);
+        $$payload.out += `<div role="none"${attr("id", video.uuid)}${attr("class", `w-full flex-col-reverse text-center flex gap-x-4 ${stringify(i % 2 ? "md:flex-row-reverse md:text-right" : "md:flex-row md:text-left")}`)}><button class="w-full block basis-3/5"><!---->`;
+        Aspect_ratio($$payload, {
+          ratio: 16 / 9,
+          children: ($$payload2) => {
+            GalleryVideo($$payload2, {
+              class: "rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip",
+              href: video.link,
+              this_id: video.uuid,
+              selected_id: selected_video_uuid,
+              thumbnail_src: video.thumbnail_url,
+              preview_src: video.preview_url,
+              poster_src: video.poster_url,
+              stillsAvailable: video.stillsAvailable,
+              uuid: video.uuid
+            });
+          },
+          $$slots: { default: true }
+        });
+        $$payload.out += `<!----></button> <div class="w-full basis-2/5 flex flex-col gap-y-1 justify-center md:justify-start drop-shadow mb-2 md:mb-0"><span class="font-semibold text-2xl lg:text-3xl">`;
+        if (video.subject === "BjeloPIC") {
+          $$payload.out += "<!--[-->";
+          TheBjeloPIC($$payload, {});
+        } else {
+          $$payload.out += "<!--[!-->";
+          $$payload.out += `${escape_html(video.subject)}`;
         }
-      })}</button> <div class="w-full basis-2/5 flex flex-col justify-center md:justify-start drop-shadow"><span class="text-bjelopic-blue-1 font-semibold text-2xl md:text-3xl">${video.subject === "BjeloPIC" ? `${validate_component(TheBjeloPIC, "TheBjeloPic").$$render($$result, {}, {}, {})}` : `${escape(video.subject)}`} -
-                                <span class="text-white">${escape(video.title)} </span>(${escape(new Date(video.publication_date).getUTCFullYear())})</span> ${video.category ? `<span class="md:text-lg mb-2">${escape(video.category)}</span>` : ``} <div class="${"flex justify-center md:justify-start " + escape(i % 2 == 0 ? "flex-row" : "flex-row-reverse", true) + " mb-2 flex-wrap gap-x-2 gap-y-2"}">${each(video.roles, (role) => {
-        return `<div class="bg-bjelopic-orange-3 rounded-lg py-1 px-2"><span class="drop-shadow text-base">${escape(role)}</span> </div>`;
-      })} </div></div> </div>`;
-    })}`}</div> </section>`;
-  })}`;
-});
-const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+        $$payload.out += `<!--]--> - <span class="text-white">${escape_html(video.title)}</span> (${escape_html(new Date(video.publication_date).getUTCFullYear())})</span> `;
+        if (video.category) {
+          $$payload.out += "<!--[-->";
+          $$payload.out += `<span class="lg:text-lg mb-2">${escape_html(video.category)}</span>`;
+        } else {
+          $$payload.out += "<!--[!-->";
+        }
+        $$payload.out += `<!--]--> <div${attr("class", `flex justify-center md:justify-start ${stringify(i % 2 == 0 ? "flex-row" : "flex-row-reverse")} mb-2 flex-wrap gap-x-2 gap-y-2`)}><!--[-->`;
+        for (let $$index_2 = 0, $$length3 = each_array_4.length; $$index_2 < $$length3; $$index_2++) {
+          let role = each_array_4[$$index_2];
+          $$payload.out += `<div class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm lg:text-base px-1 py-[0.5px]"><span class="drop-shadow">${escape_html(role)}</span></div>`;
+        }
+        $$payload.out += `<!--]--></div> <div>`;
+        GalleryVideoDescription($$payload, {
+          children: ($$payload2) => {
+            $$payload2.out += `<!---->${escape_html(video.description)}`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload.out += `<!----></div></div></div>`;
+      }
+      $$payload.out += `<!--]-->`;
+    }
+    $$payload.out += `<!--]--></div></section>`;
+  }
+  $$payload.out += `<!--]-->`;
+  pop();
+}
+const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Gallery
 }, Symbol.toStringTag, { value: "Module" }));
-const DashboardChart = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let canvas;
-  let { type } = $$props;
-  let { options = {
-    plugins: { legend: { display: false } },
-    scales: {
-      y: {
-        grid: { color: "#444444", display: false },
-        beginAtZero: true
-      },
-      x: {
-        grid: { color: "#444444", display: false }
-      }
-    }
-  } } = $$props;
-  let { data } = $$props;
-  if ($$props.type === void 0 && $$bindings.type && type !== void 0) $$bindings.type(type);
-  if ($$props.options === void 0 && $$bindings.options && options !== void 0) $$bindings.options(options);
-  if ($$props.data === void 0 && $$bindings.data && data !== void 0) $$bindings.data(data);
-  return `<div class="w-full h-full"><canvas${add_attribute("this", canvas, 0)}></canvas></div>`;
-});
-const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+function Stills$1($$payload, $$props) {
+  push();
+  let { video, stills } = $$props;
+  const each_array = ensure_array_like(stills);
+  head($$payload, ($$payload2) => {
+    $$payload2.title = `<title>${escape_html(video.title)} (${escape_html(new Date(video.publication_date).getUTCFullYear())}) - BjeloPIC</title>`;
+  });
+  $$payload.out += `<section class="p-4 max-w-screen-xl mx-auto mb-2"><div class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-4 md:mb-6 md:mt-2 max-w-screen-md"><div class="border-b border-white w-full h-min opacity-0 sm:opacity-100 transition-opacity duration-500"></div> <span class="whitespace-nowrap transition-all duration-500 text-lg sm:text-2xl relative md:bottom-[2px] font-semibold tracking-tight">${escape_html(video.title)} (${escape_html(new Date(video.publication_date).getUTCFullYear())})</span> <div class="border-b border-white w-full h-min opacity-0 sm:opacity-100 transition-opacity duration-500"></div></div> <div class="grid grid-cols-1 gap-8"><!--[-->`;
+  for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+    let still = each_array[$$index];
+    $$payload.out += `<a${attr("href", still.path)} target="_blank"><img class="w-full rounded-md drop-shadow-glow-xs"${attr("src", still.path)} alt="Still"></a>`;
+  }
+  $$payload.out += `<!--]--></div></section>`;
+  pop();
+}
+const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Stills$1
+}, Symbol.toStringTag, { value: "Module" }));
+function ViewTemporaryUpload($$payload, $$props) {
+  push();
+  let { temporary_upload } = $$props;
+  head($$payload, ($$payload2) => {
+    $$payload2.title = `<title>${escape_html(temporary_upload.original_name.substring(0, 12))} - BjeloPIC</title>`;
+  });
+  $$payload.out += `<main class="max-w-screen-lg mx-auto h-full flex flex-col items-center justify-center p-4 gap-y-2"><div class="bg-neutral-950 border border-neutral-800 rounded-xl w-fit p-8 relative flex flex-col sm:flex-row items-center gap-x-4 gap-y-4"><div class="flex items-center gap-x-4">`;
+  File($$payload, { class: "w-10 h-10" });
+  $$payload.out += `<!----> <div class="flex flex-col"><div class="text-lg max-w-72 text-nowrap overflow-hidden whitespace-nowrap text-ellipsis">${escape_html(temporary_upload.original_name)}</div> <div class="text-sm text-neutral-500">${escape_html(temporary_upload.size)} `;
+  if (temporary_upload.expiry_datetime) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `- Expires on ${escape_html(temporary_upload.expiry_datetime)}`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `- Never expires`;
+  }
+  $$payload.out += `<!--]--></div></div></div> <a${attr("href", `/f/${stringify(temporary_upload.sqid)}/download`)} class="w-full sm:w-fit">`;
+  Button($$payload, {
+    class: "bg-bjelopic-red-1 w-full py-8 text-base sm:py-4 sm:text-sm sm:w-fit text-white hover:bg-bjelopic-red-2",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Download`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----></a></div></main>`;
+  pop();
+}
+const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: ViewTemporaryUpload
+}, Symbol.toStringTag, { value: "Module" }));
+function DashboardChart($$payload, $$props) {
+  push();
+  $$payload.out += `<div class="w-full h-full"><canvas></canvas></div>`;
+  pop();
+}
+const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: DashboardChart
 }, Symbol.toStringTag, { value: "Module" }));
-const Header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["clientHeight", "dontHide"]);
-  let scrollY = 0;
-  let previous_scrollY = 1;
-  let header_shown = true;
-  let { clientHeight = 0 } = $$props;
-  let { dontHide = false } = $$props;
-  function setHeaderVisibility(scrollY2) {
-    header_shown = scrollY2 < previous_scrollY;
-    previous_scrollY = scrollY2;
-  }
-  if ($$props.clientHeight === void 0 && $$bindings.clientHeight && clientHeight !== void 0) $$bindings.clientHeight(clientHeight);
-  if ($$props.dontHide === void 0 && $$bindings.dontHide && dontHide !== void 0) $$bindings.dontHide(dontHide);
+function Header($$payload, $$props) {
+  push();
+  let {
+    clientHeight = 0,
+    dontHide = false,
+    children,
+    $$slots,
+    $$events,
+    ...rest
+  } = $$props;
   {
-    setHeaderVisibility(scrollY);
-  }
-  return ` ${header_shown || dontHide ? `<header class="${"bg-black w-full p-4 border-t md:border-t-0 md:border-b border-neutral-800 fixed bottom-0 md:relative " + escape($$restProps.class, true)}"><div class="flex w-full justify-between">${validate_component(Link, "Link").$$render(
-    $$result,
-    {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<header${attr("class", `${stringify(dontHide ? "bg-black" : "bg-black/75")} md:bg-black w-full p-4 border-t md:border-t-0 md:border-b border-neutral-800 fixed bottom-0 md:relative ${stringify(rest.class)}`)}${attr("style", !dontHide ? "backdrop-filter: blur(20px)" : "")}><div class="flex w-full justify-between">`;
+    Link($$payload, {
       href: "/webtools",
-      class: "max-w-screen-lg gap-y-2 md:gap-x-2 flex items-center justify-start gap-x-4"
-    },
-    {},
-    {
-      default: () => {
-        return `<div class="h-12 md:h-20 flex gap-x-4 items-center"><img class="h-full object-contain"${add_attribute(
-          "src",
-          "/bjelopic_logo.png",
-          0
-        )} alt="BjeloPIC"></div> <span class="text-white text-2xl md:text-[36px] relative bottom-[2px] italic" data-svelte-h="svelte-m5w96j">Webtools</span>`;
-      }
-    }
-  )} ${slots.default ? slots.default({}) : ``}</div></header>` : ``}`;
-});
-const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+      class: "max-w-screen-lg gap-y-2 md:gap-x-2 flex items-center justify-start gap-x-4",
+      children: ($$payload2) => {
+        $$payload2.out += `<div class="h-12 md:h-20 flex gap-x-4 items-center"><img class="h-full object-contain"${attr("src", "/bjelopic_logo.png")} alt="BjeloPIC"></div> <span class="text-white text-2xl md:text-[36px] relative bottom-[2px] italic">Webtools</span>`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload.out += `<!----> `;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></div></header>`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { clientHeight });
+  pop();
+}
+const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Header
 }, Symbol.toStringTag, { value: "Module" }));
-const NavLink = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $page, $$unsubscribe_page;
-  $$unsubscribe_page = subscribe(page, (value) => $page = value);
-  let { href: hrefLink = "/" } = $$props;
-  let { method: methodName = "get" } = $$props;
-  let { xhr = true } = $$props;
-  if ($$props.href === void 0 && $$bindings.href && hrefLink !== void 0) $$bindings.href(hrefLink);
-  if ($$props.method === void 0 && $$bindings.method && methodName !== void 0) $$bindings.method(methodName);
-  if ($$props.xhr === void 0 && $$bindings.xhr && xhr !== void 0) $$bindings.xhr(xhr);
-  $$unsubscribe_page();
-  return `${xhr ? `${validate_component(Link, "Link").$$render(
-    $$result,
-    {
+function NavLink($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let {
+    href: hrefLink = "/",
+    method: methodName = "get",
+    xhr = true,
+    children
+  } = $$props;
+  if (xhr) {
+    $$payload.out += "<!--[-->";
+    Link($$payload, {
       href: hrefLink,
-      class: " " + ($page.url.endsWith(hrefLink) ? "font-bold" : "font-light hover:font-normal"),
-      method: methodName
-    },
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}` : `<a${add_attribute("href", hrefLink, 0)} class="${"" + escape(
-    $page.url.endsWith(hrefLink) ? "font-bold" : "font-light hover:font-normal",
-    true
-  )}"${add_attribute("method", methodName, 0)}>${slots.default ? slots.default({}) : ``}</a>`}`;
-});
-const LayoutLinks = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, []);
-  let $page, $$unsubscribe_page;
-  $$unsubscribe_page = subscribe(page, (value) => $page = value);
+      class: ` ${stringify(store_get($$store_subs ?? ($$store_subs = {}), "$page", page).url.endsWith(hrefLink) ? "font-bold" : "font-light hover:font-normal")}`,
+      method: methodName,
+      children: ($$payload2) => {
+        children == null ? void 0 : children($$payload2);
+        $$payload2.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    });
+  } else {
+    $$payload.out += "<!--[!-->";
+    $$payload.out += `<a${attr("href", hrefLink)}${attr("class", ` ${stringify(store_get($$store_subs ?? ($$store_subs = {}), "$page", page).url.endsWith(hrefLink) ? "font-bold" : "font-light hover:font-normal")}`)}${attr("method", methodName)}>`;
+    children == null ? void 0 : children($$payload);
+    $$payload.out += `<!----></a>`;
+  }
+  $$payload.out += `<!--]-->`;
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+  pop();
+}
+function LayoutLinks($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { $$slots, $$events, ...rest } = $$props;
   let show_telescope = false;
-  show_telescope = $page.props.show_telescope;
-  $$unsubscribe_page();
-  return `<div class="${"flex flex-col text-2xl gap-y-2 " + escape($$restProps.class, true) + " h-full"}">${validate_component(NavLink, "NavLink").$$render($$result, { href: "/" }, {}, {
-    default: () => {
-      return `<span class="flex items-baseline">Website${validate_component(Square_arrow_out_up_right, "SquareArrowOutUpRight").$$render($$result, { class: "w-5 h-5 ml-2 relative top-[2px]" }, {}, {})}</span>`;
-    }
-  })} ${validate_component(NavLink, "NavLink").$$render($$result, { href: "/webtools" }, {}, {
-    default: () => {
-      return `Dashboard`;
-    }
-  })} ${validate_component(NavLink, "NavLink").$$render($$result, { href: "/webtools/videos" }, {}, {
-    default: () => {
-      return `Videos`;
-    }
-  })} ${show_telescope ? `${validate_component(NavLink, "NavLink").$$render($$result, { xhr: false, href: "/telescope" }, {}, {
-    default: () => {
-      return `Telescope`;
-    }
-  })}` : ``} <div class="grow h-full"></div> ${validate_component(NavLink, "NavLink").$$render($$result, { href: "/webtools/logout" }, {}, {
-    default: () => {
-      return `Logout`;
-    }
-  })}</div>`;
-});
-const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  run(() => {
+    show_telescope = store_get($$store_subs ?? ($$store_subs = {}), "$page", page).props.show_telescope;
+  });
+  $$payload.out += `<div${attr("class", `flex flex-col text-2xl gap-y-2 ${stringify(rest.class)} h-full`)}>`;
+  NavLink($$payload, {
+    href: "/",
+    children: ($$payload2) => {
+      $$payload2.out += `<span class="flex items-baseline">Website`;
+      Square_arrow_out_up_right($$payload2, { class: "w-5 h-5 ml-2 relative top-[2px]" });
+      $$payload2.out += `<!----></span>`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  NavLink($$payload, {
+    href: "/webtools",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Dashboard`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  NavLink($$payload, {
+    href: "/webtools/hero",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Hero`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  NavLink($$payload, {
+    href: "/webtools/videos",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Videos`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  NavLink($$payload, {
+    href: "/webtools/uploads",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->File Upload`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----> `;
+  if (show_telescope) {
+    $$payload.out += "<!--[-->";
+    NavLink($$payload, {
+      xhr: false,
+      href: "/telescope",
+      children: ($$payload2) => {
+        $$payload2.out += `<!---->Telescope`;
+      },
+      $$slots: { default: true }
+    });
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]--> <div class="grow h-full"></div> `;
+  NavLink($$payload, {
+    href: "/webtools/logout",
+    children: ($$payload2) => {
+      $$payload2.out += `<!---->Logout`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!----></div>`;
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+  pop();
+}
+const __vite_glob_0_19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: LayoutLinks
 }, Symbol.toStringTag, { value: "Module" }));
-const Icon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { type = "success" } = $$props;
-  if ($$props.type === void 0 && $$bindings.type && type !== void 0) $$bindings.type(type);
-  return `${type === "success" ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height="20" width="20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"></path></svg>` : `${type === "error" ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height="20" width="20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>` : `${type === "info" ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height="20" width="20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"></path></svg>` : `${type === "warning" ? `<svg viewBox="0 0 64 64" fill="currentColor" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M32.427,7.987c2.183,0.124 4,1.165 5.096,3.281l17.936,36.208c1.739,3.66 -0.954,8.585 -5.373,8.656l-36.119,0c-4.022,-0.064 -7.322,-4.631 -5.352,-8.696l18.271,-36.207c0.342,-0.65 0.498,-0.838 0.793,-1.179c1.186,-1.375 2.483,-2.111 4.748,-2.063Zm-0.295,3.997c-0.687,0.034 -1.316,0.419 -1.659,1.017c-6.312,11.979 -12.397,24.081 -18.301,36.267c-0.546,1.225 0.391,2.797 1.762,2.863c12.06,0.195 24.125,0.195 36.185,0c1.325,-0.064 2.321,-1.584 1.769,-2.85c-5.793,-12.184 -11.765,-24.286 -17.966,-36.267c-0.366,-0.651 -0.903,-1.042 -1.79,-1.03Z"></path><path d="M33.631,40.581l-3.348,0l-0.368,-16.449l4.1,0l-0.384,16.449Zm-3.828,5.03c0,-0.609 0.197,-1.113 0.592,-1.514c0.396,-0.4 0.935,-0.601 1.618,-0.601c0.684,0 1.223,0.201 1.618,0.601c0.395,0.401 0.593,0.905 0.593,1.514c0,0.587 -0.193,1.078 -0.577,1.473c-0.385,0.395 -0.929,0.593 -1.634,0.593c-0.705,0 -1.249,-0.198 -1.634,-0.593c-0.384,-0.395 -0.576,-0.886 -0.576,-1.473Z"></path></svg>` : ``}`}`}`}`;
-});
-const Loader = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { visible } = $$props;
+function Icon($$payload, $$props) {
+  let type = fallback($$props["type"], "success");
+  if (type === "success") {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height="20" width="20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"></path></svg>`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    if (type === "error") {
+      $$payload.out += "<!--[-->";
+      $$payload.out += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height="20" width="20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>`;
+    } else {
+      $$payload.out += "<!--[!-->";
+      if (type === "info") {
+        $$payload.out += "<!--[-->";
+        $$payload.out += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height="20" width="20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"></path></svg>`;
+      } else {
+        $$payload.out += "<!--[!-->";
+        if (type === "warning") {
+          $$payload.out += "<!--[-->";
+          $$payload.out += `<svg viewBox="0 0 64 64" fill="currentColor" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M32.427,7.987c2.183,0.124 4,1.165 5.096,3.281l17.936,36.208c1.739,3.66 -0.954,8.585 -5.373,8.656l-36.119,0c-4.022,-0.064 -7.322,-4.631 -5.352,-8.696l18.271,-36.207c0.342,-0.65 0.498,-0.838 0.793,-1.179c1.186,-1.375 2.483,-2.111 4.748,-2.063Zm-0.295,3.997c-0.687,0.034 -1.316,0.419 -1.659,1.017c-6.312,11.979 -12.397,24.081 -18.301,36.267c-0.546,1.225 0.391,2.797 1.762,2.863c12.06,0.195 24.125,0.195 36.185,0c1.325,-0.064 2.321,-1.584 1.769,-2.85c-5.793,-12.184 -11.765,-24.286 -17.966,-36.267c-0.366,-0.651 -0.903,-1.042 -1.79,-1.03Z"></path><path d="M33.631,40.581l-3.348,0l-0.368,-16.449l4.1,0l-0.384,16.449Zm-3.828,5.03c0,-0.609 0.197,-1.113 0.592,-1.514c0.396,-0.4 0.935,-0.601 1.618,-0.601c0.684,0 1.223,0.201 1.618,0.601c0.395,0.401 0.593,0.905 0.593,1.514c0,0.587 -0.193,1.078 -0.577,1.473c-0.385,0.395 -0.929,0.593 -1.634,0.593c-0.705,0 -1.249,-0.198 -1.634,-0.593c-0.384,-0.395 -0.576,-0.886 -0.576,-1.473Z"></path></svg>`;
+        } else {
+          $$payload.out += "<!--[!-->";
+        }
+        $$payload.out += `<!--]-->`;
+      }
+      $$payload.out += `<!--]-->`;
+    }
+    $$payload.out += `<!--]-->`;
+  }
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { type });
+}
+function Loader($$payload, $$props) {
+  push();
+  let visible = $$props["visible"];
   const bars = Array(12).fill(0);
-  if ($$props.visible === void 0 && $$bindings.visible && visible !== void 0) $$bindings.visible(visible);
-  return `<div class="sonner-loading-wrapper"${add_attribute("data-visible", visible, 0)}><div class="sonner-spinner">${each(bars, (_2, i) => {
-    return `<div class="sonner-loading-bar"></div>`;
-  })}</div></div>`;
-});
+  const each_array = ensure_array_like(bars);
+  $$payload.out += `<div class="sonner-loading-wrapper"${attr("data-visible", visible)}><div class="sonner-spinner"><!--[-->`;
+  for (let i = 0, $$length = each_array.length; i < $$length; i++) {
+    each_array[i];
+    $$payload.out += `<div class="sonner-loading-bar"></div>`;
+  }
+  $$payload.out += `<!--]--></div></div>`;
+  bind_props($$props, { visible });
+  pop();
+}
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-const isBrowser$2 = typeof document !== "undefined";
+const isBrowser$1 = typeof document !== "undefined";
 function clientWritable(initialValue) {
-  const store2 = writable(initialValue);
-  function set(value) {
-    if (isBrowser$2) {
-      store2.set(value);
+  const store = writable(initialValue);
+  function set2(value) {
+    if (isBrowser$1) {
+      store.set(value);
     }
   }
-  function update2(updater) {
-    if (isBrowser$2) {
-      store2.update(updater);
+  function update(updater) {
+    if (isBrowser$1) {
+      store.update(updater);
     }
   }
   return {
-    subscribe: store2.subscribe,
-    set,
-    update: update2
+    subscribe: store.subscribe,
+    set: set2,
+    update
   };
 }
 let toastsCounter = 0;
@@ -7008,7 +10477,7 @@ function createToastState() {
   const toasts = clientWritable([]);
   const heights = clientWritable([]);
   function addToast(data) {
-    toasts.update((prev2) => [data, ...prev2]);
+    toasts.update((prev) => [data, ...prev]);
   }
   function create(data) {
     var _a;
@@ -7016,12 +10485,12 @@ function createToastState() {
     const id = typeof (data == null ? void 0 : data.id) === "number" || data.id && ((_a = data.id) == null ? void 0 : _a.length) > 0 ? data.id : toastsCounter++;
     const dismissable = data.dismissable === void 0 ? true : data.dismissable;
     const type = data.type === void 0 ? "default" : data.type;
-    const $toasts = get_store_value(toasts);
+    const $toasts = get$1(toasts);
     const alreadyExists = $toasts.find((toast2) => {
       return toast2.id === id;
     });
     if (alreadyExists) {
-      toasts.update((prev2) => prev2.map((toast2) => {
+      toasts.update((prev) => prev.map((toast2) => {
         if (toast2.id === id) {
           return {
             ...toast2,
@@ -7045,10 +10514,10 @@ function createToastState() {
   }
   function dismiss(id) {
     if (id === void 0) {
-      toasts.update((prev2) => prev2.map((toast2) => ({ ...toast2, dismiss: true })));
+      toasts.update((prev) => prev.map((toast2) => ({ ...toast2, dismiss: true })));
       return;
     }
-    toasts.update((prev2) => prev2.map((toast2) => toast2.id === id ? { ...toast2, dismiss: true } : toast2));
+    toasts.update((prev) => prev.map((toast2) => toast2.id === id ? { ...toast2, dismiss: true } : toast2));
     return id;
   }
   function remove(id) {
@@ -7056,7 +10525,7 @@ function createToastState() {
       toasts.set([]);
       return;
     }
-    toasts.update((prev2) => prev2.filter((toast2) => toast2.id !== id));
+    toasts.update((prev) => prev.filter((toast2) => toast2.id !== id));
     return id;
   }
   function message(message2, data) {
@@ -7090,9 +10559,9 @@ function createToastState() {
         message: data.loading
       });
     }
-    const p = promise2 instanceof Promise ? promise2 : promise2();
+    const p2 = promise2 instanceof Promise ? promise2 : promise2();
     let shouldDismiss = id !== void 0;
-    p.then((response) => {
+    p2.then((response) => {
       if (response && typeof response.ok === "boolean" && !response.ok) {
         shouldDismiss = false;
         const message2 = typeof data.error === "function" ? (
@@ -7133,15 +10602,15 @@ function createToastState() {
     return id;
   }
   function removeHeight(id) {
-    heights.update((prev2) => prev2.filter((height) => height.toastId !== id));
+    heights.update((prev) => prev.filter((height) => height.toastId !== id));
   }
   function setHeight(data) {
-    const exists = get_store_value(heights).find((el) => el.toastId === data.toastId);
+    const exists = get$1(heights).find((el) => el.toastId === data.toastId);
     if (exists === void 0) {
-      heights.update((prev2) => [data, ...prev2]);
+      heights.update((prev) => [data, ...prev]);
       return;
     }
-    heights.update((prev2) => prev2.map((el) => {
+    heights.update((prev) => prev.map((el) => {
       if (el.toastId === data.toastId) {
         return data;
       } else {
@@ -7195,24 +10664,15 @@ const toast = Object.assign(basicToast, {
   loading: toastState.loading
 });
 const useEffect = (subscribe2) => ({ subscribe: subscribe2 });
-const TOAST_LIFETIME = 4e3;
-const GAP$1 = 14;
-const TIME_BEFORE_UNMOUNT = 200;
-const Toast = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  var _a, _b, _c, _d, _e, _f, _g;
-  let isFront;
-  let isVisible;
-  let toastType;
-  let toastClass;
-  let toastDescriptionClass;
-  let heightIndex;
-  let coords;
-  let toastsHeightBefore;
-  let disabled;
-  let isPromiseLoadingOrInfiniteDuration;
-  let $$unsubscribe_effect = noop$1, $$subscribe_effect = () => ($$unsubscribe_effect(), $$unsubscribe_effect = subscribe(effect2, ($$value) => $$value), effect2);
-  let $heights, $$unsubscribe_heights;
-  let $toasts, $$unsubscribe_toasts;
+function Toast($$payload, $$props) {
+  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k;
+  const $$sanitized_props = sanitize_props($$props);
+  push();
+  var $$store_subs;
+  let isFront, isVisible, toastType, toastClass, toastDescriptionClass, heightIndex, coords, toastsHeightBefore, disabled, isPromiseLoadingOrInfiniteDuration;
+  const TOAST_LIFETIME = 4e3;
+  const GAP = 14;
+  const TIME_BEFORE_UNMOUNT = 200;
   const defaultClasses = {
     toast: "",
     title: "",
@@ -7229,31 +10689,34 @@ const Toast = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     info: "",
     loading: ""
   };
-  const { toasts, heights, removeHeight, setHeight, remove } = toastState;
-  $$unsubscribe_toasts = subscribe(toasts, (value) => $toasts = value);
-  $$unsubscribe_heights = subscribe(heights, (value) => $heights = value);
-  let { toast: toast2 } = $$props;
-  let { index } = $$props;
-  let { expanded } = $$props;
-  let { invert } = $$props;
-  let { position } = $$props;
-  let { visibleToasts } = $$props;
-  let { expandByDefault } = $$props;
-  let { closeButton } = $$props;
-  let { interacting } = $$props;
-  let { cancelButtonStyle = "" } = $$props;
-  let { actionButtonStyle = "" } = $$props;
-  let { duration = 4e3 } = $$props;
-  let { descriptionClass = "" } = $$props;
-  let { classes = {} } = $$props;
-  let { unstyled = false } = $$props;
+  const {
+    toasts,
+    heights,
+    removeHeight,
+    setHeight,
+    remove
+  } = toastState;
+  let toast2 = $$props["toast"];
+  let index = $$props["index"];
+  let expanded = $$props["expanded"];
+  let invert = $$props["invert"];
+  let position = $$props["position"];
+  let visibleToasts = $$props["visibleToasts"];
+  let expandByDefault = $$props["expandByDefault"];
+  let closeButton = $$props["closeButton"];
+  let interacting = $$props["interacting"];
+  let cancelButtonStyle = fallback($$props["cancelButtonStyle"], "");
+  let actionButtonStyle = fallback($$props["actionButtonStyle"], "");
+  let duration = fallback($$props["duration"], 4e3);
+  let descriptionClass = fallback($$props["descriptionClass"], "");
+  let classes = fallback($$props["classes"], () => ({}), true);
+  let unstyled = fallback($$props["unstyled"], false);
   let mounted = false;
   let removed = false;
   let swiping = false;
   let swipeOut = false;
   let offsetBeforeRemove = 0;
   let initialHeight = 0;
-  let toastRef;
   let offset2 = 0;
   let closeTimerStartTimeRef = 0;
   let lastCloseTimerStartTimeRef = 0;
@@ -7293,22 +10756,7 @@ const Toast = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       remainingTime
     );
   }
-  let effect2;
-  if ($$props.toast === void 0 && $$bindings.toast && toast2 !== void 0) $$bindings.toast(toast2);
-  if ($$props.index === void 0 && $$bindings.index && index !== void 0) $$bindings.index(index);
-  if ($$props.expanded === void 0 && $$bindings.expanded && expanded !== void 0) $$bindings.expanded(expanded);
-  if ($$props.invert === void 0 && $$bindings.invert && invert !== void 0) $$bindings.invert(invert);
-  if ($$props.position === void 0 && $$bindings.position && position !== void 0) $$bindings.position(position);
-  if ($$props.visibleToasts === void 0 && $$bindings.visibleToasts && visibleToasts !== void 0) $$bindings.visibleToasts(visibleToasts);
-  if ($$props.expandByDefault === void 0 && $$bindings.expandByDefault && expandByDefault !== void 0) $$bindings.expandByDefault(expandByDefault);
-  if ($$props.closeButton === void 0 && $$bindings.closeButton && closeButton !== void 0) $$bindings.closeButton(closeButton);
-  if ($$props.interacting === void 0 && $$bindings.interacting && interacting !== void 0) $$bindings.interacting(interacting);
-  if ($$props.cancelButtonStyle === void 0 && $$bindings.cancelButtonStyle && cancelButtonStyle !== void 0) $$bindings.cancelButtonStyle(cancelButtonStyle);
-  if ($$props.actionButtonStyle === void 0 && $$bindings.actionButtonStyle && actionButtonStyle !== void 0) $$bindings.actionButtonStyle(actionButtonStyle);
-  if ($$props.duration === void 0 && $$bindings.duration && duration !== void 0) $$bindings.duration(duration);
-  if ($$props.descriptionClass === void 0 && $$bindings.descriptionClass && descriptionClass !== void 0) $$bindings.descriptionClass(descriptionClass);
-  if ($$props.classes === void 0 && $$bindings.classes && classes !== void 0) $$bindings.classes(classes);
-  if ($$props.unstyled === void 0 && $$bindings.unstyled && unstyled !== void 0) $$bindings.unstyled(unstyled);
+  let effect;
   classes = { ...defaultClasses, ...classes };
   isFront = index === 0;
   isVisible = index + 1 <= visibleToasts;
@@ -7317,30 +10765,26 @@ const Toast = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   toastType = toast2.type;
   toastClass = toast2.class || "";
   toastDescriptionClass = toast2.descriptionClass || "";
-  heightIndex = $heights.findIndex((height) => height.toastId === toast2.id) || 0;
+  heightIndex = store_get($$store_subs ?? ($$store_subs = {}), "$heights", heights).findIndex((height) => height.toastId === toast2.id) || 0;
   coords = position.split("-");
-  toastsHeightBefore = $heights.reduce(
-    (prev2, curr, reducerIndex) => {
-      if (reducerIndex >= heightIndex) return prev2;
-      return prev2 + curr.height;
+  toastsHeightBefore = store_get($$store_subs ?? ($$store_subs = {}), "$heights", heights).reduce(
+    (prev, curr, reducerIndex) => {
+      if (reducerIndex >= heightIndex) return prev;
+      return prev + curr.height;
     },
     0
   );
   invert = toast2.invert || invert;
   disabled = toastType === "loading";
-  offset2 = Math.round(heightIndex * GAP$1 + toastsHeightBefore);
-  {
-    updateHeights();
-  }
-  {
-    if (toast2.updated) {
-      clearTimeout(timeoutId);
-      remainingTime = toast2.duration || duration || TOAST_LIFETIME;
-      startTimer();
-    }
+  offset2 = Math.round(heightIndex * GAP + toastsHeightBefore);
+  updateHeights();
+  if (toast2.updated) {
+    clearTimeout(timeoutId);
+    remainingTime = toast2.duration || duration || TOAST_LIFETIME;
+    startTimer();
   }
   isPromiseLoadingOrInfiniteDuration = toast2.promise && toastType === "loading" || toast2.duration === Number.POSITIVE_INFINITY;
-  $$subscribe_effect(effect2 = useEffect(() => {
+  effect = useEffect(() => {
     if (!isPromiseLoadingOrInfiniteDuration) {
       if (expanded || interacting) {
         pauseTimer();
@@ -7349,62 +10793,172 @@ const Toast = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       }
     }
     return () => clearTimeout(timeoutId);
-  }));
-  {
-    if (toast2.delete) {
-      deleteToast();
-    }
+  });
+  store_get($$store_subs ?? ($$store_subs = {}), "$effect", effect);
+  if (toast2.delete) {
+    deleteToast();
   }
-  $$unsubscribe_effect();
-  $$unsubscribe_heights();
-  $$unsubscribe_toasts();
-  return `   <li${add_attribute("aria-live", toast2.important ? "assertive" : "polite", 0)} aria-atomic="true" role="status"${add_attribute("tabindex", 0, 0)}${add_attribute("class", cn($$props.class, toastClass, classes == null ? void 0 : classes.toast, (_a = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _a.toast, classes == null ? void 0 : classes[toastType], (_b = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _b[toastType]), 0)} data-sonner-toast=""${add_attribute("data-styled", !(toast2.component || (toast2 == null ? void 0 : toast2.unstyled) || unstyled), 0)}${add_attribute("data-mounted", mounted, 0)}${add_attribute("data-promise", Boolean(toast2.promise), 0)}${add_attribute("data-removed", removed, 0)}${add_attribute("data-visible", isVisible, 0)}${add_attribute("data-y-position", coords[0], 0)}${add_attribute("data-x-position", coords[1], 0)}${add_attribute("data-index", index, 0)}${add_attribute("data-front", isFront, 0)}${add_attribute("data-swiping", swiping, 0)}${add_attribute("data-type", toastType, 0)}${add_attribute("data-invert", invert, 0)}${add_attribute("data-swipe-out", swipeOut, 0)}${add_attribute("data-expanded", Boolean(expanded || expandByDefault && mounted), 0)}${add_styles(merge_ssr_styles(escape(`${$$props.style} ${toast2.style}`, true), {
+  $$payload.out += `<li${add_styles(merge_styles(`${$$sanitized_props.style} ${toast2.style}`, {
     "--index": index,
     "--toasts-before": index,
-    "--z-index": $toasts.length - index,
+    "--z-index": store_get($$store_subs ?? ($$store_subs = {}), "$toasts", toasts).length - index,
     "--offset": `${removed ? offsetBeforeRemove : offset2}px`,
     "--initial-height": `${initialHeight}px`
-  }))}${add_attribute("this", toastRef, 0)}>${closeButton && !toast2.component ? `<button aria-label="Close toast"${add_attribute("data-disabled", disabled, 0)} data-close-button${add_attribute("class", cn(classes == null ? void 0 : classes.closeButton, (_c = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _c.closeButton), 0)}><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>` : ``} ${toast2.component ? `${validate_component(toast2.component || missing_component, "svelte:component").$$render($$result, Object.assign({}, toast2.componentProps), {}, {})}` : `${toastType !== "default" || toast2.icon || toast2.promise ? `<div data-icon="">${(toast2.promise || toastType === "loading") && !toast2.icon ? `${slots["loading-icon"] ? slots["loading-icon"]({}) : ``}` : ``} ${toast2.icon ? `${validate_component(toast2.icon || missing_component, "svelte:component").$$render($$result, {}, {}, {})}` : `${toastType === "success" ? `${slots["success-icon"] ? slots["success-icon"]({}) : ``}` : `${toastType === "error" ? `${slots["error-icon"] ? slots["error-icon"]({}) : ``}` : `${toastType === "warning" ? `${slots["warning-icon"] ? slots["warning-icon"]({}) : ``}` : `${toastType === "info" ? `${slots["info-icon"] ? slots["info-icon"]({}) : ``}` : ``}`}`}`}`}</div>` : ``} <div data-content="">${toast2.title ? `<div data-title=""${add_attribute("class", cn(classes == null ? void 0 : classes.title, (_d = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _d.title), 0)}>${typeof toast2.title !== "string" ? `${validate_component(toast2.title || missing_component, "svelte:component").$$render($$result, Object.assign({}, toast2.componentProps), {}, {})}` : `${escape(toast2.title)}`}</div>` : ``} ${toast2.description ? `<div data-description=""${add_attribute("class", cn(descriptionClass, toastDescriptionClass, classes == null ? void 0 : classes.description, (_e = toast2.classes) == null ? void 0 : _e.description), 0)}>${typeof toast2.description !== "string" ? `${validate_component(toast2.description || missing_component, "svelte:component").$$render($$result, Object.assign({}, toast2.componentProps), {}, {})}` : `${escape(toast2.description)}`}</div>` : ``}</div> ${toast2.cancel ? `<button data-button data-cancel${add_attribute("style", cancelButtonStyle, 0)}${add_attribute("class", cn(classes == null ? void 0 : classes.cancelButton, (_f = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _f.cancelButton), 0)}>${escape(toast2.cancel.label)}</button>` : ``} ${toast2.action ? `<button data-button=""${add_attribute("style", actionButtonStyle, 0)}${add_attribute("class", cn(classes == null ? void 0 : classes.actionButton, (_g = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _g.actionButton), 0)}>${escape(toast2.action.label)}</button>` : ``}`}</li>`;
-});
-const css = {
-  code: ":where(html[dir='ltr']),:where([data-sonner-toaster][dir='ltr']){--toast-icon-margin-start:-3px;--toast-icon-margin-end:4px;--toast-svg-margin-start:-1px;--toast-svg-margin-end:0px;--toast-button-margin-start:auto;--toast-button-margin-end:0;--toast-close-button-start:0;--toast-close-button-end:unset;--toast-close-button-transform:translate(-35%, -35%)}:where(html[dir='rtl']),:where([data-sonner-toaster][dir='rtl']){--toast-icon-margin-start:4px;--toast-icon-margin-end:-3px;--toast-svg-margin-start:0px;--toast-svg-margin-end:-1px;--toast-button-margin-start:0;--toast-button-margin-end:auto;--toast-close-button-start:unset;--toast-close-button-end:0;--toast-close-button-transform:translate(35%, -35%)}:where([data-sonner-toaster]){position:fixed;width:var(--width);font-family:ui-sans-serif,\n			system-ui,\n			-apple-system,\n			BlinkMacSystemFont,\n			Segoe UI,\n			Roboto,\n			Helvetica Neue,\n			Arial,\n			Noto Sans,\n			sans-serif,\n			Apple Color Emoji,\n			Segoe UI Emoji,\n			Segoe UI Symbol,\n			Noto Color Emoji;--gray1:hsl(0, 0%, 99%);--gray2:hsl(0, 0%, 97.3%);--gray3:hsl(0, 0%, 95.1%);--gray4:hsl(0, 0%, 93%);--gray5:hsl(0, 0%, 90.9%);--gray6:hsl(0, 0%, 88.7%);--gray7:hsl(0, 0%, 85.8%);--gray8:hsl(0, 0%, 78%);--gray9:hsl(0, 0%, 56.1%);--gray10:hsl(0, 0%, 52.3%);--gray11:hsl(0, 0%, 43.5%);--gray12:hsl(0, 0%, 9%);--border-radius:8px;box-sizing:border-box;padding:0;margin:0;list-style:none;outline:none;z-index:999999999}:where([data-sonner-toaster][data-x-position='right']){right:max(var(--offset), env(safe-area-inset-right))}:where([data-sonner-toaster][data-x-position='left']){left:max(var(--offset), env(safe-area-inset-left))}:where([data-sonner-toaster][data-x-position='center']){left:50%;transform:translateX(-50%)}:where([data-sonner-toaster][data-y-position='top']){top:max(var(--offset), env(safe-area-inset-top))}:where([data-sonner-toaster][data-y-position='bottom']){bottom:max(var(--offset), env(safe-area-inset-bottom))}:where([data-sonner-toast]){--y:translateY(100%);--lift-amount:calc(var(--lift) * var(--gap));z-index:var(--z-index);position:absolute;opacity:0;transform:var(--y);filter:blur(0);touch-action:none;transition:transform 400ms,\n			opacity 400ms,\n			height 400ms,\n			box-shadow 200ms;box-sizing:border-box;outline:none;overflow-wrap:anywhere}:where([data-sonner-toast][data-styled='true']){padding:16px;background:var(--normal-bg);border:1px solid var(--normal-border);color:var(--normal-text);border-radius:var(--border-radius);box-shadow:0px 4px 12px rgba(0, 0, 0, 0.1);width:var(--width);font-size:13px;display:flex;align-items:center;gap:6px}:where([data-sonner-toast]:focus-visible){box-shadow:0px 4px 12px rgba(0, 0, 0, 0.1),\n			0 0 0 2px rgba(0, 0, 0, 0.2)}:where([data-sonner-toast][data-y-position='top']){top:0;--y:translateY(-100%);--lift:1;--lift-amount:calc(1 * var(--gap))}:where([data-sonner-toast][data-y-position='bottom']){bottom:0;--y:translateY(100%);--lift:-1;--lift-amount:calc(var(--lift) * var(--gap))}:where([data-sonner-toast]) :where([data-description]){font-weight:400;line-height:1.4;color:inherit}:where([data-sonner-toast]) :where([data-title]){font-weight:500;line-height:1.5;color:inherit}:where([data-sonner-toast]) :where([data-icon]){display:flex;height:16px;width:16px;position:relative;justify-content:flex-start;align-items:center;flex-shrink:0;margin-left:var(--toast-icon-margin-start);margin-right:var(--toast-icon-margin-end)}:where([data-sonner-toast][data-promise='true']) :where([data-icon])>svg{opacity:0;transform:scale(0.8);transform-origin:center;animation:sonner-fade-in 300ms ease forwards}:where([data-sonner-toast]) :where([data-icon])>*{flex-shrink:0}:where([data-sonner-toast]) :where([data-icon]) svg{margin-left:var(--toast-svg-margin-start);margin-right:var(--toast-svg-margin-end)}:where([data-sonner-toast]) :where([data-content]){display:flex;flex-direction:column;gap:2px}[data-sonner-toast][data-styled='true'] [data-button]{border-radius:4px;padding-left:8px;padding-right:8px;height:24px;font-size:12px;color:var(--normal-bg);background:var(--normal-text);margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end);border:none;cursor:pointer;outline:none;display:flex;align-items:center;flex-shrink:0;transition:opacity 400ms,\n			box-shadow 200ms}:where([data-sonner-toast]) :where([data-button]):focus-visible{box-shadow:0 0 0 2px rgba(0, 0, 0, 0.4)}:where([data-sonner-toast]) :where([data-button]):first-of-type{margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end)}:where([data-sonner-toast]) :where([data-cancel]){color:var(--normal-text);background:rgba(0, 0, 0, 0.08)}:where([data-sonner-toast][data-theme='dark']) :where([data-cancel]){background:rgba(255, 255, 255, 0.3)}:where([data-sonner-toast]) :where([data-close-button]){position:absolute;left:var(--toast-close-button-start);right:var(--toast-close-button-end);top:0;height:20px;width:20px;display:flex;justify-content:center;align-items:center;padding:0;background:var(--gray1);color:var(--gray12);border:1px solid var(--gray4);transform:var(--toast-close-button-transform);border-radius:50%;cursor:pointer;z-index:1;transition:opacity 100ms,\n			background 200ms,\n			border-color 200ms}:where([data-sonner-toast]) :where([data-close-button]):focus-visible{box-shadow:0px 4px 12px rgba(0, 0, 0, 0.1),\n			0 0 0 2px rgba(0, 0, 0, 0.2)}:where([data-sonner-toast]) :where([data-disabled='true']){cursor:not-allowed}:where([data-sonner-toast]):hover :where([data-close-button]):hover{background:var(--gray2);border-color:var(--gray5)}:where([data-sonner-toast][data-swiping='true'])::before{content:'';position:absolute;left:0;right:0;height:100%;z-index:-1}:where(\n			[data-sonner-toast][data-y-position='top'][data-swiping='true']\n		)::before{bottom:50%;transform:scaleY(3) translateY(50%)}:where(\n			[data-sonner-toast][data-y-position='bottom'][data-swiping='true']\n		)::before{top:50%;transform:scaleY(3) translateY(-50%)}:where(\n			[data-sonner-toast][data-swiping='false'][data-removed='true']\n		)::before{content:'';position:absolute;inset:0;transform:scaleY(2)}:where([data-sonner-toast])::after{content:'';position:absolute;left:0;height:calc(var(--gap) + 1px);bottom:100%;width:100%}:where([data-sonner-toast][data-mounted='true']){--y:translateY(0);opacity:1}:where([data-sonner-toast][data-expanded='false'][data-front='false']){--scale:var(--toasts-before) * 0.05 + 1;--y:translateY(calc(var(--lift-amount) * var(--toasts-before)))\n			scale(calc(-1 * var(--scale)));height:var(--front-toast-height)}:where([data-sonner-toast])>*{transition:opacity 400ms}:where(\n			[data-sonner-toast][data-expanded='false'][data-front='false'][data-styled='true']\n		)\n		>*{opacity:0}:where([data-sonner-toast][data-visible='false']){opacity:0;pointer-events:none}:where([data-sonner-toast][data-mounted='true'][data-expanded='true']){--y:translateY(calc(var(--lift) * var(--offset)));height:var(--initial-height)}:where(\n			[data-sonner-toast][data-removed='true'][data-front='true'][data-swipe-out='false']\n		){--y:translateY(calc(var(--lift) * -100%));opacity:0}:where(\n			[data-sonner-toast][data-removed='true'][data-front='false'][data-swipe-out='false'][data-expanded='true']\n		){--y:translateY(\n			calc(var(--lift) * var(--offset) + var(--lift) * -100%)\n		);opacity:0}:where(\n			[data-sonner-toast][data-removed='true'][data-front='false'][data-swipe-out='false'][data-expanded='false']\n		){--y:translateY(40%);opacity:0;transition:transform 500ms,\n			opacity 200ms}:where(\n			[data-sonner-toast][data-removed='true'][data-front='false']\n		)::before{height:calc(var(--initial-height) + 20%)}[data-sonner-toast][data-swiping='true']{transform:var(--y) translateY(var(--swipe-amount, 0px));transition:none}[data-sonner-toast][data-swipe-out='true'][data-y-position='bottom'],[data-sonner-toast][data-swipe-out='true'][data-y-position='top']{animation:swipe-out 200ms ease-out forwards}@keyframes swipe-out{from{transform:translateY(\n				calc(var(--lift) * var(--offset) + var(--swipe-amount))\n			);opacity:1}to{transform:translateY(\n				calc(\n					var(--lift) * var(--offset) + var(--swipe-amount) +\n						var(--lift) * -100%\n				)\n			);opacity:0}}@media(max-width: 600px){[data-sonner-toaster]{position:fixed;--mobile-offset:16px;right:var(--mobile-offset);left:var(--mobile-offset);width:100%}[data-sonner-toaster] [data-sonner-toast]{left:0;right:0;width:calc(100% - var(--mobile-offset) * 2)}[data-sonner-toaster][data-x-position='left']{left:var(--mobile-offset)}[data-sonner-toaster][data-y-position='bottom']{bottom:20px}[data-sonner-toaster][data-y-position='top']{top:20px}[data-sonner-toaster][data-x-position='center']{left:var(--mobile-offset);right:var(--mobile-offset);transform:none}}[data-sonner-toaster][data-theme='light']{--normal-bg:#fff;--normal-border:var(--gray4);--normal-text:var(--gray12);--success-bg:hsl(143, 85%, 96%);--success-border:hsl(145, 92%, 91%);--success-text:hsl(140, 100%, 27%);--info-bg:hsl(208, 100%, 97%);--info-border:hsl(221, 91%, 91%);--info-text:hsl(210, 92%, 45%);--warning-bg:hsl(49, 100%, 97%);--warning-border:hsl(49, 91%, 91%);--warning-text:hsl(31, 92%, 45%);--error-bg:hsl(359, 100%, 97%);--error-border:hsl(359, 100%, 94%);--error-text:hsl(360, 100%, 45%)}[data-sonner-toaster][data-theme='light']\n		[data-sonner-toast][data-invert='true']{--normal-bg:#000;--normal-border:hsl(0, 0%, 20%);--normal-text:var(--gray1)}[data-sonner-toaster][data-theme='dark']\n		[data-sonner-toast][data-invert='true']{--normal-bg:#fff;--normal-border:var(--gray3);--normal-text:var(--gray12)}[data-sonner-toaster][data-theme='dark']{--normal-bg:#000;--normal-border:hsl(0, 0%, 20%);--normal-text:var(--gray1);--success-bg:hsl(150, 100%, 6%);--success-border:hsl(147, 100%, 12%);--success-text:hsl(150, 86%, 65%);--info-bg:hsl(215, 100%, 6%);--info-border:hsl(223, 100%, 12%);--info-text:hsl(216, 87%, 65%);--warning-bg:hsl(64, 100%, 6%);--warning-border:hsl(60, 100%, 12%);--warning-text:hsl(46, 87%, 65%);--error-bg:hsl(358, 76%, 10%);--error-border:hsl(357, 89%, 16%);--error-text:hsl(358, 100%, 81%)}[data-rich-colors='true'] [data-sonner-toast][data-type='success']{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-theme='dark']\n		[data-sonner-toast][data-type='default']\n		[data-close-button]{background:var(--normal-bg);border-color:var(--normal-border);color:var(--normal-text)}[data-rich-colors='true']\n		[data-sonner-toast][data-type='success']\n		[data-close-button]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors='true'] [data-sonner-toast][data-type='info']{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors='true']\n		[data-sonner-toast][data-type='info']\n		[data-close-button]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors='true'] [data-sonner-toast][data-type='warning']{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors='true']\n		[data-sonner-toast][data-type='warning']\n		[data-close-button]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors='true'] [data-sonner-toast][data-type='error']{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}[data-rich-colors='true']\n		[data-sonner-toast][data-type='error']\n		[data-close-button]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}.sonner-loading-wrapper{--size:16px;height:var(--size);width:var(--size);position:absolute;inset:0;z-index:10}.sonner-loading-wrapper[data-visible='false']{transform-origin:center;animation:sonner-fade-out 0.2s ease forwards}.sonner-spinner{position:relative;top:50%;left:50%;height:var(--size);width:var(--size)}.sonner-loading-bar{animation:sonner-spin 1.2s linear infinite;background:var(--gray11);border-radius:6px;height:8%;left:-10%;position:absolute;top:-3.9%;width:24%}.sonner-loading-bar:nth-child(1){animation-delay:-1.2s;transform:rotate(0.0001deg) translate(146%)}.sonner-loading-bar:nth-child(2){animation-delay:-1.1s;transform:rotate(30deg) translate(146%)}.sonner-loading-bar:nth-child(3){animation-delay:-1s;transform:rotate(60deg) translate(146%)}.sonner-loading-bar:nth-child(4){animation-delay:-0.9s;transform:rotate(90deg) translate(146%)}.sonner-loading-bar:nth-child(5){animation-delay:-0.8s;transform:rotate(120deg) translate(146%)}.sonner-loading-bar:nth-child(6){animation-delay:-0.7s;transform:rotate(150deg) translate(146%)}.sonner-loading-bar:nth-child(7){animation-delay:-0.6s;transform:rotate(180deg) translate(146%)}.sonner-loading-bar:nth-child(8){animation-delay:-0.5s;transform:rotate(210deg) translate(146%)}.sonner-loading-bar:nth-child(9){animation-delay:-0.4s;transform:rotate(240deg) translate(146%)}.sonner-loading-bar:nth-child(10){animation-delay:-0.3s;transform:rotate(270deg) translate(146%)}.sonner-loading-bar:nth-child(11){animation-delay:-0.2s;transform:rotate(300deg) translate(146%)}.sonner-loading-bar:nth-child(12){animation-delay:-0.1s;transform:rotate(330deg) translate(146%)}@keyframes sonner-fade-in{0%{opacity:0;transform:scale(0.8)}100%{opacity:1;transform:scale(1)}}@keyframes sonner-fade-out{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(0.8)}}@keyframes sonner-spin{0%{opacity:1}100%{opacity:0.15}}@media(prefers-reduced-motion){[data-sonner-toast],[data-sonner-toast]>*,.sonner-loading-bar{transition:none !important;animation:none !important}}.sonner-loader{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);transform-origin:center;transition:opacity 200ms,\n			transform 200ms}.sonner-loader[data-visible='false']{opacity:0;transform:scale(0.8) translate(-50%, -50%)}",
-  map: `{"version":3,"file":"Toaster.svelte","sources":["Toaster.svelte"],"sourcesContent":["<script>import { onDestroy, onMount } from 'svelte';\\nimport { toastState } from './state.js';\\nimport Toast from './Toast.svelte';\\nimport Loader from './Loader.svelte';\\nimport Icon from './Icon.svelte';\\n// Visible toasts amount\\nconst VISIBLE_TOASTS_AMOUNT = 3;\\n// Viewport padding\\nconst VIEWPORT_OFFSET = '32px';\\n// Default toast width\\nconst TOAST_WIDTH = 356;\\n// Default gap between toasts\\nconst GAP = 14;\\nconst DARK = 'dark';\\nconst LIGHT = 'light';\\nfunction getInitialTheme(t) {\\n    if (t !== 'system') {\\n        return t;\\n    }\\n    if (typeof window !== 'undefined') {\\n        if (window.matchMedia &&\\n            window.matchMedia('(prefers-color-scheme: dark)').matches) {\\n            return DARK;\\n        }\\n        return LIGHT;\\n    }\\n    return LIGHT;\\n}\\nfunction getDocumentDirection() {\\n    if (typeof window === 'undefined')\\n        return 'ltr';\\n    if (typeof document === 'undefined')\\n        return 'ltr'; // For Fresh purpose\\n    const dirAttribute = document.documentElement.getAttribute('dir');\\n    if (dirAttribute === 'auto' || !dirAttribute) {\\n        return window.getComputedStyle(document.documentElement)\\n            .direction;\\n    }\\n    return dirAttribute;\\n}\\nexport let invert = false;\\nexport let theme = 'light';\\nexport let position = 'bottom-right';\\nexport let hotkey = ['altKey', 'KeyT'];\\nexport let richColors = false;\\nexport let expand = false;\\nexport let duration = 4000;\\nexport let visibleToasts = VISIBLE_TOASTS_AMOUNT;\\nexport let closeButton = false;\\nexport let toastOptions = {};\\nexport let offset = null;\\nexport let dir = getDocumentDirection();\\nconst { toasts, heights, reset } = toastState;\\n$: possiblePositions = Array.from(new Set([\\n    position,\\n    ...$toasts\\n        .filter((toast) => toast.position)\\n        .map((toast) => toast.position)\\n].filter(Boolean)));\\nlet expanded = false;\\nlet interacting = false;\\nlet actualTheme = getInitialTheme(theme);\\nlet listRef;\\nlet lastFocusedElementRef = null;\\nlet isFocusWithinRef = false;\\n$: hotkeyLabel = hotkey.join('+').replace(/Key/g, '').replace(/Digit/g, '');\\n$: if ($toasts.length <= 1) {\\n    expanded = false;\\n}\\n// Check for dismissed toasts and remove them. We need to do this to have dismiss animation.\\n$: {\\n    const toastsToDismiss = $toasts.filter((toast) => toast.dismiss && !toast.delete);\\n    if (toastsToDismiss.length > 0) {\\n        const updatedToasts = $toasts.map((toast) => {\\n            const matchingToast = toastsToDismiss.find((dismissToast) => dismissToast.id === toast.id);\\n            if (matchingToast) {\\n                return { ...toast, delete: true };\\n            }\\n            return toast;\\n        });\\n        toasts.set(updatedToasts);\\n    }\\n}\\nonDestroy(() => {\\n    if (listRef && lastFocusedElementRef) {\\n        lastFocusedElementRef.focus({ preventScroll: true });\\n        lastFocusedElementRef = null;\\n        isFocusWithinRef = false;\\n    }\\n});\\nonMount(() => {\\n    reset();\\n    const handleKeydown = (event) => {\\n        const isHotkeyPressed = hotkey.every((key) => \\n        // eslint-disable-next-line @typescript-eslint/no-explicit-any\\n        event[key] || event.code === key);\\n        if (isHotkeyPressed) {\\n            expanded = true;\\n            listRef?.focus();\\n        }\\n        if (event.code === 'Escape' &&\\n            (document.activeElement === listRef ||\\n                listRef?.contains(document.activeElement))) {\\n            expanded = false;\\n        }\\n    };\\n    document.addEventListener('keydown', handleKeydown);\\n    return () => {\\n        document.removeEventListener('keydown', handleKeydown);\\n    };\\n});\\n$: {\\n    if (theme !== 'system') {\\n        actualTheme = theme;\\n    }\\n    if (typeof window !== 'undefined') {\\n        if (theme === 'system') {\\n            // check if current preference is dark\\n            if (window.matchMedia &&\\n                window.matchMedia('(prefers-color-scheme: dark)').matches) {\\n                // it's currently dark\\n                actualTheme = DARK;\\n            }\\n            else {\\n                // it's not dark\\n                actualTheme = LIGHT;\\n            }\\n        }\\n        const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');\\n        const changeHandler = ({ matches }) => {\\n            actualTheme = matches ? DARK : LIGHT;\\n        };\\n        if ('addEventListener' in mediaQueryList) {\\n            mediaQueryList.addEventListener('change', changeHandler);\\n        }\\n        else {\\n            // @ts-expect-error deprecated API\\n            mediaQueryList.addListener(changeHandler);\\n        }\\n    }\\n}\\nfunction handleBlur(event) {\\n    if (isFocusWithinRef &&\\n        !event.currentTarget.contains(event.relatedTarget)) {\\n        isFocusWithinRef = false;\\n        if (lastFocusedElementRef) {\\n            lastFocusedElementRef.focus({ preventScroll: true });\\n            lastFocusedElementRef = null;\\n        }\\n    }\\n}\\nfunction handleFocus(event) {\\n    if (!isFocusWithinRef) {\\n        isFocusWithinRef = true;\\n        lastFocusedElementRef = event.relatedTarget;\\n    }\\n}\\n<\/script>\\n\\n{#if $toasts.length > 0}\\n\\t<section aria-label={\`Notifications \${hotkeyLabel}\`} tabIndex={-1}>\\n\\t\\t{#each possiblePositions as position, index}\\n\\t\\t\\t<ol\\n\\t\\t\\t\\ttabIndex={-1}\\n\\t\\t\\t\\tbind:this={listRef}\\n\\t\\t\\t\\tclass={$$props.class}\\n\\t\\t\\t\\tdata-sonner-toaster\\n\\t\\t\\t\\tdata-theme={actualTheme}\\n\\t\\t\\t\\tdata-rich-colors={richColors}\\n\\t\\t\\t\\tdir={dir === 'auto' ? getDocumentDirection() : dir}\\n\\t\\t\\t\\tdata-y-position={position.split('-')[0]}\\n\\t\\t\\t\\tdata-x-position={position.split('-')[1]}\\n\\t\\t\\t\\ton:blur={handleBlur}\\n\\t\\t\\t\\ton:focus={handleFocus}\\n\\t\\t\\t\\ton:mouseenter={() => (expanded = true)}\\n\\t\\t\\t\\ton:mousemove={() => (expanded = true)}\\n\\t\\t\\t\\ton:mouseleave={() => {\\n\\t\\t\\t\\t\\tif (!interacting) {\\n\\t\\t\\t\\t\\t\\texpanded = false;\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t}}\\n\\t\\t\\t\\ton:pointerdown={() => (interacting = true)}\\n\\t\\t\\t\\ton:pointerup={() => (interacting = false)}\\n\\t\\t\\t\\tstyle:--front-toast-height={\`\${$heights[0]?.height}px\`}\\n\\t\\t\\t\\tstyle:--offset={typeof offset === 'number'\\n\\t\\t\\t\\t\\t? \`\${offset}px\`\\n\\t\\t\\t\\t\\t: offset || VIEWPORT_OFFSET}\\n\\t\\t\\t\\tstyle:--width={\`\${TOAST_WIDTH}px\`}\\n\\t\\t\\t\\tstyle:--gap={\`\${GAP}px\`}\\n\\t\\t\\t\\tstyle={$$props.style}\\n\\t\\t\\t\\t{...$$restProps}\\n\\t\\t\\t>\\n\\t\\t\\t\\t{#each $toasts.filter((toast) => (!toast.position && index === 0) || toast.position === position) as toast, index (toast.id)}\\n\\t\\t\\t\\t\\t<Toast\\n\\t\\t\\t\\t\\t\\t{index}\\n\\t\\t\\t\\t\\t\\t{toast}\\n\\t\\t\\t\\t\\t\\t{invert}\\n\\t\\t\\t\\t\\t\\t{visibleToasts}\\n\\t\\t\\t\\t\\t\\t{closeButton}\\n\\t\\t\\t\\t\\t\\t{interacting}\\n\\t\\t\\t\\t\\t\\t{position}\\n\\t\\t\\t\\t\\t\\texpandByDefault={expand}\\n\\t\\t\\t\\t\\t\\t{expanded}\\n\\t\\t\\t\\t\\t\\tactionButtonStyle={toastOptions?.actionButtonStyle ||\\n\\t\\t\\t\\t\\t\\t\\t''}\\n\\t\\t\\t\\t\\t\\tcancelButtonStyle={toastOptions?.cancelButtonStyle ||\\n\\t\\t\\t\\t\\t\\t\\t''}\\n\\t\\t\\t\\t\\t\\tclass={toastOptions?.class || ''}\\n\\t\\t\\t\\t\\t\\tdescriptionClass={toastOptions?.descriptionClass || ''}\\n\\t\\t\\t\\t\\t\\tclasses={toastOptions.classes || {}}\\n\\t\\t\\t\\t\\t\\tduration={toastOptions?.duration ?? duration}\\n\\t\\t\\t\\t\\t\\tunstyled={toastOptions.unstyled || false}\\n\\t\\t\\t\\t\\t>\\n\\t\\t\\t\\t\\t\\t<slot name=\\"loading-icon\\" slot=\\"loading-icon\\">\\n\\t\\t\\t\\t\\t\\t\\t<Loader visible={toast.type === 'loading'} />\\n\\t\\t\\t\\t\\t\\t</slot>\\n\\t\\t\\t\\t\\t\\t<slot name=\\"success-icon\\" slot=\\"success-icon\\">\\n\\t\\t\\t\\t\\t\\t\\t<Icon type=\\"success\\" />\\n\\t\\t\\t\\t\\t\\t</slot>\\n\\t\\t\\t\\t\\t\\t<slot name=\\"error-icon\\" slot=\\"error-icon\\">\\n\\t\\t\\t\\t\\t\\t\\t<Icon type=\\"error\\" />\\n\\t\\t\\t\\t\\t\\t</slot>\\n\\t\\t\\t\\t\\t\\t<slot name=\\"warning-icon\\" slot=\\"warning-icon\\">\\n\\t\\t\\t\\t\\t\\t\\t<Icon type=\\"warning\\" />\\n\\t\\t\\t\\t\\t\\t</slot>\\n\\t\\t\\t\\t\\t\\t<slot name=\\"info-icon\\" slot=\\"info-icon\\">\\n\\t\\t\\t\\t\\t\\t\\t<Icon type=\\"info\\" />\\n\\t\\t\\t\\t\\t\\t</slot>\\n\\t\\t\\t\\t\\t</Toast>\\n\\t\\t\\t\\t{/each}\\n\\t\\t\\t</ol>\\n\\t\\t{/each}\\n\\t</section>\\n{/if}\\n\\n<style global>\\n\\t:global(:where(html[dir='ltr'])),\\n\\t:global(:where([data-sonner-toaster][dir='ltr'])) {\\n\\t\\t--toast-icon-margin-start: -3px;\\n\\t\\t--toast-icon-margin-end: 4px;\\n\\t\\t--toast-svg-margin-start: -1px;\\n\\t\\t--toast-svg-margin-end: 0px;\\n\\t\\t--toast-button-margin-start: auto;\\n\\t\\t--toast-button-margin-end: 0;\\n\\t\\t--toast-close-button-start: 0;\\n\\t\\t--toast-close-button-end: unset;\\n\\t\\t--toast-close-button-transform: translate(-35%, -35%);\\n\\t}\\n\\n\\t:global(:where(html[dir='rtl'])),\\n\\t:global(:where([data-sonner-toaster][dir='rtl'])) {\\n\\t\\t--toast-icon-margin-start: 4px;\\n\\t\\t--toast-icon-margin-end: -3px;\\n\\t\\t--toast-svg-margin-start: 0px;\\n\\t\\t--toast-svg-margin-end: -1px;\\n\\t\\t--toast-button-margin-start: 0;\\n\\t\\t--toast-button-margin-end: auto;\\n\\t\\t--toast-close-button-start: unset;\\n\\t\\t--toast-close-button-end: 0;\\n\\t\\t--toast-close-button-transform: translate(35%, -35%);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toaster])) {\\n\\t\\tposition: fixed;\\n\\t\\twidth: var(--width);\\n\\t\\tfont-family:\\n\\t\\t\\tui-sans-serif,\\n\\t\\t\\tsystem-ui,\\n\\t\\t\\t-apple-system,\\n\\t\\t\\tBlinkMacSystemFont,\\n\\t\\t\\tSegoe UI,\\n\\t\\t\\tRoboto,\\n\\t\\t\\tHelvetica Neue,\\n\\t\\t\\tArial,\\n\\t\\t\\tNoto Sans,\\n\\t\\t\\tsans-serif,\\n\\t\\t\\tApple Color Emoji,\\n\\t\\t\\tSegoe UI Emoji,\\n\\t\\t\\tSegoe UI Symbol,\\n\\t\\t\\tNoto Color Emoji;\\n\\t\\t--gray1: hsl(0, 0%, 99%);\\n\\t\\t--gray2: hsl(0, 0%, 97.3%);\\n\\t\\t--gray3: hsl(0, 0%, 95.1%);\\n\\t\\t--gray4: hsl(0, 0%, 93%);\\n\\t\\t--gray5: hsl(0, 0%, 90.9%);\\n\\t\\t--gray6: hsl(0, 0%, 88.7%);\\n\\t\\t--gray7: hsl(0, 0%, 85.8%);\\n\\t\\t--gray8: hsl(0, 0%, 78%);\\n\\t\\t--gray9: hsl(0, 0%, 56.1%);\\n\\t\\t--gray10: hsl(0, 0%, 52.3%);\\n\\t\\t--gray11: hsl(0, 0%, 43.5%);\\n\\t\\t--gray12: hsl(0, 0%, 9%);\\n\\t\\t--border-radius: 8px;\\n\\t\\tbox-sizing: border-box;\\n\\t\\tpadding: 0;\\n\\t\\tmargin: 0;\\n\\t\\tlist-style: none;\\n\\t\\toutline: none;\\n\\t\\tz-index: 999999999;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toaster][data-x-position='right'])) {\\n\\t\\tright: max(var(--offset), env(safe-area-inset-right));\\n\\t}\\n\\n\\t:global(:where([data-sonner-toaster][data-x-position='left'])) {\\n\\t\\tleft: max(var(--offset), env(safe-area-inset-left));\\n\\t}\\n\\n\\t:global(:where([data-sonner-toaster][data-x-position='center'])) {\\n\\t\\tleft: 50%;\\n\\t\\ttransform: translateX(-50%);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toaster][data-y-position='top'])) {\\n\\t\\ttop: max(var(--offset), env(safe-area-inset-top));\\n\\t}\\n\\n\\t:global(:where([data-sonner-toaster][data-y-position='bottom'])) {\\n\\t\\tbottom: max(var(--offset), env(safe-area-inset-bottom));\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) {\\n\\t\\t--y: translateY(100%);\\n\\t\\t--lift-amount: calc(var(--lift) * var(--gap));\\n\\t\\tz-index: var(--z-index);\\n\\t\\tposition: absolute;\\n\\t\\topacity: 0;\\n\\t\\ttransform: var(--y);\\n\\t\\tfilter: blur(0);\\n\\t\\t/* https://stackoverflow.com/questions/48124372/pointermove-event-not-working-with-touch-why-not */\\n\\t\\ttouch-action: none;\\n\\t\\ttransition:\\n\\t\\t\\ttransform 400ms,\\n\\t\\t\\topacity 400ms,\\n\\t\\t\\theight 400ms,\\n\\t\\t\\tbox-shadow 200ms;\\n\\t\\tbox-sizing: border-box;\\n\\t\\toutline: none;\\n\\t\\toverflow-wrap: anywhere;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast][data-styled='true'])) {\\n\\t\\tpadding: 16px;\\n\\t\\tbackground: var(--normal-bg);\\n\\t\\tborder: 1px solid var(--normal-border);\\n\\t\\tcolor: var(--normal-text);\\n\\t\\tborder-radius: var(--border-radius);\\n\\t\\tbox-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);\\n\\t\\twidth: var(--width);\\n\\t\\tfont-size: 13px;\\n\\t\\tdisplay: flex;\\n\\t\\talign-items: center;\\n\\t\\tgap: 6px;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast]:focus-visible)) {\\n\\t\\tbox-shadow:\\n\\t\\t\\t0px 4px 12px rgba(0, 0, 0, 0.1),\\n\\t\\t\\t0 0 0 2px rgba(0, 0, 0, 0.2);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast][data-y-position='top'])) {\\n\\t\\ttop: 0;\\n\\t\\t--y: translateY(-100%);\\n\\t\\t--lift: 1;\\n\\t\\t--lift-amount: calc(1 * var(--gap));\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast][data-y-position='bottom'])) {\\n\\t\\tbottom: 0;\\n\\t\\t--y: translateY(100%);\\n\\t\\t--lift: -1;\\n\\t\\t--lift-amount: calc(var(--lift) * var(--gap));\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-description])) {\\n\\t\\tfont-weight: 400;\\n\\t\\tline-height: 1.4;\\n\\t\\tcolor: inherit;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-title])) {\\n\\t\\tfont-weight: 500;\\n\\t\\tline-height: 1.5;\\n\\t\\tcolor: inherit;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-icon])) {\\n\\t\\tdisplay: flex;\\n\\t\\theight: 16px;\\n\\t\\twidth: 16px;\\n\\t\\tposition: relative;\\n\\t\\tjustify-content: flex-start;\\n\\t\\talign-items: center;\\n\\t\\tflex-shrink: 0;\\n\\t\\tmargin-left: var(--toast-icon-margin-start);\\n\\t\\tmargin-right: var(--toast-icon-margin-end);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast][data-promise='true'])) :global(:where([data-icon])) > :global(svg) {\\n\\t\\topacity: 0;\\n\\t\\ttransform: scale(0.8);\\n\\t\\ttransform-origin: center;\\n\\t\\tanimation: sonner-fade-in 300ms ease forwards;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-icon])) > :global(*) {\\n\\t\\tflex-shrink: 0;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-icon])) :global(svg) {\\n\\t\\tmargin-left: var(--toast-svg-margin-start);\\n\\t\\tmargin-right: var(--toast-svg-margin-end);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-content])) {\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tgap: 2px;\\n\\t}\\n\\n\\t:global([data-sonner-toast][data-styled='true']) :global([data-button]) {\\n\\t\\tborder-radius: 4px;\\n\\t\\tpadding-left: 8px;\\n\\t\\tpadding-right: 8px;\\n\\t\\theight: 24px;\\n\\t\\tfont-size: 12px;\\n\\t\\tcolor: var(--normal-bg);\\n\\t\\tbackground: var(--normal-text);\\n\\t\\tmargin-left: var(--toast-button-margin-start);\\n\\t\\tmargin-right: var(--toast-button-margin-end);\\n\\t\\tborder: none;\\n\\t\\tcursor: pointer;\\n\\t\\toutline: none;\\n\\t\\tdisplay: flex;\\n\\t\\talign-items: center;\\n\\t\\tflex-shrink: 0;\\n\\t\\ttransition:\\n\\t\\t\\topacity 400ms,\\n\\t\\t\\tbox-shadow 200ms;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-button]):focus-visible) {\\n\\t\\tbox-shadow: 0 0 0 2px rgba(0, 0, 0, 0.4);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-button]):first-of-type) {\\n\\t\\tmargin-left: var(--toast-button-margin-start);\\n\\t\\tmargin-right: var(--toast-button-margin-end);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-cancel])) {\\n\\t\\tcolor: var(--normal-text);\\n\\t\\tbackground: rgba(0, 0, 0, 0.08);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast][data-theme='dark'])) :global(:where([data-cancel])) {\\n\\t\\tbackground: rgba(255, 255, 255, 0.3);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-close-button])) {\\n\\t\\tposition: absolute;\\n\\t\\tleft: var(--toast-close-button-start);\\n\\t\\tright: var(--toast-close-button-end);\\n\\t\\ttop: 0;\\n\\t\\theight: 20px;\\n\\t\\twidth: 20px;\\n\\t\\tdisplay: flex;\\n\\t\\tjustify-content: center;\\n\\t\\talign-items: center;\\n\\t\\tpadding: 0;\\n\\t\\tbackground: var(--gray1);\\n\\t\\tcolor: var(--gray12);\\n\\t\\tborder: 1px solid var(--gray4);\\n\\t\\ttransform: var(--toast-close-button-transform);\\n\\t\\tborder-radius: 50%;\\n\\t\\tcursor: pointer;\\n\\t\\tz-index: 1;\\n\\t\\ttransition:\\n\\t\\t\\topacity 100ms,\\n\\t\\t\\tbackground 200ms,\\n\\t\\t\\tborder-color 200ms;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-close-button]):focus-visible) {\\n\\t\\tbox-shadow:\\n\\t\\t\\t0px 4px 12px rgba(0, 0, 0, 0.1),\\n\\t\\t\\t0 0 0 2px rgba(0, 0, 0, 0.2);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) :global(:where([data-disabled='true'])) {\\n\\t\\tcursor: not-allowed;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast]):hover) :global(:where([data-close-button]):hover) {\\n\\t\\tbackground: var(--gray2);\\n\\t\\tborder-color: var(--gray5);\\n\\t}\\n\\n\\t/* Leave a ghost div to avoid setting hover to false when swiping out */\\n\\t:global(:where([data-sonner-toast][data-swiping='true'])::before) {\\n\\t\\tcontent: '';\\n\\t\\tposition: absolute;\\n\\t\\tleft: 0;\\n\\t\\tright: 0;\\n\\t\\theight: 100%;\\n\\t\\tz-index: -1;\\n\\t}\\n\\n\\t:global(:where(\\n\\t\\t\\t[data-sonner-toast][data-y-position='top'][data-swiping='true']\\n\\t\\t)::before) {\\n\\t\\t/* y 50% needed to distribute height additional height evenly */\\n\\t\\tbottom: 50%;\\n\\t\\ttransform: scaleY(3) translateY(50%);\\n\\t}\\n\\n\\t:global(:where(\\n\\t\\t\\t[data-sonner-toast][data-y-position='bottom'][data-swiping='true']\\n\\t\\t)::before) {\\n\\t\\t/* y -50% needed to distribute height additional height evenly */\\n\\t\\ttop: 50%;\\n\\t\\ttransform: scaleY(3) translateY(-50%);\\n\\t}\\n\\n\\t/* Leave a ghost div to avoid setting hover to false when transitioning out */\\n\\t:global(:where(\\n\\t\\t\\t[data-sonner-toast][data-swiping='false'][data-removed='true']\\n\\t\\t)::before) {\\n\\t\\tcontent: '';\\n\\t\\tposition: absolute;\\n\\t\\tinset: 0;\\n\\t\\ttransform: scaleY(2);\\n\\t}\\n\\n\\t/* Needed to avoid setting hover to false when inbetween toasts */\\n\\t:global(:where([data-sonner-toast])::after) {\\n\\t\\tcontent: '';\\n\\t\\tposition: absolute;\\n\\t\\tleft: 0;\\n\\t\\theight: calc(var(--gap) + 1px);\\n\\t\\tbottom: 100%;\\n\\t\\twidth: 100%;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast][data-mounted='true'])) {\\n\\t\\t--y: translateY(0);\\n\\t\\topacity: 1;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast][data-expanded='false'][data-front='false'])) {\\n\\t\\t--scale: var(--toasts-before) * 0.05 + 1;\\n\\t\\t--y: translateY(calc(var(--lift-amount) * var(--toasts-before)))\\n\\t\\t\\tscale(calc(-1 * var(--scale)));\\n\\t\\theight: var(--front-toast-height);\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast])) > :global(*) {\\n\\t\\ttransition: opacity 400ms;\\n\\t}\\n\\n\\t:global(:where(\\n\\t\\t\\t[data-sonner-toast][data-expanded='false'][data-front='false'][data-styled='true']\\n\\t\\t)\\n\\t\\t)> :global(*) {\\n\\t\\topacity: 0;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast][data-visible='false'])) {\\n\\t\\topacity: 0;\\n\\t\\tpointer-events: none;\\n\\t}\\n\\n\\t:global(:where([data-sonner-toast][data-mounted='true'][data-expanded='true'])) {\\n\\t\\t--y: translateY(calc(var(--lift) * var(--offset)));\\n\\t\\theight: var(--initial-height);\\n\\t}\\n\\n\\t:global(:where(\\n\\t\\t\\t[data-sonner-toast][data-removed='true'][data-front='true'][data-swipe-out='false']\\n\\t\\t)) {\\n\\t\\t--y: translateY(calc(var(--lift) * -100%));\\n\\t\\topacity: 0;\\n\\t}\\n\\n\\t:global(:where(\\n\\t\\t\\t[data-sonner-toast][data-removed='true'][data-front='false'][data-swipe-out='false'][data-expanded='true']\\n\\t\\t)) {\\n\\t\\t--y: translateY(\\n\\t\\t\\tcalc(var(--lift) * var(--offset) + var(--lift) * -100%)\\n\\t\\t);\\n\\t\\topacity: 0;\\n\\t}\\n\\n\\t:global(:where(\\n\\t\\t\\t[data-sonner-toast][data-removed='true'][data-front='false'][data-swipe-out='false'][data-expanded='false']\\n\\t\\t)) {\\n\\t\\t--y: translateY(40%);\\n\\t\\topacity: 0;\\n\\t\\ttransition:\\n\\t\\t\\ttransform 500ms,\\n\\t\\t\\topacity 200ms;\\n\\t}\\n\\n\\t/* Bump up the height to make sure hover state doesn't get set to false */\\n\\t:global(:where(\\n\\t\\t\\t[data-sonner-toast][data-removed='true'][data-front='false']\\n\\t\\t)::before) {\\n\\t\\theight: calc(var(--initial-height) + 20%);\\n\\t}\\n\\n\\t:global([data-sonner-toast][data-swiping='true']) {\\n\\t\\ttransform: var(--y) translateY(var(--swipe-amount, 0px));\\n\\t\\ttransition: none;\\n\\t}\\n\\n\\t:global([data-sonner-toast][data-swipe-out='true'][data-y-position='bottom']),\\n\\t:global([data-sonner-toast][data-swipe-out='true'][data-y-position='top']) {\\n\\t\\tanimation: swipe-out 200ms ease-out forwards;\\n\\t}\\n\\n\\t@keyframes -global-swipe-out {\\n\\t\\tfrom {\\n\\t\\t\\ttransform: translateY(\\n\\t\\t\\t\\tcalc(var(--lift) * var(--offset) + var(--swipe-amount))\\n\\t\\t\\t);\\n\\t\\t\\topacity: 1;\\n\\t\\t}\\n\\n\\t\\tto {\\n\\t\\t\\ttransform: translateY(\\n\\t\\t\\t\\tcalc(\\n\\t\\t\\t\\t\\tvar(--lift) * var(--offset) + var(--swipe-amount) +\\n\\t\\t\\t\\t\\t\\tvar(--lift) * -100%\\n\\t\\t\\t\\t)\\n\\t\\t\\t);\\n\\t\\t\\topacity: 0;\\n\\t\\t}\\n\\t}\\n\\n\\t@media (max-width: 600px) {\\n\\t\\t:global([data-sonner-toaster]) {\\n\\t\\t\\tposition: fixed;\\n\\t\\t\\t--mobile-offset: 16px;\\n\\t\\t\\tright: var(--mobile-offset);\\n\\t\\t\\tleft: var(--mobile-offset);\\n\\t\\t\\twidth: 100%;\\n\\t\\t}\\n\\n\\t\\t:global([data-sonner-toaster]) :global([data-sonner-toast]) {\\n\\t\\t\\tleft: 0;\\n\\t\\t\\tright: 0;\\n\\t\\t\\twidth: calc(100% - var(--mobile-offset) * 2);\\n\\t\\t}\\n\\n\\t\\t:global([data-sonner-toaster][data-x-position='left']) {\\n\\t\\t\\tleft: var(--mobile-offset);\\n\\t\\t}\\n\\n\\t\\t:global([data-sonner-toaster][data-y-position='bottom']) {\\n\\t\\t\\tbottom: 20px;\\n\\t\\t}\\n\\n\\t\\t:global([data-sonner-toaster][data-y-position='top']) {\\n\\t\\t\\ttop: 20px;\\n\\t\\t}\\n\\n\\t\\t:global([data-sonner-toaster][data-x-position='center']) {\\n\\t\\t\\tleft: var(--mobile-offset);\\n\\t\\t\\tright: var(--mobile-offset);\\n\\t\\t\\ttransform: none;\\n\\t\\t}\\n\\t}\\n\\n\\t:global([data-sonner-toaster][data-theme='light']) {\\n\\t\\t--normal-bg: #fff;\\n\\t\\t--normal-border: var(--gray4);\\n\\t\\t--normal-text: var(--gray12);\\n\\n\\t\\t--success-bg: hsl(143, 85%, 96%);\\n\\t\\t--success-border: hsl(145, 92%, 91%);\\n\\t\\t--success-text: hsl(140, 100%, 27%);\\n\\n\\t\\t--info-bg: hsl(208, 100%, 97%);\\n\\t\\t--info-border: hsl(221, 91%, 91%);\\n\\t\\t--info-text: hsl(210, 92%, 45%);\\n\\n\\t\\t--warning-bg: hsl(49, 100%, 97%);\\n\\t\\t--warning-border: hsl(49, 91%, 91%);\\n\\t\\t--warning-text: hsl(31, 92%, 45%);\\n\\n\\t\\t--error-bg: hsl(359, 100%, 97%);\\n\\t\\t--error-border: hsl(359, 100%, 94%);\\n\\t\\t--error-text: hsl(360, 100%, 45%);\\n\\t}\\n\\n\\t:global([data-sonner-toaster][data-theme='light']\\n\\t\\t[data-sonner-toast][data-invert='true']) {\\n\\t\\t--normal-bg: #000;\\n\\t\\t--normal-border: hsl(0, 0%, 20%);\\n\\t\\t--normal-text: var(--gray1);\\n\\t}\\n\\n\\t:global([data-sonner-toaster][data-theme='dark']\\n\\t\\t[data-sonner-toast][data-invert='true']) {\\n\\t\\t--normal-bg: #fff;\\n\\t\\t--normal-border: var(--gray3);\\n\\t\\t--normal-text: var(--gray12);\\n\\t}\\n\\n\\t:global([data-sonner-toaster][data-theme='dark']) {\\n\\t\\t--normal-bg: #000;\\n\\t\\t--normal-border: hsl(0, 0%, 20%);\\n\\t\\t--normal-text: var(--gray1);\\n\\n\\t\\t--success-bg: hsl(150, 100%, 6%);\\n\\t\\t--success-border: hsl(147, 100%, 12%);\\n\\t\\t--success-text: hsl(150, 86%, 65%);\\n\\n\\t\\t--info-bg: hsl(215, 100%, 6%);\\n\\t\\t--info-border: hsl(223, 100%, 12%);\\n\\t\\t--info-text: hsl(216, 87%, 65%);\\n\\n\\t\\t--warning-bg: hsl(64, 100%, 6%);\\n\\t\\t--warning-border: hsl(60, 100%, 12%);\\n\\t\\t--warning-text: hsl(46, 87%, 65%);\\n\\n\\t\\t--error-bg: hsl(358, 76%, 10%);\\n\\t\\t--error-border: hsl(357, 89%, 16%);\\n\\t\\t--error-text: hsl(358, 100%, 81%);\\n\\t}\\n\\n\\t:global([data-rich-colors='true']) :global([data-sonner-toast][data-type='success']) {\\n\\t\\tbackground: var(--success-bg);\\n\\t\\tborder-color: var(--success-border);\\n\\t\\tcolor: var(--success-text);\\n\\t}\\n\\n\\t:global([data-theme='dark']\\n\\t\\t[data-sonner-toast][data-type='default']\\n\\t\\t[data-close-button]) {\\n\\t\\tbackground: var(--normal-bg);\\n\\t\\tborder-color: var(--normal-border);\\n\\t\\tcolor: var(--normal-text);\\n\\t}\\n\\n\\t:global([data-rich-colors='true']\\n\\t\\t[data-sonner-toast][data-type='success']\\n\\t\\t[data-close-button]) {\\n\\t\\tbackground: var(--success-bg);\\n\\t\\tborder-color: var(--success-border);\\n\\t\\tcolor: var(--success-text);\\n\\t}\\n\\n\\t:global([data-rich-colors='true']) :global([data-sonner-toast][data-type='info']) {\\n\\t\\tbackground: var(--info-bg);\\n\\t\\tborder-color: var(--info-border);\\n\\t\\tcolor: var(--info-text);\\n\\t}\\n\\n\\t:global([data-rich-colors='true']\\n\\t\\t[data-sonner-toast][data-type='info']\\n\\t\\t[data-close-button]) {\\n\\t\\tbackground: var(--info-bg);\\n\\t\\tborder-color: var(--info-border);\\n\\t\\tcolor: var(--info-text);\\n\\t}\\n\\n\\t:global([data-rich-colors='true']) :global([data-sonner-toast][data-type='warning']) {\\n\\t\\tbackground: var(--warning-bg);\\n\\t\\tborder-color: var(--warning-border);\\n\\t\\tcolor: var(--warning-text);\\n\\t}\\n\\n\\t:global([data-rich-colors='true']\\n\\t\\t[data-sonner-toast][data-type='warning']\\n\\t\\t[data-close-button]) {\\n\\t\\tbackground: var(--warning-bg);\\n\\t\\tborder-color: var(--warning-border);\\n\\t\\tcolor: var(--warning-text);\\n\\t}\\n\\n\\t:global([data-rich-colors='true']) :global([data-sonner-toast][data-type='error']) {\\n\\t\\tbackground: var(--error-bg);\\n\\t\\tborder-color: var(--error-border);\\n\\t\\tcolor: var(--error-text);\\n\\t}\\n\\n\\t:global([data-rich-colors='true']\\n\\t\\t[data-sonner-toast][data-type='error']\\n\\t\\t[data-close-button]) {\\n\\t\\tbackground: var(--error-bg);\\n\\t\\tborder-color: var(--error-border);\\n\\t\\tcolor: var(--error-text);\\n\\t}\\n\\n\\t:global(.sonner-loading-wrapper) {\\n\\t\\t--size: 16px;\\n\\t\\theight: var(--size);\\n\\t\\twidth: var(--size);\\n\\t\\tposition: absolute;\\n\\t\\tinset: 0;\\n\\t\\tz-index: 10;\\n\\t}\\n\\n\\t:global(.sonner-loading-wrapper[data-visible='false']) {\\n\\t\\ttransform-origin: center;\\n\\t\\tanimation: sonner-fade-out 0.2s ease forwards;\\n\\t}\\n\\n\\t:global(.sonner-spinner) {\\n\\t\\tposition: relative;\\n\\t\\ttop: 50%;\\n\\t\\tleft: 50%;\\n\\t\\theight: var(--size);\\n\\t\\twidth: var(--size);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar) {\\n\\t\\tanimation: sonner-spin 1.2s linear infinite;\\n\\t\\tbackground: var(--gray11);\\n\\t\\tborder-radius: 6px;\\n\\t\\theight: 8%;\\n\\t\\tleft: -10%;\\n\\t\\tposition: absolute;\\n\\t\\ttop: -3.9%;\\n\\t\\twidth: 24%;\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(1)) {\\n\\t\\tanimation-delay: -1.2s;\\n\\t\\ttransform: rotate(0.0001deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(2)) {\\n\\t\\tanimation-delay: -1.1s;\\n\\t\\ttransform: rotate(30deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(3)) {\\n\\t\\tanimation-delay: -1s;\\n\\t\\ttransform: rotate(60deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(4)) {\\n\\t\\tanimation-delay: -0.9s;\\n\\t\\ttransform: rotate(90deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(5)) {\\n\\t\\tanimation-delay: -0.8s;\\n\\t\\ttransform: rotate(120deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(6)) {\\n\\t\\tanimation-delay: -0.7s;\\n\\t\\ttransform: rotate(150deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(7)) {\\n\\t\\tanimation-delay: -0.6s;\\n\\t\\ttransform: rotate(180deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(8)) {\\n\\t\\tanimation-delay: -0.5s;\\n\\t\\ttransform: rotate(210deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(9)) {\\n\\t\\tanimation-delay: -0.4s;\\n\\t\\ttransform: rotate(240deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(10)) {\\n\\t\\tanimation-delay: -0.3s;\\n\\t\\ttransform: rotate(270deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(11)) {\\n\\t\\tanimation-delay: -0.2s;\\n\\t\\ttransform: rotate(300deg) translate(146%);\\n\\t}\\n\\n\\t:global(.sonner-loading-bar:nth-child(12)) {\\n\\t\\tanimation-delay: -0.1s;\\n\\t\\ttransform: rotate(330deg) translate(146%);\\n\\t}\\n\\n\\t@keyframes -global-sonner-fade-in {\\n\\t\\t0% {\\n\\t\\t\\topacity: 0;\\n\\t\\t\\ttransform: scale(0.8);\\n\\t\\t}\\n\\t\\t100% {\\n\\t\\t\\topacity: 1;\\n\\t\\t\\ttransform: scale(1);\\n\\t\\t}\\n\\t}\\n\\n\\t@keyframes -global-sonner-fade-out {\\n\\t\\t0% {\\n\\t\\t\\topacity: 1;\\n\\t\\t\\ttransform: scale(1);\\n\\t\\t}\\n\\t\\t100% {\\n\\t\\t\\topacity: 0;\\n\\t\\t\\ttransform: scale(0.8);\\n\\t\\t}\\n\\t}\\n\\n\\t@keyframes -global-sonner-spin {\\n\\t\\t0% {\\n\\t\\t\\topacity: 1;\\n\\t\\t}\\n\\t\\t100% {\\n\\t\\t\\topacity: 0.15;\\n\\t\\t}\\n\\t}\\n\\n\\t@media (prefers-reduced-motion) {\\n\\t\\t:global([data-sonner-toast]),\\n\\t\\t:global([data-sonner-toast]) > :global(*),\\n\\t\\t:global(.sonner-loading-bar) {\\n\\t\\t\\ttransition: none !important;\\n\\t\\t\\tanimation: none !important;\\n\\t\\t}\\n\\t}\\n\\n\\t:global(.sonner-loader) {\\n\\t\\tposition: absolute;\\n\\t\\ttop: 50%;\\n\\t\\tleft: 50%;\\n\\t\\ttransform: translate(-50%, -50%);\\n\\t\\ttransform-origin: center;\\n\\t\\ttransition:\\n\\t\\t\\topacity 200ms,\\n\\t\\t\\ttransform 200ms;\\n\\t}\\n\\n\\t:global(.sonner-loader[data-visible='false']) {\\n\\t\\topacity: 0;\\n\\t\\ttransform: scale(0.8) translate(-50%, -50%);\\n\\t}\\n</style>\\n"],"names":[],"mappings":"AA4OS,uBAAwB,CACxB,wCAA0C,CACjD,yBAAyB,CAAE,IAAI,CAC/B,uBAAuB,CAAE,GAAG,CAC5B,wBAAwB,CAAE,IAAI,CAC9B,sBAAsB,CAAE,GAAG,CAC3B,2BAA2B,CAAE,IAAI,CACjC,yBAAyB,CAAE,CAAC,CAC5B,0BAA0B,CAAE,CAAC,CAC7B,wBAAwB,CAAE,KAAK,CAC/B,8BAA8B,CAAE,qBACjC,CAEQ,uBAAwB,CACxB,wCAA0C,CACjD,yBAAyB,CAAE,GAAG,CAC9B,uBAAuB,CAAE,IAAI,CAC7B,wBAAwB,CAAE,GAAG,CAC7B,sBAAsB,CAAE,IAAI,CAC5B,2BAA2B,CAAE,CAAC,CAC9B,yBAAyB,CAAE,IAAI,CAC/B,0BAA0B,CAAE,KAAK,CACjC,wBAAwB,CAAE,CAAC,CAC3B,8BAA8B,CAAE,oBACjC,CAEQ,6BAA+B,CACtC,QAAQ,CAAE,KAAK,CACf,KAAK,CAAE,IAAI,OAAO,CAAC,CACnB,WAAW,CACV,aAAa,CAAC;AACjB,GAAG,SAAS,CAAC;AACb,GAAG,aAAa,CAAC;AACjB,GAAG,kBAAkB,CAAC;AACtB,GAAG,KAAK,CAAC,EAAE,CAAC;AACZ,GAAG,MAAM,CAAC;AACV,GAAG,SAAS,CAAC,IAAI,CAAC;AAClB,GAAG,KAAK,CAAC;AACT,GAAG,IAAI,CAAC,IAAI,CAAC;AACb,GAAG,UAAU,CAAC;AACd,GAAG,KAAK,CAAC,KAAK,CAAC,KAAK,CAAC;AACrB,GAAG,KAAK,CAAC,EAAE,CAAC,KAAK,CAAC;AAClB,GAAG,KAAK,CAAC,EAAE,CAAC,MAAM,CAAC;AACnB,GAAG,IAAI,CAAC,KAAK,CAAC,KAAK,CACjB,OAAO,CAAE,eAAe,CACxB,OAAO,CAAE,iBAAiB,CAC1B,OAAO,CAAE,iBAAiB,CAC1B,OAAO,CAAE,eAAe,CACxB,OAAO,CAAE,iBAAiB,CAC1B,OAAO,CAAE,iBAAiB,CAC1B,OAAO,CAAE,iBAAiB,CAC1B,OAAO,CAAE,eAAe,CACxB,OAAO,CAAE,iBAAiB,CAC1B,QAAQ,CAAE,iBAAiB,CAC3B,QAAQ,CAAE,iBAAiB,CAC3B,QAAQ,CAAE,cAAc,CACxB,eAAe,CAAE,GAAG,CACpB,UAAU,CAAE,UAAU,CACtB,OAAO,CAAE,CAAC,CACV,MAAM,CAAE,CAAC,CACT,UAAU,CAAE,IAAI,CAChB,OAAO,CAAE,IAAI,CACb,OAAO,CAAE,SACV,CAEQ,sDAAwD,CAC/D,KAAK,CAAE,IAAI,IAAI,QAAQ,CAAC,CAAC,CAAC,IAAI,qBAAqB,CAAC,CACrD,CAEQ,qDAAuD,CAC9D,IAAI,CAAE,IAAI,IAAI,QAAQ,CAAC,CAAC,CAAC,IAAI,oBAAoB,CAAC,CACnD,CAEQ,uDAAyD,CAChE,IAAI,CAAE,GAAG,CACT,SAAS,CAAE,WAAW,IAAI,CAC3B,CAEQ,oDAAsD,CAC7D,GAAG,CAAE,IAAI,IAAI,QAAQ,CAAC,CAAC,CAAC,IAAI,mBAAmB,CAAC,CACjD,CAEQ,uDAAyD,CAChE,MAAM,CAAE,IAAI,IAAI,QAAQ,CAAC,CAAC,CAAC,IAAI,sBAAsB,CAAC,CACvD,CAEQ,2BAA6B,CACpC,GAAG,CAAE,gBAAgB,CACrB,aAAa,CAAE,8BAA8B,CAC7C,OAAO,CAAE,IAAI,SAAS,CAAC,CACvB,QAAQ,CAAE,QAAQ,CAClB,OAAO,CAAE,CAAC,CACV,SAAS,CAAE,IAAI,GAAG,CAAC,CACnB,MAAM,CAAE,KAAK,CAAC,CAAC,CAEf,YAAY,CAAE,IAAI,CAClB,UAAU,CACT,SAAS,CAAC,KAAK,CAAC;AACnB,GAAG,OAAO,CAAC,KAAK,CAAC;AACjB,GAAG,MAAM,CAAC,KAAK,CAAC;AAChB,GAAG,UAAU,CAAC,KAAK,CACjB,UAAU,CAAE,UAAU,CACtB,OAAO,CAAE,IAAI,CACb,aAAa,CAAE,QAChB,CAEQ,+CAAiD,CACxD,OAAO,CAAE,IAAI,CACb,UAAU,CAAE,IAAI,WAAW,CAAC,CAC5B,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,eAAe,CAAC,CACtC,KAAK,CAAE,IAAI,aAAa,CAAC,CACzB,aAAa,CAAE,IAAI,eAAe,CAAC,CACnC,UAAU,CAAE,GAAG,CAAC,GAAG,CAAC,IAAI,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,CAC3C,KAAK,CAAE,IAAI,OAAO,CAAC,CACnB,SAAS,CAAE,IAAI,CACf,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,GAAG,CAAE,GACN,CAEQ,yCAA2C,CAClD,UAAU,CACT,GAAG,CAAC,GAAG,CAAC,IAAI,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,CAAC;AACnC,GAAG,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CAC7B,CAEQ,kDAAoD,CAC3D,GAAG,CAAE,CAAC,CACN,GAAG,CAAE,iBAAiB,CACtB,MAAM,CAAE,CAAC,CACT,aAAa,CAAE,oBAChB,CAEQ,qDAAuD,CAC9D,MAAM,CAAE,CAAC,CACT,GAAG,CAAE,gBAAgB,CACrB,MAAM,CAAE,EAAE,CACV,aAAa,CAAE,8BAChB,CAEQ,2BAA4B,CAAS,0BAA4B,CACxE,WAAW,CAAE,GAAG,CAChB,WAAW,CAAE,GAAG,CAChB,KAAK,CAAE,OACR,CAEQ,2BAA4B,CAAS,oBAAsB,CAClE,WAAW,CAAE,GAAG,CAChB,WAAW,CAAE,GAAG,CAChB,KAAK,CAAE,OACR,CAEQ,2BAA4B,CAAS,mBAAqB,CACjE,OAAO,CAAE,IAAI,CACb,MAAM,CAAE,IAAI,CACZ,KAAK,CAAE,IAAI,CACX,QAAQ,CAAE,QAAQ,CAClB,eAAe,CAAE,UAAU,CAC3B,WAAW,CAAE,MAAM,CACnB,WAAW,CAAE,CAAC,CACd,WAAW,CAAE,IAAI,yBAAyB,CAAC,CAC3C,YAAY,CAAE,IAAI,uBAAuB,CAC1C,CAEQ,gDAAiD,CAAS,mBAAoB,CAAW,GAAK,CACrG,OAAO,CAAE,CAAC,CACV,SAAS,CAAE,MAAM,GAAG,CAAC,CACrB,gBAAgB,CAAE,MAAM,CACxB,SAAS,CAAE,cAAc,CAAC,KAAK,CAAC,IAAI,CAAC,QACtC,CAEQ,2BAA4B,CAAS,mBAAoB,CAAW,CAAG,CAC9E,WAAW,CAAE,CACd,CAEQ,2BAA4B,CAAS,mBAAoB,CAAS,GAAK,CAC9E,WAAW,CAAE,IAAI,wBAAwB,CAAC,CAC1C,YAAY,CAAE,IAAI,sBAAsB,CACzC,CAEQ,2BAA4B,CAAS,sBAAwB,CACpE,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,GAAG,CAAE,GACN,CAEQ,uCAAwC,CAAS,aAAe,CACvE,aAAa,CAAE,GAAG,CAClB,YAAY,CAAE,GAAG,CACjB,aAAa,CAAE,GAAG,CAClB,MAAM,CAAE,IAAI,CACZ,SAAS,CAAE,IAAI,CACf,KAAK,CAAE,IAAI,WAAW,CAAC,CACvB,UAAU,CAAE,IAAI,aAAa,CAAC,CAC9B,WAAW,CAAE,IAAI,2BAA2B,CAAC,CAC7C,YAAY,CAAE,IAAI,yBAAyB,CAAC,CAC5C,MAAM,CAAE,IAAI,CACZ,MAAM,CAAE,OAAO,CACf,OAAO,CAAE,IAAI,CACb,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,WAAW,CAAE,CAAC,CACd,UAAU,CACT,OAAO,CAAC,KAAK,CAAC;AACjB,GAAG,UAAU,CAAC,KACb,CAEQ,2BAA4B,CAAS,mCAAqC,CACjF,UAAU,CAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CACxC,CAEQ,2BAA4B,CAAS,mCAAqC,CACjF,WAAW,CAAE,IAAI,2BAA2B,CAAC,CAC7C,YAAY,CAAE,IAAI,yBAAyB,CAC5C,CAEQ,2BAA4B,CAAS,qBAAuB,CACnE,KAAK,CAAE,IAAI,aAAa,CAAC,CACzB,UAAU,CAAE,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,IAAI,CAC/B,CAEQ,8CAA+C,CAAS,qBAAuB,CACtF,UAAU,CAAE,KAAK,GAAG,CAAC,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,CAAC,GAAG,CACpC,CAEQ,2BAA4B,CAAS,2BAA6B,CACzE,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAE,IAAI,0BAA0B,CAAC,CACrC,KAAK,CAAE,IAAI,wBAAwB,CAAC,CACpC,GAAG,CAAE,CAAC,CACN,MAAM,CAAE,IAAI,CACZ,KAAK,CAAE,IAAI,CACX,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,MAAM,CACvB,WAAW,CAAE,MAAM,CACnB,OAAO,CAAE,CAAC,CACV,UAAU,CAAE,IAAI,OAAO,CAAC,CACxB,KAAK,CAAE,IAAI,QAAQ,CAAC,CACpB,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,OAAO,CAAC,CAC9B,SAAS,CAAE,IAAI,8BAA8B,CAAC,CAC9C,aAAa,CAAE,GAAG,CAClB,MAAM,CAAE,OAAO,CACf,OAAO,CAAE,CAAC,CACV,UAAU,CACT,OAAO,CAAC,KAAK,CAAC;AACjB,GAAG,UAAU,CAAC,KAAK,CAAC;AACpB,GAAG,YAAY,CAAC,KACf,CAEQ,2BAA4B,CAAS,yCAA2C,CACvF,UAAU,CACT,GAAG,CAAC,GAAG,CAAC,IAAI,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,CAAC;AACnC,GAAG,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CAC7B,CAEQ,2BAA4B,CAAS,8BAAgC,CAC5E,MAAM,CAAE,WACT,CAEQ,iCAAkC,CAAS,iCAAmC,CACrF,UAAU,CAAE,IAAI,OAAO,CAAC,CACxB,YAAY,CAAE,IAAI,OAAO,CAC1B,CAGQ,wDAA0D,CACjE,OAAO,CAAE,EAAE,CACX,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAE,CAAC,CACP,KAAK,CAAE,CAAC,CACR,MAAM,CAAE,IAAI,CACZ,OAAO,CAAE,EACV,CAEQ;AACT;AACA,WAAa,CAEX,MAAM,CAAE,GAAG,CACX,SAAS,CAAE,OAAO,CAAC,CAAC,CAAC,WAAW,GAAG,CACpC,CAEQ;AACT;AACA,WAAa,CAEX,GAAG,CAAE,GAAG,CACR,SAAS,CAAE,OAAO,CAAC,CAAC,CAAC,WAAW,IAAI,CACrC,CAGQ;AACT;AACA,WAAa,CACX,OAAO,CAAE,EAAE,CACX,QAAQ,CAAE,QAAQ,CAClB,KAAK,CAAE,CAAC,CACR,SAAS,CAAE,OAAO,CAAC,CACpB,CAGQ,kCAAoC,CAC3C,OAAO,CAAE,EAAE,CACX,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAE,CAAC,CACP,MAAM,CAAE,KAAK,IAAI,KAAK,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,CAC9B,MAAM,CAAE,IAAI,CACZ,KAAK,CAAE,IACR,CAEQ,gDAAkD,CACzD,GAAG,CAAE,aAAa,CAClB,OAAO,CAAE,CACV,CAEQ,sEAAwE,CAC/E,OAAO,CAAE,+BAA+B,CACxC,GAAG,CAAE;AACP,iCAAiC,CAC/B,MAAM,CAAE,IAAI,oBAAoB,CACjC,CAEQ,2BAA4B,CAAW,CAAG,CACjD,UAAU,CAAE,OAAO,CAAC,KACrB,CAEQ;AACT;AACA;AACA,EAAG,CAAU,CAAG,CACd,OAAO,CAAE,CACV,CAEQ,iDAAmD,CAC1D,OAAO,CAAE,CAAC,CACV,cAAc,CAAE,IACjB,CAEQ,sEAAwE,CAC/E,GAAG,CAAE,6CAA6C,CAClD,MAAM,CAAE,IAAI,gBAAgB,CAC7B,CAEQ;AACT;AACA,GAAK,CACH,GAAG,CAAE,qCAAqC,CAC1C,OAAO,CAAE,CACV,CAEQ;AACT;AACA,GAAK,CACH,GAAG,CAAE;AACP;AACA,GAAG,CACD,OAAO,CAAE,CACV,CAEQ;AACT;AACA,GAAK,CACH,GAAG,CAAE,eAAe,CACpB,OAAO,CAAE,CAAC,CACV,UAAU,CACT,SAAS,CAAC,KAAK,CAAC;AACnB,GAAG,OAAO,CAAC,KACV,CAGQ;AACT;AACA,WAAa,CACX,MAAM,CAAE,KAAK,IAAI,gBAAgB,CAAC,CAAC,CAAC,CAAC,GAAG,CACzC,CAEQ,wCAA0C,CACjD,SAAS,CAAE,IAAI,GAAG,CAAC,CAAC,WAAW,IAAI,cAAc,CAAC,IAAI,CAAC,CAAC,CACxD,UAAU,CAAE,IACb,CAEQ,oEAAqE,CACrE,iEAAmE,CAC1E,SAAS,CAAE,SAAS,CAAC,KAAK,CAAC,QAAQ,CAAC,QACrC,CAEA,WAAmB,SAAU,CAC5B,IAAK,CACJ,SAAS,CAAE;AACd,IAAI,KAAK,IAAI,MAAM,CAAC,CAAC,CAAC,CAAC,IAAI,QAAQ,CAAC,CAAC,CAAC,CAAC,IAAI,cAAc,CAAC,CAAC;AAC3D,IAAI,CACD,OAAO,CAAE,CACV,CAEA,EAAG,CACF,SAAS,CAAE;AACd,IAAI;AACJ,KAAK,IAAI,MAAM,CAAC,CAAC,CAAC,CAAC,IAAI,QAAQ,CAAC,CAAC,CAAC,CAAC,IAAI,cAAc,CAAC,CAAC,CAAC;AACxD,MAAM,IAAI,MAAM,CAAC,CAAC,CAAC,CAAC,KAAK;AACzB,KAAK;AACL,IAAI,CACD,OAAO,CAAE,CACV,CACD,CAEA,MAAO,YAAY,KAAK,CAAE,CACjB,qBAAuB,CAC9B,QAAQ,CAAE,KAAK,CACf,eAAe,CAAE,IAAI,CACrB,KAAK,CAAE,IAAI,eAAe,CAAC,CAC3B,IAAI,CAAE,IAAI,eAAe,CAAC,CAC1B,KAAK,CAAE,IACR,CAEQ,qBAAsB,CAAS,mBAAqB,CAC3D,IAAI,CAAE,CAAC,CACP,KAAK,CAAE,CAAC,CACR,KAAK,CAAE,KAAK,IAAI,CAAC,CAAC,CAAC,IAAI,eAAe,CAAC,CAAC,CAAC,CAAC,CAAC,CAC5C,CAEQ,6CAA+C,CACtD,IAAI,CAAE,IAAI,eAAe,CAC1B,CAEQ,+CAAiD,CACxD,MAAM,CAAE,IACT,CAEQ,4CAA8C,CACrD,GAAG,CAAE,IACN,CAEQ,+CAAiD,CACxD,IAAI,CAAE,IAAI,eAAe,CAAC,CAC1B,KAAK,CAAE,IAAI,eAAe,CAAC,CAC3B,SAAS,CAAE,IACZ,CACD,CAEQ,yCAA2C,CAClD,WAAW,CAAE,IAAI,CACjB,eAAe,CAAE,YAAY,CAC7B,aAAa,CAAE,aAAa,CAE5B,YAAY,CAAE,kBAAkB,CAChC,gBAAgB,CAAE,kBAAkB,CACpC,cAAc,CAAE,mBAAmB,CAEnC,SAAS,CAAE,mBAAmB,CAC9B,aAAa,CAAE,kBAAkB,CACjC,WAAW,CAAE,kBAAkB,CAE/B,YAAY,CAAE,kBAAkB,CAChC,gBAAgB,CAAE,iBAAiB,CACnC,cAAc,CAAE,iBAAiB,CAEjC,UAAU,CAAE,mBAAmB,CAC/B,cAAc,CAAE,mBAAmB,CACnC,YAAY,CAAE,mBACf,CAEQ;AACT,yCAA2C,CACzC,WAAW,CAAE,IAAI,CACjB,eAAe,CAAE,eAAe,CAChC,aAAa,CAAE,YAChB,CAEQ;AACT,yCAA2C,CACzC,WAAW,CAAE,IAAI,CACjB,eAAe,CAAE,YAAY,CAC7B,aAAa,CAAE,aAChB,CAEQ,wCAA0C,CACjD,WAAW,CAAE,IAAI,CACjB,eAAe,CAAE,eAAe,CAChC,aAAa,CAAE,YAAY,CAE3B,YAAY,CAAE,kBAAkB,CAChC,gBAAgB,CAAE,mBAAmB,CACrC,cAAc,CAAE,kBAAkB,CAElC,SAAS,CAAE,kBAAkB,CAC7B,aAAa,CAAE,mBAAmB,CAClC,WAAW,CAAE,kBAAkB,CAE/B,YAAY,CAAE,iBAAiB,CAC/B,gBAAgB,CAAE,kBAAkB,CACpC,cAAc,CAAE,iBAAiB,CAEjC,UAAU,CAAE,kBAAkB,CAC9B,cAAc,CAAE,kBAAkB,CAClC,YAAY,CAAE,mBACf,CAEQ,yBAA0B,CAAS,wCAA0C,CACpF,UAAU,CAAE,IAAI,YAAY,CAAC,CAC7B,YAAY,CAAE,IAAI,gBAAgB,CAAC,CACnC,KAAK,CAAE,IAAI,cAAc,CAC1B,CAEQ;AACT;AACA,qBAAuB,CACrB,UAAU,CAAE,IAAI,WAAW,CAAC,CAC5B,YAAY,CAAE,IAAI,eAAe,CAAC,CAClC,KAAK,CAAE,IAAI,aAAa,CACzB,CAEQ;AACT;AACA,qBAAuB,CACrB,UAAU,CAAE,IAAI,YAAY,CAAC,CAC7B,YAAY,CAAE,IAAI,gBAAgB,CAAC,CACnC,KAAK,CAAE,IAAI,cAAc,CAC1B,CAEQ,yBAA0B,CAAS,qCAAuC,CACjF,UAAU,CAAE,IAAI,SAAS,CAAC,CAC1B,YAAY,CAAE,IAAI,aAAa,CAAC,CAChC,KAAK,CAAE,IAAI,WAAW,CACvB,CAEQ;AACT;AACA,qBAAuB,CACrB,UAAU,CAAE,IAAI,SAAS,CAAC,CAC1B,YAAY,CAAE,IAAI,aAAa,CAAC,CAChC,KAAK,CAAE,IAAI,WAAW,CACvB,CAEQ,yBAA0B,CAAS,wCAA0C,CACpF,UAAU,CAAE,IAAI,YAAY,CAAC,CAC7B,YAAY,CAAE,IAAI,gBAAgB,CAAC,CACnC,KAAK,CAAE,IAAI,cAAc,CAC1B,CAEQ;AACT;AACA,qBAAuB,CACrB,UAAU,CAAE,IAAI,YAAY,CAAC,CAC7B,YAAY,CAAE,IAAI,gBAAgB,CAAC,CACnC,KAAK,CAAE,IAAI,cAAc,CAC1B,CAEQ,yBAA0B,CAAS,sCAAwC,CAClF,UAAU,CAAE,IAAI,UAAU,CAAC,CAC3B,YAAY,CAAE,IAAI,cAAc,CAAC,CACjC,KAAK,CAAE,IAAI,YAAY,CACxB,CAEQ;AACT;AACA,qBAAuB,CACrB,UAAU,CAAE,IAAI,UAAU,CAAC,CAC3B,YAAY,CAAE,IAAI,cAAc,CAAC,CACjC,KAAK,CAAE,IAAI,YAAY,CACxB,CAEQ,uBAAyB,CAChC,MAAM,CAAE,IAAI,CACZ,MAAM,CAAE,IAAI,MAAM,CAAC,CACnB,KAAK,CAAE,IAAI,MAAM,CAAC,CAClB,QAAQ,CAAE,QAAQ,CAClB,KAAK,CAAE,CAAC,CACR,OAAO,CAAE,EACV,CAEQ,6CAA+C,CACtD,gBAAgB,CAAE,MAAM,CACxB,SAAS,CAAE,eAAe,CAAC,IAAI,CAAC,IAAI,CAAC,QACtC,CAEQ,eAAiB,CACxB,QAAQ,CAAE,QAAQ,CAClB,GAAG,CAAE,GAAG,CACR,IAAI,CAAE,GAAG,CACT,MAAM,CAAE,IAAI,MAAM,CAAC,CACnB,KAAK,CAAE,IAAI,MAAM,CAClB,CAEQ,mBAAqB,CAC5B,SAAS,CAAE,WAAW,CAAC,IAAI,CAAC,MAAM,CAAC,QAAQ,CAC3C,UAAU,CAAE,IAAI,QAAQ,CAAC,CACzB,aAAa,CAAE,GAAG,CAClB,MAAM,CAAE,EAAE,CACV,IAAI,CAAE,IAAI,CACV,QAAQ,CAAE,QAAQ,CAClB,GAAG,CAAE,KAAK,CACV,KAAK,CAAE,GACR,CAEQ,gCAAkC,CACzC,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,SAAS,CAAC,CAAC,UAAU,IAAI,CAC5C,CAEQ,gCAAkC,CACzC,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,KAAK,CAAC,CAAC,UAAU,IAAI,CACxC,CAEQ,gCAAkC,CACzC,eAAe,CAAE,GAAG,CACpB,SAAS,CAAE,OAAO,KAAK,CAAC,CAAC,UAAU,IAAI,CACxC,CAEQ,gCAAkC,CACzC,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,KAAK,CAAC,CAAC,UAAU,IAAI,CACxC,CAEQ,gCAAkC,CACzC,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,MAAM,CAAC,CAAC,UAAU,IAAI,CACzC,CAEQ,gCAAkC,CACzC,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,MAAM,CAAC,CAAC,UAAU,IAAI,CACzC,CAEQ,gCAAkC,CACzC,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,MAAM,CAAC,CAAC,UAAU,IAAI,CACzC,CAEQ,gCAAkC,CACzC,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,MAAM,CAAC,CAAC,UAAU,IAAI,CACzC,CAEQ,gCAAkC,CACzC,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,MAAM,CAAC,CAAC,UAAU,IAAI,CACzC,CAEQ,iCAAmC,CAC1C,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,MAAM,CAAC,CAAC,UAAU,IAAI,CACzC,CAEQ,iCAAmC,CAC1C,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,MAAM,CAAC,CAAC,UAAU,IAAI,CACzC,CAEQ,iCAAmC,CAC1C,eAAe,CAAE,KAAK,CACtB,SAAS,CAAE,OAAO,MAAM,CAAC,CAAC,UAAU,IAAI,CACzC,CAEA,WAAmB,cAAe,CACjC,EAAG,CACF,OAAO,CAAE,CAAC,CACV,SAAS,CAAE,MAAM,GAAG,CACrB,CACA,IAAK,CACJ,OAAO,CAAE,CAAC,CACV,SAAS,CAAE,MAAM,CAAC,CACnB,CACD,CAEA,WAAmB,eAAgB,CAClC,EAAG,CACF,OAAO,CAAE,CAAC,CACV,SAAS,CAAE,MAAM,CAAC,CACnB,CACA,IAAK,CACJ,OAAO,CAAE,CAAC,CACV,SAAS,CAAE,MAAM,GAAG,CACrB,CACD,CAEA,WAAmB,WAAY,CAC9B,EAAG,CACF,OAAO,CAAE,CACV,CACA,IAAK,CACJ,OAAO,CAAE,IACV,CACD,CAEA,MAAO,wBAAyB,CACvB,mBAAoB,CACpB,mBAAoB,CAAW,CAAE,CACjC,mBAAqB,CAC5B,UAAU,CAAE,IAAI,CAAC,UAAU,CAC3B,SAAS,CAAE,IAAI,CAAC,UACjB,CACD,CAEQ,cAAgB,CACvB,QAAQ,CAAE,QAAQ,CAClB,GAAG,CAAE,GAAG,CACR,IAAI,CAAE,GAAG,CACT,SAAS,CAAE,UAAU,IAAI,CAAC,CAAC,IAAI,CAAC,CAChC,gBAAgB,CAAE,MAAM,CACxB,UAAU,CACT,OAAO,CAAC,KAAK,CAAC;AACjB,GAAG,SAAS,CAAC,KACZ,CAEQ,oCAAsC,CAC7C,OAAO,CAAE,CAAC,CACV,SAAS,CAAE,MAAM,GAAG,CAAC,CAAC,UAAU,IAAI,CAAC,CAAC,IAAI,CAC3C"}`
-};
-const VISIBLE_TOASTS_AMOUNT = 3;
-const VIEWPORT_OFFSET = "32px";
-const TOAST_WIDTH = 356;
-const GAP = 14;
-const DARK = "dark";
-const LIGHT = "light";
-function getInitialTheme(t) {
-  if (t !== "system") {
-    return t;
+  }))}${attr("aria-live", toast2.important ? "assertive" : "polite")} aria-atomic="true" role="status"${attr("tabindex", 0)}${attr("class", cn($$sanitized_props.class, toastClass, classes == null ? void 0 : classes.toast, (_a = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _a.toast, classes == null ? void 0 : classes[toastType], (_b = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _b[toastType]))} data-sonner-toast=""${attr("data-styled", !(toast2.component || (toast2 == null ? void 0 : toast2.unstyled) || unstyled))}${attr("data-mounted", mounted)}${attr("data-promise", Boolean(toast2.promise))}${attr("data-removed", removed)}${attr("data-visible", isVisible)}${attr("data-y-position", coords[0])}${attr("data-x-position", coords[1])}${attr("data-index", index)}${attr("data-front", isFront)}${attr("data-swiping", swiping)}${attr("data-type", toastType)}${attr("data-invert", invert)}${attr("data-swipe-out", swipeOut)}${attr("data-expanded", Boolean(expanded || expandByDefault && mounted))}>`;
+  if (closeButton && !toast2.component) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<button aria-label="Close toast"${attr("data-disabled", disabled)} data-close-button=""${attr("class", cn(classes == null ? void 0 : classes.closeButton, (_c = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _c.closeButton))}><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>`;
+  } else {
+    $$payload.out += "<!--[!-->";
   }
-  if (typeof window !== "undefined") {
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return DARK;
+  $$payload.out += `<!--]--> `;
+  if (toast2.component) {
+    $$payload.out += "<!--[-->";
+    $$payload.out += `<!---->`;
+    (_d = toast2.component) == null ? void 0 : _d.call(toast2, $$payload, spread_props([toast2.componentProps]));
+    $$payload.out += `<!---->`;
+  } else {
+    $$payload.out += "<!--[!-->";
+    if (toastType !== "default" || toast2.icon || toast2.promise) {
+      $$payload.out += "<!--[-->";
+      $$payload.out += `<div data-icon="">`;
+      if ((toast2.promise || toastType === "loading") && !toast2.icon) {
+        $$payload.out += "<!--[-->";
+        $$payload.out += `<!---->`;
+        slot($$payload, $$props, "loading-icon", {}, null);
+        $$payload.out += `<!---->`;
+      } else {
+        $$payload.out += "<!--[!-->";
+      }
+      $$payload.out += `<!--]--> `;
+      if (toast2.icon) {
+        $$payload.out += "<!--[-->";
+        $$payload.out += `<!---->`;
+        (_e = toast2.icon) == null ? void 0 : _e.call(toast2, $$payload, {});
+        $$payload.out += `<!---->`;
+      } else {
+        $$payload.out += "<!--[!-->";
+        if (toastType === "success") {
+          $$payload.out += "<!--[-->";
+          $$payload.out += `<!---->`;
+          slot($$payload, $$props, "success-icon", {}, null);
+          $$payload.out += `<!---->`;
+        } else {
+          $$payload.out += "<!--[!-->";
+          if (toastType === "error") {
+            $$payload.out += "<!--[-->";
+            $$payload.out += `<!---->`;
+            slot($$payload, $$props, "error-icon", {}, null);
+            $$payload.out += `<!---->`;
+          } else {
+            $$payload.out += "<!--[!-->";
+            if (toastType === "warning") {
+              $$payload.out += "<!--[-->";
+              $$payload.out += `<!---->`;
+              slot($$payload, $$props, "warning-icon", {}, null);
+              $$payload.out += `<!---->`;
+            } else {
+              $$payload.out += "<!--[!-->";
+              if (toastType === "info") {
+                $$payload.out += "<!--[-->";
+                $$payload.out += `<!---->`;
+                slot($$payload, $$props, "info-icon", {}, null);
+                $$payload.out += `<!---->`;
+              } else {
+                $$payload.out += "<!--[!-->";
+              }
+              $$payload.out += `<!--]-->`;
+            }
+            $$payload.out += `<!--]-->`;
+          }
+          $$payload.out += `<!--]-->`;
+        }
+        $$payload.out += `<!--]-->`;
+      }
+      $$payload.out += `<!--]--></div>`;
+    } else {
+      $$payload.out += "<!--[!-->";
     }
-    return LIGHT;
+    $$payload.out += `<!--]--> <div data-content="">`;
+    if (toast2.title) {
+      $$payload.out += "<!--[-->";
+      $$payload.out += `<div data-title=""${attr("class", cn(classes == null ? void 0 : classes.title, (_f = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _f.title))}>`;
+      if (typeof toast2.title !== "string") {
+        $$payload.out += "<!--[-->";
+        $$payload.out += `<!---->`;
+        (_g = toast2.title) == null ? void 0 : _g.call(toast2, $$payload, spread_props([toast2.componentProps]));
+        $$payload.out += `<!---->`;
+      } else {
+        $$payload.out += "<!--[!-->";
+        $$payload.out += `${escape_html(toast2.title)}`;
+      }
+      $$payload.out += `<!--]--></div>`;
+    } else {
+      $$payload.out += "<!--[!-->";
+    }
+    $$payload.out += `<!--]--> `;
+    if (toast2.description) {
+      $$payload.out += "<!--[-->";
+      $$payload.out += `<div data-description=""${attr("class", cn(descriptionClass, toastDescriptionClass, classes == null ? void 0 : classes.description, (_h = toast2.classes) == null ? void 0 : _h.description))}>`;
+      if (typeof toast2.description !== "string") {
+        $$payload.out += "<!--[-->";
+        $$payload.out += `<!---->`;
+        (_i = toast2.description) == null ? void 0 : _i.call(toast2, $$payload, spread_props([toast2.componentProps]));
+        $$payload.out += `<!---->`;
+      } else {
+        $$payload.out += "<!--[!-->";
+        $$payload.out += `${escape_html(toast2.description)}`;
+      }
+      $$payload.out += `<!--]--></div>`;
+    } else {
+      $$payload.out += "<!--[!-->";
+    }
+    $$payload.out += `<!--]--></div> `;
+    if (toast2.cancel) {
+      $$payload.out += "<!--[-->";
+      $$payload.out += `<button data-button="" data-cancel=""${attr("style", cancelButtonStyle)}${attr("class", cn(classes == null ? void 0 : classes.cancelButton, (_j = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _j.cancelButton))}>${escape_html(toast2.cancel.label)}</button>`;
+    } else {
+      $$payload.out += "<!--[!-->";
+    }
+    $$payload.out += `<!--]--> `;
+    if (toast2.action) {
+      $$payload.out += "<!--[-->";
+      $$payload.out += `<button data-button=""${attr("style", actionButtonStyle)}${attr("class", cn(classes == null ? void 0 : classes.actionButton, (_k = toast2 == null ? void 0 : toast2.classes) == null ? void 0 : _k.actionButton))}>${escape_html(toast2.action.label)}</button>`;
+    } else {
+      $$payload.out += "<!--[!-->";
+    }
+    $$payload.out += `<!--]-->`;
   }
-  return LIGHT;
+  $$payload.out += `<!--]--></li>`;
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+  bind_props($$props, {
+    toast: toast2,
+    index,
+    expanded,
+    invert,
+    position,
+    visibleToasts,
+    expandByDefault,
+    closeButton,
+    interacting,
+    cancelButtonStyle,
+    actionButtonStyle,
+    duration,
+    descriptionClass,
+    classes,
+    unstyled
+  });
+  pop();
 }
-function getDocumentDirection() {
-  if (typeof window === "undefined") return "ltr";
-  if (typeof document === "undefined") return "ltr";
-  const dirAttribute = document.documentElement.getAttribute("dir");
-  if (dirAttribute === "auto" || !dirAttribute) {
-    return window.getComputedStyle(document.documentElement).direction;
-  }
-  return dirAttribute;
-}
-const Toaster = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let possiblePositions;
-  let hotkeyLabel;
-  let $$restProps = compute_rest_props($$props, [
+function Toaster($$payload, $$props) {
+  var _a;
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, [
     "invert",
     "theme",
     "position",
     "hotkey",
+    "containerAriaLabel",
     "richColors",
     "expand",
     "duration",
@@ -7414,135 +10968,130 @@ const Toaster = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     "offset",
     "dir"
   ]);
-  let $toasts, $$unsubscribe_toasts;
-  let $heights, $$unsubscribe_heights;
-  let { invert = false } = $$props;
-  let { theme: theme2 = "light" } = $$props;
-  let { position = "bottom-right" } = $$props;
-  let { hotkey = ["altKey", "KeyT"] } = $$props;
-  let { richColors = false } = $$props;
-  let { expand = false } = $$props;
-  let { duration = 4e3 } = $$props;
-  let { visibleToasts = VISIBLE_TOASTS_AMOUNT } = $$props;
-  let { closeButton = false } = $$props;
-  let { toastOptions = {} } = $$props;
-  let { offset: offset2 = null } = $$props;
-  let { dir = getDocumentDirection() } = $$props;
+  push();
+  var $$store_subs;
+  let possiblePositions, hotkeyLabel;
+  const VISIBLE_TOASTS_AMOUNT = 3;
+  const VIEWPORT_OFFSET = "32px";
+  const TOAST_WIDTH = 356;
+  const GAP = 14;
+  const DARK = "dark";
+  const LIGHT = "light";
+  function getInitialTheme(t) {
+    if (t !== "system") {
+      return t;
+    }
+    if (typeof window !== "undefined") {
+      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return DARK;
+      }
+      return LIGHT;
+    }
+    return LIGHT;
+  }
+  function getDocumentDirection() {
+    if (typeof window === "undefined") return "ltr";
+    if (typeof document === "undefined") return "ltr";
+    const dirAttribute = document.documentElement.getAttribute("dir");
+    if (dirAttribute === "auto" || !dirAttribute) {
+      return window.getComputedStyle(document.documentElement).direction;
+    }
+    return dirAttribute;
+  }
+  let invert = fallback($$props["invert"], false);
+  let theme2 = fallback($$props["theme"], "light");
+  let position = fallback($$props["position"], "bottom-right");
+  let hotkey = fallback($$props["hotkey"], () => ["altKey", "KeyT"], true);
+  let containerAriaLabel = fallback($$props["containerAriaLabel"], "Notifications");
+  let richColors = fallback($$props["richColors"], false);
+  let expand = fallback($$props["expand"], false);
+  let duration = fallback($$props["duration"], 4e3);
+  let visibleToasts = fallback($$props["visibleToasts"], VISIBLE_TOASTS_AMOUNT);
+  let closeButton = fallback($$props["closeButton"], false);
+  let toastOptions = fallback($$props["toastOptions"], () => ({}), true);
+  let offset2 = fallback($$props["offset"], null);
+  let dir = fallback($$props["dir"], getDocumentDirection, true);
   const { toasts, heights, reset } = toastState;
-  $$unsubscribe_toasts = subscribe(toasts, (value) => $toasts = value);
-  $$unsubscribe_heights = subscribe(heights, (value) => $heights = value);
   let expanded = false;
   let interacting = false;
   let actualTheme = getInitialTheme(theme2);
-  let listRef;
   onDestroy(() => {
   });
-  if ($$props.invert === void 0 && $$bindings.invert && invert !== void 0) $$bindings.invert(invert);
-  if ($$props.theme === void 0 && $$bindings.theme && theme2 !== void 0) $$bindings.theme(theme2);
-  if ($$props.position === void 0 && $$bindings.position && position !== void 0) $$bindings.position(position);
-  if ($$props.hotkey === void 0 && $$bindings.hotkey && hotkey !== void 0) $$bindings.hotkey(hotkey);
-  if ($$props.richColors === void 0 && $$bindings.richColors && richColors !== void 0) $$bindings.richColors(richColors);
-  if ($$props.expand === void 0 && $$bindings.expand && expand !== void 0) $$bindings.expand(expand);
-  if ($$props.duration === void 0 && $$bindings.duration && duration !== void 0) $$bindings.duration(duration);
-  if ($$props.visibleToasts === void 0 && $$bindings.visibleToasts && visibleToasts !== void 0) $$bindings.visibleToasts(visibleToasts);
-  if ($$props.closeButton === void 0 && $$bindings.closeButton && closeButton !== void 0) $$bindings.closeButton(closeButton);
-  if ($$props.toastOptions === void 0 && $$bindings.toastOptions && toastOptions !== void 0) $$bindings.toastOptions(toastOptions);
-  if ($$props.offset === void 0 && $$bindings.offset && offset2 !== void 0) $$bindings.offset(offset2);
-  if ($$props.dir === void 0 && $$bindings.dir && dir !== void 0) $$bindings.dir(dir);
-  $$result.css.add(css);
   possiblePositions = Array.from(new Set([
     position,
-    ...$toasts.filter((toast2) => toast2.position).map((toast2) => toast2.position)
+    ...store_get($$store_subs ?? ($$store_subs = {}), "$toasts", toasts).filter((toast2) => toast2.position).map((toast2) => toast2.position)
   ].filter(Boolean)));
   hotkeyLabel = hotkey.join("+").replace(/Key/g, "").replace(/Digit/g, "");
-  {
-    if ($toasts.length <= 1) {
-      expanded = false;
-    }
+  if (store_get($$store_subs ?? ($$store_subs = {}), "$toasts", toasts).length <= 1) {
+    expanded = false;
   }
   {
-    {
-      const toastsToDismiss = $toasts.filter((toast2) => toast2.dismiss && !toast2.delete);
-      if (toastsToDismiss.length > 0) {
-        const updatedToasts = $toasts.map((toast2) => {
-          const matchingToast = toastsToDismiss.find((dismissToast) => dismissToast.id === toast2.id);
-          if (matchingToast) {
-            return { ...toast2, delete: true };
-          }
-          return toast2;
-        });
-        toasts.set(updatedToasts);
-      }
-    }
-  }
-  {
-    {
-      if (theme2 !== "system") {
-        actualTheme = theme2;
-      }
-      if (typeof window !== "undefined") {
-        if (theme2 === "system") {
-          if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            actualTheme = DARK;
-          } else {
-            actualTheme = LIGHT;
-          }
+    const toastsToDismiss = store_get($$store_subs ?? ($$store_subs = {}), "$toasts", toasts).filter((toast2) => toast2.dismiss && !toast2.delete);
+    if (toastsToDismiss.length > 0) {
+      const updatedToasts = store_get($$store_subs ?? ($$store_subs = {}), "$toasts", toasts).map((toast2) => {
+        const matchingToast = toastsToDismiss.find((dismissToast) => dismissToast.id === toast2.id);
+        if (matchingToast) {
+          return { ...toast2, delete: true };
         }
-        const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
-        const changeHandler = ({ matches }) => {
-          actualTheme = matches ? DARK : LIGHT;
-        };
-        if ("addEventListener" in mediaQueryList) {
-          mediaQueryList.addEventListener("change", changeHandler);
+        return toast2;
+      });
+      toasts.set(updatedToasts);
+    }
+  }
+  {
+    if (theme2 !== "system") {
+      actualTheme = theme2;
+    }
+    if (typeof window !== "undefined") {
+      if (theme2 === "system") {
+        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          actualTheme = DARK;
         } else {
-          mediaQueryList.addListener(changeHandler);
+          actualTheme = LIGHT;
         }
+      }
+      const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
+      const changeHandler = ({ matches }) => {
+        actualTheme = matches ? DARK : LIGHT;
+      };
+      if ("addEventListener" in mediaQueryList) {
+        mediaQueryList.addEventListener("change", changeHandler);
+      } else {
+        mediaQueryList.addListener(changeHandler);
       }
     }
   }
-  $$unsubscribe_toasts();
-  $$unsubscribe_heights();
-  return `${$toasts.length > 0 ? `<section${add_attribute("aria-label", `Notifications ${hotkeyLabel}`, 0)}${add_attribute("tabindex", -1, 0)}>${each(possiblePositions, (position2, index) => {
-    var _a;
-    return `<ol${spread(
-      [
-        { tabindex: escape_attribute_value(-1) },
+  if (store_get($$store_subs ?? ($$store_subs = {}), "$toasts", toasts).length > 0) {
+    $$payload.out += "<!--[-->";
+    const each_array = ensure_array_like(possiblePositions);
+    $$payload.out += `<section${attr("aria-label", `${containerAriaLabel} ${hotkeyLabel}`)}${attr("tabindex", -1)} class="svelte-1fo5d1m"><!--[-->`;
+    for (let index = 0, $$length = each_array.length; index < $$length; index++) {
+      let position2 = each_array[index];
+      const each_array_1 = ensure_array_like(store_get($$store_subs ?? ($$store_subs = {}), "$toasts", toasts).filter((toast2) => !toast2.position && index === 0 || toast2.position === position2));
+      $$payload.out += `<ol${spread_attributes(
         {
-          class: escape_attribute_value($$props.class)
+          tabindex: -1,
+          class: $$sanitized_props.class,
+          "data-sonner-toaster": true,
+          "data-theme": actualTheme,
+          "data-rich-colors": richColors,
+          dir: dir === "auto" ? getDocumentDirection() : dir,
+          "data-y-position": position2.split("-")[0],
+          "data-x-position": position2.split("-")[1],
+          style: $$sanitized_props.style,
+          ...$$restProps
         },
-        { "data-sonner-toaster": true },
+        { "svelte-1fo5d1m": true },
         {
-          "data-theme": escape_attribute_value(actualTheme)
-        },
-        {
-          "data-rich-colors": escape_attribute_value(richColors)
-        },
-        {
-          dir: escape_attribute_value(dir === "auto" ? getDocumentDirection() : dir)
-        },
-        {
-          "data-y-position": escape_attribute_value(position2.split("-")[0])
-        },
-        {
-          "data-x-position": escape_attribute_value(position2.split("-")[1])
-        },
-        {
-          style: escape_attribute_value($$props.style)
-        },
-        escape_object($$restProps)
-      ],
-      {
-        styles: {
-          "--front-toast-height": `${(_a = $heights[0]) == null ? void 0 : _a.height}px`,
+          "--front-toast-height": `${(_a = store_get($$store_subs ?? ($$store_subs = {}), "$heights", heights)[0]) == null ? void 0 : _a.height}px`,
           "--offset": typeof offset2 === "number" ? `${offset2}px` : offset2 || VIEWPORT_OFFSET,
           "--width": `${TOAST_WIDTH}px`,
           "--gap": `${GAP}px`
         }
-      }
-    )}${add_attribute("this", listRef, 0)}>${each($toasts.filter((toast2) => !toast2.position && index === 0 || toast2.position === position2), (toast2, index2) => {
-      return `${validate_component(Toast, "Toast").$$render(
-        $$result,
-        {
+      )}><!--[-->`;
+      for (let index2 = 0, $$length2 = each_array_1.length; index2 < $$length2; index2++) {
+        let toast2 = each_array_1[index2];
+        Toast($$payload, {
           index: index2,
           toast: toast2,
           invert,
@@ -7558,30 +11107,71 @@ const Toaster = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           descriptionClass: (toastOptions == null ? void 0 : toastOptions.descriptionClass) || "",
           classes: toastOptions.classes || {},
           duration: (toastOptions == null ? void 0 : toastOptions.duration) ?? duration,
-          unstyled: toastOptions.unstyled || false
-        },
-        {},
-        {
-          "info-icon": () => {
-            return `${slots["info-icon"] ? slots["info-icon"]({ slot: "info-icon" }) : ` ${validate_component(Icon, "Icon").$$render($$result, { type: "info" }, {}, {})} `}`;
-          },
-          "warning-icon": () => {
-            return `${slots["warning-icon"] ? slots["warning-icon"]({ slot: "warning-icon" }) : ` ${validate_component(Icon, "Icon").$$render($$result, { type: "warning" }, {}, {})} `}`;
-          },
-          "error-icon": () => {
-            return `${slots["error-icon"] ? slots["error-icon"]({ slot: "error-icon" }) : ` ${validate_component(Icon, "Icon").$$render($$result, { type: "error" }, {}, {})} `}`;
-          },
-          "success-icon": () => {
-            return `${slots["success-icon"] ? slots["success-icon"]({ slot: "success-icon" }) : ` ${validate_component(Icon, "Icon").$$render($$result, { type: "success" }, {}, {})} `}`;
-          },
-          "loading-icon": () => {
-            return `${slots["loading-icon"] ? slots["loading-icon"]({ slot: "loading-icon" }) : ` ${validate_component(Loader, "Loader").$$render($$result, { visible: toast2.type === "loading" }, {}, {})} `}`;
+          unstyled: toastOptions.unstyled || false,
+          $$slots: {
+            "loading-icon": ($$payload2) => {
+              $$payload2.out += `<!---->`;
+              slot($$payload2, $$props, "loading-icon", {}, () => {
+                Loader($$payload2, { visible: toast2.type === "loading" });
+              });
+              $$payload2.out += `<!---->`;
+            },
+            "success-icon": ($$payload2) => {
+              $$payload2.out += `<!---->`;
+              slot($$payload2, $$props, "success-icon", {}, () => {
+                Icon($$payload2, { type: "success" });
+              });
+              $$payload2.out += `<!---->`;
+            },
+            "error-icon": ($$payload2) => {
+              $$payload2.out += `<!---->`;
+              slot($$payload2, $$props, "error-icon", {}, () => {
+                Icon($$payload2, { type: "error" });
+              });
+              $$payload2.out += `<!---->`;
+            },
+            "warning-icon": ($$payload2) => {
+              $$payload2.out += `<!---->`;
+              slot($$payload2, $$props, "warning-icon", {}, () => {
+                Icon($$payload2, { type: "warning" });
+              });
+              $$payload2.out += `<!---->`;
+            },
+            "info-icon": ($$payload2) => {
+              $$payload2.out += `<!---->`;
+              slot($$payload2, $$props, "info-icon", {}, () => {
+                Icon($$payload2, { type: "info" });
+              });
+              $$payload2.out += `<!---->`;
+            }
           }
-        }
-      )}`;
-    })} </ol>`;
-  })}</section>` : ``}`;
-});
+        });
+      }
+      $$payload.out += `<!--]--></ol>`;
+    }
+    $$payload.out += `<!--]--></section>`;
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]-->`;
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+  bind_props($$props, {
+    invert,
+    theme: theme2,
+    position,
+    hotkey,
+    containerAriaLabel,
+    richColors,
+    expand,
+    duration,
+    visibleToasts,
+    closeButton,
+    toastOptions,
+    offset: offset2,
+    dir
+  });
+  pop();
+}
 let timeoutAction;
 let timeoutEnable;
 function withoutTransition(action) {
@@ -7590,14 +11180,14 @@ function withoutTransition(action) {
   clearTimeout(timeoutAction);
   clearTimeout(timeoutEnable);
   const style = document.createElement("style");
-  const css2 = document.createTextNode(`* {
+  const css = document.createTextNode(`* {
      -webkit-transition: none !important;
      -moz-transition: none !important;
      -o-transition: none !important;
      -ms-transition: none !important;
      transition: none !important;
   }`);
-  style.appendChild(css2);
+  style.appendChild(css);
   const disable = () => document.head.appendChild(style);
   const enable = () => document.head.removeChild(style);
   if (typeof window.getComputedStyle !== "undefined") {
@@ -7624,10 +11214,10 @@ function sanitizeClassNames(classNames) {
 }
 const noopStorage = {
   getItem: (_key) => null,
-  setItem: (_key, _value) => {
+  setItem: (_key, _value8) => {
   }
 };
-const isBrowser$1 = typeof document !== "undefined";
+const isBrowser = typeof document !== "undefined";
 const modes = ["dark", "light", "system"];
 const modeStorageKey = writable("mode-watcher-mode");
 const themeStorageKey = writable("mode-watcher-theme");
@@ -7642,14 +11232,14 @@ const derivedMode = createDerivedMode();
 createDerivedTheme();
 function createUserPrefersMode() {
   const defaultValue = "system";
-  const storage = isBrowser$1 ? localStorage : noopStorage;
+  const storage = isBrowser ? localStorage : noopStorage;
   const initialValue = storage.getItem(getModeStorageKey());
   let value = isValidMode(initialValue) ? initialValue : defaultValue;
   function getModeStorageKey() {
-    return get_store_value(modeStorageKey);
+    return get$1(modeStorageKey);
   }
   const { subscribe: subscribe2, set: _set } = writable(value, () => {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return;
     const handler = (e) => {
       if (e.key !== getModeStorageKey())
@@ -7664,24 +11254,24 @@ function createUserPrefersMode() {
     addEventListener("storage", handler);
     return () => removeEventListener("storage", handler);
   });
-  function set(v) {
+  function set2(v) {
     _set(value = v);
     storage.setItem(getModeStorageKey(), value);
   }
   return {
     subscribe: subscribe2,
-    set
+    set: set2
   };
 }
 function createCustomTheme() {
-  const storage = isBrowser$1 ? localStorage : noopStorage;
+  const storage = isBrowser ? localStorage : noopStorage;
   const initialValue = storage.getItem(getThemeStorageKey());
   let value = initialValue === null || initialValue === void 0 ? "" : initialValue;
   function getThemeStorageKey() {
-    return get_store_value(themeStorageKey);
+    return get$1(themeStorageKey);
   }
   const { subscribe: subscribe2, set: _set } = writable(value, () => {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return;
     const handler = (e) => {
       if (e.key !== getThemeStorageKey())
@@ -7696,35 +11286,35 @@ function createCustomTheme() {
     addEventListener("storage", handler);
     return () => removeEventListener("storage", handler);
   });
-  function set(v) {
+  function set2(v) {
     _set(value = v);
     storage.setItem(getThemeStorageKey(), value);
   }
   return {
     subscribe: subscribe2,
-    set
+    set: set2
   };
 }
 function createSystemMode() {
   const defaultValue = void 0;
   let track = true;
-  const { subscribe: subscribe2, set } = writable(defaultValue, () => {
-    if (!isBrowser$1)
+  const { subscribe: subscribe2, set: set2 } = writable(defaultValue, () => {
+    if (!isBrowser)
       return;
     const handler = (e) => {
       if (!track)
         return;
-      set(e.matches ? "light" : "dark");
+      set2(e.matches ? "light" : "dark");
     };
     const mediaQueryState = window.matchMedia("(prefers-color-scheme: light)");
     mediaQueryState.addEventListener("change", handler);
     return () => mediaQueryState.removeEventListener("change", handler);
   });
   function query() {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return;
     const mediaQueryState = window.matchMedia("(prefers-color-scheme: light)");
-    set(mediaQueryState.matches ? "light" : "dark");
+    set2(mediaQueryState.matches ? "light" : "dark");
   }
   function tracking(active) {
     track = active;
@@ -7744,12 +11334,12 @@ function createDerivedMode() {
     darkClassNames,
     lightClassNames
   ], ([$userPrefersMode, $systemPrefersMode, $themeColors, $disableTransitions, $darkClassNames, $lightClassNames]) => {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return void 0;
     const derivedMode2 = $userPrefersMode === "system" ? $systemPrefersMode : $userPrefersMode;
     const sanitizedDarkClassNames = sanitizeClassNames($darkClassNames);
     const sanitizedLightClassNames = sanitizeClassNames($lightClassNames);
-    function update2() {
+    function update() {
       const htmlEl = document.documentElement;
       const themeColorEl = document.querySelector('meta[name="theme-color"]');
       if (derivedMode2 === "light") {
@@ -7773,9 +11363,9 @@ function createDerivedMode() {
       }
     }
     if ($disableTransitions) {
-      withoutTransition(update2);
+      withoutTransition(update);
     } else {
-      update2();
+      update();
     }
     return derivedMode2;
   });
@@ -7785,16 +11375,16 @@ function createDerivedMode() {
 }
 function createDerivedTheme() {
   const { subscribe: subscribe2 } = derived([theme, disableTransitions], ([$theme, $disableTransitions]) => {
-    if (!isBrowser$1)
+    if (!isBrowser)
       return void 0;
-    function update2() {
+    function update() {
       const htmlEl = document.documentElement;
       htmlEl.setAttribute("data-theme", $theme);
     }
     if ($disableTransitions) {
-      withoutTransition(update2);
+      withoutTransition(update);
     } else {
-      update2();
+      update();
     }
     return $theme;
   });
@@ -7807,36 +11397,29 @@ function isValidMode(value) {
     return false;
   return modes.includes(value);
 }
-const Sonner_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, []);
-  let $mode, $$unsubscribe_mode;
-  $$unsubscribe_mode = subscribe(derivedMode, (value) => $mode = value);
-  $$unsubscribe_mode();
-  return `${validate_component(Toaster, "Sonner").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { theme: $mode },
-      { class: "toaster group" },
-      {
-        toastOptions: {
-          classes: {
-            toast: "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-            description: "group-[.toast]:text-muted-foreground",
-            actionButton: "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-            cancelButton: "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground"
-          }
+function Sonner_1($$payload, $$props) {
+  var $$store_subs;
+  let { $$slots, $$events, ...restProps } = $$props;
+  Toaster($$payload, spread_props([
+    {
+      theme: store_get($$store_subs ?? ($$store_subs = {}), "$mode", derivedMode),
+      class: "toaster group",
+      toastOptions: {
+        classes: {
+          toast: "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
+          description: "group-[.toast]:text-muted-foreground",
+          actionButton: "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
+          cancelButton: "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground"
         }
-      },
-      $$restProps
-    ),
-    {},
-    {}
-  )}`;
-});
-const MassToaster = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $page, $$unsubscribe_page;
-  $$unsubscribe_page = subscribe(page, (value) => $page = value);
+      }
+    },
+    restProps
+  ]));
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+}
+function MassToaster($$payload, $$props) {
+  push();
+  var $$store_subs;
   function process(props) {
     let status = props.status;
     if (status) toast.success(status);
@@ -7845,2872 +11428,3541 @@ const MassToaster = create_ssr_component(($$result, $$props, $$bindings, slots) 
       toast.error(errors[Object.keys(errors)[0]]);
     }
   }
-  console.log("mount");
-  {
-    process($page.props);
-  }
-  $$unsubscribe_page();
-  return `${validate_component(Sonner_1, "Toaster").$$render($$result, { richColors: true, theme: "dark" }, {}, {})}`;
-});
-const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $page, $$unsubscribe_page;
-  $$unsubscribe_page = subscribe(page, (value) => $page = value);
+  run(() => {
+    process(store_get($$store_subs ?? ($$store_subs = {}), "$page", page).props);
+  });
+  Sonner_1($$payload, { richColors: true, theme: "dark" });
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+  pop();
+}
+function Layout($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { children, logged_in } = $$props;
   let menubar_open = false;
   let header_height = 0;
-  let effective_header_height = header_height;
-  let append_absolute = false;
-  let scrollY = 0;
-  let logged_in = $page.props.logged_in;
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
-  do {
-    $$settled = true;
-    $$result.head = previous_head;
-    logged_in = $page.props.logged_in;
-    menubar_open = menubar_open && logged_in;
-    append_absolute = append_absolute;
-    effective_header_height = header_height - scrollY < 0 ? 0 : header_height - scrollY;
-    $$rendered = `${menubar_open ? `<style data-svelte-h="svelte-1i7ucoz">body {
-            overflow: hidden;
-        }</style>` : ``}  ${validate_component(MassToaster, "MassToaster").$$render($$result, {}, {}, {})} <div class="flex flex-col h-screen">${`${validate_component(Header, "Header").$$render(
-      $$result,
-      {
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    {
+      $$payload2.out += "<!--[!-->";
+    }
+    $$payload2.out += `<!--]--> `;
+    MassToaster($$payload2);
+    $$payload2.out += `<!----> <div class="flex flex-col h-screen">`;
+    {
+      $$payload2.out += "<!--[-->";
+      Header($$payload2, {
         dontHide: menubar_open,
         class: "z-40",
-        clientHeight: header_height
-      },
-      {
-        clientHeight: ($$value) => {
+        get clientHeight() {
+          return header_height;
+        },
+        set clientHeight($$value) {
           header_height = $$value;
           $$settled = false;
-        }
-      },
+        },
+        children: ($$payload3) => {
+          if (logged_in) {
+            $$payload3.out += "<!--[-->";
+            $$payload3.out += `<button class="mx-4">`;
+            Menu($$payload3, { class: "w-8 h-8" });
+            $$payload3.out += `<!----></button>`;
+          } else {
+            $$payload3.out += "<!--[!-->";
+          }
+          $$payload3.out += `<!--]-->`;
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!----> <div>`;
       {
-        default: () => {
-          return `${logged_in ? `<button class="mx-4">${validate_component(Menu, "Menu").$$render($$result, { class: "w-8 h-8" }, {}, {})}</button>` : ``}`;
-        }
+        $$payload2.out += "<!--[!-->";
       }
-    )} <div>${menubar_open ? `   <div class="w-screen h-screen fixed bg-black/80 z-30 top-0"></div>` : ``} ${menubar_open ? ` <div class="h-full relative w-full z-30"><div class="flex fixed w-full pl-8 py-4 pr-20 bg-black border-t border-l-neutral-800 rounded-tl-xl rounded-tr-xl" style="${"bottom: " + escape(header_height, true) + "px;"}">${validate_component(LayoutLinks, "LayoutLinks").$$render($$result, { class: "flex-col-reverse" }, {}, {})}</div></div>` : `${menubar_open ? ` <div class="h-full relative w-full z-30"><div class="flex fixed right-0 min-w-72 pl-8 py-4 pr-20 bg-black border-l border-l-neutral-800" style="${"height: calc(100vh - " + escape(effective_header_height, true) + "px); top: " + escape(effective_header_height, true) + "px;"}">${validate_component(LayoutLinks, "LayoutLinks").$$render($$result, {}, {}, {})}</div></div>` : ``}`}</div>`} ${append_absolute ? ` <style data-svelte-h="svelte-142huri">html {
-                overflow: hidden;
-            }</style>` : ``} <div class="flex flex-grow bg-black text-white"><div class="${"min-w-72 px-8 py-6 border-r border-r-neutral-800 " + escape("hidden", true)}" style="${"height: calc(100vh - " + escape(header_height, true) + "px);"}">${validate_component(LayoutLinks, "LayoutLinks").$$render($$result, {}, {}, {})}</div>  <div style="${escape(
-      "",
-      true
-    ) + ""}" class="${"overflow-x-clip w-full " + escape(
-      "overflow-visible h-auto",
-      true
-    ) + " " + escape(
-      append_absolute ? "overflow-y-hidden" : "overflow-y-scroll",
-      true
-    )}"><div class="w-full h-full relative"><div class="${escape(append_absolute ? "absolute overflow-hidden" : "", true) + " w-full h-full bg-black"}" style="top: 0px;">${slots.default ? slots.default({}) : ``}</div></div></div></div></div>`;
+      $$payload2.out += `<!--]--> `;
+      {
+        $$payload2.out += "<!--[!-->";
+        {
+          $$payload2.out += "<!--[!-->";
+        }
+        $$payload2.out += `<!--]-->`;
+      }
+      $$payload2.out += `<!--]--></div>`;
+    }
+    $$payload2.out += `<!--]--> `;
+    {
+      $$payload2.out += "<!--[!-->";
+    }
+    $$payload2.out += `<!--]--> <div class="flex flex-grow bg-black text-white">`;
+    if (store_get($$store_subs ?? ($$store_subs = {}), "$page", page).props.logged_in) {
+      $$payload2.out += "<!--[-->";
+      $$payload2.out += `<div${attr("class", `min-w-72 px-8 py-6 border-r border-r-neutral-800 ${stringify("hidden")}`)}${attr("style", `height: calc(100vh - ${stringify(header_height)}px);`)}>`;
+      LayoutLinks($$payload2, {});
+      $$payload2.out += `<!----></div>`;
+    } else {
+      $$payload2.out += "<!--[!-->";
+    }
+    $$payload2.out += `<!--]--> <div${attr("style", `${stringify("")} `)}${attr("class", ` overflow-x-clip w-full ${stringify("overflow-visible h-auto")} ${stringify("")}`)}><div class="w-full h-full relative"><!---->`;
+    {
+      $$payload2.out += `<div${attr("class", `${stringify("")} w-full h-full bg-black`)} style="top: 0px;">`;
+      children == null ? void 0 : children($$payload2);
+      $$payload2.out += `<!----></div>`;
+    }
+    $$payload2.out += `<!----></div></div></div></div>`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
   } while (!$$settled);
-  $$unsubscribe_page();
-  return $$rendered;
-});
-const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  assign_payload($$payload, $$inner_payload);
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+  pop();
+}
+const __vite_glob_0_18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Layout
 }, Symbol.toStringTag, { value: "Module" }));
-const Dashboard = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+function Dashboard($$payload, $$props) {
+  push();
   let { distinct_visitor_count_by_date } = $$props;
-  let data = {
-    labels: distinct_visitor_count_by_date.data.map(
-      /** @type {{ date: any; }} */
-      (element) => element.date
-    ),
+  ({
+    labels: distinct_visitor_count_by_date.data.map((element2) => element2.date),
     datasets: [
       {
         label: "Test",
-        data: distinct_visitor_count_by_date.data.map(
-          /** @type {{ total: any; }} */
-          (element) => element.total
-        ),
+        data: distinct_visitor_count_by_date.data.map((element2) => element2.total),
         backgroundColor: ["rgb(53, 132, 228, 0.3)"],
         borderColor: ["rgb(53, 132, 228)"],
         borderWidth: 2
       }
     ]
-  };
-  if ($$props.distinct_visitor_count_by_date === void 0 && $$bindings.distinct_visitor_count_by_date && distinct_visitor_count_by_date !== void 0) $$bindings.distinct_visitor_count_by_date(distinct_visitor_count_by_date);
-  return `${$$result.head += `<!-- HEAD_svelte-szznqt_START -->${$$result.title = `<title>Webtools - BjeloPIC</title>`, ""}<!-- HEAD_svelte-szznqt_END -->`, ""} <main class="max-w-screen-lg mx-auto p-4"><div class="flex flex-col space-y-4"><div class="p-4 bg-neutral-900 border rounded-md border-neutral-800">${validate_component(DashboardChart, "DashboardChart").$$render($$result, { data, type: "bar" }, {}, {})}</div></div></main>`;
-});
-const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  });
+  head($$payload, ($$payload2) => {
+    $$payload2.title = `<title>Webtools - BjeloPIC</title>`;
+  });
+  $$payload.out += `<main class="max-w-screen-lg mx-auto p-4"><div class="flex flex-col space-y-4"><div class="p-4 bg-neutral-900 border rounded-md border-neutral-800">`;
+  DashboardChart($$payload);
+  $$payload.out += `<!----></div></div></main>`;
+  pop();
+}
+const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Dashboard,
   layout: Layout
 }, Symbol.toStringTag, { value: "Module" }));
-const Input = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "value", "readonly"]);
-  let { class: className = void 0 } = $$props;
-  let { value = void 0 } = $$props;
-  let { readonly: readonly2 = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.readonly === void 0 && $$bindings.readonly && readonly2 !== void 0) $$bindings.readonly(readonly2);
-  return `<input${spread(
-    [
-      {
-        class: escape_attribute_value(cn$1("flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className))
+function HeroVideo($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { heroUrl } = $$props;
+  let form = useForm({ video: null });
+  $$payload.out += `<main class="max-w-screen-lg mx-auto p-4 flex flex-col gap-y-4 mt-2"><form><input type="file" class="hidden" id="new-hero-video" accept="video/webm"> <div class="flex justify-center"><label for="new-hero-video"${attr("class", `px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-l-md ${stringify(store_get($$store_subs ?? ($$store_subs = {}), "$form", form).video ? "" : "rounded-r-md ")} hover:opacity-80 items-center content-center text-sm`)}>${escape_html(store_get($$store_subs ?? ($$store_subs = {}), "$form", form).video ? store_get($$store_subs ?? ($$store_subs = {}), "$form", form).video.name : "Select new hero video")}</label> `;
+  if (store_get($$store_subs ?? ($$store_subs = {}), "$form", form).video) {
+    $$payload.out += "<!--[-->";
+    Button($$payload, {
+      type: "submit",
+      class: "rounded-l-none bg-green-600 hover:bg-green-600/90 text-primary-foreground",
+      children: ($$payload2) => {
+        Arrow_up($$payload2, {});
       },
-      { readonly: readonly2 || null },
-      escape_object($$restProps)
-    ],
-    {}
-  )}${add_attribute("value", value, 0)}>`;
-});
-const Label = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Label$1, "LabelPrimitive.Root").$$render(
-    $$result,
-    Object.assign(
-      {},
+      $$slots: { default: true }
+    });
+  } else {
+    $$payload.out += "<!--[!-->";
+  }
+  $$payload.out += `<!--]--></div></form> <video class="w-full rounded-md" controls><track kind="captions"> <source${attr("src", heroUrl)} type="video/webm"></video></main>`;
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+  pop();
+}
+const __vite_glob_0_17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: HeroVideo,
+  layout: Layout
+}, Symbol.toStringTag, { value: "Module" }));
+function Input($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    value = void 0,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<input${spread_attributes({
+    class: cn$1("border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className),
+    value,
+    ...restProps
+  })}>`;
+  bind_props($$props, { ref, value });
+  pop();
+}
+function Label($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Label$1($$payload2, spread_props([
       {
         class: cn$1("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", className)
       },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Card = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
+      restProps,
       {
-        class: escape_attribute_value(cn$1("rounded-lg border bg-card text-card-foreground shadow-sm", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Card_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn$1("p-6 pt-0", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Card_footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn$1("flex items-center p-6 pt-0", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Card_header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn$1("flex flex-col space-y-1.5 p-6", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Card_title = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "tag"]);
-  let { class: className = void 0 } = $$props;
-  let { tag = "h3" } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.tag === void 0 && $$bindings.tag && tag !== void 0) $$bindings.tag(tag);
-  return `${((tag$1) => {
-    return tag$1 ? `<${tag}${spread(
-      [
-        {
-          class: escape_attribute_value(cn$1("text-lg font-semibold leading-none tracking-tight", className))
+        get ref() {
+          return ref;
         },
-        escape_object($$restProps)
-      ],
-      {}
-    )}>${is_void(tag$1) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
-  })(tag)}`;
-});
-const Checkbox = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "checked"]);
-  let { class: className = void 0 } = $$props;
-  let { checked = false } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.checked === void 0 && $$bindings.checked && checked !== void 0) $$bindings.checked(checked);
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
-  do {
-    $$settled = true;
-    $$result.head = previous_head;
-    $$rendered = `${validate_component(Checkbox$1, "CheckboxPrimitive.Root").$$render(
-      $$result,
-      Object.assign(
-        {},
-        {
-          class: cn$1("peer box-content h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[disabled=true]:cursor-not-allowed data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[disabled=true]:opacity-50", className)
-        },
-        $$restProps,
-        { checked }
-      ),
-      {
-        checked: ($$value) => {
-          checked = $$value;
+        set ref($$value) {
+          ref = $$value;
           $$settled = false;
         }
-      },
-      {
-        default: () => {
-          return `${validate_component(Checkbox_indicator, "CheckboxPrimitive.Indicator").$$render(
-            $$result,
-            {
-              class: cn$1("flex h-4 w-4 items-center justify-center text-current")
-            },
-            {},
-            {
-              default: ({ isChecked, isIndeterminate }) => {
-                return `${isChecked ? `${validate_component(Check, "Check").$$render($$result, { class: "h-3.5 w-3.5" }, {}, {})}` : `${isIndeterminate ? `${validate_component(Minus, "Minus").$$render($$result, { class: "h-3.5 w-3.5" }, {}, {})}` : ``}`}`;
-              }
-            }
-          )}`;
-        }
       }
-    )}`;
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
   } while (!$$settled);
-  return $$rendered;
-});
-const Login = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $page, $$unsubscribe_page;
-  let $form, $$unsubscribe_form;
-  $$unsubscribe_page = subscribe(page, (value) => $page = value);
-  let form = useForm({
-    email: null,
-    password: null,
-    remember: false
-  });
-  $$unsubscribe_form = subscribe(form, (value) => $form = value);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Card($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({
+    class: cn$1("bg-card text-card-foreground rounded-lg border shadow-sm", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Card_content($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({ class: cn$1("p-6", className), ...restProps })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Card_footer($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({
+    class: cn$1("flex items-center p-6 pt-0", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Card_header($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({
+    class: cn$1("flex flex-col space-y-1.5 p-6 pb-0", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Card_title($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    level = 3,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({
+    role: "heading",
+    "aria-level": level,
+    class: cn$1("text-2xl font-semibold leading-none tracking-tight", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Checkbox($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    checked = false,
+    indeterminate = false,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    {
+      let children = function($$payload3, { checked: checked2, indeterminate: indeterminate2 }) {
+        $$payload3.out += `<div class="flex size-4 items-center justify-center text-current">`;
+        if (indeterminate2) {
+          $$payload3.out += "<!--[-->";
+          Minus($$payload3, { class: "size-3.5" });
+        } else {
+          $$payload3.out += "<!--[!-->";
+          Check($$payload3, {
+            class: cn$1("size-3.5", !checked2 && "text-transparent")
+          });
+        }
+        $$payload3.out += `<!--]--></div>`;
+      };
+      Checkbox$1($$payload2, spread_props([
+        {
+          class: cn$1("border-primary ring-offset-background focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground peer box-content size-4 shrink-0 rounded-sm border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50", className)
+        },
+        restProps,
+        {
+          get ref() {
+            return ref;
+          },
+          set ref($$value) {
+            ref = $$value;
+            $$settled = false;
+          },
+          get checked() {
+            return checked;
+          },
+          set checked($$value) {
+            checked = $$value;
+            $$settled = false;
+          },
+          get indeterminate() {
+            return indeterminate;
+          },
+          set indeterminate($$value) {
+            indeterminate = $$value;
+            $$settled = false;
+          },
+          children,
+          $$slots: { default: true }
+        }
+      ]));
+    }
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref, checked, indeterminate });
+  pop();
+}
+function Login($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let form = useForm({ email: null, password: null, remember: false });
   function processRefresh(props) {
     if (JSON.stringify(props.errors) !== "{}") {
       toast.error(props.errors.email);
     }
   }
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
+  run(() => {
+    processRefresh(store_get($$store_subs ?? ($$store_subs = {}), "$page", page).props);
+  });
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    Toaster($$payload2, { theme: "dark", richColors: true });
+    $$payload2.out += `<!----> <main class="max-w-screen-lg mx-auto p-4"><form>`;
+    Card($$payload2, {
+      class: "w-[350px] mx-auto",
+      children: ($$payload3) => {
+        Card_header($$payload3, {
+          children: ($$payload4) => {
+            Card_title($$payload4, {
+              children: ($$payload5) => {
+                $$payload5.out += `<!---->Login`;
+              },
+              $$slots: { default: true }
+            });
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!----> `;
+        Card_content($$payload3, {
+          children: ($$payload4) => {
+            Label($$payload4, {
+              for: "email",
+              children: ($$payload5) => {
+                $$payload5.out += `<!---->Email`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!----> `;
+            Input($$payload4, {
+              type: "email",
+              required: true,
+              name: "email",
+              get value() {
+                return store_get($$store_subs ?? ($$store_subs = {}), "$form", form).email;
+              },
+              set value($$value) {
+                store_mutate($$store_subs ?? ($$store_subs = {}), "$form", form, store_get($$store_subs ?? ($$store_subs = {}), "$form", form).email = $$value);
+                $$settled = false;
+              }
+            });
+            $$payload4.out += `<!----> `;
+            Label($$payload4, {
+              for: "password",
+              children: ($$payload5) => {
+                $$payload5.out += `<!---->Password`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!----> `;
+            Input($$payload4, {
+              type: "password",
+              required: true,
+              name: "password",
+              get value() {
+                return store_get($$store_subs ?? ($$store_subs = {}), "$form", form).password;
+              },
+              set value($$value) {
+                store_mutate($$store_subs ?? ($$store_subs = {}), "$form", form, store_get($$store_subs ?? ($$store_subs = {}), "$form", form).password = $$value);
+                $$settled = false;
+              }
+            });
+            $$payload4.out += `<!----> <div class="flex gap-x-2 items-center mt-2">`;
+            Checkbox($$payload4, {
+              id: "rememberme",
+              get checked() {
+                return store_get($$store_subs ?? ($$store_subs = {}), "$form", form).remember;
+              },
+              set checked($$value) {
+                store_mutate($$store_subs ?? ($$store_subs = {}), "$form", form, store_get($$store_subs ?? ($$store_subs = {}), "$form", form).remember = $$value);
+                $$settled = false;
+              }
+            });
+            $$payload4.out += `<!----> `;
+            Label($$payload4, {
+              for: "rememberme",
+              children: ($$payload5) => {
+                $$payload5.out += `<!---->Remember me`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!----></div>`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!----> `;
+        Card_footer($$payload3, {
+          children: ($$payload4) => {
+            Button($$payload4, {
+              variant: "outline",
+              type: "submit",
+              children: ($$payload5) => {
+                $$payload5.out += `<!---->Login`;
+              },
+              $$slots: { default: true }
+            });
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!----></form></main>`;
+  }
   do {
     $$settled = true;
-    $$result.head = previous_head;
-    {
-      processRefresh($page.props);
-    }
-    $$rendered = `${validate_component(Toaster, "Toaster").$$render($$result, { theme: "dark", richColors: true }, {}, {})} <main class="max-w-screen-lg mx-auto p-4"><form>${validate_component(Card, "Card.Root").$$render($$result, { class: "w-[350px] mx-auto" }, {}, {
-      default: () => {
-        return `${validate_component(Card_header, "Card.Header").$$render($$result, {}, {}, {
-          default: () => {
-            return `${validate_component(Card_title, "Card.Title").$$render($$result, {}, {}, {
-              default: () => {
-                return `Login`;
-              }
-            })}`;
-          }
-        })} ${validate_component(Card_content, "Card.Content").$$render($$result, {}, {}, {
-          default: () => {
-            return `${validate_component(Label, "Label").$$render($$result, { for: "email" }, {}, {
-              default: () => {
-                return `Email`;
-              }
-            })} ${validate_component(Input, "Input").$$render(
-              $$result,
-              {
-                type: "email",
-                required: true,
-                name: "email",
-                value: $form.email
-              },
-              {
-                value: ($$value) => {
-                  $form.email = $$value;
-                  $$settled = false;
-                }
-              },
-              {}
-            )} ${validate_component(Label, "Label").$$render($$result, { for: "password" }, {}, {
-              default: () => {
-                return `Password`;
-              }
-            })} ${validate_component(Input, "Input").$$render(
-              $$result,
-              {
-                type: "password",
-                required: true,
-                name: "password",
-                value: $form.password
-              },
-              {
-                value: ($$value) => {
-                  $form.password = $$value;
-                  $$settled = false;
-                }
-              },
-              {}
-            )} <div class="flex gap-x-2 items-center mt-2">${validate_component(Checkbox, "Checkbox").$$render(
-              $$result,
-              {
-                id: "rememberme",
-                checked: $form.remember
-              },
-              {
-                checked: ($$value) => {
-                  $form.remember = $$value;
-                  $$settled = false;
-                }
-              },
-              {}
-            )} ${validate_component(Label, "Label").$$render($$result, { for: "rememberme" }, {}, {
-              default: () => {
-                return `Remember me`;
-              }
-            })}</div>`;
-          }
-        })} ${validate_component(Card_footer, "Card.Footer").$$render($$result, {}, {}, {
-          default: () => {
-            return `${validate_component(Button, "Button").$$render($$result, { variant: "outline", type: "submit" }, {}, {
-              default: () => {
-                return `Login`;
-              }
-            })}`;
-          }
-        })}`;
-      }
-    })}</form></main>`;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
   } while (!$$settled);
-  $$unsubscribe_page();
-  $$unsubscribe_form();
-  return $$rendered;
-});
-const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  assign_payload($$payload, $$inner_payload);
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+  pop();
+}
+const __vite_glob_0_20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Login,
   layout: Layout
 }, Symbol.toStringTag, { value: "Module" }));
-const Users = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return ``;
-});
-const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: Users
-}, Symbol.toStringTag, { value: "Module" }));
-const Dialog_title = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Dialog_title$1, "DialogPrimitive.Title").$$render(
-    $$result,
-    Object.assign(
-      {},
+function Alert_dialog_title($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    level = 3,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Dialog_title$1($$payload2, spread_props([
       {
-        class: cn$1("text-lg font-semibold leading-none tracking-tight", className)
+        class: cn$1("text-lg font-semibold", className),
+        level
       },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Dialog_portal = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, []);
-  return `${validate_component(Dialog_portal$1, "DialogPrimitive.Portal").$$render($$result, Object.assign({}, $$restProps), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Dialog_footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
+      restProps,
       {
-        class: escape_attribute_value(cn$1("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Dialog_header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(cn$1("flex flex-col space-y-1.5 text-center sm:text-left", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Dialog_overlay = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "transition", "transitionConfig"]);
-  let { class: className = void 0 } = $$props;
-  let { transition = fade } = $$props;
-  let { transitionConfig = { duration: 150 } } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  return `${validate_component(Dialog_overlay$1, "DialogPrimitive.Overlay").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { transition },
-      { transitionConfig },
-      {
-        class: cn$1("fixed inset-0 z-50 bg-background/80 backdrop-blur-sm", className)
-      },
-      $$restProps
-    ),
-    {},
-    {}
-  )}`;
-});
-const Dialog_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "transition", "transitionConfig"]);
-  let { class: className = void 0 } = $$props;
-  let { transition = flyAndScale } = $$props;
-  let { transitionConfig = { duration: 200 } } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  return `${validate_component(Dialog_portal, "Dialog.Portal").$$render($$result, {}, {}, {
-    default: () => {
-      return `${validate_component(Dialog_overlay, "Dialog.Overlay").$$render($$result, {}, {}, {})} ${validate_component(Dialog_content$1, "DialogPrimitive.Content").$$render(
-        $$result,
-        Object.assign(
-          {},
-          { transition },
-          { transitionConfig },
-          {
-            class: cn$1("fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg sm:rounded-lg md:w-full", className)
-          },
-          $$restProps
-        ),
-        {},
-        {
-          default: () => {
-            return `${slots.default ? slots.default({}) : ``} ${validate_component(Dialog_close, "DialogPrimitive.Close").$$render(
-              $$result,
-              {
-                class: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
-              },
-              {},
-              {
-                default: () => {
-                  return `${validate_component(X, "X").$$render($$result, { class: "h-4 w-4" }, {}, {})} <span class="sr-only" data-svelte-h="svelte-1pewzs3">Close</span>`;
-                }
-              }
-            )}`;
-          }
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
         }
-      )}`;
-    }
-  })}`;
-});
-const Root$2 = Dialog;
-const Tabs_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "value"]);
-  let { class: className = void 0 } = $$props;
-  let { value } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  return `${validate_component(Tabs_content$1, "TabsPrimitive.Content").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn$1("mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", className)
-      },
-      { value },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
       }
-    }
-  )}`;
-});
-const Tabs_list = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Tabs_list$1, "TabsPrimitive.List").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn$1("inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Tabs_trigger = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "value"]);
-  let { class: className = void 0 } = $$props;
-  let { value } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  return `${validate_component(Tabs_trigger$1, "TabsPrimitive.Trigger").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn$1("inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm", className)
-      },
-      { value },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Root$1 = Tabs;
-const Textarea = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "value", "readonly"]);
-  let { class: className = void 0 } = $$props;
-  let { value = void 0 } = $$props;
-  let { readonly: readonly2 = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.readonly === void 0 && $$bindings.readonly && readonly2 !== void 0) $$bindings.readonly(readonly2);
-  return `<textarea${spread(
-    [
-      {
-        class: escape_attribute_value(cn$1("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className))
-      },
-      { readonly: readonly2 || null },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${escape(value || "")}</textarea>`;
-});
-const Popover_content = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "transition", "transitionConfig"]);
-  let { class: className = void 0 } = $$props;
-  let { transition = flyAndScale } = $$props;
-  let { transitionConfig = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
-  if ($$props.transitionConfig === void 0 && $$bindings.transitionConfig && transitionConfig !== void 0) $$bindings.transitionConfig(transitionConfig);
-  return `${validate_component(Popover_content$1, "PopoverPrimitive.Content").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { transition },
-      { transitionConfig },
-      {
-        class: cn$1("z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Root = Popover;
-const Trigger = Popover_trigger;
-const Calendar_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["value", "placeholder", "weekdayFormat", "class"]);
-  let { value = void 0 } = $$props;
-  let { placeholder = void 0 } = $$props;
-  let { weekdayFormat = "short" } = $$props;
-  let { class: className = void 0 } = $$props;
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.placeholder === void 0 && $$bindings.placeholder && placeholder !== void 0) $$bindings.placeholder(placeholder);
-  if ($$props.weekdayFormat === void 0 && $$bindings.weekdayFormat && weekdayFormat !== void 0) $$bindings.weekdayFormat(weekdayFormat);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
+    ]));
+    $$payload2.out += `<!---->`;
+  }
   do {
     $$settled = true;
-    $$result.head = previous_head;
-    $$rendered = `${validate_component(Calendar$1, "CalendarPrimitive.Root").$$render(
-      $$result,
-      Object.assign({}, { weekdayFormat }, { class: cn$1("p-3", className) }, $$restProps, { value }, { placeholder }),
-      {
-        value: ($$value) => {
-          value = $$value;
-          $$settled = false;
-        },
-        placeholder: ($$value) => {
-          placeholder = $$value;
-          $$settled = false;
-        }
-      },
-      {
-        default: ({ months, weekdays }) => {
-          return `${validate_component(Calendar_header, "Calendar.Header").$$render($$result, {}, {}, {
-            default: () => {
-              return `${validate_component(Calendar_prev_button, "Calendar.PrevButton").$$render($$result, {}, {}, {})} ${validate_component(Calendar_heading, "Calendar.Heading").$$render($$result, {}, {}, {})} ${validate_component(Calendar_next_button, "Calendar.NextButton").$$render($$result, {}, {}, {})}`;
-            }
-          })} ${validate_component(Calendar_months, "Calendar.Months").$$render($$result, {}, {}, {
-            default: () => {
-              return `${each(months, (month) => {
-                return `${validate_component(Calendar_grid, "Calendar.Grid").$$render($$result, {}, {}, {
-                  default: () => {
-                    return `${validate_component(Calendar_grid_head, "Calendar.GridHead").$$render($$result, {}, {}, {
-                      default: () => {
-                        return `${validate_component(Calendar_grid_row, "Calendar.GridRow").$$render($$result, { class: "flex" }, {}, {
-                          default: () => {
-                            return `${each(weekdays, (weekday) => {
-                              return `${validate_component(Calendar_head_cell, "Calendar.HeadCell").$$render($$result, {}, {}, {
-                                default: () => {
-                                  return `${escape(weekday.slice(0, 2))} `;
-                                }
-                              })}`;
-                            })} `;
-                          }
-                        })} `;
-                      }
-                    })} ${validate_component(Calendar_grid_body, "Calendar.GridBody").$$render($$result, {}, {}, {
-                      default: () => {
-                        return `${each(month.weeks, (weekDates) => {
-                          return `${validate_component(Calendar_grid_row, "Calendar.GridRow").$$render($$result, { class: "mt-2 w-full" }, {}, {
-                            default: () => {
-                              return `${each(weekDates, (date) => {
-                                return `${validate_component(Calendar_cell, "Calendar.Cell").$$render($$result, { date }, {}, {
-                                  default: () => {
-                                    return `${validate_component(Calendar_day, "Calendar.Day").$$render($$result, { date, month: month.value }, {}, {})} `;
-                                  }
-                                })}`;
-                              })} `;
-                            }
-                          })}`;
-                        })} `;
-                      }
-                    })} `;
-                  }
-                })}`;
-              })}`;
-            }
-          })}`;
-        }
-      }
-    )}`;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
   } while (!$$settled);
-  return $$rendered;
-});
-const Calendar_cell = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["date", "class"]);
-  let { date } = $$props;
-  let { class: className = void 0 } = $$props;
-  if ($$props.date === void 0 && $$bindings.date && date !== void 0) $$bindings.date(date);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_cell$1, "CalendarPrimitive.Cell").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { date },
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Alert_dialog_action($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Alert_dialog_action$1($$payload2, spread_props([
+      { class: cn$1(buttonVariants(), className) },
+      restProps,
       {
-        class: cn$1("relative h-9 w-9 p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([data-selected])]:rounded-md [&:has([data-selected])]:bg-accent [&:has([data-selected][data-outside-month])]:bg-accent/50", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
       }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Alert_dialog_cancel($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Alert_dialog_cancel$1($$payload2, spread_props([
+      {
+        class: cn$1(buttonVariants({ variant: "outline" }), "mt-2 sm:mt-0", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Alert_dialog_footer($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({
+    class: cn$1("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Alert_dialog_header($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({
+    class: cn$1("flex flex-col space-y-2 text-center sm:text-left", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Alert_dialog_overlay($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Dialog_overlay$1($$payload2, spread_props([
+      {
+        class: cn$1("data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  fixed inset-0 z-50 bg-black/80", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Alert_dialog_content($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    portalProps,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Portal$1($$payload2, spread_props([
+      portalProps,
+      {
+        children: ($$payload3) => {
+          Alert_dialog_overlay($$payload3, {});
+          $$payload3.out += `<!----> <!---->`;
+          Alert_dialog_content$1($$payload3, spread_props([
+            {
+              class: cn$1("bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg", className)
+            },
+            restProps,
+            {
+              get ref() {
+                return ref;
+              },
+              set ref($$value) {
+                ref = $$value;
+                $$settled = false;
+              }
+            }
+          ]));
+          $$payload3.out += `<!---->`;
+        },
+        $$slots: { default: true }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+const Root$3 = Alert_dialog;
+const Trigger$2 = Dialog_trigger;
+function Stills($$payload, $$props) {
+  push();
+  let { video, stills } = $$props;
+  useForm({
+    /** @type {File[]|null} */
+    stills: null
+  });
+  let deleteTarget = null;
+  let deleteDialogShown = false;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    const each_array = ensure_array_like(stills);
+    head($$payload2, ($$payload3) => {
+      $$payload3.title = `<title>${escape_html(video.title)} (${escape_html(new Date(video.publication_date).getUTCFullYear())}) - Webtools</title>`;
+    });
+    $$payload2.out += `<!---->`;
+    Root$3($$payload2, {
+      get open() {
+        return deleteDialogShown;
+      },
+      set open($$value) {
+        deleteDialogShown = $$value;
+        $$settled = false;
+      },
+      children: ($$payload3) => {
+        $$payload3.out += `<!---->`;
+        Alert_dialog_content($$payload3, {
+          children: ($$payload4) => {
+            $$payload4.out += `<!---->`;
+            Alert_dialog_header($$payload4, {
+              children: ($$payload5) => {
+                $$payload5.out += `<!---->Are you sure?`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!----> <!---->`;
+            Alert_dialog_footer($$payload4, {
+              children: ($$payload5) => {
+                $$payload5.out += `<!---->`;
+                Alert_dialog_cancel($$payload5, {
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->Cancel`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!----> <!---->`;
+                {
+                  let child = function($$payload6, props) {
+                    Button($$payload6, spread_props([
+                      {
+                        variant: "destructive",
+                        onclick: () => {
+                          router.visit("/webtools/videos/stills/" + deleteTarget, {
+                            method: "delete",
+                            onSuccess: () => {
+                              deleteTarget = null;
+                              deleteDialogShown = false;
+                            }
+                          });
+                        }
+                      },
+                      props,
+                      {
+                        children: ($$payload7) => {
+                          $$payload7.out += `<!---->Delete`;
+                        },
+                        $$slots: { default: true }
+                      }
+                    ]));
+                  };
+                  Alert_dialog_action($$payload5, { child, $$slots: { child: true } });
+                }
+                $$payload5.out += `<!---->`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!---->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!----> <section class="px-8 py-4 flex flex-col gap-y-2 max-w-screen-sm md:max-w-screen-xl mx-auto"><h1 class="text-2xl mb-2 text-center md:text-left"><span>Stills of</span> <span class="font-semibold">${escape_html(video.title)} (${escape_html(new Date(video.publication_date).getUTCFullYear())})</span></h1> <input type="file" class="hidden" id="still-input" accept="image/*" multiple> <div class="grid grid-cols-1 md:grid-cols-2 xl:gap-6 gap-6 md:gap-4 mt-2 md:mt-0"><label class="bg-bjelopic-neutral-8 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white transition-colors flex items-center justify-center" for="still-input">`;
+    Root$4($$payload2, {
+      ratio: stills.length > 0 ? 3 : 2.35,
+      children: ($$payload3) => {
+        $$payload3.out += `<div class="w-full h-full flex justify-center items-center">`;
+        Plus($$payload3, { class: "w-12 h-12" });
+        $$payload3.out += `<!----></div>`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!----></label> <!--[-->`;
+    for (let i = 0, $$length = each_array.length; i < $$length; i++) {
+      let still = each_array[i];
+      Root$4($$payload2, {
+        ratio: 16 / 9,
+        class: "group rounded-md overflow-clip bg-background border border-accent drop-shadow-glow-sm",
+        children: ($$payload3) => {
+          $$payload3.out += `<img${attr("src", still.path)} class="object-contain w-full h-full"${attr("alt", "Still no. " + (i + 1) + " for " + video.title)}> `;
+          Button($$payload3, {
+            variant: "destructive",
+            class: "absolute right-2 bottom-2 lg:hidden group-hover:block transition-all",
+            onclick: () => {
+              deleteTarget = still.id;
+              deleteDialogShown = true;
+            },
+            children: ($$payload4) => {
+              Trash($$payload4, { class: "w-4 h-4" });
+            },
+            $$slots: { default: true }
+          });
+          $$payload3.out += `<!---->`;
+        },
+        $$slots: { default: true }
+      });
     }
-  )}`;
-});
-const Calendar_day = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["date", "month", "class"]);
-  let { date } = $$props;
-  let { month } = $$props;
-  let { class: className = void 0 } = $$props;
-  if ($$props.date === void 0 && $$bindings.date && date !== void 0) $$bindings.date(date);
-  if ($$props.month === void 0 && $$bindings.month && month !== void 0) $$bindings.month(month);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_day$1, "CalendarPrimitive.Day").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { date },
-      { month },
+    $$payload2.out += `<!--]--></div></section>`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  pop();
+}
+const __vite_glob_0_21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Stills,
+  layout: Layout
+}, Symbol.toStringTag, { value: "Module" }));
+function Calendar_1($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    value = void 0,
+    placeholder = void 0,
+    class: className,
+    weekdayFormat = "short",
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    {
+      let children = function($$payload3, { months, weekdays }) {
+        $$payload3.out += `<!---->`;
+        Calendar_header($$payload3, {
+          children: ($$payload4) => {
+            $$payload4.out += `<!---->`;
+            Calendar_prev_button($$payload4, {});
+            $$payload4.out += `<!----> <!---->`;
+            Calendar_heading($$payload4, {});
+            $$payload4.out += `<!----> <!---->`;
+            Calendar_next_button($$payload4, {});
+            $$payload4.out += `<!---->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!----> <!---->`;
+        Calendar_months($$payload3, {
+          children: ($$payload4) => {
+            const each_array = ensure_array_like(months);
+            $$payload4.out += `<!--[-->`;
+            for (let $$index_3 = 0, $$length = each_array.length; $$index_3 < $$length; $$index_3++) {
+              let month = each_array[$$index_3];
+              $$payload4.out += `<!---->`;
+              Calendar_grid($$payload4, {
+                children: ($$payload5) => {
+                  $$payload5.out += `<!---->`;
+                  Calendar_grid_head($$payload5, {
+                    children: ($$payload6) => {
+                      $$payload6.out += `<!---->`;
+                      Calendar_grid_row($$payload6, {
+                        class: "flex",
+                        children: ($$payload7) => {
+                          const each_array_1 = ensure_array_like(weekdays);
+                          $$payload7.out += `<!--[-->`;
+                          for (let $$index = 0, $$length2 = each_array_1.length; $$index < $$length2; $$index++) {
+                            let weekday = each_array_1[$$index];
+                            $$payload7.out += `<!---->`;
+                            Calendar_head_cell($$payload7, {
+                              children: ($$payload8) => {
+                                $$payload8.out += `<!---->${escape_html(weekday.slice(0, 2))}`;
+                              },
+                              $$slots: { default: true }
+                            });
+                            $$payload7.out += `<!---->`;
+                          }
+                          $$payload7.out += `<!--]-->`;
+                        },
+                        $$slots: { default: true }
+                      });
+                      $$payload6.out += `<!---->`;
+                    },
+                    $$slots: { default: true }
+                  });
+                  $$payload5.out += `<!----> <!---->`;
+                  Calendar_grid_body($$payload5, {
+                    children: ($$payload6) => {
+                      const each_array_2 = ensure_array_like(month.weeks);
+                      $$payload6.out += `<!--[-->`;
+                      for (let $$index_2 = 0, $$length2 = each_array_2.length; $$index_2 < $$length2; $$index_2++) {
+                        let weekDates = each_array_2[$$index_2];
+                        $$payload6.out += `<!---->`;
+                        Calendar_grid_row($$payload6, {
+                          class: "mt-2 w-full",
+                          children: ($$payload7) => {
+                            const each_array_3 = ensure_array_like(weekDates);
+                            $$payload7.out += `<!--[-->`;
+                            for (let $$index_1 = 0, $$length3 = each_array_3.length; $$index_1 < $$length3; $$index_1++) {
+                              let date = each_array_3[$$index_1];
+                              $$payload7.out += `<!---->`;
+                              Calendar_cell($$payload7, {
+                                date,
+                                month: month.value,
+                                children: ($$payload8) => {
+                                  $$payload8.out += `<!---->`;
+                                  Calendar_day($$payload8, {});
+                                  $$payload8.out += `<!---->`;
+                                },
+                                $$slots: { default: true }
+                              });
+                              $$payload7.out += `<!---->`;
+                            }
+                            $$payload7.out += `<!--]-->`;
+                          },
+                          $$slots: { default: true }
+                        });
+                        $$payload6.out += `<!---->`;
+                      }
+                      $$payload6.out += `<!--]-->`;
+                    },
+                    $$slots: { default: true }
+                  });
+                  $$payload5.out += `<!---->`;
+                },
+                $$slots: { default: true }
+              });
+              $$payload4.out += `<!---->`;
+            }
+            $$payload4.out += `<!--]-->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!---->`;
+      };
+      Calendar$1($$payload2, spread_props([
+        {
+          weekdayFormat,
+          class: cn$1("p-3", className)
+        },
+        restProps,
+        {
+          get value() {
+            return value;
+          },
+          set value($$value) {
+            value = $$value;
+            $$settled = false;
+          },
+          get ref() {
+            return ref;
+          },
+          set ref($$value) {
+            ref = $$value;
+            $$settled = false;
+          },
+          get placeholder() {
+            return placeholder;
+          },
+          set placeholder($$value) {
+            placeholder = $$value;
+            $$settled = false;
+          },
+          children,
+          $$slots: { default: true }
+        }
+      ]));
+    }
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref, value, placeholder });
+  pop();
+}
+function Calendar_cell($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_cell$1($$payload2, spread_props([
+      {
+        class: cn$1("[&:has([data-selected])]:bg-accent [&:has([data-selected][data-outside-month])]:bg-accent/50 relative size-9 p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([data-selected])]:rounded-md", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_day($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_day$1($$payload2, spread_props([
       {
         class: cn$1(
           buttonVariants({ variant: "ghost" }),
-          "h-9 w-9 p-0 font-normal ",
+          "size-9 p-0 font-normal",
           "[&[data-today]:not([data-selected])]:bg-accent [&[data-today]:not([data-selected])]:text-accent-foreground",
           // Selected
-          "data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:opacity-100 data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground",
+          "data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground data-[selected]:opacity-100",
           // Disabled
           "data-[disabled]:text-muted-foreground data-[disabled]:opacity-50",
           // Unavailable
           "data-[unavailable]:text-destructive-foreground data-[unavailable]:line-through",
           // Outside months
-          "data-[outside-month]:pointer-events-none data-[outside-month]:text-muted-foreground data-[outside-month]:opacity-50 [&[data-outside-month][data-selected]]:bg-accent/50 [&[data-outside-month][data-selected]]:text-muted-foreground [&[data-outside-month][data-selected]]:opacity-30",
+          "data-[outside-month]:text-muted-foreground [&[data-outside-month][data-selected]]:bg-accent/50 [&[data-outside-month][data-selected]]:text-muted-foreground data-[outside-month]:pointer-events-none data-[outside-month]:opacity-50 [&[data-outside-month][data-selected]]:opacity-30",
           className
         )
       },
-      $$restProps
-    ),
-    {},
-    {
-      default: ({ selected, disabled, unavailable, builder }) => {
-        return `${slots.default ? slots.default({ selected, disabled, unavailable, builder }) : ` ${escape(date.day)} `}`;
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
       }
-    }
-  )}`;
-});
-const Calendar_grid = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_grid$1, "CalendarPrimitive.Grid").$$render(
-    $$result,
-    Object.assign(
-      {},
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_grid($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_grid$1($$payload2, spread_props([
       {
         class: cn$1("w-full border-collapse space-y-1", className)
       },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
       }
-    }
-  )}`;
-});
-const Calendar_header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_header$1, "CalendarPrimitive.Header").$$render(
-    $$result,
-    Object.assign(
-      {},
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_header($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_header$1($$payload2, spread_props([
       {
         class: cn$1("relative flex w-full items-center justify-between pt-1", className)
       },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Calendar_months = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `<div${spread(
-    [
+      restProps,
       {
-        class: escape_attribute_value(cn$1("mt-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0", className))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}>${slots.default ? slots.default({}) : ``}</div>`;
-});
-const Calendar_grid_row = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_grid_row$1, "CalendarPrimitive.GridRow").$$render($$result, Object.assign({}, { class: cn$1("flex", className) }, $$restProps), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Calendar_heading = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_heading$1, "CalendarPrimitive.Heading").$$render(
-    $$result,
-    Object.assign(
-      {},
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_months($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({
+    class: cn$1("mt-4 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_grid_row($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_grid_row$1($$payload2, spread_props([
+      { class: cn$1("flex", className) },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_heading($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_heading$1($$payload2, spread_props([
       {
         class: cn$1("text-sm font-medium", className)
       },
-      $$restProps
-    ),
-    {},
-    {
-      default: ({ headingValue }) => {
-        return `${slots.default ? slots.default({ headingValue }) : ` ${escape(headingValue)} `}`;
-      }
-    }
-  )}`;
-});
-const Calendar_grid_body = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_grid_body$1, "CalendarPrimitive.GridBody").$$render($$result, Object.assign({}, { class: cn$1(className) }, $$restProps), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Calendar_grid_head = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_grid_head$1, "CalendarPrimitive.GridHead").$$render($$result, Object.assign({}, { class: cn$1(className) }, $$restProps), {}, {
-    default: () => {
-      return `${slots.default ? slots.default({}) : ``}`;
-    }
-  })}`;
-});
-const Calendar_head_cell = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_head_cell$1, "CalendarPrimitive.HeadCell").$$render(
-    $$result,
-    Object.assign(
-      {},
+      restProps,
       {
-        class: cn$1("w-9 rounded-md text-[0.8rem] font-normal text-muted-foreground", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Calendar_next_button = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_next_button$1, "CalendarPrimitive.NextButton").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn$1(buttonVariants({ variant: "outline" }), "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: ({ builder }) => {
-        return `${slots.default ? slots.default({ builder }) : ` ${validate_component(Chevron_right, "ChevronRight").$$render($$result, { class: "h-4 w-4" }, {}, {})} `}`;
-      }
-    }
-  )}`;
-});
-const Calendar_prev_button = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(Calendar_prev_button$1, "CalendarPrimitive.PrevButton").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn$1(buttonVariants({ variant: "outline" }), "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: ({ builder }) => {
-        return `${slots.default ? slots.default({ builder }) : ` ${validate_component(Chevron_left, "ChevronLeft").$$render($$result, { class: "h-4 w-4" }, {}, {})} `}`;
-      }
-    }
-  )}`;
-});
-const SCORE_CONTINUE_MATCH = 1, SCORE_SPACE_WORD_JUMP = 0.9, SCORE_NON_SPACE_WORD_JUMP = 0.8, SCORE_CHARACTER_JUMP = 0.17, SCORE_TRANSPOSITION = 0.1, PENALTY_SKIPPED = 0.999, PENALTY_CASE_MISMATCH = 0.9999, PENALTY_NOT_COMPLETE = 0.99;
-const IS_GAP_REGEXP = /[\\/_+.#"@[({&]/, COUNT_GAPS_REGEXP = /[\\/_+.#"@[({&]/g, IS_SPACE_REGEXP = /[\s-]/, COUNT_SPACE_REGEXP = /[\s-]/g;
-function commandScoreInner(string, abbreviation, lowerString, lowerAbbreviation, stringIndex, abbreviationIndex, memoizedResults) {
-  if (abbreviationIndex === abbreviation.length) {
-    if (stringIndex === string.length) {
-      return SCORE_CONTINUE_MATCH;
-    }
-    return PENALTY_NOT_COMPLETE;
-  }
-  const memoizeKey = `${stringIndex},${abbreviationIndex}`;
-  if (memoizedResults[memoizeKey] !== void 0) {
-    return memoizedResults[memoizeKey];
-  }
-  const abbreviationChar = lowerAbbreviation.charAt(abbreviationIndex);
-  let index = lowerString.indexOf(abbreviationChar, stringIndex);
-  let highScore = 0;
-  let score, transposedScore, wordBreaks, spaceBreaks;
-  while (index >= 0) {
-    score = commandScoreInner(string, abbreviation, lowerString, lowerAbbreviation, index + 1, abbreviationIndex + 1, memoizedResults);
-    if (score > highScore) {
-      if (index === stringIndex) {
-        score *= SCORE_CONTINUE_MATCH;
-      } else if (IS_GAP_REGEXP.test(string.charAt(index - 1))) {
-        score *= SCORE_NON_SPACE_WORD_JUMP;
-        wordBreaks = string.slice(stringIndex, index - 1).match(COUNT_GAPS_REGEXP);
-        if (wordBreaks && stringIndex > 0) {
-          score *= Math.pow(PENALTY_SKIPPED, wordBreaks.length);
-        }
-      } else if (IS_SPACE_REGEXP.test(string.charAt(index - 1))) {
-        score *= SCORE_SPACE_WORD_JUMP;
-        spaceBreaks = string.slice(stringIndex, index - 1).match(COUNT_SPACE_REGEXP);
-        if (spaceBreaks && stringIndex > 0) {
-          score *= Math.pow(PENALTY_SKIPPED, spaceBreaks.length);
-        }
-      } else {
-        score *= SCORE_CHARACTER_JUMP;
-        if (stringIndex > 0) {
-          score *= Math.pow(PENALTY_SKIPPED, index - stringIndex);
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
         }
       }
-      if (string.charAt(index) !== abbreviation.charAt(abbreviationIndex)) {
-        score *= PENALTY_CASE_MISMATCH;
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_grid_body($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_grid_body$1($$payload2, spread_props([
+      { class: cn$1(className) },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
       }
-    }
-    if (score < SCORE_TRANSPOSITION && lowerString.charAt(index - 1) === lowerAbbreviation.charAt(abbreviationIndex + 1) || lowerAbbreviation.charAt(abbreviationIndex + 1) === lowerAbbreviation.charAt(abbreviationIndex) && // allow duplicate letters. Ref #7428
-    lowerString.charAt(index - 1) !== lowerAbbreviation.charAt(abbreviationIndex)) {
-      transposedScore = commandScoreInner(string, abbreviation, lowerString, lowerAbbreviation, index + 1, abbreviationIndex + 2, memoizedResults);
-      if (transposedScore * SCORE_TRANSPOSITION > score) {
-        score = transposedScore * SCORE_TRANSPOSITION;
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Calendar_grid_head($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_grid_head$1($$payload2, spread_props([
+      { class: cn$1(className) },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
       }
-    }
-    if (score > highScore) {
-      highScore = score;
-    }
-    index = lowerString.indexOf(abbreviationChar, index + 1);
+    ]));
+    $$payload2.out += `<!---->`;
   }
-  memoizedResults[memoizeKey] = highScore;
-  return highScore;
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
 }
-function formatInput(string) {
-  return string.toLowerCase().replace(COUNT_SPACE_REGEXP, " ");
-}
-function commandScore(string, abbreviation) {
-  return commandScoreInner(string, abbreviation, formatInput(string), formatInput(abbreviation), 0, 0, {});
-}
-const isBrowser = typeof document !== "undefined";
-function isUndefined(value) {
-  return value === void 0;
-}
-function generateId() {
-  return nanoid(10);
-}
-const kbd$1 = {
-  ALT: "Alt",
-  ARROW_DOWN: "ArrowDown",
-  ARROW_LEFT: "ArrowLeft",
-  ARROW_RIGHT: "ArrowRight",
-  ARROW_UP: "ArrowUp",
-  BACKSPACE: "Backspace",
-  CAPS_LOCK: "CapsLock",
-  CONTROL: "Control",
-  DELETE: "Delete",
-  END: "End",
-  ENTER: "Enter",
-  ESCAPE: "Escape",
-  F1: "F1",
-  F10: "F10",
-  F11: "F11",
-  F12: "F12",
-  F2: "F2",
-  F3: "F3",
-  F4: "F4",
-  F5: "F5",
-  F6: "F6",
-  F7: "F7",
-  F8: "F8",
-  F9: "F9",
-  HOME: "Home",
-  META: "Meta",
-  PAGE_DOWN: "PageDown",
-  PAGE_UP: "PageUp",
-  SHIFT: "Shift",
-  SPACE: " ",
-  TAB: "Tab",
-  CTRL: "Control",
-  ASTERISK: "*"
-};
-function omit(obj, ...keys) {
-  const result = {};
-  for (const key of Object.keys(obj)) {
-    if (!keys.includes(key)) {
-      result[key] = obj[key];
-    }
-  }
-  return result;
-}
-function removeUndefined(obj) {
-  const result = {};
-  for (const key in obj) {
-    const value = obj[key];
-    if (value !== void 0) {
-      result[key] = value;
-    }
-  }
-  return result;
-}
-function toWritableStores(properties) {
-  const result = {};
-  Object.keys(properties).forEach((key) => {
-    const propertyKey = key;
-    const value = properties[propertyKey];
-    result[propertyKey] = writable(value);
-  });
-  return result;
-}
-function effect(stores, fn) {
-  const unsub = derivedWithUnsubscribe(stores, (stores2, onUnsubscribe) => {
-    return {
-      stores: stores2,
-      onUnsubscribe
-    };
-  }).subscribe(({ stores: stores2, onUnsubscribe }) => {
-    const returned = fn(stores2);
-    if (returned) {
-      onUnsubscribe(returned);
-    }
-  });
-  onDestroy(unsub);
-  return unsub;
-}
-function derivedWithUnsubscribe(stores, fn) {
-  let unsubscribers = [];
-  const onUnsubscribe = (cb) => {
-    unsubscribers.push(cb);
-  };
-  const unsubscribe = () => {
-    unsubscribers.forEach((fn2) => fn2());
-    unsubscribers = [];
-  };
-  const derivedStore = derived(stores, ($storeValues) => {
-    unsubscribe();
-    return fn($storeValues, onUnsubscribe);
-  });
-  onDestroy(unsubscribe);
-  const subscribe2 = (...args) => {
-    const unsub = derivedStore.subscribe(...args);
-    return () => {
-      unsub();
-      unsubscribe();
-    };
-  };
-  return {
-    ...derivedStore,
-    subscribe: subscribe2
-  };
-}
-function styleToString$2(style) {
-  return Object.keys(style).reduce((str, key) => {
-    if (style[key] === void 0)
-      return str;
-    return str + `${key}:${style[key]};`;
-  }, "");
-}
-const srOnlyStyles = {
-  position: "absolute",
-  width: "1px",
-  height: "1px",
-  padding: "0",
-  margin: "-1px",
-  overflow: "hidden",
-  clip: "rect(0, 0, 0, 0)",
-  whiteSpace: "nowrap",
-  borderWidth: "0"
-};
-function addEventListener$2(target, event, handler, options) {
-  const events = Array.isArray(event) ? event : [event];
-  events.forEach((_event) => target.addEventListener(_event, handler, options));
-  return () => {
-    events.forEach((_event) => target.removeEventListener(_event, handler, options));
-  };
-}
-function executeCallbacks(...callbacks) {
-  return (...args) => {
-    for (const callback of callbacks) {
-      if (typeof callback === "function") {
-        callback(...args);
+function Calendar_head_cell($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_head_cell$1($$payload2, spread_props([
+      {
+        class: cn$1("text-muted-foreground w-9 rounded-md text-[0.8rem] font-normal", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
       }
-    }
-  };
-}
-const NAME$m = "Command";
-const STATE_NAME = "CommandState";
-const GROUP_NAME = "CommandGroup";
-const LIST_SELECTOR = `[data-cmdk-list-sizer]`;
-const GROUP_SELECTOR = `[data-cmdk-group]`;
-const GROUP_ITEMS_SELECTOR = `[data-cmdk-group-items]`;
-const GROUP_HEADING_SELECTOR = `[data-cmdk-group-heading]`;
-const ITEM_SELECTOR = `[data-cmdk-item]`;
-const VALID_ITEM_SELECTOR = `${ITEM_SELECTOR}:not([aria-disabled="true"])`;
-const VALUE_ATTR = `data-value`;
-const defaultFilter = (value, search) => commandScore(value, search);
-function getCtx() {
-  return getContext(NAME$m);
-}
-function getState() {
-  return getContext(STATE_NAME);
-}
-function createGroup(alwaysRender) {
-  const id = generateId();
-  setContext(GROUP_NAME, {
-    id,
-    alwaysRender: isUndefined(alwaysRender) ? false : alwaysRender
-  });
-  return { id };
-}
-function getGroup() {
-  const context = getContext(GROUP_NAME);
-  if (!context)
-    return void 0;
-  return context;
-}
-function createState(initialValues) {
-  const defaultState = {
-    search: "",
-    value: "",
-    filtered: {
-      count: 0,
-      items: /* @__PURE__ */ new Map(),
-      groups: /* @__PURE__ */ new Set()
-    }
-  };
-  const state = writable(initialValues ? { ...defaultState, ...removeUndefined(initialValues) } : defaultState);
-  return state;
-}
-const defaults = {
-  label: "Command menu",
-  shouldFilter: true,
-  loop: false,
-  onValueChange: void 0,
-  value: void 0,
-  filter: defaultFilter,
-  ids: {
-    root: generateId(),
-    list: generateId(),
-    label: generateId(),
-    input: generateId()
+    ]));
+    $$payload2.out += `<!---->`;
   }
-};
-function createCommand(props) {
-  const ids = {
-    root: generateId(),
-    list: generateId(),
-    label: generateId(),
-    input: generateId(),
-    ...props.ids
-  };
-  const withDefaults = {
-    ...defaults,
-    ...removeUndefined(props)
-  };
-  const state = props.state ?? createState({
-    value: withDefaults.value
-  });
-  const allItems = writable(/* @__PURE__ */ new Set());
-  const allGroups = writable(/* @__PURE__ */ new Map());
-  const allIds = writable(/* @__PURE__ */ new Map());
-  const commandEl = writable(null);
-  const options = toWritableStores(omit(withDefaults, "value", "ids"));
-  let $allItems = get_store_value(allItems);
-  let $allGroups = get_store_value(allGroups);
-  let $allIds = get_store_value(allIds);
-  let shouldFilter = get_store_value(options.shouldFilter);
-  let loop = get_store_value(options.loop);
-  let label = get_store_value(options.label);
-  let filter = get_store_value(options.filter);
-  effect(options.shouldFilter, ($shouldFilter) => {
-    shouldFilter = $shouldFilter;
-  });
-  effect(options.loop, ($loop) => {
-    loop = $loop;
-  });
-  effect(options.filter, ($filter) => {
-    filter = $filter;
-  });
-  effect(options.label, ($label) => {
-    label = $label;
-  });
-  effect(allItems, (v) => {
-    $allItems = v;
-  });
-  effect(allGroups, (v) => {
-    $allGroups = v;
-  });
-  effect(allIds, (v) => {
-    $allIds = v;
-  });
-  const context = {
-    value: (id, value) => {
-      if (value !== $allIds.get(id)) {
-        allIds.update(($allIds2) => {
-          $allIds2.set(id, value);
-          return $allIds2;
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Fallback$1($$payload) {
+  Chevron_right($$payload, { class: "size-4" });
+}
+function Calendar_next_button($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_next_button$1($$payload2, spread_props([
+      {
+        class: cn$1(buttonVariants({ variant: "outline" }), "size-7 bg-transparent p-0 opacity-50 hover:opacity-100", className),
+        children: children || Fallback$1
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Fallback($$payload) {
+  Chevron_left($$payload, { class: "size-4" });
+}
+function Calendar_prev_button($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Calendar_prev_button$1($$payload2, spread_props([
+      {
+        class: cn$1(buttonVariants({ variant: "outline" }), "size-7 bg-transparent p-0 opacity-50 hover:opacity-100", className),
+        children: children || Fallback
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Popover_content($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    sideOffset = 4,
+    align = "center",
+    portalProps,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Portal$1($$payload2, spread_props([
+      portalProps,
+      {
+        children: ($$payload3) => {
+          $$payload3.out += `<!---->`;
+          Popover_content$1($$payload3, spread_props([
+            {
+              sideOffset,
+              align,
+              class: cn$1("bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 rounded-md border p-4 shadow-md outline-none", className)
+            },
+            restProps,
+            {
+              get ref() {
+                return ref;
+              },
+              set ref($$value) {
+                ref = $$value;
+                $$settled = false;
+              }
+            }
+          ]));
+          $$payload3.out += `<!---->`;
+        },
+        $$slots: { default: true }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+const Root$2 = Popover;
+const Trigger$1 = Popover_trigger;
+function DatePicker($$payload, $$props) {
+  push();
+  const df = new DateFormatter("en-US", { dateStyle: "long" });
+  let {
+    value = void 0,
+    disabled = false,
+    $$slots,
+    $$events,
+    ...rest
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Root$2($$payload2, {
+      openFocus: true,
+      children: ($$payload3) => {
+        $$payload3.out += `<!---->`;
+        {
+          let children = function($$payload4, { builder }) {
+            Button($$payload4, {
+              variant: "outline",
+              class: `${stringify(cn$1("w-[280px] justify-start text-left font-normal", !value && "text-muted-foreground"))} ${stringify(rest.class)}`,
+              builders: [builder],
+              disabled,
+              children: ($$payload5) => {
+                Calendar($$payload5, { class: "mr-2 h-4 w-4" });
+                $$payload5.out += `<!----> ${escape_html(value ? df.format(value.toDate(getLocalTimeZone())) : "Select a date")}`;
+              },
+              $$slots: { default: true }
+            });
+          };
+          Trigger$1($$payload3, {
+            asChild: true,
+            children,
+            $$slots: { default: true }
+          });
+        }
+        $$payload3.out += `<!----> <!---->`;
+        Popover_content($$payload3, {
+          class: "w-auto p-0",
+          children: ($$payload4) => {
+            Calendar_1($$payload4, {
+              initialFocus: true,
+              get value() {
+                return value;
+              },
+              set value($$value) {
+                value = $$value;
+                $$settled = false;
+              }
+            });
+          },
+          $$slots: { default: true }
         });
-        state.update(($state) => {
-          $state.filtered.items.set(id, score(value, $state.search));
-          return $state;
-        });
+        $$payload3.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { value });
+  pop();
+}
+function Dialog_title($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Dialog_title$1($$payload2, spread_props([
+      {
+        class: cn$1("text-lg font-semibold leading-none tracking-tight", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
       }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Dialog_footer($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({
+    class: cn$1("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Dialog_header($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div${spread_attributes({
+    class: cn$1("flex flex-col space-y-1.5 text-center sm:text-left", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Dialog_overlay($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Dialog_overlay$1($$payload2, spread_props([
+      {
+        class: cn$1("data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  fixed inset-0 z-50 bg-black/80", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Dialog_content($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    portalProps,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Portal($$payload2, spread_props([
+      portalProps,
+      {
+        children: ($$payload3) => {
+          $$payload3.out += `<!---->`;
+          Dialog_overlay($$payload3, {});
+          $$payload3.out += `<!----> <!---->`;
+          Dialog_content$1($$payload3, spread_props([
+            {
+              class: cn$1("data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] bg-background fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg", className)
+            },
+            restProps,
+            {
+              get ref() {
+                return ref;
+              },
+              set ref($$value) {
+                ref = $$value;
+                $$settled = false;
+              },
+              children: ($$payload4) => {
+                children == null ? void 0 : children($$payload4);
+                $$payload4.out += `<!----> <!---->`;
+                Dialog_close($$payload4, {
+                  class: "ring-offset-background focus:ring-ring absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none",
+                  children: ($$payload5) => {
+                    X($$payload5, { class: "size-4" });
+                    $$payload5.out += `<!----> <span class="sr-only">Close</span>`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload4.out += `<!---->`;
+              },
+              $$slots: { default: true }
+            }
+          ]));
+          $$payload3.out += `<!---->`;
+        },
+        $$slots: { default: true }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+const Root$1 = Dialog;
+const Trigger = Dialog_trigger;
+const Portal = Portal$1;
+function TemporaryUploadDialog($$payload, $$props) {
+  var _a;
+  push();
+  const csrf_token = (_a = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : _a.getAttribute("content");
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Accept", "application/json");
+  if (csrf_token) {
+    headers.append("X-CSRF-TOKEN", csrf_token);
+  }
+  let formData = {
+    /** @type {string | CalendarDate | DateValue} */
+    expiry_date: today(getLocalTimeZone()).add({ days: 1 }),
+    expiry_hours: 12,
+    expiry_minutes: 0,
+    expiry_seconds: 0,
+    expires: true,
+    /** @type {?string} */
+    resumable_identifier: null
+  };
+  let resumable = new Resumable({
+    target: "/webtools/uploads/upload",
+    query: {
+      _token: csrf_token ?? "",
+      temporaryUploadId: null
     },
-    // Track item lifecycle (add/remove)
-    item: (id, groupId) => {
-      allItems.update(($allItems2) => $allItems2.add(id));
-      if (groupId) {
-        allGroups.update(($allGroups2) => {
-          var _a;
-          if (!$allGroups2.has(groupId)) {
-            $allGroups2.set(groupId, /* @__PURE__ */ new Set([id]));
+    chunkSize: 10 * 1024 * 1024
+  });
+  let files = [];
+  resumable.files = files;
+  let uploading = false;
+  let dialogOpen = false;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    var _a2;
+    $$payload2.out += `<div class="flex flex-col"><input type="file" class="hidden" id="file-input-field"> `;
+    {
+      $$payload2.out += "<!--[-->";
+      $$payload2.out += `<!---->`;
+      Root$1($$payload2, {
+        get open() {
+          return dialogOpen;
+        },
+        set open($$value) {
+          dialogOpen = $$value;
+          $$settled = false;
+        },
+        children: ($$payload3) => {
+          $$payload3.out += `<!---->`;
+          {
+            let child = function($$payload4, { props }) {
+              {
+                $$payload4.out += "<!--[-->";
+                Button($$payload4, spread_props([
+                  props,
+                  {
+                    disabled: uploading,
+                    children: ($$payload5) => {
+                      $$payload5.out += `<!---->Upload`;
+                    },
+                    $$slots: { default: true }
+                  }
+                ]));
+              }
+              $$payload4.out += `<!--]-->`;
+            };
+            Trigger($$payload3, { child, $$slots: { child: true } });
+          }
+          $$payload3.out += `<!----> <!---->`;
+          Dialog_content($$payload3, {
+            children: ($$payload4) => {
+              var _a3;
+              $$payload4.out += `<!---->`;
+              Dialog_header($$payload4, {
+                children: ($$payload5) => {
+                  $$payload5.out += `<!---->`;
+                  Dialog_title($$payload5, {
+                    children: ($$payload6) => {
+                      $$payload6.out += `<!---->Upload`;
+                    },
+                    $$slots: { default: true }
+                  });
+                  $$payload5.out += `<!---->`;
+                },
+                $$slots: { default: true }
+              });
+              $$payload4.out += `<!----> <form class="flex flex-col items-left md:items-center gap-x-4 gap-y-2 mb-1}"><label class="hover:bg-accent hover:cursor-pointer text-sm px-4 py-2 border border-accent rounded-md text-ellipsis overflow-hidden text-nowrap" for="file-input-field">${escape_html(((_a3 = files[0]) == null ? void 0 : _a3.fileName) ?? "No file selected")}</label> <div class="flex items-center gap-x-2">`;
+              Checkbox($$payload4, {
+                id: "expires-box",
+                get checked() {
+                  return formData.expires;
+                },
+                set checked($$value) {
+                  formData.expires = $$value;
+                  $$settled = false;
+                }
+              });
+              $$payload4.out += `<!----> `;
+              Label($$payload4, {
+                for: "expires-box",
+                children: ($$payload5) => {
+                  $$payload5.out += `<!---->Expires`;
+                },
+                $$slots: { default: true }
+              });
+              $$payload4.out += `<!----></div> <div${attr("class", `flex flex-row flex-wrap items-center justify-left gap-x-4 gap-y-2 ${stringify(!formData.expires ? "text-neutral-800" : "")}`)}>`;
+              DatePicker($$payload4, {
+                disabled: !formData.expires,
+                get value() {
+                  return formData.expiry_date;
+                },
+                set value($$value) {
+                  formData.expiry_date = $$value;
+                  $$settled = false;
+                }
+              });
+              $$payload4.out += `<!----> <div class="flex items-center gap-x-2"><span>@</span> `;
+              Input($$payload4, {
+                disabled: !formData.expires,
+                type: "number",
+                class: "w-28",
+                oninput: () => {
+                  formData.expiry_hours = Math.min(Math.max(formData.expiry_hours, 0), 23);
+                },
+                get value() {
+                  return formData.expiry_hours;
+                },
+                set value($$value) {
+                  formData.expiry_hours = $$value;
+                  $$settled = false;
+                }
+              });
+              $$payload4.out += `<!----> <span>h</span></div></div> <!---->`;
+              Dialog_footer($$payload4, {
+                children: ($$payload5) => {
+                  Button($$payload5, {
+                    disabled: !resumable.files.length || uploading,
+                    type: "submit",
+                    children: ($$payload6) => {
+                      $$payload6.out += `<!---->Submit`;
+                    },
+                    $$slots: { default: true }
+                  });
+                },
+                $$slots: { default: true }
+              });
+              $$payload4.out += `<!----></form>`;
+            },
+            $$slots: { default: true }
+          });
+          $$payload3.out += `<!---->`;
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!---->`;
+    }
+    $$payload2.out += `<!--]--> <div${attr("class", "hidden")}><form class="flex justify-center items-center gap-x-4 mb-1}"><label class="hover:bg-accent hover:cursor-pointer text-sm px-4 py-2 border border-accent rounded-md text-ellipsis overflow-hidden text-nowrap" for="file-input-field">${escape_html(((_a2 = files[0]) == null ? void 0 : _a2.fileName) ?? "No file selected")}</label> <div class="flex items-center gap-x-2">`;
+    Checkbox($$payload2, {
+      id: "expires-box",
+      get checked() {
+        return formData.expires;
+      },
+      set checked($$value) {
+        formData.expires = $$value;
+        $$settled = false;
+      }
+    });
+    $$payload2.out += `<!----> `;
+    Label($$payload2, {
+      for: "expires-box",
+      children: ($$payload3) => {
+        $$payload3.out += `<!---->Expires`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!----></div> `;
+    DatePicker($$payload2, {
+      disabled: !formData.expires,
+      get value() {
+        return formData.expiry_date;
+      },
+      set value($$value) {
+        formData.expiry_date = $$value;
+        $$settled = false;
+      }
+    });
+    $$payload2.out += `<!----> <span${attr("class", !formData.expires ? "text-neutral-800" : "")}>@</span> <div class="flex items-center gap-x-2">`;
+    Input($$payload2, {
+      disabled: !formData.expires,
+      type: "number",
+      class: "w-20",
+      oninput: () => {
+        formData.expiry_hours = Math.min(Math.max(formData.expiry_hours, 0), 23);
+      },
+      get value() {
+        return formData.expiry_hours;
+      },
+      set value($$value) {
+        formData.expiry_hours = $$value;
+        $$settled = false;
+      }
+    });
+    $$payload2.out += `<!----></div> `;
+    {
+      $$payload2.out += "<!--[-->";
+      Button($$payload2, {
+        type: "submit",
+        disabled: !resumable.files.length || uploading,
+        children: ($$payload3) => {
+          $$payload3.out += `<!---->Upload`;
+        },
+        $$slots: { default: true }
+      });
+    }
+    $$payload2.out += `<!--]--></form></div></div>`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  pop();
+}
+const __vite_glob_0_22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: TemporaryUploadDialog
+}, Symbol.toStringTag, { value: "Module" }));
+function Table($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<div class="relative w-full overflow-auto"><table${spread_attributes({
+    class: cn$1("w-full caption-bottom text-sm", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></table></div>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Table_body($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<tbody${spread_attributes({
+    class: cn$1("[&_tr:last-child]:border-0", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></tbody>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Table_caption($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<caption${spread_attributes({
+    class: cn$1("text-muted-foreground mt-4 text-sm", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></caption>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Table_cell($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<td${spread_attributes({
+    class: cn$1("p-4 align-middle [&:has([role=checkbox])]:pr-0", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></td>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Table_head($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<th${spread_attributes({
+    class: cn$1("text-muted-foreground h-12 px-4 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></th>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Table_header($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<thead${spread_attributes({
+    class: cn$1("[&_tr]:border-b", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></thead>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Table_row($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<tr${spread_attributes({
+    class: cn$1("hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors", className),
+    ...restProps
+  })}>`;
+  children == null ? void 0 : children($$payload);
+  $$payload.out += `<!----></tr>`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Uploads($$payload, $$props) {
+  push();
+  let delete_temporary_upload_dialog_open = false;
+  let temporary_uploads = $$props["temporary_uploads"];
+  let delete_candidate_temporary_upload_id = -1;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    head($$payload2, ($$payload3) => {
+      $$payload3.title = `<title>Uploads - Webtools</title>`;
+    });
+    $$payload2.out += `<main class="max-w-screen-xl mx-auto p-4"><!---->`;
+    {
+      TemporaryUploadDialog($$payload2);
+    }
+    $$payload2.out += `<!----> `;
+    Root$3($$payload2, {
+      get open() {
+        return delete_temporary_upload_dialog_open;
+      },
+      set open($$value) {
+        delete_temporary_upload_dialog_open = $$value;
+        $$settled = false;
+      },
+      children: ($$payload3) => {
+        Trigger$2($$payload3, {});
+        $$payload3.out += `<!----> `;
+        Alert_dialog_content($$payload3, {
+          children: ($$payload4) => {
+            Alert_dialog_header($$payload4, {
+              children: ($$payload5) => {
+                Alert_dialog_title($$payload5, {
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->Are you absolutely sure?`;
+                  },
+                  $$slots: { default: true }
+                });
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!----> `;
+            Alert_dialog_footer($$payload4, {
+              children: ($$payload5) => {
+                Alert_dialog_cancel($$payload5, {
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->Cancel`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!----> `;
+                Button($$payload5, {
+                  onclick: () => router.visit("/webtools/uploads/" + delete_candidate_temporary_upload_id, {
+                    method: "delete",
+                    onSuccess: () => delete_temporary_upload_dialog_open = false
+                  }),
+                  variant: "destructive",
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->Delete`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!---->`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!---->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!----> <section class="border border-neutral-800 rounded-xl overflow-clip">`;
+    Table($$payload2, {
+      children: ($$payload3) => {
+        if (temporary_uploads.length === 0) {
+          $$payload3.out += "<!--[-->";
+          Table_caption($$payload3, {
+            class: "mb-3",
+            children: ($$payload4) => {
+              $$payload4.out += `<!---->Empty...`;
+            },
+            $$slots: { default: true }
+          });
+        } else {
+          $$payload3.out += "<!--[!-->";
+        }
+        $$payload3.out += `<!--]--> `;
+        Table_header($$payload3, {
+          children: ($$payload4) => {
+            Table_row($$payload4, {
+              children: ($$payload5) => {
+                Table_head($$payload5, {
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->User`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!----> `;
+                Table_head($$payload5, {
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->File name`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!----> `;
+                Table_head($$payload5, {
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->Link`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!----> `;
+                Table_head($$payload5, {
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->Expires on`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!----> `;
+                Table_head($$payload5, { class: "w-8" });
+                $$payload5.out += `<!---->`;
+              },
+              $$slots: { default: true }
+            });
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!----> `;
+        Table_body($$payload3, {
+          children: ($$payload4) => {
+            const each_array = ensure_array_like(temporary_uploads);
+            $$payload4.out += `<!--[-->`;
+            for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+              let upload = each_array[$$index];
+              Table_row($$payload4, {
+                children: ($$payload5) => {
+                  Table_cell($$payload5, {
+                    children: ($$payload6) => {
+                      $$payload6.out += `<!---->${escape_html(upload.user.name)}`;
+                    },
+                    $$slots: { default: true }
+                  });
+                  $$payload5.out += `<!----> `;
+                  Table_cell($$payload5, {
+                    children: ($$payload6) => {
+                      $$payload6.out += `<!---->${escape_html(upload.original_name)}`;
+                    },
+                    $$slots: { default: true }
+                  });
+                  $$payload5.out += `<!----> `;
+                  Table_cell($$payload5, {
+                    children: ($$payload6) => {
+                      $$payload6.out += `<button class="p-2 hover:text-neutral-400 transition duration-200">`;
+                      Copy($$payload6, { class: "w-5 h-5" });
+                      $$payload6.out += `<!----></button>`;
+                    },
+                    $$slots: { default: true }
+                  });
+                  $$payload5.out += `<!----> `;
+                  Table_cell($$payload5, {
+                    children: ($$payload6) => {
+                      if (upload.expiry_datetime) {
+                        $$payload6.out += "<!--[-->";
+                        $$payload6.out += `${escape_html(upload.expiry_datetime)}`;
+                      } else {
+                        $$payload6.out += "<!--[!-->";
+                        $$payload6.out += `Never`;
+                      }
+                      $$payload6.out += `<!--]-->`;
+                    },
+                    $$slots: { default: true }
+                  });
+                  $$payload5.out += `<!----> `;
+                  Table_cell($$payload5, {
+                    children: ($$payload6) => {
+                      Button($$payload6, {
+                        onclick: () => {
+                          delete_candidate_temporary_upload_id = upload.id;
+                          delete_temporary_upload_dialog_open = true;
+                        },
+                        variant: "ghost",
+                        class: "text-red-500",
+                        children: ($$payload7) => {
+                          Trash($$payload7, { class: "w-4 h-4" });
+                        },
+                        $$slots: { default: true }
+                      });
+                    },
+                    $$slots: { default: true }
+                  });
+                  $$payload5.out += `<!---->`;
+                },
+                $$slots: { default: true }
+              });
+            }
+            $$payload4.out += `<!--]-->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!---->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!----></section></main>`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { temporary_uploads });
+  pop();
+}
+const __vite_glob_0_23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Uploads,
+  layout: Layout
+}, Symbol.toStringTag, { value: "Module" }));
+function Users($$payload) {
+}
+const __vite_glob_0_24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Users
+}, Symbol.toStringTag, { value: "Module" }));
+function Tabs_content($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Tabs_content$1($$payload2, spread_props([
+      {
+        class: cn$1("ring-offset-background focus-visible:ring-ring mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Tabs_list($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Tabs_list$1($$payload2, spread_props([
+      {
+        class: cn$1("bg-muted text-muted-foreground inline-flex h-10 items-center justify-center rounded-md p-1", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Tabs_trigger($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Tabs_trigger$1($$payload2, spread_props([
+      {
+        class: cn$1("ring-offset-background focus-visible:ring-ring data-[state=active]:bg-background data-[state=active]:text-foreground inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+const Root = Tabs;
+function Textarea($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    value = void 0,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<textarea${spread_attributes({
+    class: cn$1("border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex min-h-[80px] w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className),
+    ...restProps
+  })}>`;
+  const $$body = escape_html(value);
+  if ($$body) {
+    $$payload.out += `${$$body}`;
+  }
+  $$payload.out += `</textarea>`;
+  bind_props($$props, { ref, value });
+  pop();
+}
+function Command($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    value = "",
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Command$1($$payload2, spread_props([
+      {
+        class: cn$1("bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md", className)
+      },
+      restProps,
+      {
+        get value() {
+          return value;
+        },
+        set value($$value) {
+          value = $$value;
+          $$settled = false;
+        },
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref, value });
+  pop();
+}
+function Command_empty($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  $$payload.out += `<!---->`;
+  Command_empty$1($$payload, spread_props([
+    {
+      class: cn$1("py-6 text-center text-sm", className)
+    },
+    restProps
+  ]));
+  $$payload.out += `<!---->`;
+  bind_props($$props, { ref });
+  pop();
+}
+function Command_group($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    children,
+    heading,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Command_group$1($$payload2, spread_props([
+      {
+        class: cn$1("text-foreground overflow-hidden p-1", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        },
+        children: ($$payload3) => {
+          if (heading) {
+            $$payload3.out += "<!--[-->";
+            $$payload3.out += `<!---->`;
+            Command_group_heading($$payload3, {
+              class: "text-muted-foreground px-2 py-1.5 text-xs font-medium",
+              children: ($$payload4) => {
+                $$payload4.out += `<!---->${escape_html(heading)}`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload3.out += `<!---->`;
           } else {
-            (_a = $allGroups2.get(groupId)) == null ? void 0 : _a.add(id);
+            $$payload3.out += "<!--[!-->";
           }
-          return $allGroups2;
-        });
+          $$payload3.out += `<!--]--> <!---->`;
+          Command_group_items($$payload3, { children });
+          $$payload3.out += `<!---->`;
+        },
+        $$slots: { default: true }
       }
-      state.update(($state) => {
-        const filteredState = filterItems($state, shouldFilter);
-        if (!filteredState.value) {
-          const value = selectFirstItem();
-          filteredState.value = value ?? "";
-        }
-        return filteredState;
-      });
-      return () => {
-        allIds.update(($allIds2) => {
-          $allIds2.delete(id);
-          return $allIds2;
-        });
-        allItems.update(($allItems2) => {
-          $allItems2.delete(id);
-          return $allItems2;
-        });
-        state.update(($state) => {
-          $state.filtered.items.delete(id);
-          const selectedItem = getSelectedItem();
-          const filteredState = filterItems($state);
-          if ((selectedItem == null ? void 0 : selectedItem.getAttribute("id")) === id) {
-            filteredState.value = selectFirstItem() ?? "";
-          }
-          return $state;
-        });
-      };
-    },
-    group: (id) => {
-      allGroups.update(($allGroups2) => {
-        if (!$allGroups2.has(id)) {
-          $allGroups2.set(id, /* @__PURE__ */ new Set());
-        }
-        return $allGroups2;
-      });
-      return () => {
-        allIds.update(($allIds2) => {
-          $allIds2.delete(id);
-          return $allIds2;
-        });
-        allGroups.update(($allGroups2) => {
-          $allGroups2.delete(id);
-          return $allGroups2;
-        });
-      };
-    },
-    filter: () => {
-      return shouldFilter;
-    },
-    label: label || props["aria-label"] || "",
-    commandEl,
-    ids,
-    updateState
-  };
-  function updateState(key, value, preventScroll) {
-    state.update((curr) => {
-      var _a;
-      if (Object.is(curr[key], value))
-        return curr;
-      curr[key] = value;
-      if (key === "search") {
-        const filteredState = filterItems(curr, shouldFilter);
-        curr = filteredState;
-        const sortedState = sort(curr, shouldFilter);
-        curr = sortedState;
-        tick$1().then(() => state.update((curr2) => {
-          curr2.value = selectFirstItem() ?? "";
-          return curr2;
-        }));
-      } else if (key === "value") {
-        (_a = props.onValueChange) == null ? void 0 : _a.call(props, curr.value);
-        if (!preventScroll) {
-          tick$1().then(() => scrollSelectedIntoView());
-        }
-      }
-      return curr;
-    });
+    ]));
+    $$payload2.out += `<!---->`;
   }
-  function filterItems(state2, shouldFilterVal) {
-    const $shouldFilter = shouldFilterVal ?? shouldFilter;
-    if (!state2.search || !$shouldFilter) {
-      state2.filtered.count = $allItems.size;
-      return state2;
-    }
-    state2.filtered.groups = /* @__PURE__ */ new Set();
-    let itemCount = 0;
-    for (const id of $allItems) {
-      const value = $allIds.get(id);
-      const rank = score(value, state2.search);
-      state2.filtered.items.set(id, rank);
-      if (rank > 0) {
-        itemCount++;
-      }
-    }
-    for (const [groupId, group] of $allGroups) {
-      for (const itemId of group) {
-        const rank = state2.filtered.items.get(itemId);
-        if (rank && rank > 0) {
-          state2.filtered.groups.add(groupId);
-        }
-      }
-    }
-    state2.filtered.count = itemCount;
-    return state2;
-  }
-  function sort(state2, shouldFilterVal) {
-    var _a;
-    const $shouldFilter = shouldFilterVal ?? shouldFilter;
-    if (!state2.search || !$shouldFilter) {
-      return state2;
-    }
-    const scores = state2.filtered.items;
-    const groups = [];
-    for (const value of state2.filtered.groups) {
-      const items = $allGroups.get(value);
-      if (!items)
-        continue;
-      let max = 0;
-      for (const item of items) {
-        const score2 = scores.get(item);
-        if (isUndefined(score2))
-          continue;
-        max = Math.max(score2, max);
-      }
-      groups.push([value, max]);
-    }
-    const rootEl = document.getElementById(ids.root);
-    if (!rootEl)
-      return state2;
-    const list = rootEl.querySelector(LIST_SELECTOR);
-    const validItems = getValidItems(rootEl).sort((a, b2) => {
-      const valueA = a.getAttribute(VALUE_ATTR) ?? "";
-      const valueB = b2.getAttribute(VALUE_ATTR) ?? "";
-      return (scores.get(valueA) ?? 0) - (scores.get(valueB) ?? 0);
-    });
-    for (const item of validItems) {
-      const group = item.closest(GROUP_ITEMS_SELECTOR);
-      const closest = item.closest(`${GROUP_ITEMS_SELECTOR} > *`);
-      if (group) {
-        if (item.parentElement === group) {
-          group.appendChild(item);
-        } else {
-          if (!closest)
-            continue;
-          group.appendChild(closest);
-        }
-      } else {
-        if (item.parentElement === list) {
-          list == null ? void 0 : list.appendChild(item);
-        } else {
-          if (!closest)
-            continue;
-          list == null ? void 0 : list.appendChild(closest);
-        }
-      }
-    }
-    groups.sort((a, b2) => b2[1] - a[1]);
-    for (const group of groups) {
-      const el = rootEl.querySelector(`${GROUP_SELECTOR}[${VALUE_ATTR}="${group[0]}"]`);
-      (_a = el == null ? void 0 : el.parentElement) == null ? void 0 : _a.appendChild(el);
-    }
-    return state2;
-  }
-  function selectFirstItem() {
-    const item = getValidItems().find((item2) => !item2.ariaDisabled);
-    if (!item)
-      return;
-    const value = item.getAttribute(VALUE_ATTR);
-    if (!value)
-      return;
-    return value;
-  }
-  function score(value, search) {
-    const lowerCaseAndTrimmedValue = value == null ? void 0 : value.toLowerCase().trim();
-    const filterFn = filter;
-    if (!filterFn) {
-      return lowerCaseAndTrimmedValue ? defaultFilter(lowerCaseAndTrimmedValue, search) : 0;
-    }
-    return lowerCaseAndTrimmedValue ? filterFn(lowerCaseAndTrimmedValue, search) : 0;
-  }
-  function scrollSelectedIntoView() {
-    var _a;
-    const item = getSelectedItem();
-    if (!item) {
-      return;
-    }
-    if (((_a = item.parentElement) == null ? void 0 : _a.firstChild) === item) {
-      tick$1().then(() => {
-        var _a2, _b;
-        return (_b = (_a2 = item.closest(GROUP_SELECTOR)) == null ? void 0 : _a2.querySelector(GROUP_HEADING_SELECTOR)) == null ? void 0 : _b.scrollIntoView({
-          block: "nearest"
-        });
-      });
-    }
-    tick$1().then(() => item.scrollIntoView({ block: "nearest" }));
-  }
-  function getValidItems(rootElement) {
-    const rootEl = rootElement ?? document.getElementById(ids.root);
-    if (!rootEl)
-      return [];
-    return Array.from(rootEl.querySelectorAll(VALID_ITEM_SELECTOR)).filter((el) => el ? true : false);
-  }
-  function getSelectedItem(rootElement) {
-    const rootEl = document.getElementById(ids.root);
-    if (!rootEl)
-      return;
-    const selectedEl = rootEl.querySelector(`${VALID_ITEM_SELECTOR}[aria-selected="true"]`);
-    if (!selectedEl)
-      return;
-    return selectedEl;
-  }
-  function updateSelectedToIndex(index) {
-    const rootEl = document.getElementById(ids.root);
-    if (!rootEl)
-      return;
-    const items = getValidItems(rootEl);
-    const item = items[index];
-    if (!item)
-      return;
-  }
-  function updateSelectedByChange(change) {
-    const selected = getSelectedItem();
-    const items = getValidItems();
-    const index = items.findIndex((item) => item === selected);
-    let newSelected = items[index + change];
-    if (loop) {
-      if (index + change < 0) {
-        newSelected = items[items.length - 1];
-      } else if (index + change === items.length) {
-        newSelected = items[0];
-      } else {
-        newSelected = items[index + change];
-      }
-    }
-    if (newSelected) {
-      updateState("value", newSelected.getAttribute(VALUE_ATTR) ?? "");
-    }
-  }
-  function updateSelectedToGroup(change) {
-    const selected = getSelectedItem();
-    let group = selected == null ? void 0 : selected.closest(GROUP_SELECTOR);
-    let item = void 0;
-    while (group && !item) {
-      group = change > 0 ? findNextSibling(group, GROUP_SELECTOR) : findPreviousSibling(group, GROUP_SELECTOR);
-      item = group == null ? void 0 : group.querySelector(VALID_ITEM_SELECTOR);
-    }
-    if (item) {
-      updateState("value", item.getAttribute(VALUE_ATTR) ?? "");
-    } else {
-      updateSelectedByChange(change);
-    }
-  }
-  function last2() {
-    return updateSelectedToIndex(getValidItems().length - 1);
-  }
-  function next2(e) {
-    e.preventDefault();
-    if (e.metaKey) {
-      last2();
-    } else if (e.altKey) {
-      updateSelectedToGroup(1);
-    } else {
-      updateSelectedByChange(1);
-    }
-  }
-  function prev2(e) {
-    e.preventDefault();
-    if (e.metaKey) {
-      updateSelectedToIndex(0);
-    } else if (e.altKey) {
-      updateSelectedToGroup(-1);
-    } else {
-      updateSelectedByChange(-1);
-    }
-  }
-  function handleRootKeydown(e) {
-    switch (e.key) {
-      case kbd$1.ARROW_DOWN:
-        next2(e);
-        break;
-      case kbd$1.ARROW_UP:
-        prev2(e);
-        break;
-      case kbd$1.HOME:
-        e.preventDefault();
-        updateSelectedToIndex(0);
-        break;
-      case kbd$1.END:
-        e.preventDefault();
-        last2();
-        break;
-      case kbd$1.ENTER: {
-        e.preventDefault();
-        const item = getSelectedItem();
-        if (item) {
-          item == null ? void 0 : item.click();
-        }
-      }
-    }
-  }
-  setContext(NAME$m, context);
-  const stateStore = {
-    subscribe: state.subscribe,
-    update: state.update,
-    set: state.set,
-    updateState
-  };
-  setContext(STATE_NAME, stateStore);
-  return {
-    state: stateStore,
-    handleRootKeydown,
-    commandEl,
-    ids
-  };
-}
-function findNextSibling(el, selector2) {
-  let sibling = el.nextElementSibling;
-  while (sibling) {
-    if (sibling.matches(selector2))
-      return sibling;
-    sibling = sibling.nextElementSibling;
-  }
-}
-function findPreviousSibling(el, selector2) {
-  let sibling = el.previousElementSibling;
-  while (sibling) {
-    if (sibling.matches(selector2))
-      return sibling;
-    sibling = sibling.previousElementSibling;
-  }
-}
-const Command$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let slotProps;
-  let $$restProps = compute_rest_props($$props, [
-    "label",
-    "shouldFilter",
-    "filter",
-    "value",
-    "onValueChange",
-    "loop",
-    "onKeydown",
-    "state",
-    "ids",
-    "asChild"
-  ]);
-  let $stateStore, $$unsubscribe_stateStore;
-  let { label = void 0 } = $$props;
-  let { shouldFilter = true } = $$props;
-  let { filter = void 0 } = $$props;
-  let { value = void 0 } = $$props;
-  let { onValueChange = void 0 } = $$props;
-  let { loop = void 0 } = $$props;
-  let { onKeydown = void 0 } = $$props;
-  let { state = void 0 } = $$props;
-  let { ids = void 0 } = $$props;
-  let { asChild = false } = $$props;
-  const { commandEl, handleRootKeydown, ids: commandIds, state: stateStore } = createCommand({
-    label,
-    shouldFilter,
-    filter,
-    value,
-    onValueChange: (next2) => {
-      if (next2 !== value) {
-        value = next2;
-        onValueChange == null ? void 0 : onValueChange(next2);
-      }
-    },
-    loop,
-    state,
-    ids
-  });
-  $$unsubscribe_stateStore = subscribe(stateStore, (value2) => $stateStore = value2);
-  function syncValueAndState(value2) {
-    if (value2 && value2 !== $stateStore.value) {
-      set_store_value(stateStore, $stateStore.value = value2, $stateStore);
-    }
-  }
-  function rootAction(node) {
-    commandEl.set(node);
-    const unsubEvents = executeCallbacks(addEventListener$2(node, "keydown", handleKeydown));
-    return { destroy: unsubEvents };
-  }
-  const rootAttrs = {
-    role: "application",
-    id: commandIds.root,
-    "data-cmdk-root": ""
-  };
-  const labelAttrs = {
-    "data-cmdk-label": "",
-    for: commandIds.input,
-    id: commandIds.label,
-    style: styleToString$2(srOnlyStyles)
-  };
-  function handleKeydown(e) {
-    onKeydown == null ? void 0 : onKeydown(e);
-    if (e.defaultPrevented) return;
-    handleRootKeydown(e);
-  }
-  const root = { action: rootAction, attrs: rootAttrs };
-  if ($$props.label === void 0 && $$bindings.label && label !== void 0) $$bindings.label(label);
-  if ($$props.shouldFilter === void 0 && $$bindings.shouldFilter && shouldFilter !== void 0) $$bindings.shouldFilter(shouldFilter);
-  if ($$props.filter === void 0 && $$bindings.filter && filter !== void 0) $$bindings.filter(filter);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.onValueChange === void 0 && $$bindings.onValueChange && onValueChange !== void 0) $$bindings.onValueChange(onValueChange);
-  if ($$props.loop === void 0 && $$bindings.loop && loop !== void 0) $$bindings.loop(loop);
-  if ($$props.onKeydown === void 0 && $$bindings.onKeydown && onKeydown !== void 0) $$bindings.onKeydown(onKeydown);
-  if ($$props.state === void 0 && $$bindings.state && state !== void 0) $$bindings.state(state);
-  if ($$props.ids === void 0 && $$bindings.ids && ids !== void 0) $$bindings.ids(ids);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  {
-    syncValueAndState(value);
-  }
-  slotProps = {
-    root,
-    label: { attrs: labelAttrs },
-    stateStore,
-    state: $stateStore
-  };
-  $$unsubscribe_stateStore();
-  return `${asChild ? `${slots.default ? slots.default({ ...slotProps }) : ``}` : `<div${spread([escape_object(rootAttrs), escape_object($$restProps)], {})}> <label${spread([escape_object(labelAttrs)], {})}>${escape(label ?? "")}</label> ${slots.default ? slots.default({ ...slotProps }) : ``}</div>`}`;
-});
-function styleToString$1(style) {
-  return Object.keys(style).reduce((str, key) => {
-    if (style[key] === void 0)
-      return str;
-    return str + `${key}:${style[key]};`;
-  }, "");
-}
-({
-  type: "hidden",
-  "aria-hidden": true,
-  hidden: true,
-  tabIndex: -1,
-  style: styleToString$1({
-    position: "absolute",
-    opacity: 0,
-    "pointer-events": "none",
-    margin: 0,
-    transform: "translateX(-100%)"
-  })
-});
-function addEventListener$1(target, event, handler, options) {
-  const events = Array.isArray(event) ? event : [event];
-  events.forEach((_event) => target.addEventListener(_event, handler, options));
-  return () => {
-    events.forEach((_event) => target.removeEventListener(_event, handler, options));
-  };
-}
-const kbd = {
-  ALT: "Alt",
-  ARROW_DOWN: "ArrowDown",
-  ARROW_LEFT: "ArrowLeft",
-  ARROW_RIGHT: "ArrowRight",
-  ARROW_UP: "ArrowUp",
-  BACKSPACE: "Backspace",
-  CAPS_LOCK: "CapsLock",
-  CONTROL: "Control",
-  DELETE: "Delete",
-  END: "End",
-  ENTER: "Enter",
-  ESCAPE: "Escape",
-  F1: "F1",
-  F10: "F10",
-  F11: "F11",
-  F12: "F12",
-  F2: "F2",
-  F3: "F3",
-  F4: "F4",
-  F5: "F5",
-  F6: "F6",
-  F7: "F7",
-  F8: "F8",
-  F9: "F9",
-  HOME: "Home",
-  META: "Meta",
-  PAGE_DOWN: "PageDown",
-  PAGE_UP: "PageUp",
-  SHIFT: "Shift",
-  SPACE: " ",
-  TAB: "Tab",
-  CTRL: "Control",
-  ASTERISK: "*",
-  A: "a",
-  P: "p"
-};
-readable(void 0, (set) => {
-  function clicked(event) {
-    set(event);
-    set(void 0);
-  }
-  const unsubscribe = addEventListener$1(document, "pointerup", clicked, {
-    passive: false,
-    capture: true
-  });
-  return unsubscribe;
-});
-readable(void 0, (set) => {
-  function keydown(event) {
-    if (event && event.key === kbd.ESCAPE) {
-      set(event);
-    }
-    set(void 0);
-  }
-  const unsubscribe = addEventListener$1(document, "keydown", keydown, {
-    passive: false,
-    capture: true
-  });
-  return unsubscribe;
-});
-function createBitAttrs(bit, parts) {
-  const attrs = {};
-  parts.forEach((part) => {
-    attrs[part] = {
-      [`data-bits-${bit}-${part}`]: ""
-    };
-  });
-  return (part) => attrs[part];
-}
-function styleToString(style) {
-  return Object.keys(style).reduce((str, key) => {
-    if (style[key] === void 0)
-      return str;
-    return str + `${key}:${style[key]};`;
-  }, "");
-}
-styleToString({
-  position: "absolute",
-  width: "1px",
-  height: "1px",
-  padding: "0",
-  margin: "-1px",
-  overflow: "hidden",
-  clip: "rect(0, 0, 0, 0)",
-  whiteSpace: "nowrap",
-  borderWidth: "0"
-});
-styleToString({
-  position: "absolute",
-  width: "25px",
-  height: "25px",
-  opacity: "0",
-  margin: "0px",
-  pointerEvents: "none",
-  transform: "translateX(-100%)"
-});
-const NAME$l = "accordion";
-const PARTS$l = ["root", "content", "header", "item", "trigger"];
-createBitAttrs(NAME$l, PARTS$l);
-const NAME$k = "alert-dialog";
-const PARTS$k = [
-  "action",
-  "cancel",
-  "content",
-  "description",
-  "overlay",
-  "portal",
-  "title",
-  "trigger"
-];
-createBitAttrs(NAME$k, PARTS$k);
-const NAME$j = "avatar";
-const PARTS$j = ["root", "image", "fallback"];
-createBitAttrs(NAME$j, PARTS$j);
-const NAME$i = "checkbox";
-const PARTS$i = ["root", "input", "indicator"];
-createBitAttrs(NAME$i, PARTS$i);
-const NAME$h = "collapsible";
-const PARTS$h = ["root", "content", "trigger"];
-createBitAttrs(NAME$h, PARTS$h);
-const NAME$g = "context-menu";
-const PARTS$g = [
-  "arrow",
-  "checkbox-indicator",
-  "checkbox-item",
-  "content",
-  "group",
-  "item",
-  "label",
-  "radio-group",
-  "radio-item",
-  "separator",
-  "sub-content",
-  "sub-trigger",
-  "trigger"
-];
-createBitAttrs(NAME$g, PARTS$g);
-const NAME$f = "dialog";
-const PARTS$f = ["close", "content", "description", "overlay", "portal", "title", "trigger"];
-createBitAttrs(NAME$f, PARTS$f);
-const NAME$e = "dropdown-menu";
-const PARTS$e = [
-  "arrow",
-  "checkbox-indicator",
-  "checkbox-item",
-  "content",
-  "group",
-  "item",
-  "label",
-  "radio-group",
-  "radio-item",
-  "separator",
-  "sub-content",
-  "sub-trigger",
-  "trigger"
-];
-createBitAttrs(NAME$e, PARTS$e);
-const NAME$d = "link-preview";
-const PARTS$d = ["arrow", "content", "trigger"];
-createBitAttrs(NAME$d, PARTS$d);
-const NAME$c = "label";
-const PARTS$c = ["root"];
-createBitAttrs(NAME$c, PARTS$c);
-const NAME$b = "menubar";
-const PARTS$b = [
-  "root",
-  "arrow",
-  "checkbox-indicator",
-  "checkbox-item",
-  "content",
-  "group",
-  "item",
-  "label",
-  "radio-group",
-  "radio-item",
-  "separator",
-  "sub-content",
-  "sub-trigger",
-  "trigger"
-];
-createBitAttrs(NAME$b, PARTS$b);
-const NAME$a = "popover";
-const PARTS$a = ["arrow", "close", "content", "trigger"];
-createBitAttrs(NAME$a, PARTS$a);
-const NAME$9 = "progress";
-const PARTS$9 = ["root"];
-createBitAttrs(NAME$9, PARTS$9);
-const NAME$8 = "radio-group";
-const PARTS$8 = ["root", "item", "input"];
-createBitAttrs(NAME$8, PARTS$8);
-const NAME$7 = "select";
-const PARTS$7 = ["arrow", "content", "group", "item", "input", "label", "trigger", "value"];
-createBitAttrs(NAME$7, PARTS$7);
-const NAME$6 = "separator";
-const PARTS$6 = ["root"];
-createBitAttrs(NAME$6, PARTS$6);
-const NAME$5 = "slider";
-const PARTS$5 = ["root", "input", "range", "thumb", "tick"];
-createBitAttrs(NAME$5, PARTS$5);
-const NAME$4 = "switch";
-const PARTS$4 = ["root", "input", "thumb"];
-createBitAttrs(NAME$4, PARTS$4);
-const NAME$3 = "tabs";
-const PARTS$3 = ["root", "content", "list", "trigger"];
-createBitAttrs(NAME$3, PARTS$3);
-const NAME$2 = "toggle";
-const PARTS$2 = ["root", "input"];
-createBitAttrs(NAME$2, PARTS$2);
-const NAME$1 = "toggle-group";
-const PARTS$1 = ["root", "item"];
-createBitAttrs(NAME$1, PARTS$1);
-const NAME = "tooltip";
-const PARTS = ["arrow", "content", "trigger"];
-createBitAttrs(NAME, PARTS);
-const CommandEmpty = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  compute_rest_props($$props, ["asChild"]);
-  let $state, $$unsubscribe_state;
-  let { asChild = false } = $$props;
-  const state = getState();
-  $$unsubscribe_state = subscribe(state, (value) => $state = value);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  $state.filtered.count === 0;
-  $$unsubscribe_state();
-  return `${``}`;
-});
-const CommandGroup = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let containerAttrs;
-  let groupAttrs;
-  let container;
-  let group;
-  let $$restProps = compute_rest_props($$props, ["heading", "value", "alwaysRender", "asChild"]);
-  let $render, $$unsubscribe_render;
-  let { heading = void 0 } = $$props;
-  let { value = "" } = $$props;
-  let { alwaysRender = false } = $$props;
-  let { asChild = false } = $$props;
-  const { id } = createGroup(alwaysRender);
-  const context = getCtx();
-  const state = getState();
-  const headingId = generateId();
-  const render = derived(state, ($state) => {
-    if (alwaysRender) return true;
-    if (context.filter() === false) return true;
-    if (!$state.search) return true;
-    return $state.filtered.groups.has(id);
-  });
-  $$unsubscribe_render = subscribe(render, (value2) => $render = value2);
-  function containerAction(node) {
-    if (value) {
-      context.value(id, value);
-      node.setAttribute(VALUE_ATTR, value);
-      return;
-    }
-    if (heading) {
-      value = heading.trim().toLowerCase();
-    } else if (node.textContent) {
-      value = node.textContent.trim().toLowerCase();
-    }
-    context.value(id, value);
-    node.setAttribute(VALUE_ATTR, value);
-  }
-  const headingAttrs = {
-    "data-cmdk-group-heading": "",
-    "aria-hidden": true,
-    id: headingId
-  };
-  if ($$props.heading === void 0 && $$bindings.heading && heading !== void 0) $$bindings.heading(heading);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.alwaysRender === void 0 && $$bindings.alwaysRender && alwaysRender !== void 0) $$bindings.alwaysRender(alwaysRender);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  containerAttrs = {
-    "data-cmdk-group": "",
-    role: "presentation",
-    hidden: $render ? void 0 : true,
-    "data-value": value
-  };
-  groupAttrs = {
-    "data-cmdk-group-items": "",
-    role: "group",
-    "aria-labelledby": heading ? headingId : void 0
-  };
-  container = {
-    action: containerAction,
-    attrs: containerAttrs
-  };
-  group = { attrs: groupAttrs };
-  $$unsubscribe_render();
-  return `${asChild ? `${slots.default ? slots.default({
-    container,
-    group,
-    heading: { attrs: headingAttrs }
-  }) : ``}` : `<div${spread([escape_object(containerAttrs), escape_object($$restProps)], {})}>${heading ? `<div${spread([escape_object(headingAttrs)], {})}>${escape(heading)}</div>` : ``} <div${spread([escape_object(groupAttrs)], {})}>${slots.default ? slots.default({
-    container,
-    group,
-    heading: { attrs: headingAttrs }
-  }) : ``}</div></div>`}`;
-});
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-const CommandInput = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["autofocus", "value", "asChild", "el"]);
-  let $selectedItemId, $$unsubscribe_selectedItemId;
-  const { ids, commandEl } = getCtx();
-  const state = getState();
-  const search = derived(state, ($state) => $state.search);
-  const valueStore = derived(state, ($state) => $state.value);
-  let { autofocus = void 0 } = $$props;
-  let { value = get_store_value(search) } = $$props;
-  let { asChild = false } = $$props;
-  let { el = void 0 } = $$props;
-  const selectedItemId = derived([valueStore, commandEl], ([$value, $commandEl]) => {
-    if (!isBrowser) return void 0;
-    const item = $commandEl == null ? void 0 : $commandEl.querySelector(`${ITEM_SELECTOR}[${VALUE_ATTR}="${$value}"]`);
-    return item == null ? void 0 : item.getAttribute("id");
-  });
-  $$unsubscribe_selectedItemId = subscribe(selectedItemId, (value2) => $selectedItemId = value2);
-  function handleValueUpdate(v) {
-    state.updateState("search", v);
-  }
-  function action(node) {
-    if (autofocus) {
-      sleep(10).then(() => node.focus());
-    }
-    if (asChild) {
-      const unsubEvents = addEventListener$2(node, "change", (e) => {
-        const currTarget = e.currentTarget;
-        state.updateState("search", currTarget.value);
-      });
-      return { destroy: unsubEvents };
-    }
-  }
-  let attrs;
-  if ($$props.autofocus === void 0 && $$bindings.autofocus && autofocus !== void 0) $$bindings.autofocus(autofocus);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.el === void 0 && $$bindings.el && el !== void 0) $$bindings.el(el);
-  {
-    handleValueUpdate(value);
-  }
-  attrs = {
-    type: "text",
-    "data-cmdk-input": "",
-    autocomplete: "off",
-    autocorrect: "off",
-    spellcheck: false,
-    "aria-autocomplete": "list",
-    role: "combobox",
-    "aria-expanded": true,
-    "aria-controls": ids.list,
-    "aria-labelledby": ids.label,
-    "aria-activedescendant": $selectedItemId ?? void 0,
-    id: ids.input
-  };
-  $$unsubscribe_selectedItemId();
-  return `${asChild ? `${slots.default ? slots.default({ action, attrs }) : ``}` : `<input${spread([escape_object(attrs), escape_object($$restProps)], {})}${add_attribute("this", el, 0)}${add_attribute("value", value, 0)}>`}`;
-});
-const CommandItem = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let attrs;
-  let $$restProps = compute_rest_props($$props, ["disabled", "value", "onSelect", "alwaysRender", "asChild", "id"]);
-  let $selected, $$unsubscribe_selected;
-  let $render, $$unsubscribe_render;
-  let { disabled = false } = $$props;
-  let { value = "" } = $$props;
-  let { onSelect = void 0 } = $$props;
-  let { alwaysRender = false } = $$props;
-  let { asChild = false } = $$props;
-  let { id = generateId() } = $$props;
-  const groupContext = getGroup();
-  const context = getCtx();
-  const state = getState();
-  const trueAlwaysRender = alwaysRender ?? (groupContext == null ? void 0 : groupContext.alwaysRender);
-  const render = derived(state, ($state) => {
-    if (trueAlwaysRender || context.filter() === false || !$state.search) return true;
-    const currentScore = $state.filtered.items.get(id);
-    if (isUndefined(currentScore)) return false;
-    return currentScore > 0;
-  });
-  $$unsubscribe_render = subscribe(render, (value2) => $render = value2);
-  let isFirstRender = true;
-  const selected = derived(state, ($state) => $state.value === value);
-  $$unsubscribe_selected = subscribe(selected, (value2) => $selected = value2);
-  function action(node) {
-    if (!value && node.textContent) {
-      value = node.textContent.trim().toLowerCase();
-    }
-    context.value(id, value);
-    node.setAttribute(VALUE_ATTR, value);
-    const unsubEvents = executeCallbacks(
-      addEventListener$2(node, "pointermove", () => {
-        if (disabled) return;
-        select();
-      }),
-      addEventListener$2(node, "click", () => {
-        if (disabled) return;
-        handleItemClick();
-      })
-    );
-    return {
-      destroy() {
-        unsubEvents();
-      }
-    };
-  }
-  function handleItemClick() {
-    select();
-    onSelect == null ? void 0 : onSelect(value);
-  }
-  function select() {
-    state.updateState("value", value, true);
-  }
-  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.onSelect === void 0 && $$bindings.onSelect && onSelect !== void 0) $$bindings.onSelect(onSelect);
-  if ($$props.alwaysRender === void 0 && $$bindings.alwaysRender && alwaysRender !== void 0) $$bindings.alwaysRender(alwaysRender);
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.id === void 0 && $$bindings.id && id !== void 0) $$bindings.id(id);
-  attrs = {
-    "aria-disabled": disabled ? true : void 0,
-    "aria-selected": $selected ? true : void 0,
-    "data-disabled": disabled ? true : void 0,
-    "data-selected": $selected ? true : void 0,
-    "data-cmdk-item": "",
-    "data-value": value,
-    role: "option",
-    id
-  };
-  $$unsubscribe_selected();
-  $$unsubscribe_render();
-  return `${$render || isFirstRender ? `${asChild ? `${slots.default ? slots.default({ action, attrs }) : ``}` : `<div${spread([escape_object(attrs), escape_object($$restProps)], {})}>${slots.default ? slots.default({ action, attrs }) : ``}</div>`}` : ``}`;
-});
-const Command = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["value", "class"]);
-  let { value = void 0 } = $$props;
-  let { class: className = void 0 } = $$props;
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
   do {
     $$settled = true;
-    $$result.head = previous_head;
-    $$rendered = `${validate_component(Command$1, "CommandPrimitive.Root").$$render(
-      $$result,
-      Object.assign(
-        {},
-        {
-          class: cn$1("flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground", className)
-        },
-        $$restProps,
-        { value }
-      ),
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Command_item($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<!---->`;
+    Command_item$1($$payload2, spread_props([
       {
-        value: ($$value) => {
+        class: cn$1("aria-selected:bg-accent aria-selected:text-accent-foreground relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        }
+      }
+    ]));
+    $$payload2.out += `<!---->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref });
+  pop();
+}
+function Command_input($$payload, $$props) {
+  push();
+  let {
+    ref = null,
+    class: className,
+    value = "",
+    $$slots,
+    $$events,
+    ...restProps
+  } = $$props;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<div class="flex items-center border-b px-2" data-command-input-wrapper="">`;
+    Search($$payload2, { class: "mr-2 size-4 shrink-0 opacity-50" });
+    $$payload2.out += `<!----> <!---->`;
+    Command_input$1($$payload2, spread_props([
+      {
+        class: cn$1("placeholder:text-muted-foreground flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50", className)
+      },
+      restProps,
+      {
+        get ref() {
+          return ref;
+        },
+        set ref($$value) {
+          ref = $$value;
+          $$settled = false;
+        },
+        get value() {
+          return value;
+        },
+        set value($$value) {
           value = $$value;
           $$settled = false;
         }
-      },
-      {
-        default: () => {
-          return `${slots.default ? slots.default({}) : ``}`;
-        }
       }
-    )}`;
-  } while (!$$settled);
-  return $$rendered;
-});
-const Command_empty = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(CommandEmpty, "CommandPrimitive.Empty").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn$1("py-6 text-center text-sm", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Command_group = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class"]);
-  let { class: className = void 0 } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(CommandGroup, "CommandPrimitive.Group").$$render(
-    $$result,
-    Object.assign(
-      {},
-      {
-        class: cn$1("overflow-hidden p-1 text-foreground [&_[data-cmdk-group-heading]]:px-2 [&_[data-cmdk-group-heading]]:py-1.5 [&_[data-cmdk-group-heading]]:text-xs [&_[data-cmdk-group-heading]]:font-medium [&_[data-cmdk-group-heading]]:text-muted-foreground", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: () => {
-        return `${slots.default ? slots.default({}) : ``}`;
-      }
-    }
-  )}`;
-});
-const Command_item = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["asChild", "class"]);
-  let { asChild = false } = $$props;
-  let { class: className = void 0 } = $$props;
-  if ($$props.asChild === void 0 && $$bindings.asChild && asChild !== void 0) $$bindings.asChild(asChild);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  return `${validate_component(CommandItem, "CommandPrimitive.Item").$$render(
-    $$result,
-    Object.assign(
-      {},
-      { asChild },
-      {
-        class: cn$1("relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)
-      },
-      $$restProps
-    ),
-    {},
-    {
-      default: ({ action, attrs }) => {
-        return `${slots.default ? slots.default({ action, attrs }) : ``}`;
-      }
-    }
-  )}`;
-});
-const Command_input = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["class", "value"]);
-  let { class: className = void 0 } = $$props;
-  let { value = "" } = $$props;
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0) $$bindings.class(className);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
+    ]));
+    $$payload2.out += `<!----></div>`;
+  }
   do {
     $$settled = true;
-    $$result.head = previous_head;
-    $$rendered = `<div class="flex items-center border-b px-2" data-cmdk-input-wrapper="">${validate_component(Search, "Search").$$render(
-      $$result,
-      {
-        class: "mr-2 h-4 w-4 shrink-0 opacity-50"
-      },
-      {},
-      {}
-    )} ${validate_component(CommandInput, "CommandPrimitive.Input").$$render(
-      $$result,
-      Object.assign(
-        {},
-        {
-          class: cn$1("flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50", className)
-        },
-        $$restProps,
-        { value }
-      ),
-      {
-        value: ($$value) => {
-          value = $$value;
-          $$settled = false;
-        }
-      },
-      {}
-    )}</div>`;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
   } while (!$$settled);
-  return $$rendered;
-});
-const Videos = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $new_video_form, $$unsubscribe_new_video_form;
-  let { videos } = $$props;
-  let { collections } = $$props;
-  let { available_roles } = $$props;
+  assign_payload($$payload, $$inner_payload);
+  bind_props($$props, { ref, value });
+  pop();
+}
+function Videos($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { videos, collections, available_roles } = $$props;
   let new_video_dialog_open = false;
   let collections_open = false;
   let new_collection_open = false;
   let new_collection_name = "";
-  let currently_edited_video;
-  let new_video_form = useForm({
-    id: null,
-    title: null,
-    description: null,
-    subject: null,
-    poster: null,
-    poster_deleted: false,
-    preview: null,
-    preview_deleted: false,
-    thumbnail: null,
-    link: null,
-    publication_date: null,
-    collection: "",
-    category: null,
-    roles: []
-  });
-  $$unsubscribe_new_video_form = subscribe(new_video_form, (value) => $new_video_form = value);
+  let currently_edited_video = null;
+  let new_video_form = useForm(
+    /** @type {GalleryVideoProps} */
+    {
+      /** @type {number|null} */
+      id: null,
+      /** @type {string|null} */
+      title: null,
+      /** @type {string|null} */
+      description: null,
+      /** @type {string|null} */
+      subject: null,
+      /** @type {string|null} */
+      poster: null,
+      /** @type {boolean} */
+      poster_deleted: false,
+      /** @type {string|null} */
+      preview: null,
+      /** @type {boolean} */
+      preview_deleted: false,
+      /** @type {string|null} */
+      thumbnail: null,
+      /** @type {string|null} */
+      link: null,
+      /** @type {any} */
+      publication_date: null,
+      /** @type {string|null} */
+      collection: "",
+      /** @type {string|null} */
+      category: null,
+      /** @type {string[]} */
+      roles: []
+    }
+  );
   const df = new DateFormatter("en-US", { dateStyle: "long" });
-  function closeAndFocusTrigger(triggerId) {
-    collections_open = false;
+  function processSubmit() {
+    let previous_date = store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date;
+    if (store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date) {
+      store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date = store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date.toString());
+    }
+    {
+      store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).post("/webtools/videos", { onSuccess: () => new_video_dialog_open = false });
+    }
+    store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date = previous_date);
+  }
+  let collectionPopoverOpen = false;
+  let triggerRef = null;
+  function closeAndFocusTrigger() {
+    collectionPopoverOpen = false;
     tick().then(() => {
-      var _a;
-      (_a = document.getElementById(triggerId)) == null ? void 0 : _a.focus();
+      triggerRef == null ? void 0 : triggerRef.focus();
     });
   }
-  if ($$props.videos === void 0 && $$bindings.videos && videos !== void 0) $$bindings.videos(videos);
-  if ($$props.collections === void 0 && $$bindings.collections && collections !== void 0) $$bindings.collections(collections);
-  if ($$props.available_roles === void 0 && $$bindings.available_roles && available_roles !== void 0) $$bindings.available_roles(available_roles);
-  let $$settled;
-  let $$rendered;
-  let previous_head = $$result.head;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    const each_array_2 = ensure_array_like(videos);
+    head($$payload2, ($$payload3) => {
+      $$payload3.title = `<title>Videos - Webtools</title>`;
+    });
+    $$payload2.out += `<main class="max-w-screen-xl mx-auto p-4 px-4 md:px-8 w-full overflow-scroll-y"><div class="flex justify-end"><!---->`;
+    Root$1($$payload2, {
+      get open() {
+        return new_video_dialog_open;
+      },
+      set open($$value) {
+        new_video_dialog_open = $$value;
+        $$settled = false;
+      },
+      children: ($$payload3) => {
+        $$payload3.out += `<form><!---->`;
+        Dialog_content($$payload3, {
+          children: ($$payload4) => {
+            $$payload4.out += `<!---->`;
+            Dialog_header($$payload4, {
+              children: ($$payload5) => {
+                $$payload5.out += `<!---->`;
+                Dialog_title($$payload5, {
+                  class: "text-2xl",
+                  children: ($$payload6) => {
+                    if (store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).title) {
+                      $$payload6.out += "<!--[-->";
+                      $$payload6.out += `${escape_html(store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).title)}`;
+                    } else {
+                      $$payload6.out += "<!--[!-->";
+                      $$payload6.out += `New video`;
+                    }
+                    $$payload6.out += `<!--]--> `;
+                    if (store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date) {
+                      $$payload6.out += "<!--[-->";
+                      $$payload6.out += `<span class="text-bjelopic-blue-1">(${escape_html(new Date(store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date).getFullYear())})</span>`;
+                    } else {
+                      $$payload6.out += "<!--[!-->";
+                    }
+                    $$payload6.out += `<!--]-->`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!---->`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!----> <!---->`;
+            Root($$payload4, {
+              children: ($$payload5) => {
+                $$payload5.out += `<!---->`;
+                Tabs_list($$payload5, {
+                  class: "grid grid-cols-2 w-full",
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->`;
+                    Tabs_trigger($$payload6, {
+                      value: "info",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Info`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> <!---->`;
+                    Tabs_trigger($$payload6, {
+                      value: "media",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Media`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!---->`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!----> <!---->`;
+                Tabs_content($$payload5, {
+                  value: "info",
+                  class: "h-[450px] overflow-x-clip overflow-y-scroll",
+                  children: ($$payload6) => {
+                    Label($$payload6, {
+                      for: "new-video-title",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Title*`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> `;
+                    Input($$payload6, {
+                      id: "new-video-title",
+                      type: "text",
+                      required: true,
+                      get value() {
+                        return store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).title;
+                      },
+                      set value($$value) {
+                        store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).title = $$value);
+                        $$settled = false;
+                      }
+                    });
+                    $$payload6.out += `<!----> `;
+                    Label($$payload6, {
+                      for: "new-video-description",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Description`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> `;
+                    Textarea($$payload6, {
+                      id: "new-video-description",
+                      get value() {
+                        return store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).description;
+                      },
+                      set value($$value) {
+                        store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).description = $$value);
+                        $$settled = false;
+                      }
+                    });
+                    $$payload6.out += `<!----> `;
+                    Label($$payload6, {
+                      for: "new-video-category",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Category*`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> `;
+                    Input($$payload6, {
+                      type: "text",
+                      id: "new-video-category",
+                      required: true,
+                      get value() {
+                        return store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).category;
+                      },
+                      set value($$value) {
+                        store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).category = $$value);
+                        $$settled = false;
+                      }
+                    });
+                    $$payload6.out += `<!----> `;
+                    Label($$payload6, {
+                      for: "new-video-subject",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Subject*`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> `;
+                    Input($$payload6, {
+                      type: "text",
+                      id: "new-video-subject",
+                      required: true,
+                      get value() {
+                        return store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).subject;
+                      },
+                      set value($$value) {
+                        store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).subject = $$value);
+                        $$settled = false;
+                      }
+                    });
+                    $$payload6.out += `<!----> `;
+                    Label($$payload6, {
+                      for: "new-video-publication-date",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Publication date*`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----><br> <!---->`;
+                    Root$2($$payload6, {
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->`;
+                        {
+                          let child = function($$payload8, { props }) {
+                            Button($$payload8, spread_props([
+                              {
+                                variant: "outline",
+                                class: cn$1("w-[280px] justify-start text-left font-normal", !store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date && "text-muted-foreground")
+                              },
+                              props,
+                              {
+                                children: ($$payload9) => {
+                                  Calendar($$payload9, { class: "mr-2 h-4 w-4" });
+                                  $$payload9.out += `<!----> ${escape_html(store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date ? df.format(store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date.toDate(getLocalTimeZone())) : "Select a date")}`;
+                                },
+                                $$slots: { default: true }
+                              }
+                            ]));
+                          };
+                          Trigger$1($$payload7, {
+                            id: "new-video-publication-date",
+                            child,
+                            $$slots: { child: true }
+                          });
+                        }
+                        $$payload7.out += `<!----> <!---->`;
+                        Popover_content($$payload7, {
+                          class: "w-auto p-0",
+                          children: ($$payload8) => {
+                            Calendar_1($$payload8, {
+                              type: "single",
+                              initialFocus: true,
+                              get value() {
+                                return store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date;
+                              },
+                              set value($$value) {
+                                store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).publication_date = $$value);
+                                $$settled = false;
+                              }
+                            });
+                          },
+                          $$slots: { default: true }
+                        });
+                        $$payload7.out += `<!---->`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> <br> `;
+                    Label($$payload6, {
+                      for: "link",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Link`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> `;
+                    Input($$payload6, {
+                      type: "text",
+                      required: true,
+                      get value() {
+                        return store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).link;
+                      },
+                      set value($$value) {
+                        store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).link = $$value);
+                        $$settled = false;
+                      }
+                    });
+                    $$payload6.out += `<!----> <!---->`;
+                    Root$5($$payload6, {
+                      type: "multiple",
+                      class: "mt-4",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->`;
+                        Accordion_item($$payload7, {
+                          value: "collections",
+                          class: "border-0",
+                          children: ($$payload8) => {
+                            $$payload8.out += `<!---->`;
+                            Accordion_trigger($$payload8, {
+                              class: "py-2",
+                              children: ($$payload9) => {
+                                $$payload9.out += `<!---->Collection`;
+                              },
+                              $$slots: { default: true }
+                            });
+                            $$payload8.out += `<!----> <!---->`;
+                            Accordion_content($$payload8, {
+                              children: ($$payload9) => {
+                                $$payload9.out += `<div class="flex gap-x-2 align-middle items-center"><!---->`;
+                                Root$2($$payload9, {
+                                  get open() {
+                                    return collectionPopoverOpen;
+                                  },
+                                  set open($$value) {
+                                    collectionPopoverOpen = $$value;
+                                    $$settled = false;
+                                  },
+                                  children: ($$payload10) => {
+                                    $$payload10.out += `<!---->`;
+                                    {
+                                      let child = function($$payload11, { props }) {
+                                        Button($$payload11, spread_props([
+                                          {
+                                            variant: "outline",
+                                            role: "combobox",
+                                            "aria-expanded": collections_open,
+                                            class: `w-[222px] overflow-hidden justify-between ${stringify(store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).collection ? "" : "text-muted-foreground")}`
+                                          },
+                                          props,
+                                          {
+                                            children: ($$payload12) => {
+                                              $$payload12.out += `<!---->${escape_html(store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).collection ? store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).collection : "Select")}`;
+                                            },
+                                            $$slots: { default: true }
+                                          }
+                                        ]));
+                                      };
+                                      Trigger$1($$payload10, { child, $$slots: { child: true } });
+                                    }
+                                    $$payload10.out += `<!----> <!---->`;
+                                    Popover_content($$payload10, {
+                                      class: "w-[222px] p-0",
+                                      children: ($$payload11) => {
+                                        $$payload11.out += `<!---->`;
+                                        Command($$payload11, {
+                                          children: ($$payload12) => {
+                                            $$payload12.out += `<!---->`;
+                                            Command_input($$payload12, { placeholder: "Search collections..." });
+                                            $$payload12.out += `<!----> <!---->`;
+                                            Command_empty($$payload12, {
+                                              children: ($$payload13) => {
+                                                $$payload13.out += `<!---->Collection not
+                                                            found.`;
+                                              },
+                                              $$slots: { default: true }
+                                            });
+                                            $$payload12.out += `<!----> <!---->`;
+                                            Command_group($$payload12, {
+                                              children: ($$payload13) => {
+                                                const each_array = ensure_array_like(collections);
+                                                $$payload13.out += `<!--[-->`;
+                                                for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+                                                  let collection = each_array[$$index];
+                                                  $$payload13.out += `<!---->`;
+                                                  Command_item($$payload13, {
+                                                    value: collection,
+                                                    onSelect: () => {
+                                                      store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).collection = collection);
+                                                      closeAndFocusTrigger();
+                                                    },
+                                                    children: ($$payload14) => {
+                                                      $$payload14.out += `<!---->${escape_html(collection)}`;
+                                                    },
+                                                    $$slots: { default: true }
+                                                  });
+                                                  $$payload13.out += `<!---->`;
+                                                }
+                                                $$payload13.out += `<!--]-->`;
+                                              },
+                                              $$slots: { default: true }
+                                            });
+                                            $$payload12.out += `<!---->`;
+                                          },
+                                          $$slots: { default: true }
+                                        });
+                                        $$payload11.out += `<!---->`;
+                                      },
+                                      $$slots: { default: true }
+                                    });
+                                    $$payload10.out += `<!---->`;
+                                  },
+                                  $$slots: { default: true }
+                                });
+                                $$payload9.out += `<!----> `;
+                                if (store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).collection) {
+                                  $$payload9.out += "<!--[-->";
+                                  Button($$payload9, {
+                                    variant: "destructive",
+                                    onclick: () => store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).collection = null),
+                                    children: ($$payload10) => {
+                                      Badge_x($$payload10, { class: "w-4 h-4" });
+                                    },
+                                    $$slots: { default: true }
+                                  });
+                                } else {
+                                  $$payload9.out += "<!--[!-->";
+                                }
+                                $$payload9.out += `<!--]--> <!---->`;
+                                Root$2($$payload9, {
+                                  get open() {
+                                    return new_collection_open;
+                                  },
+                                  set open($$value) {
+                                    new_collection_open = $$value;
+                                    $$settled = false;
+                                  },
+                                  children: ($$payload10) => {
+                                    $$payload10.out += `<!---->`;
+                                    {
+                                      let child = function($$payload11, { props }) {
+                                        Button($$payload11, spread_props([
+                                          { variant: "outline" },
+                                          props,
+                                          {
+                                            children: ($$payload12) => {
+                                              Plus($$payload12, { class: "w-4 h-4" });
+                                            },
+                                            $$slots: { default: true }
+                                          }
+                                        ]));
+                                      };
+                                      Trigger$1($$payload10, {
+                                        get ref() {
+                                          return triggerRef;
+                                        },
+                                        set ref($$value) {
+                                          triggerRef = $$value;
+                                          $$settled = false;
+                                        },
+                                        child,
+                                        $$slots: { child: true }
+                                      });
+                                    }
+                                    $$payload10.out += `<!----> <!---->`;
+                                    Popover_content($$payload10, {
+                                      class: "drop-shadow-md",
+                                      children: ($$payload11) => {
+                                        $$payload11.out += `<form class="flex gap-x-2">`;
+                                        Input($$payload11, {
+                                          type: "text",
+                                          get value() {
+                                            return new_collection_name;
+                                          },
+                                          set value($$value) {
+                                            new_collection_name = $$value;
+                                            $$settled = false;
+                                          }
+                                        });
+                                        $$payload11.out += `<!----> `;
+                                        Button($$payload11, {
+                                          type: "submit",
+                                          disabled: collections.find((element2) => element2 === new_collection_name) != void 0,
+                                          children: ($$payload12) => {
+                                            $$payload12.out += `<!---->Add`;
+                                          },
+                                          $$slots: { default: true }
+                                        });
+                                        $$payload11.out += `<!----></form>`;
+                                      },
+                                      $$slots: { default: true }
+                                    });
+                                    $$payload10.out += `<!---->`;
+                                  },
+                                  $$slots: { default: true }
+                                });
+                                $$payload9.out += `<!----></div>`;
+                              },
+                              $$slots: { default: true }
+                            });
+                            $$payload8.out += `<!---->`;
+                          },
+                          $$slots: { default: true }
+                        });
+                        $$payload7.out += `<!----> <!---->`;
+                        Accordion_item($$payload7, {
+                          value: "roles",
+                          class: "border-0",
+                          children: ($$payload8) => {
+                            $$payload8.out += `<!---->`;
+                            Accordion_trigger($$payload8, {
+                              class: "py-2",
+                              children: ($$payload9) => {
+                                $$payload9.out += `<!---->Roles`;
+                              },
+                              $$slots: { default: true }
+                            });
+                            $$payload8.out += `<!----> <!---->`;
+                            Accordion_content($$payload8, {
+                              children: ($$payload9) => {
+                                const each_array_1 = ensure_array_like(available_roles);
+                                $$payload9.out += `<div class="flex flex-col space-y-2"><!--[-->`;
+                                for (let $$index_1 = 0, $$length = each_array_1.length; $$index_1 < $$length; $$index_1++) {
+                                  let role = each_array_1[$$index_1];
+                                  const checked = store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).roles.includes(role.role);
+                                  $$payload9.out += `<div class="flex gap-x-2 align-middle items-center">`;
+                                  Checkbox($$payload9, {
+                                    checked,
+                                    id: `${stringify(role.id)}-${stringify(role.role)}`,
+                                    onCheckedChange: (v) => {
+                                      if (v) {
+                                        store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).roles = [
+                                          ...store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).roles,
+                                          role.role
+                                        ]);
+                                      } else store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).roles = store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).roles.filter((item) => item !== role.role));
+                                    }
+                                  });
+                                  $$payload9.out += `<!----> `;
+                                  Label($$payload9, {
+                                    class: "hover:cursor-pointer",
+                                    for: `${stringify(role.id)}-${stringify(role.role)}`,
+                                    children: ($$payload10) => {
+                                      $$payload10.out += `<!---->${escape_html(role.role)}`;
+                                    },
+                                    $$slots: { default: true }
+                                  });
+                                  $$payload9.out += `<!----></div>`;
+                                }
+                                $$payload9.out += `<!--]--></div>`;
+                              },
+                              $$slots: { default: true }
+                            });
+                            $$payload8.out += `<!---->`;
+                          },
+                          $$slots: { default: true }
+                        });
+                        $$payload7.out += `<!---->`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!---->`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!----> <!---->`;
+                Tabs_content($$payload5, {
+                  value: "media",
+                  class: "h-[450px] overflow-x-clip overflow-y-scroll",
+                  children: ($$payload6) => {
+                    Label($$payload6, {
+                      for: "new-video-thumbnail",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Thumbnail (16:9)*`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> <input type="file" class="hidden" id="new-video-thumbnail" required accept="image/*"> <label for="new-video-thumbnail" class="hover:brightness-110 transition"><!---->`;
+                    Aspect_ratio($$payload6, {
+                      ratio: 16 / 9,
+                      class: "bg-muted rounded-md overflow-clip",
+                      children: ($$payload7) => {
+                        if (store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).thumbnail || currently_edited_video) {
+                          $$payload7.out += "<!--[-->";
+                          $$payload7.out += `<img class="w-full h-full object-cover"${attr("src", URL.createObjectURL(store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).thumbnail))} alt="New video thumbnail">`;
+                        } else {
+                          $$payload7.out += "<!--[!-->";
+                        }
+                        $$payload7.out += `<!--]-->`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----></label> `;
+                    Label($$payload6, {
+                      for: "new-video-preview",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Preview (.mp4, 16:9)`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> <input type="file" class="hidden" id="new-video-preview" accept="video/mp4"> <label for="new-video-preview" class="md:hover:brightness-110 transition"><!---->`;
+                    Aspect_ratio($$payload6, {
+                      ratio: 16 / 9,
+                      class: "bg-muted rounded-md overflow-clip",
+                      children: ($$payload7) => {
+                        if (store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).preview || currently_edited_video) {
+                          $$payload7.out += "<!--[-->";
+                          $$payload7.out += `<div class="w-full h-full bg-black"><video class="w-full h-full object-contain"${attr("src", URL.createObjectURL(store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).preview))} controls></video> `;
+                          Button($$payload7, {
+                            class: "absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity ",
+                            onclick: (e) => {
+                              store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).preview = null);
+                              store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).preview_deleted = true);
+                              e.preventDefault();
+                              e.stopPropagation();
+                            },
+                            children: ($$payload8) => {
+                              Trash($$payload8, { class: "w-4 h-4" });
+                            },
+                            $$slots: { default: true }
+                          });
+                          $$payload7.out += `<!----></div>`;
+                        } else {
+                          $$payload7.out += "<!--[!-->";
+                        }
+                        $$payload7.out += `<!--]-->`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----></label> `;
+                    Label($$payload6, {
+                      for: "new-video-poster",
+                      children: ($$payload7) => {
+                        $$payload7.out += `<!---->Poster (707:1000)`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----> <input type="file" class="hidden" id="new-video-poster" accept="image/*"> <label for="new-video-poster" class="md:hover:brightness-110 transition"><!---->`;
+                    Aspect_ratio($$payload6, {
+                      ratio: 707 / 1e3,
+                      class: "bg-muted rounded-md overflow-clip",
+                      children: ($$payload7) => {
+                        if (store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).poster || currently_edited_video) {
+                          $$payload7.out += "<!--[-->";
+                          $$payload7.out += `<img class="w-full h-full object-cover"${attr("src", URL.createObjectURL(store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).poster))} alt="New video poster"> `;
+                          Button($$payload7, {
+                            class: "absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity",
+                            onclick: (e) => {
+                              store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).poster = null);
+                              store_mutate($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form, store_get($$store_subs ?? ($$store_subs = {}), "$new_video_form", new_video_form).poster_deleted = true);
+                              e.preventDefault();
+                              e.stopPropagation();
+                            },
+                            children: ($$payload8) => {
+                              Trash($$payload8, { class: "w-4 h-4" });
+                            },
+                            $$slots: { default: true }
+                          });
+                          $$payload7.out += `<!---->`;
+                        } else {
+                          $$payload7.out += "<!--[!-->";
+                        }
+                        $$payload7.out += `<!--]-->`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!----></label>`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!---->`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!----> <!---->`;
+            Dialog_footer($$payload4, {
+              children: ($$payload5) => {
+                $$payload5.out += `<div class="flex justify-between flex-row-reverse w-full">`;
+                Button($$payload5, {
+                  onclick: processSubmit,
+                  children: ($$payload6) => {
+                    $$payload6.out += `<!---->Save`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!----> `;
+                {
+                  $$payload5.out += "<!--[!-->";
+                }
+                $$payload5.out += `<!--]--></div>`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!---->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!----></form>`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!----></div> <div class="grid grid-cols-1 max-w-[450px] mx-auto md:max-w-none md:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-6 gap-y-4 md:gap-y-6 w-full"><button class="bg-bjelopic-neutral-8 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white transition-colors"><!---->`;
+    Aspect_ratio($$payload2, {
+      ratio: 2.35,
+      children: ($$payload3) => {
+        $$payload3.out += `<div class="w-full h-full flex justify-center items-center">`;
+        Plus($$payload3, { class: "w-12 h-12" });
+        $$payload3.out += `<!----></div>`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!----></button> <!--[-->`;
+    for (let $$index_2 = 0, $$length = each_array_2.length; $$index_2 < $$length; $$index_2++) {
+      let video = each_array_2[$$index_2];
+      $$payload2.out += `<button class="text-left"><div class="flex flex-col box-content w-full rounded-md overflow-clip md:hover:scale-[101%] transition-all duration-500 md:hover:drop-shadow-glow-md hover:z-10 border border-neutral-800"><!---->`;
+      Aspect_ratio($$payload2, {
+        ratio: 16 / 9,
+        class: "overflow-clip",
+        children: ($$payload3) => {
+          $$payload3.out += `<img class="w-full h-full object-cover"${attr("src", video.thumbnail_url)}${attr("alt", `${stringify(video.title)} thumbnail`)}>`;
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!----> <div class="px-2 py-1 md:py-2 bg-neutral-900 border-t-0"><span class="text-lg md:text-xl block w-full whitespace-nowrap overflow-hidden text-ellipsis">${escape_html(video.title)}</span> <div class="flex justify-between items-center align-middle"><span class="text-neutral-500">${escape_html(video.subject)} (${escape_html(new Date(video.publication_date).getFullYear())})</span> <div class="flex gap-2 align-middle"><a${attr("href", video.link)} target="_blank" class="mr-1">`;
+      Eye($$payload2, {
+        class: "w-6 h-6 text-neutral-500 hover:text-white transition"
+      });
+      $$payload2.out += `<!----></a> `;
+      Link($$payload2, {
+        as: "button",
+        onclick: (e) => {
+          e.stopPropagation();
+        },
+        href: "/webtools/videos/" + video.id + "/stills",
+        children: ($$payload3) => {
+          Image($$payload3, {
+            class: "w-6 h-6 text-neutral-500 hover:text-white transition"
+          });
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!----></div></div></div></div></button>`;
+    }
+    $$payload2.out += `<!--]--></div></main>`;
+  }
   do {
     $$settled = true;
-    $$result.head = previous_head;
-    $$rendered = `<main class="max-w-screen-xl mx-auto p-4 px-4 md:px-8 w-full overflow-scroll-y"> <div class="flex justify-end">${validate_component(Root$2, "Dialog.Root").$$render(
-      $$result,
-      { open: new_video_dialog_open },
-      {
-        open: ($$value) => {
-          new_video_dialog_open = $$value;
-          $$settled = false;
-        }
-      },
-      {
-        default: () => {
-          return `<form>${validate_component(Dialog_content, "Dialog.Content").$$render($$result, {}, {}, {
-            default: () => {
-              return `${validate_component(Dialog_header, "Dialog.Header").$$render($$result, {}, {}, {
-                default: () => {
-                  return `${validate_component(Dialog_title, "Dialog.Title").$$render($$result, { class: "text-2xl" }, {}, {
-                    default: () => {
-                      return `${$new_video_form.title ? `${escape($new_video_form.title)}` : `New video`} ${$new_video_form.publication_date ? `<span class="text-bjelopic-blue-1">(${escape(new Date($new_video_form.publication_date).getFullYear())})</span>` : ``}`;
-                    }
-                  })}`;
-                }
-              })}  ${validate_component(Root$1, "Tabs.Root").$$render($$result, {}, {}, {
-                default: () => {
-                  return `${validate_component(Tabs_list, "Tabs.List").$$render($$result, { class: "grid grid-cols-2 w-full" }, {}, {
-                    default: () => {
-                      return `${validate_component(Tabs_trigger, "Tabs.Trigger").$$render($$result, { value: "info" }, {}, {
-                        default: () => {
-                          return `Info`;
-                        }
-                      })} ${validate_component(Tabs_trigger, "Tabs.Trigger").$$render($$result, { value: "media" }, {}, {
-                        default: () => {
-                          return `Media`;
-                        }
-                      })}`;
-                    }
-                  })} ${validate_component(Tabs_content, "Tabs.Content").$$render(
-                    $$result,
-                    {
-                      value: "info",
-                      class: "h-[450px] overflow-x-clip overflow-y-scroll"
-                    },
-                    {},
-                    {
-                      default: () => {
-                        return `${validate_component(Label, "Label").$$render($$result, { for: "new-video-title" }, {}, {
-                          default: () => {
-                            return `Title*`;
-                          }
-                        })} ${validate_component(Input, "Input").$$render(
-                          $$result,
-                          {
-                            id: "new-video-title",
-                            type: "text",
-                            required: true,
-                            value: $new_video_form.title
-                          },
-                          {
-                            value: ($$value) => {
-                              $new_video_form.title = $$value;
-                              $$settled = false;
-                            }
-                          },
-                          {}
-                        )} ${validate_component(Label, "Label").$$render($$result, { for: "new-video-description" }, {}, {
-                          default: () => {
-                            return `Description*`;
-                          }
-                        })} ${validate_component(Textarea, "Textarea").$$render(
-                          $$result,
-                          {
-                            id: "new-video-description",
-                            required: true,
-                            value: $new_video_form.description
-                          },
-                          {
-                            value: ($$value) => {
-                              $new_video_form.description = $$value;
-                              $$settled = false;
-                            }
-                          },
-                          {}
-                        )} ${validate_component(Label, "Label").$$render($$result, { for: "new-video-category" }, {}, {
-                          default: () => {
-                            return `Category*`;
-                          }
-                        })} ${validate_component(Input, "Input").$$render(
-                          $$result,
-                          {
-                            type: "text",
-                            id: "new-video-category",
-                            required: true,
-                            value: $new_video_form.category
-                          },
-                          {
-                            value: ($$value) => {
-                              $new_video_form.category = $$value;
-                              $$settled = false;
-                            }
-                          },
-                          {}
-                        )} ${validate_component(Label, "Label").$$render($$result, { for: "new-video-subject" }, {}, {
-                          default: () => {
-                            return `Subject*`;
-                          }
-                        })} ${validate_component(Input, "Input").$$render(
-                          $$result,
-                          {
-                            type: "text",
-                            id: "new-video-subject",
-                            required: true,
-                            value: $new_video_form.subject
-                          },
-                          {
-                            value: ($$value) => {
-                              $new_video_form.subject = $$value;
-                              $$settled = false;
-                            }
-                          },
-                          {}
-                        )} ${validate_component(Label, "Label").$$render($$result, { for: "new-video-publication-date" }, {}, {
-                          default: () => {
-                            return `Publication date*`;
-                          }
-                        })}<br> ${validate_component(Root, "Popover.Root").$$render($$result, { openFocus: true }, {}, {
-                          default: () => {
-                            return `${validate_component(Trigger, "Popover.Trigger").$$render($$result, { asChild: true }, {}, {
-                              default: ({ builder }) => {
-                                return `${validate_component(Button, "Button").$$render(
-                                  $$result,
-                                  {
-                                    variant: "outline",
-                                    class: cn$1("w-[280px] justify-start text-left font-normal", !$new_video_form.publication_date && "text-muted-foreground"),
-                                    id: "new-video-publication-date",
-                                    builders: [builder]
-                                  },
-                                  {},
-                                  {
-                                    default: () => {
-                                      return `${validate_component(Calendar, "CalendarIcon").$$render($$result, { class: "mr-2 h-4 w-4" }, {}, {})} ${escape($new_video_form.publication_date ? df.format($new_video_form.publication_date.toDate(getLocalTimeZone())) : "Select a date")}`;
-                                    }
-                                  }
-                                )}`;
-                              }
-                            })} ${validate_component(Popover_content, "Popover.Content").$$render($$result, { class: "w-auto p-0" }, {}, {
-                              default: () => {
-                                return `${validate_component(Calendar_1, "Calendar").$$render(
-                                  $$result,
-                                  {
-                                    initialFocus: true,
-                                    value: $new_video_form.publication_date
-                                  },
-                                  {
-                                    value: ($$value) => {
-                                      $new_video_form.publication_date = $$value;
-                                      $$settled = false;
-                                    }
-                                  },
-                                  {}
-                                )}`;
-                              }
-                            })}`;
-                          }
-                        })} <br> ${validate_component(Label, "Label").$$render($$result, { for: "link" }, {}, {
-                          default: () => {
-                            return `Link`;
-                          }
-                        })} ${validate_component(Input, "Input").$$render(
-                          $$result,
-                          {
-                            type: "text",
-                            required: true,
-                            value: $new_video_form.link
-                          },
-                          {
-                            value: ($$value) => {
-                              $new_video_form.link = $$value;
-                              $$settled = false;
-                            }
-                          },
-                          {}
-                        )} ${validate_component(Root$3, "Accordion.Root").$$render($$result, { multiple: true, class: "mt-4" }, {}, {
-                          default: () => {
-                            return ` ${validate_component(Accordion_item, "Accordion.Item").$$render($$result, { value: "collections", class: "border-0" }, {}, {
-                              default: () => {
-                                return `${validate_component(Accordion_trigger, "Accordion.Trigger").$$render($$result, { class: "py-2" }, {}, {
-                                  default: () => {
-                                    return `Collection`;
-                                  }
-                                })} ${validate_component(Accordion_content, "Accordion.Content").$$render($$result, {}, {}, {
-                                  default: () => {
-                                    return `<div class="flex gap-x-2 align-middle items-center">${validate_component(Root, "Popover.Root").$$render(
-                                      $$result,
-                                      { open: collections_open },
-                                      {
-                                        open: ($$value) => {
-                                          collections_open = $$value;
-                                          $$settled = false;
-                                        }
-                                      },
-                                      {
-                                        default: ({ ids }) => {
-                                          return `${validate_component(Trigger, "Popover.Trigger").$$render($$result, { asChild: true }, {}, {
-                                            default: ({ builder }) => {
-                                              return `${validate_component(Button, "Button").$$render(
-                                                $$result,
-                                                {
-                                                  builders: [builder],
-                                                  variant: "outline",
-                                                  role: "combobox",
-                                                  "aria-expanded": collections_open,
-                                                  class: "w-[222px] overflow-hidden justify-between " + ($new_video_form.collection ? "" : "text-muted-foreground")
-                                                },
-                                                {},
-                                                {
-                                                  default: () => {
-                                                    return `${escape($new_video_form.collection ? $new_video_form.collection : "Select")}`;
-                                                  }
-                                                }
-                                              )}`;
-                                            }
-                                          })} ${validate_component(Popover_content, "Popover.Content").$$render($$result, { class: "w-[222px] p-0" }, {}, {
-                                            default: () => {
-                                              return `${validate_component(Command, "Command.Root").$$render($$result, {}, {}, {
-                                                default: () => {
-                                                  return `${validate_component(Command_input, "Command.Input").$$render($$result, { placeholder: "Search collections..." }, {}, {})} ${validate_component(Command_empty, "Command.Empty").$$render($$result, {}, {}, {
-                                                    default: () => {
-                                                      return `Collection not
-                                                            found.`;
-                                                    }
-                                                  })} ${validate_component(Command_group, "Command.Group").$$render($$result, {}, {}, {
-                                                    default: () => {
-                                                      return `${each(collections, (collection) => {
-                                                        return `${validate_component(Command_item, "Command.Item").$$render(
-                                                          $$result,
-                                                          {
-                                                            value: collection,
-                                                            onSelect: (currentValue) => {
-                                                              $new_video_form.collection = currentValue;
-                                                              closeAndFocusTrigger(ids.trigger);
-                                                            }
-                                                          },
-                                                          {},
-                                                          {
-                                                            default: () => {
-                                                              return `${escape(collection)}`;
-                                                            }
-                                                          }
-                                                        )}`;
-                                                      })}`;
-                                                    }
-                                                  })}`;
-                                                }
-                                              })}`;
-                                            }
-                                          })}`;
-                                        }
-                                      }
-                                    )} ${$new_video_form.collection ? `${validate_component(Button, "Button").$$render($$result, { variant: "destructive" }, {}, {
-                                      default: () => {
-                                        return `${validate_component(Badge_x, "BadgeXIcon").$$render($$result, { class: "w-4 h-4" }, {}, {})}`;
-                                      }
-                                    })}` : ``} ${validate_component(Root, "Popover.Root").$$render(
-                                      $$result,
-                                      { open: new_collection_open },
-                                      {
-                                        open: ($$value) => {
-                                          new_collection_open = $$value;
-                                          $$settled = false;
-                                        }
-                                      },
-                                      {
-                                        default: () => {
-                                          return `${validate_component(Trigger, "Popover.Trigger").$$render($$result, { asChild: true }, {}, {
-                                            default: ({ builder }) => {
-                                              return `${validate_component(Button, "Button").$$render($$result, { variant: "outline", builders: [builder] }, {}, {
-                                                default: () => {
-                                                  return `${validate_component(Plus, "PlusIcon").$$render($$result, { class: "w-4 h-4" }, {}, {})}`;
-                                                }
-                                              })}`;
-                                            }
-                                          })} ${validate_component(Popover_content, "Popover.Content").$$render($$result, { class: "drop-shadow-md" }, {}, {
-                                            default: () => {
-                                              return `<form class="flex gap-x-2" ${collections.find((element) => element === new_collection_name) ? "disabled" : ""}>${validate_component(Input, "Input").$$render(
-                                                $$result,
-                                                { type: "text", value: new_collection_name },
-                                                {
-                                                  value: ($$value) => {
-                                                    new_collection_name = $$value;
-                                                    $$settled = false;
-                                                  }
-                                                },
-                                                {}
-                                              )} ${validate_component(Button, "Button").$$render(
-                                                $$result,
-                                                {
-                                                  type: "submit",
-                                                  disabled: collections.find((element) => element === new_collection_name)
-                                                },
-                                                {},
-                                                {
-                                                  default: () => {
-                                                    return `Add`;
-                                                  }
-                                                }
-                                              )}</form>`;
-                                            }
-                                          })}`;
-                                        }
-                                      }
-                                    )}</div>`;
-                                  }
-                                })}`;
-                              }
-                            })}  ${validate_component(Accordion_item, "Accordion.Item").$$render($$result, { value: "roles", class: "border-0" }, {}, {
-                              default: () => {
-                                return `${validate_component(Accordion_trigger, "Accordion.Trigger").$$render($$result, { class: "py-2" }, {}, {
-                                  default: () => {
-                                    return `Roles`;
-                                  }
-                                })} ${validate_component(Accordion_content, "Accordion.Content").$$render($$result, {}, {}, {
-                                  default: () => {
-                                    return `<div class="flex flex-col space-y-2">${each(available_roles, (role) => {
-                                      let checked = $new_video_form.roles.includes(role.role);
-                                      return ` <div class="flex gap-x-2 align-middle items-center">${validate_component(Checkbox, "Checkbox").$$render(
-                                        $$result,
-                                        {
-                                          checked,
-                                          id: role.id + "-" + role.role,
-                                          onCheckedChange: (v) => {
-                                            if (v) {
-                                              $new_video_form.roles = [
-                                                ...$new_video_form.roles,
-                                                role.role
-                                              ];
-                                            } else $new_video_form.roles = $new_video_form.roles.filter(
-                                              /** @type {string} */
-                                              (item) => item !== role.role
-                                            );
-                                          }
-                                        },
-                                        {},
-                                        {}
-                                      )} ${validate_component(Label, "Label").$$render(
-                                        $$result,
-                                        {
-                                          class: "hover:cursor-pointer",
-                                          for: role.id + "-" + role.role
-                                        },
-                                        {},
-                                        {
-                                          default: () => {
-                                            return `${escape(role.role)} `;
-                                          }
-                                        }
-                                      )} </div>`;
-                                    })}</div>`;
-                                  }
-                                })}`;
-                              }
-                            })}`;
-                          }
-                        })}`;
-                      }
-                    }
-                  )} ${validate_component(Tabs_content, "Tabs.Content").$$render(
-                    $$result,
-                    {
-                      value: "media",
-                      class: "h-[450px] overflow-x-clip overflow-y-scroll"
-                    },
-                    {},
-                    {
-                      default: () => {
-                        return `${validate_component(Label, "Label").$$render($$result, { for: "new-video-thumbnail" }, {}, {
-                          default: () => {
-                            return `Thumbnail (16:9)*`;
-                          }
-                        })} <input type="file" class="hidden" id="new-video-thumbnail" required accept="image/*"> <label for="new-video-thumbnail" class="hover:brightness-110 transition">${validate_component(Aspect_ratio, "AspectRatio.Root").$$render(
-                          $$result,
-                          {
-                            ratio: 16 / 9,
-                            class: "bg-muted rounded-md overflow-clip"
-                          },
-                          {},
-                          {
-                            default: () => {
-                              return `${$new_video_form.thumbnail || currently_edited_video ? `<img${add_attribute(
-                                "src",
-                                URL.createObjectURL($new_video_form.thumbnail),
-                                0
-                              )} alt="New video thumbnail">` : ``}`;
-                            }
-                          }
-                        )}</label> ${validate_component(Label, "Label").$$render($$result, { for: "new-video-preview" }, {}, {
-                          default: () => {
-                            return `Preview (.mp4, 16:9)`;
-                          }
-                        })} <input type="file" class="hidden" id="new-video-preview" accept="video/mp4"> <label for="new-video-preview" class="md:hover:brightness-110 transition">${validate_component(Aspect_ratio, "AspectRatio.Root").$$render(
-                          $$result,
-                          {
-                            ratio: 16 / 9,
-                            class: "bg-muted rounded-md overflow-clip"
-                          },
-                          {},
-                          {
-                            default: () => {
-                              return `${$new_video_form.preview || currently_edited_video ? `${validate_component(Button, "Button").$$render(
-                                $$result,
-                                {
-                                  class: "absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity "
-                                },
-                                {},
-                                {
-                                  default: () => {
-                                    return `${validate_component(Trash, "TrashIcon").$$render($$result, { class: "w-4 h-4" }, {}, {})}`;
-                                  }
-                                }
-                              )}  <video class="w-full h-full object-contain"${add_attribute(
-                                "src",
-                                URL.createObjectURL($new_video_form.preview),
-                                0
-                              )} alt="New video thumbnail" controls></video>` : ``}`;
-                            }
-                          }
-                        )}</label> ${validate_component(Label, "Label").$$render($$result, { for: "new-video-poster" }, {}, {
-                          default: () => {
-                            return `Poster (707:1000)`;
-                          }
-                        })} <input type="file" class="hidden" id="new-video-poster" accept="image/*"> <label for="new-video-poster" class="md:hover:brightness-110 transition">${validate_component(Aspect_ratio, "AspectRatio.Root").$$render(
-                          $$result,
-                          {
-                            ratio: 707 / 1e3,
-                            class: "bg-muted rounded-md overflow-clip"
-                          },
-                          {},
-                          {
-                            default: () => {
-                              return `${$new_video_form.poster || currently_edited_video ? `${validate_component(Button, "Button").$$render(
-                                $$result,
-                                {
-                                  class: "absolute top-0 left-0 m-2 opacity-25 md:hover:opacity-100 transition-opacity"
-                                },
-                                {},
-                                {
-                                  default: () => {
-                                    return `${validate_component(Trash, "TrashIcon").$$render($$result, { class: "w-4 h-4" }, {}, {})}`;
-                                  }
-                                }
-                              )}  <img class="w-full h-full object-cover"${add_attribute(
-                                "src",
-                                URL.createObjectURL($new_video_form.poster),
-                                0
-                              )} alt="New video poster">` : ``}`;
-                            }
-                          }
-                        )}</label>`;
-                      }
-                    }
-                  )}`;
-                }
-              })} ${validate_component(Dialog_footer, "Dialog.Footer").$$render($$result, {}, {}, {
-                default: () => {
-                  return `<div class="flex justify-between flex-row-reverse w-full">${validate_component(Button, "Button").$$render($$result, {}, {}, {
-                    default: () => {
-                      return `Save`;
-                    }
-                  })} ${``}</div>`;
-                }
-              })}`;
-            }
-          })}</form>`;
-        }
-      }
-    )}</div> <div class="grid grid-cols-1 max-w-[450px] mx-auto md:max-w-none md:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-6 gap-y-4 md:gap-y-6 w-full"><button class="bg-bjelopic-neutral-8 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white transition-colors">${validate_component(Aspect_ratio, "AspectRatio.Root").$$render($$result, { ratio: 2.35 }, {}, {
-      default: () => {
-        return `<div class="w-full h-full flex justify-center items-center">${validate_component(Plus, "PlusIcon").$$render($$result, { class: "w-12 h-12" }, {}, {})}</div>`;
-      }
-    })}</button> ${each(videos, (video) => {
-      return `<button class="text-left"><div class="flex flex-col box-content w-full rounded-md overflow-clip md:hover:scale-[101%] transition duration-500 md:hover:drop-shadow-glow hover:z-10 border border-neutral-800">${validate_component(Aspect_ratio, "AspectRatio.Root").$$render($$result, { ratio: 16 / 9 }, {}, {
-        default: () => {
-          return `<img${add_attribute("src", video.thumbnail_path, 0)} alt="${escape(video.title, true) + " thumbnail"}"> `;
-        }
-      })} <div class="px-2 py-1 md:py-2 bg-neutral-900 border-t-0"><span class="text-lg md:text-xl block w-full whitespace-nowrap overflow-hidden text-ellipsis">${escape(video.title)}</span> <div class="flex justify-between items-center align-middle"><span class="text-neutral-500">${escape(video.subject)} (${escape(new Date(video.publication_date).getFullYear())})</span> <a${add_attribute("href", video.link, 0)} target="_blank" class="mr-1">${validate_component(Eye, "EyeIcon").$$render(
-        $$result,
-        {
-          class: "w-6 h-6 text-neutral-500 hover:text-white transition"
-        },
-        {},
-        {}
-      )}</a></div> </div></div> </button>`;
-    })}</div></main>`;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
   } while (!$$settled);
-  $$unsubscribe_new_video_form();
-  return $$rendered;
-});
-const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  assign_payload($$payload, $$inner_payload);
+  if ($$store_subs) unsubscribe_stores($$store_subs);
+  pop();
+}
+const __vite_glob_0_25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Videos,
   layout: Layout
 }, Symbol.toStringTag, { value: "Module" }));
-var g = (t) => new Promise((o, n) => {
-  let r = "";
-  t.on("data", (e) => r += e), t.on("end", () => o(r)), t.on("error", (e) => n(e));
-}), d = (t, o) => {
-  let n = 13714, r = { "/health": async () => ({ status: "OK", timestamp: Date.now() }), "/shutdown": () => s.exit(), "/render": async (e) => t(JSON.parse(await g(e))), "/404": async () => ({ status: "NOT_FOUND", timestamp: Date.now() }) };
-  createServer(async (e, a) => {
-    let i = r[e.url] || r["/404"];
-    try {
-      a.writeHead(200, { "Content-Type": "application/json", Server: "Inertia.js SSR" }), a.write(JSON.stringify(await i(e)));
-    } catch (p) {
-      console.error(p);
-    }
-    a.end();
-  }).listen(n, () => console.log("Inertia SSR server started.")), console.log(`Starting SSR server on port ${n}...`);
-};
-d(
+createServer(
   (page2) => createInertiaApp({
     page: page2,
-    resolve: (name2) => {
-      const pages = /* @__PURE__ */ Object.assign({ "./Pages/Footer.svelte": __vite_glob_0_0, "./Pages/FooterInfoLinks.svelte": __vite_glob_0_1, "./Pages/FooterSocials.svelte": __vite_glob_0_2, "./Pages/Header.svelte": __vite_glob_0_3, "./Pages/Hero/Hero.svelte": __vite_glob_0_4, "./Pages/Hero/Layout.svelte": __vite_glob_0_5, "./Pages/Layout.svelte": __vite_glob_0_6, "./Pages/Link.svelte": __vite_glob_0_7, "./Pages/Subpages/Gallery.svelte": __vite_glob_0_8, "./Pages/Webtools/Dashboard.svelte": __vite_glob_0_9, "./Pages/Webtools/DashboardChart.svelte": __vite_glob_0_10, "./Pages/Webtools/Header.svelte": __vite_glob_0_11, "./Pages/Webtools/Layout.svelte": __vite_glob_0_12, "./Pages/Webtools/LayoutLinks.svelte": __vite_glob_0_13, "./Pages/Webtools/Login.svelte": __vite_glob_0_14, "./Pages/Webtools/Users.svelte": __vite_glob_0_15, "./Pages/Webtools/Videos.svelte": __vite_glob_0_16 });
-      let page3 = pages[`./Pages/${name2}.svelte`];
+    resolve: (name) => {
+      const pages = /* @__PURE__ */ Object.assign({ "./Pages/Footer.svelte": __vite_glob_0_0, "./Pages/FooterInfoLinks.svelte": __vite_glob_0_1, "./Pages/FooterSocials.svelte": __vite_glob_0_2, "./Pages/Header.svelte": __vite_glob_0_3, "./Pages/Hero/Hero.svelte": __vite_glob_0_4, "./Pages/Hero/HeroCarousel.svelte": __vite_glob_0_5, "./Pages/Hero/HeroLinks.svelte": __vite_glob_0_6, "./Pages/Hero/Layout.svelte": __vite_glob_0_7, "./Pages/Layout.svelte": __vite_glob_0_8, "./Pages/Link.svelte": __vite_glob_0_9, "./Pages/Subpages/Gallery.svelte": __vite_glob_0_10, "./Pages/Subpages/GalleryVideoDescription.svelte": __vite_glob_0_11, "./Pages/Subpages/Stills.svelte": __vite_glob_0_12, "./Pages/ViewTemporaryUpload.svelte": __vite_glob_0_13, "./Pages/Webtools/Dashboard.svelte": __vite_glob_0_14, "./Pages/Webtools/DashboardChart.svelte": __vite_glob_0_15, "./Pages/Webtools/Header.svelte": __vite_glob_0_16, "./Pages/Webtools/HeroVideo.svelte": __vite_glob_0_17, "./Pages/Webtools/Layout.svelte": __vite_glob_0_18, "./Pages/Webtools/LayoutLinks.svelte": __vite_glob_0_19, "./Pages/Webtools/Login.svelte": __vite_glob_0_20, "./Pages/Webtools/Stills.svelte": __vite_glob_0_21, "./Pages/Webtools/TemporaryUploadDialog.svelte": __vite_glob_0_22, "./Pages/Webtools/Uploads.svelte": __vite_glob_0_23, "./Pages/Webtools/Users.svelte": __vite_glob_0_24, "./Pages/Webtools/Videos.svelte": __vite_glob_0_25 });
+      let page3 = pages[`./Pages/${name}.svelte`];
       return { default: page3.default, layout: page3.layout || Layout$1 };
+    },
+    setup({ App: App2, props }) {
+      return render(App2, { props });
     }
   })
 );
