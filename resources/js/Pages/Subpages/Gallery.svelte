@@ -59,7 +59,7 @@
     <section
         class=" mx-auto {i % 2
             ? 'bg-bjelopic-neutral-8'
-            : 'bg-bjelopic-neutral-7'} py-4 px-4 relative overflow-clip"
+            : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
         onclick={() => (selected_video_uuid = "")}
         role="none"
     >
@@ -145,7 +145,7 @@
                                         year={new Date(video.publication_date)
                                             .getUTCFullYear()
                                             .toString()}
-                                        class="rounded-md md:rounded-sm md:hover:rounded-none transition-all"
+                                        class="rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip"
                                         href={video.link}
                                         this_id={video.uuid}
                                         selected_id={selected_video_uuid}
@@ -201,7 +201,7 @@
                         >
                             <AspectRatio.Root ratio={16 / 9}>
                                 <GalleryVideo
-                                    class="rounded-md md:rounded-sm md:hover:rounded-none transition-all"
+                                    class="rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip"
                                     href={video.link}
                                     this_id={video.uuid}
                                     selected_id={selected_video_uuid}
