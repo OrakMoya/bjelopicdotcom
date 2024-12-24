@@ -18,4 +18,4 @@
   <body class="dark overflow-x-clip">
     @inertia
   </body>
-</html
+</html>
