@@ -60,13 +60,13 @@
                 <img
                     src={thumbnail_src}
                     {alt}
-                    class="absolute w-full h-full rounded-md object-cover rotate-[2deg] origin-bottom-left brightness-[0%] -translate-y-[6px] translate-x-8 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform delay-500 group-hover:delay-0 duration-500 group-hover:brightness-0"
+                    class="absolute w-full h-full rounded-md object-cover rotate-[2deg] origin-bottom-left brightness-[0%] -translate-y-[6px] translate-x-4 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform delay-500 group-hover:delay-0 duration-500 group-hover:brightness-0"
                     transition:fade={{ duration }}
                 />
                 <img
                     src={thumbnail_src}
                     {alt}
-                    class="absolute w-full h-full rounded-md object-cover rotate-[1deg] origin-bottom-left brightness-[50%] -translate-y-[3px] translate-x-4 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform delay-500 group-hover:delay-0 duration-500 group-hover:brightness-0"
+                    class="absolute w-full h-full rounded-md object-cover rotate-[1deg] origin-bottom-left brightness-[50%] -translate-y-[3px] translate-x-2 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform delay-500 group-hover:delay-0 duration-500 group-hover:brightness-0"
                     transition:fade={{ duration }}
                 />
             </div>
