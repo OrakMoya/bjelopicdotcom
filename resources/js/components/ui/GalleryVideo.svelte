@@ -52,13 +52,29 @@
 <div
     class="{focused
         ? 'scale-[104%] md:scale-[102%]'
-        : ''} transition-all duration-300 w-full h-full"
+        : ''} transition-all duration-300 w-full h-full group"
 >
-    <div class="w-full h-full overflow-hidden relative bg-black {rest.class}">
+    <div class="w-full h-full relative {rest.class}">
+        {#if stillsAvailable}
+            <div class="w-full h-full scale-x-[1] absolute">
+                <img
+                    src={thumbnail_src}
+                    {alt}
+                    class="absolute w-full h-full rounded-md object-cover rotate-[2deg] origin-bottom-left brightness-[0%] -translate-y-[6px] translate-x-8 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform delay-500 group-hover:delay-0 duration-500 group-hover:brightness-0"
+                    transition:fade={{ duration }}
+                />
+                <img
+                    src={thumbnail_src}
+                    {alt}
+                    class="absolute w-full h-full rounded-md object-cover rotate-[1deg] origin-bottom-left brightness-[50%] -translate-y-[3px] translate-x-4 group-hover:rotate-0 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform delay-500 group-hover:delay-0 duration-500 group-hover:brightness-0"
+                    transition:fade={{ duration }}
+                />
+            </div>
+        {/if}
         {#if focused && preview_src}
             <div
                 transition:fade
-                class="absolute flex items-center align-middle w-full h-full top-0"
+                class="absolute flex items-center align-middle w-full h-full top-0 rounded-md overflow-clip"
             >
                 <a
                     aria-label="View video"
@@ -79,7 +95,7 @@
                 </a>
             </div>
         {:else}
-            <div transition:fade class="absolute w-full h-full">
+            <div transition:fade class="absolute w-full h-full rounded-md overflow-clip">
                 {#if focused}
                     <a
                         {href}
@@ -97,56 +113,59 @@
                     <img
                         src={thumbnail_src}
                         {alt}
-                        class="absolute w-full h-full object-cover"
+                        class="absolute w-full h-full object-cover rounded-md drop-shadow-xl"
                         transition:fade={{ duration }}
                     />
                 {/if}
             </div>
         {/if}
-        {#if focused && (title || stillsAvailable)}
-            <div
-                bind:clientHeight={menubar_height}
-                transition:fly={{ opacity: 1, y: menubar_height }}
-                class="absolute flex items-center justify-between font-semibold w-full bottom-0 bg-black/80 p-1 text-left"
-            >
-                <div class={title ? "" : "invisible"}>
-                    {title} <span class="text-bjelopic-blue-1"> ({year})</span>
+        <div class="w-full h-full absolute overflow-clip rounded-md">
+            {#if focused && (title || stillsAvailable)}
+                <div
+                    bind:clientHeight={menubar_height}
+                    transition:fly={{ opacity: 1, y: menubar_height }}
+                    class="absolute flex items-center justify-between font-semibold w-full bottom-0 bg-black/80 p-1 text-left"
+                >
+                    <div class={title ? "" : "invisible"}>
+                        {title}
+                        <span class="text-bjelopic-blue-1"> ({year})</span>
+                    </div>
+                    <div class={stillsAvailable ? "" : "invisible"}>
+                        <Link href={"/gallery/" + uuid}>
+                            <ImagesIcon class="w-5 h-5 m-2" />
+                        </Link>
+                    </div>
                 </div>
-                <div class={stillsAvailable ? "" : "invisible"}>
-                    <Link href={"/gallery/"+uuid}>
-                        <ImagesIcon class="w-5 h-5 m-2" />
-                    </Link>
-                </div>
-            </div>
-        {/if}
-        {#if !poster_shown && poster_src && focused}
-            <button
-                transition:fly={{ x: 50 }}
-                class="absolute top-[15%] transition-all hover:pr-4 right-0 bg-black/80 rounded-tl-2xl rounded-bl-2xl p-2 z-10 block"
-                onclick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    poster_shown = true;
-                }}
-            >
-                <ChevronLeft class="w-6 h-6" />
-            </button>
-        {/if}
+            {/if}
+            {#if !poster_shown && poster_src && focused}
+                <button
+                    transition:fly={{ x: 50 }}
+                    class="absolute top-[15%] transition-all hover:pr-4 right-0 bg-black/80 rounded-tl-2xl rounded-bl-2xl p-2 z-10 block"
+                    onclick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        poster_shown = true;
+                    }}
+                >
+                    <ChevronLeft class="w-6 h-6" />
+                </button>
+            {/if}
 
-        {#if focused && poster_src && poster_shown}
-            <button
-                class="w-1/3 p-4 z-10 hover:cursor-pointer block absolute right-0 top-0"
-                onclick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    poster_shown = false;
-                }}
-                transition:fly={{ x: 100 }}
-            >
-                <AspectRatio.Root ratio={707 / 1000}>
-                    <img src={poster_src} alt="" />
-                </AspectRatio.Root>
-            </button>
-        {/if}
+            {#if focused && poster_src && poster_shown}
+                <button
+                    class="w-1/3 p-4 z-10 hover:cursor-pointer block absolute right-0 top-0"
+                    onclick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        poster_shown = false;
+                    }}
+                    transition:fly={{ x: 100 }}
+                >
+                    <AspectRatio.Root ratio={707 / 1000}>
+                        <img src={poster_src} alt="" />
+                    </AspectRatio.Root>
+                </button>
+            {/if}
+        </div>
     </div>
 </div>

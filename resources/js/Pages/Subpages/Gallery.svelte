@@ -145,7 +145,7 @@
                                         year={new Date(video.publication_date)
                                             .getUTCFullYear()
                                             .toString()}
-                                        class="rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip"
+                                        class="rounded-md md:rounded-sm md:hover:rounded-none transition-all"
                                         href={video.link}
                                         this_id={video.uuid}
                                         selected_id={selected_video_uuid}
@@ -201,7 +201,7 @@
                         >
                             <AspectRatio.Root ratio={16 / 9}>
                                 <GalleryVideo
-                                    class="rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip"
+                                    class="rounded-md md:rounded-sm md:hover:rounded-none transition-all"
                                     href={video.link}
                                     this_id={video.uuid}
                                     selected_id={selected_video_uuid}
