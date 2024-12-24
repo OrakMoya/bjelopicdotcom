@@ -45,7 +45,7 @@ class GalleryController extends Controller
 
             sort($roles);
             if ($video->stillsAvailable) {
-                array_push($roles, 'Stills Available');
+                array_push($roles, 'Stillovi Dostupni');
             }
             $video->roles = $roles;
 
