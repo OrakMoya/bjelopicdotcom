@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Visitor;
-use Date;
+use Illuminate\Support\Facades\Date;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,7 +18,7 @@ class WebtoolsDashboardController extends Controller
                 Visitor::raw('SUBSTR(visited_at, 1, 10) as date'),
                 Visitor::raw('COUNT(DISTINCT ip_address) as total')
             )
-                ->whereDate('visited_at', '>', Date::now()->subtract('month', 1))
+                ->whereDate('visited_at', '>', Date::now()->subtract('month', 3))
                 ->groupBy('date')
                 ->get();
         $max = 0;
