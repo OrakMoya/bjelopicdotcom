@@ -3,6 +3,10 @@
     let { video, stills } = $props();
 </script>
 
+<svelte:head>
+    <title>{video.title} ({new Date(video.publication_date).getUTCFullYear()}) - BjeloPIC</title>
+</svelte:head>
+
 <section class="p-4 max-w-screen-xl mx-auto mb-2">
     <div
         class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-4 md:mb-6 md:mt-2 max-w-screen-md"

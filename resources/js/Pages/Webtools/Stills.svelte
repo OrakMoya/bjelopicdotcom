@@ -29,6 +29,10 @@
     let deleteDialogShown = $state(false);
 </script>
 
+<svelte:head>
+    <title>{video.title} ({new Date(video.publication_date).getUTCFullYear()}) - Webtools</title>
+</svelte:head>
+
 <AlertDialog.Root bind:open={deleteDialogShown}>
     <AlertDialog.Content>
         <AlertDialog.Header>Are you sure?</AlertDialog.Header>
