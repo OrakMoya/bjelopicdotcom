@@ -660,7 +660,7 @@
                 }}
             >
                 <div
-                    class="flex flex-col box-content w-full rounded-md overflow-clip md:hover:scale-[101%] transition duration-500 md:hover:drop-shadow-glow hover:z-10 border border-neutral-800"
+                    class="flex flex-col box-content w-full rounded-md overflow-clip md:hover:scale-[101%] transition-all duration-500 md:hover:drop-shadow-glow-md hover:z-10 border border-neutral-800"
                 >
                     <AspectRatio.Root ratio={16 / 9} class="overflow-clip">
                         <img

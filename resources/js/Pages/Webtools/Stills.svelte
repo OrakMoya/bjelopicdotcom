@@ -59,10 +59,18 @@
         </AlertDialog.Footer>
     </AlertDialog.Content>
 </AlertDialog.Root>
-<section class="p-4 flex flex-col gap-y-2">
-    <h1
-        class="text-2xl mb-2 text-center md:text-left"
-    ><span class="hidden md:inline">Stills of</span> <span class="font-semibold">{video.title} ({new Date(video.publication_date).getUTCFullYear()})</span></h1>
+
+<section
+    class="px-8 py-4 flex flex-col gap-y-2 max-w-screen-sm md:max-w-screen-xl mx-auto"
+>
+    <h1 class="text-2xl mb-2 text-center md:text-left">
+        <span>Stills of</span>
+        <span class="font-semibold"
+            >{video.title} ({new Date(
+                video.publication_date,
+            ).getUTCFullYear()})</span
+        >
+    </h1>
     <input
         type="file"
         class="hidden"
@@ -71,16 +79,27 @@
         multiple
         oninput={handleInput}
     />
-    <label
-        class="rounded-md px-4 py-2 text-sm bg-primary text-primary-foreground hover:opacity-85 hover:cursor-pointer inline-flex gap-1 transition-opacity justify-center"
-        for="still-input"
-        ><ImagesIcon class="w-6 h-6" /> <PlusIcon class="w-6 h-6" /></label
+    <div
+        class="grid grid-cols-1 md:grid-cols-2 xl:gap-6 gap-6 md:gap-4 mt-2 md:mt-0"
     >
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        <label
+            class="bg-bjelopic-neutral-8 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white transition-colors flex items-center justify-center"
+            for="still-input"
+        >
+            <AspectRatio ratio={stills.length > 0 ? 3 : 2.35}>
+                <div class=" w-full h-full flex justify-center items-center">
+                    <PlusIcon class="w-12 h-12" />
+                </div>
+            </AspectRatio>
+        </label>
         {#each stills as still, i}
-            <AspectRatio ratio={16 / 9} class="group rounded-md overflow-clip">
+            <AspectRatio
+                ratio={16 / 9}
+                class="group rounded-md overflow-clip bg-background border border-accent drop-shadow-glow-sm"
+            >
                 <img
                     src={still.path}
+                    class="object-contain w-full h-full"
                     alt={"Still no. " + (i + 1) + " for " + video.title}
                 />
                 <Button

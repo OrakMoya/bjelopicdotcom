@@ -90,7 +90,7 @@
                     <TheSubtitle
                         class="font-semibold  uppercase text-xs transition-all duration-500 md:text-sm w-fit whitespace-nowrap tracking-tighter"
                     />
-                    <div class="bg-white w-full h-[1px]"></div>
+                    <div class="border-b border-white w-full h-min"></div>
                 </div>
             </div>
         </div>

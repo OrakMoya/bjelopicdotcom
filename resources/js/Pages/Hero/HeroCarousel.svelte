@@ -56,7 +56,7 @@
 </script>
 
 <div
-    class="flex w-screen basis-1/3 overflow-x-clip overflow-y-visible drop-shadow-glow-sm {carousel_hovered
+    class="flex w-screen basis-1/3 overflow-x-clip overflow-y-visible drop-shadow-glow-xs {carousel_hovered
         ? 'md:drop-shadow-none'
         : ''} transition duration-300"
 >

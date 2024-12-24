@@ -39,7 +39,14 @@ class GalleryController extends Controller
             foreach ($video->videoRoles as $videoRole) {
                 array_push($roles, $videoRole->role);
             }
+
+            $video->stillsAvailable = Still::select('id', 'video_id')
+                ->where('video_id', $video->id)->count() > 0;
+
             sort($roles);
+            if ($video->stillsAvailable) {
+                array_push($roles, 'Stills Available');
+            }
             $video->roles = $roles;
 
             $pushed = false;
@@ -62,8 +69,6 @@ class GalleryController extends Controller
                 ]);
             }
 
-            $video->stillsAvailable = Still::select('id', 'video_id')
-                ->where('video_id', $video->id)->count() > 0;
 
             unset($video->id);
             unset($video->videoRoles);

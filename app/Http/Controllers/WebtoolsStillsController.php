@@ -46,6 +46,9 @@ class WebtoolsStillsController extends Controller
      */
     public function store(Video $video, Request $request): RedirectResponse
     {
+        $request->validate([
+            'stills.*' => ['required', 'image']
+        ]);
         $stills = [];
         /** @var UploadedFile $file */
         foreach ($request->file('stills') as $file) {
