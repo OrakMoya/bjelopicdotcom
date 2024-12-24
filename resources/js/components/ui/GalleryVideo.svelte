@@ -44,7 +44,6 @@
     $effect(() => {
         poster_shown = focused && poster_shown;
     });
-    console.log(stillsAvailable);
 </script>
 
 <svelte:window bind:innerWidth />

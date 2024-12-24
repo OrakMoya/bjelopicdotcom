@@ -10,7 +10,6 @@
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
 
     let { video, stills } = $props();
-    console.log(video, stills);
 
     let form = useForm({
         /** @type {File[]|null} */
@@ -23,7 +22,6 @@
     function handleInput(event) {
         let target = /** @type {HTMLInputElement}*/ (event.target);
         $form.stills = [...(target.files ?? [])];
-        console.log($form.stills);
         $form.post("/webtools/videos/" + video.id + "/stills");
     }
     /** @type {Number|null} */
