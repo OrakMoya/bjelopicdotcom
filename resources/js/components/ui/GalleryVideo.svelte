@@ -27,9 +27,15 @@
 <div
     class="{selected
         ? 'scale-[104%] md:scale-[102%]'
-        : ''} transition-all duration-300 w-full h-full rounded-md overflow-clip"
+        : ''} transition-all duration-300 w-full h-full rounded-md overflow-clip
+        bg-neutral-800 border border-neutral-700 box-border
+    "
 >
-    <AspectRatio ratio={16 / 9}>
+    <!-- alt -->
+    <AspectRatio
+        ratio={16 / 9}
+        class="rounded-b-md overflow-clip drop-shadow-md w-full"
+    >
         <div
             class="w-full h-full overflow-hidden relative bg-black {rest.class}"
         >
@@ -83,7 +89,7 @@
         </div>
     </AspectRatio>
     <Link
-        class="px-2 py-1 text-sm sm:text-base md:text-sm lg:text-base italic text-neutral-500 text-left bg-neutral-900 border border-t-0 border-accent rounded-b-md flex justify-between items-center w-full gap-2"
+        class="px-2 py-1 text-sm sm:text-base md:text-sm lg:text-base italic text-neutral-500 text-left  flex justify-between items-center w-full gap-2"
         href={"/gallery/" + video.uuid}
     >
         <div class="inline-flex items-center gap-x-2 overflow-hidden">
