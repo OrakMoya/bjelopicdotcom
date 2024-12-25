@@ -139,23 +139,15 @@
                                     selected_video_uuid = video.uuid;
                                 }}
                             >
-                                <AspectRatio.Root ratio={16 / 9}>
-                                    <GalleryVideo
-                                        title={video.title}
-                                        year={new Date(video.publication_date)
-                                            .getUTCFullYear()
-                                            .toString()}
-                                        class="rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip"
-                                        href={video.link}
-                                        this_id={video.uuid}
-                                        selected_id={selected_video_uuid}
-                                        thumbnail_src={video.thumbnail_url}
-                                        preview_src={video.preview_url}
-                                        poster_src={video.poster_url}
-                                        stillsAvailable={video.stillsAvailable}
-                                        uuid={video.uuid}
-                                    />
-                                </AspectRatio.Root>
+                                <GalleryVideo
+                                    year={new Date(video.publication_date)
+                                        .getUTCFullYear()
+                                        .toString()}
+                                    {video}
+                                    selected={video.uuid ===
+                                        selected_video_uuid}
+                                    showTitle
+                                />
                             </button>
                         </div>
                     {/each}
@@ -199,19 +191,13 @@
                                 selected_video_uuid = video.uuid;
                             }}
                         >
-                            <AspectRatio.Root ratio={16 / 9}>
-                                <GalleryVideo
-                                    class="rounded-md md:rounded-sm md:hover:rounded-none transition-all overflow-clip"
-                                    href={video.link}
-                                    this_id={video.uuid}
-                                    selected_id={selected_video_uuid}
-                                    thumbnail_src={video.thumbnail_url}
-                                    preview_src={video.preview_url}
-                                    poster_src={video.poster_url}
-                                    stillsAvailable={video.stillsAvailable}
-                                    uuid={video.uuid}
-                                />
-                            </AspectRatio.Root>
+                            <GalleryVideo
+                                {video}
+                                year={new Date(video.publication_date)
+                                    .getUTCFullYear()
+                                    .toString()}
+                                selected={video.uuid === selected_video_uuid}
+                            />
                         </button>
                         <div
                             class="w-full basis-2/5 flex flex-col gap-y-1 justify-center md:justify-start drop-shadow mb-2 md:mb-0"
@@ -248,11 +234,6 @@
                                         <span class="drop-shadow">{role}</span>
                                     </div>
                                 {/each}
-                            </div>
-                            <div>
-                                <GalleryVideoDescription>
-                                    {video.description}
-                                </GalleryVideoDescription>
                             </div>
                         </div>
                     </div>

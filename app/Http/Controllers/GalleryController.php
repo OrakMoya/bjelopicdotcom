@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Still;
 use App\Models\Video;
+use App\Models\VideoRole;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -44,9 +45,6 @@ class GalleryController extends Controller
                 ->where('video_id', $video->id)->count() > 0;
 
             sort($roles);
-            if ($video->stillsAvailable) {
-                array_push($roles, 'Stillovi Dostupni');
-            }
             $video->roles = $roles;
 
             $pushed = false;
@@ -95,11 +93,24 @@ class GalleryController extends Controller
         $stills = array_map(function ($still) {
             return [...$still, 'path' => Storage::url($still['path'])];
         }, $stills);
+
+        $video->load('videoRoles');
+        $roles = [];
+        foreach ($video->videoRoles as $role) {
+            array_push($roles, $role->role);
+        }
+
         $video = [
+            'id' => $video->id,
             'title' => $video->title,
+            'description' => $video->description,
+            'link' => $video->link,
+            'subject' => $video->subject,
             'publication_date' => $video->publication_date,
-            'uuid' => $video->uuid
+            'uuid' => $video->uuid,
+            'roles' => $roles
         ];
-        return Inertia::render('Subpages/Stills', ['video' => $video, 'stills' => $stills]);
+
+        return Inertia::render('Subpages/Video', ['video' => $video, 'stills' => $stills]);
     }
 }

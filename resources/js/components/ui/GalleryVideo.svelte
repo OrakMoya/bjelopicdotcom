@@ -1,152 +1,101 @@
 <script>
-    import { run, preventDefault, stopPropagation } from "svelte/legacy";
-
-    import { fade, fly } from "svelte/transition";
-    import { onMount } from "svelte";
-    import { AspectRatio } from "bits-ui";
-    import { ChevronLeft, ImagesIcon } from "lucide-svelte";
     import { Link } from "@inertiajs/svelte";
+    import { AspectRatio } from "$lib/components/ui/aspect-ratio";
+    import { fade } from "svelte/transition";
+    import Checkmark from "./Checkmark.svelte";
 
     /**
      * @typedef {Object} Props
-     * @property {any} [preview_src]
-     * @property {any} [thumbnail_src]
      * @property {string} [alt]
-     * @property {string|null} selected_id
-     * @property {string} [this_id]
-     * @property {string} [href]
-     * @property {string} [poster_src]
-     * @property {string} [title]
-     * @property {string} [year]
+     * @property {boolean} selected
+     * @property {boolean} [showTitle]
+     * @property {any} video
      */
 
     /** @type {Props & { [key: string]: any }} */
     let {
-        preview_src = null,
-        thumbnail_src = null,
+        video,
         alt = "",
-        selected_id,
-        this_id = "",
-        href = "",
-        poster_src = "",
-        title = "",
         year = "",
-        stillsAvailable = false,
-        uuid = "",
+        selected = false,
+        showTitle = false,
         ...rest
     } = $props();
-    let poster_shown = $state(false);
-    let screensize_md = 768;
-    let innerWidth = $state(0);
-    let menubar_height = $state(0);
-    let duration = preview_src ? 100 : 0;
-    let focused = $derived(this_id === selected_id);
-    $effect(() => {
-        poster_shown = focused && poster_shown;
-    });
+    let duration = video.preview_url ? 100 : 0;
 </script>
 
-<svelte:window bind:innerWidth />
-
-<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
-    class="{focused
+    class="{selected
         ? 'scale-[104%] md:scale-[102%]'
-        : ''} transition-all duration-300 w-full h-full"
+        : ''} transition-all duration-300 w-full h-full rounded-md overflow-clip"
 >
-    <div class="w-full h-full overflow-hidden relative bg-black {rest.class}">
-        {#if focused && preview_src}
-            <div
-                transition:fade
-                class="absolute flex items-center align-middle w-full h-full top-0"
-            >
-                <a
-                    aria-label="View video"
-                    {href}
-                    target="_blank"
-                    class="block w-full h-full object-cover"
-                    transition:fade={{ duration }}
+    <AspectRatio ratio={16 / 9}>
+        <div
+            class="w-full h-full overflow-hidden relative bg-black {rest.class}"
+        >
+            {#if selected && video.preview_url}
+                <div
+                    transition:fade
+                    class="absolute flex items-center align-middle w-full h-full top-0"
                 >
-                    <video
-                        muted
-                        autoplay
-                        loop
-                        transition:fade
-                        class="w-full h-full object-cover"
-                    >
-                        <source src={preview_src} />
-                    </video>
-                </a>
-            </div>
-        {:else}
-            <div transition:fade class="absolute w-full h-full">
-                {#if focused}
                     <a
-                        {href}
+                        aria-label="View video"
+                        href={video.link}
                         target="_blank"
-                        class="block absolute w-full h-full"
-                        transition:fade={{ duration }}
+                        class="block w-full h-full object-cover"
                     >
-                        <img
-                            src={thumbnail_src}
-                            {alt}
-                            class="object-cover w-full h-full"
-                        />
+                        <video
+                            muted
+                            autoplay
+                            loop
+                            transition:fade
+                            class="w-full h-full object-cover"
+                        >
+                            <source src={video.preview_url} />
+                        </video>
                     </a>
-                {:else}
-                    <img
-                        src={thumbnail_src}
-                        {alt}
-                        class="absolute w-full h-full object-cover"
-                        transition:fade={{ duration }}
-                    />
-                {/if}
-            </div>
-        {/if}
-        {#if focused && (title || stillsAvailable)}
-            <div
-                bind:clientHeight={menubar_height}
-                transition:fly={{ opacity: 1, y: menubar_height }}
-                class="absolute flex items-center justify-between font-semibold w-full bottom-0 bg-black/80 p-1 text-left"
-            >
-                <div class={title ? "" : "invisible"}>
-                    {title} <span class="text-bjelopic-blue-1"> ({year})</span>
                 </div>
-                <div class={stillsAvailable ? "" : "invisible"}>
-                    <Link href={"/gallery/"+uuid}>
-                        <ImagesIcon class="w-5 h-5 m-2" />
-                    </Link>
+            {:else}
+                <div transition:fade class="absolute w-full h-full">
+                    {#if selected}
+                        <a
+                            aria-label="View video"
+                            href={video.link}
+                            target="_blank"
+                            class="block w-full h-full object-cover"
+                        >
+                            <img
+                                src={video.thumbnail_url}
+                                {alt}
+                                class="object-cover w-full h-full"
+                            />
+                        </a>
+                    {:else}
+                        <img
+                            src={video.thumbnail_url}
+                            {alt}
+                            class="absolute w-full h-full object-cover"
+                            transition:fade={{ duration }}
+                        />
+                    {/if}
                 </div>
-            </div>
-        {/if}
-        {#if !poster_shown && poster_src && focused}
-            <button
-                transition:fly={{ x: 50 }}
-                class="absolute top-[15%] transition-all hover:pr-4 right-0 bg-black/80 rounded-tl-2xl rounded-bl-2xl p-2 z-10 block"
-                onclick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    poster_shown = true;
-                }}
+            {/if}
+        </div>
+    </AspectRatio>
+    <Link
+        class="px-2 py-1 text-sm sm:text-base md:text-sm lg:text-base italic text-neutral-500 text-left bg-neutral-900 border border-t-0 border-accent rounded-b-md flex justify-between items-center w-full gap-2"
+        href={"/gallery/" + video.uuid}
+    >
+        <div class="inline-flex items-center gap-x-2 overflow-hidden">
+            <span class={showTitle ? "block" : "hidden"}
+                >{video.title} ({new Date(
+                    video.publication_date,
+                ).getUTCFullYear()})</span
             >
-                <ChevronLeft class="w-6 h-6" />
-            </button>
-        {/if}
-
-        {#if focused && poster_src && poster_shown}
-            <button
-                class="w-1/3 p-4 z-10 hover:cursor-pointer block absolute right-0 top-0"
-                onclick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    poster_shown = false;
-                }}
-                transition:fly={{ x: 100 }}
-            >
-                <AspectRatio.Root ratio={707 / 1000}>
-                    <img src={poster_src} alt="" />
-                </AspectRatio.Root>
-            </button>
-        {/if}
-    </div>
+            {#if video.stillsAvailable}
+                <Checkmark>Stillovi</Checkmark>
+            {/if}
+        </div>
+        <span class="underline whitespace-nowrap w-fit">Pročitaj više</span>
+    </Link>
 </div>
