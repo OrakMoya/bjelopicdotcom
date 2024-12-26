@@ -110,7 +110,15 @@
                     />
                 </AspectRatio>
                 <div class="px-2 py-2 flex flex-col md:flex-row items-center">
-                    <NumberInput />
+                    <NumberInput
+                        onChange={(number) =>
+                            router.patch(
+                                "/webtools/videos/stills/" + still.id,
+                                {
+                                    position: number,
+                                },
+                            )}
+                    />
                     <Button
                         variant="destructive"
                         class="transition-opacity p-2 h-fit"

@@ -21,7 +21,7 @@ class WebtoolsStillsController extends Controller
     {
         $stills = Still::select('id', 'video_id', 'path', 'description', 'priority')
             ->where('video_id', '=', $video->id)
-            ->orderBy('priority')
+            ->orderBy('position')
             ->get()->toArray();
         $stills = array_map(function ($row) {
             return [...$row, 'path' => Storage::url($row['path'])];
@@ -84,9 +84,12 @@ class WebtoolsStillsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Still $still): void
+    public function update(Request $request, Still $still): RedirectResponse
     {
-        //
+        $request->validate(['position' => ['integer', 'required']]);
+        $still->position = $request->position;
+        $still->save();
+        return redirect()->back();
     }
 
     /**
