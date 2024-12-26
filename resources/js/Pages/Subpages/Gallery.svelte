@@ -3,6 +3,8 @@
     import TheBjeloPIC from "$lib/components/ui/TheBjeloPIC.svelte";
     import { AspectRatio } from "bits-ui";
     import GalleryVideoDescription from "./GalleryVideoDescription.svelte";
+    import Checkmark from "$lib/components/ui/Checkmark.svelte";
+    import { Link } from "@inertiajs/svelte";
     /** @import {GalleryVideoProps} from "$lib/types" */
 
     /**
@@ -57,16 +59,17 @@
 
 {#each by_collection as collection, i}
     <section
-        class="mx-auto px-4 relative max-w-[550px] md:max-w-none"
+        class="mx-auto px-4 relative max-w-[550px] md:max-w-none my-4"
         onclick={() => (selected_video_uuid = "")}
         role="none"
     >
         <div
             class="max-w-screen-xl mx-auto
-            {!by_collection.at(i + 1)?.videos[0].collection && i+1 < by_collection.length
-                ? 'border-b'
+            {!by_collection.at(i + 1)?.videos[0].collection &&
+            i + 1 < by_collection.length
+                ? ''
                 : ''}
-            py-4 border-neutral-800"
+            py-4 border border-neutral-800 bg-neutral-900 rounded-md px-4"
         >
             {#if collection.videos[0].collection}
                 {@const firstVideo = collection.videos[0]}
@@ -196,6 +199,7 @@
                             }}
                         >
                             <GalleryVideo
+                                hideBottomBar
                                 {video}
                                 year={new Date(video.publication_date)
                                     .getUTCFullYear()
@@ -225,7 +229,7 @@
                                 >
                             {/if}
                             <div
-                                class="flex justify-center md:justify-start {i %
+                                class="flex justify-center md:justify-start box-border {i %
                                     2 ==
                                 0
                                     ? 'flex-row'
@@ -238,7 +242,11 @@
                                         <span class="drop-shadow">{role}</span>
                                     </div>
                                 {/each}
+                                {#if video.stillsAvailable}
+                                    <Checkmark class="bg-neutral-900 border border-neutral-500 box-border rounded-md pl-1 pr-2 text-sm lg:text-base">Stillovi</Checkmark>
+                                {/if}
                             </div>
+                            <Link class="italic underline text-neutral-500" href={"/gallery/"+video.uuid}>Pročitaj više</Link>
                         </div>
                     </div>
                 {/each}

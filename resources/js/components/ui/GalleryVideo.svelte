@@ -9,6 +9,7 @@
      * @property {string} [alt]
      * @property {boolean} selected
      * @property {boolean} [showTitle]
+     * @property {boolean} [hideBottomBar]
      * @property {any} video
      */
 
@@ -17,6 +18,7 @@
         video,
         alt = "",
         year = "",
+        hideBottomBar = false,
         selected = false,
         showTitle = false,
         ...rest
@@ -89,7 +91,7 @@
         </div>
     </AspectRatio>
     <Link
-        class="px-2 py-1 text-sm sm:text-base md:text-sm lg:text-base italic text-neutral-500 text-left  flex justify-between items-center w-full gap-2"
+        class="px-2 py-1 text-sm sm:text-base md:text-sm lg:text-base italic text-neutral-500 text-left  flex justify-between items-center w-full gap-2 {hideBottomBar ? 'hidden' : ''}"
         href={"/gallery/" + video.uuid}
     >
         <div class="inline-flex items-center gap-x-2 overflow-hidden">
