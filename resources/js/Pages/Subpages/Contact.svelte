@@ -4,7 +4,13 @@
     import { Label } from "$lib/components/ui/label";
     import { Textarea } from "$lib/components/ui/textarea";
     import { useForm } from "@inertiajs/svelte";
-    import { ClockIcon, MailIcon, SendIcon, UserIcon } from "lucide-svelte";
+    import {
+        ClockIcon,
+        LoaderCircleIcon,
+        MailIcon,
+        SendIcon,
+        UserIcon,
+    } from "lucide-svelte";
 
     /** @type {{[key: string]: any}}*/
     let { ...rest } = $props();
@@ -21,7 +27,11 @@
      */
     function handleSubmit(event) {
         event.preventDefault();
-        $form.post("/contact");
+        $form.post("/contact", {
+            onSuccess: () => {
+                $form.reset();
+            },
+        });
     }
 </script>
 
@@ -95,10 +105,17 @@
                                 /> Pošalji mi kopiju
                             </Label>
                             <button
-                                class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold text-baseline"
+                                class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold text-baseline disabled:opacity-50 transition-all"
                                 type="submit"
+                                disabled={$form.processing}
                             >
-                                <SendIcon class="w-5 h-5" />
+                                {#if $form.processing}
+                                    <LoaderCircleIcon
+                                        class="w-5 h-5 animate-spin"
+                                    />
+                                {:else}
+                                    <SendIcon class="w-5 h-5" />
+                                {/if}
                                 <span>Pošalji</span>
                             </button>
                         </div>
