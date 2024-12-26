@@ -3,7 +3,7 @@
     import { Link } from "@inertiajs/svelte";
 </script>
 
-<header class="bg-black p-4 border-b border-b-neutral-800">
+<header class="bg-neutral-900 p-4 border-b border-b-neutral-800">
     <div
         class="max-w-screen-lg gap-y-2 mx-auto flex justify-between items-center flex-col md:flex-row"
     >

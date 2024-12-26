@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\LoginController;
@@ -12,6 +13,7 @@ Route::middleware(TrackVisitors::class)->group(function () {
     Route::get('/', [HeroController::class, 'show']);
     Route::get('/gallery', [GalleryController::class, 'index']);
     Route::get('/gallery/{video:uuid}', [GalleryController::class, 'show']);
+    Route::get('/contact', [ContactFormController::class, 'show']);
 });
 
 Route::get('/webtools/login', [WebtoolsLoginController::class, 'show'])->name('login');
@@ -21,3 +23,5 @@ Route::post('/webtools/login', [LoginController::class, 'authenticate']);
 
 Route::get('/f/{sqid}', [TemporaryUploadController::class, 'show']);
 Route::get('/f/{sqid}/download', [TemporaryUploadController::class, 'download']);
+
+Route::post('/contact', [ContactFormController::class, 'store']);

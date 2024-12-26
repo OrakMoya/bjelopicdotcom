@@ -77,7 +77,7 @@
                 <Carousel.Item
                     class=" basis-auto z-0 relative md:hover:z-10 overflow-visible p-0 outline outline-black outline-1"
                 >
-                    <FilmReel width={innerWidth < screensize_md ? 16 : 24} />
+                    <FilmReel  />
                     <div class="overflow-visible">
                         <!-- svelte-ignore a11y_no_static_element_interactions -->
                         <div
@@ -105,9 +105,7 @@
                                 </AspectRatio.Root>
                             </div>
                         </div>
-                        <FilmReel
-                            width={innerWidth < screensize_md ? 16 : 24}
-                        />
+                        <FilmReel/>
                     </div>
                 </Carousel.Item>
             {/each}

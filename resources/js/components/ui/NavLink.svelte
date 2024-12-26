@@ -14,7 +14,7 @@
         children
     }: Props = $props();
 
-    
+
 </script>
 
 {#if xhr}

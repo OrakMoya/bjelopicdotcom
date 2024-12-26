@@ -14,7 +14,7 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <footer
-    class="px-4 py-8 bg-black text-white w-full border-t border-t-neutral-800"
+    class="px-4 py-8 bg-neutral-900 text-white w-full border-t border-t-neutral-800"
 >
     <div
         class="max-w-screen-lg mx-auto flex flex-col gap-y-4 justify-center items-center md:items-start md:justify-between md:flex-row"

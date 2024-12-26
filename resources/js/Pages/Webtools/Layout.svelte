@@ -82,7 +82,7 @@
                 <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <div
                     transition:fade={{ duration: 300 }}
-                    class="w-screen h-screen fixed bg-black/80 z-30 top-0"
+                    class="w-screen h-screen fixed bg-neutral-900/80 z-30 top-0"
                     onclick={() => (menubar_open = false)}
                 ></div>
             {/if}
@@ -91,7 +91,7 @@
                 <!-- Mobile collapsing menu -->
                 <div class="h-full relative w-full z-30">
                     <div
-                        class="flex fixed w-full pl-8 py-4 pr-20 bg-black outline outline-1 outline-neutral-800 rounded-tl-xl rounded-tr-xl"
+                        class="flex fixed w-full pl-8 py-4 pr-20 bg-neutral-900 outline outline-1 outline-neutral-800 rounded-tl-xl rounded-tr-xl"
                         style="bottom: {header_height}px;"
                         transition:fly={{
                             y: menubar_height + header_height + 50,
@@ -107,7 +107,7 @@
                 <!-- Right side collapsing menu -->
                 <div class="h-full relative w-full z-30">
                     <div
-                        class="flex fixed right-0 min-w-72 pl-8 py-4 pr-20 bg-black border-l border-l-neutral-800"
+                        class="flex fixed right-0 min-w-72 pl-8 py-4 pr-20 bg-neutral-900 border-l border-l-neutral-800"
                         bind:clientWidth={menubar_width}
                         style="height: calc(100vh - {effective_header_height}px); top: {effective_header_height}px;"
                         transition:fly={{

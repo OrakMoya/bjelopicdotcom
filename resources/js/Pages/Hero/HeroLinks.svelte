@@ -9,10 +9,10 @@
         ><span class="drop-shadow">Naši radovi</span></Link
     >
     <div class="grid grid-cols-2 gap-4 sm:col-span-2">
-        <a
-            href="mailto:info@bjelopic.com"
+        <Link
+            href="/contact"
             class="px-4 py-2 rounded-xl bg-black/50 drop-shadow-md transition duration-300 border border-neutral-700 text-white text-center hover:bg-neutral-800/75"
-            >Kontaktirajte nas</a
+            >Kontaktirajte nas</Link
         >
         <a
             href="https://blog.bjelopic.com"

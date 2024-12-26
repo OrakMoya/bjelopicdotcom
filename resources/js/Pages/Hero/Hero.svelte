@@ -76,12 +76,12 @@
         </div>
     {/if}
     <section
-        class="w-full h-full flex flex-col justify-center items-center relative gap-y-4"
+        class="w-full h-full flex flex-col justify-center items-center relative gap-y-8"
     >
         <div class="basis-1/3 flex place-items-end">
             <div class="flex flex-col items-center">
                 <TheBjeloPic
-                    class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-4 sm:mb-6 text-center relative md:right-1 right-[2px]"
+                    class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-6 sm:mb-8 text-center relative md:right-1 right-[2px]"
                 />
                 <div
                     class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3"

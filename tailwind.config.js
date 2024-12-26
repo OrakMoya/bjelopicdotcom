@@ -4,7 +4,7 @@ import tailwindcssAnimate from "tailwindcss-animate";
 /** @type {import('tailwindcss').Config} */
 const config = {
     darkMode: ["class"],
-    content: ["./resources/**/*.{html,js,svelte,ts}"],
+    content: ["./resources/**/*.{html,js,svelte,ts,blade.php}"],
 	safelist: ["dark"],
 	theme: {
         fontFamily: {
