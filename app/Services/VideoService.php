@@ -145,8 +145,11 @@ class VideoService
 
         return true;
     }
-
-    private function setVideoRoles(Video $video, array $roles)
+    /**
+     * @param array<int,mixed> $roles
+     * @return void
+     */
+    private function setVideoRoles(Video $video, array $roles): void
     {
 
         $role_ids = [];

@@ -57,13 +57,17 @@
 
 {#each by_collection as collection, i}
     <section
-        class=" mx-auto {i % 2
-            ? 'bg-bjelopic-neutral-8'
-            : 'bg-bjelopic-neutral-7'} py-4 px-4 relative"
+        class="mx-auto px-4 relative max-w-[550px] md:max-w-none"
         onclick={() => (selected_video_uuid = "")}
         role="none"
     >
-        <div class="max-w-screen-xl mx-auto px-4">
+        <div
+            class="max-w-screen-xl mx-auto
+            {!by_collection.at(i + 1)?.videos[0].collection && i+1 < by_collection.length
+                ? 'border-b'
+                : ''}
+            py-4 border-neutral-800"
+        >
             {#if collection.videos[0].collection}
                 {@const firstVideo = collection.videos[0]}
                 {@const uniqueRoles = getUniqueRoles(collection.videos)}

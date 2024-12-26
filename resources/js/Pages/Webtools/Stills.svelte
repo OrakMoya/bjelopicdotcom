@@ -8,6 +8,7 @@
     import { ImagesIcon, PlusIcon, TrashIcon } from "lucide-svelte";
     import { AspectRatio } from "$lib/components/ui/aspect-ratio";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
+    import NumberInput from "$lib/components/ui/NumberInput.svelte";
 
     let { video, stills } = $props();
 
@@ -30,7 +31,10 @@
 </script>
 
 <svelte:head>
-    <title>{video.title} ({new Date(video.publication_date).getUTCFullYear()}) - Webtools</title>
+    <title
+        >{video.title} ({new Date(video.publication_date).getUTCFullYear()}) -
+        Webtools</title
+    >
 </svelte:head>
 
 <AlertDialog.Root bind:open={deleteDialogShown}>
@@ -85,7 +89,7 @@
         class="grid grid-cols-1 md:grid-cols-2 xl:gap-6 gap-6 md:gap-4 mt-2 md:mt-0"
     >
         <label
-            class="bg-bjelopic-neutral-8 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white transition-colors flex items-center justify-center"
+            class="bg-bjelopic-neutral-8 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white hover:cursor-pointer transition-colors flex items-center justify-center"
             for="still-input"
         >
             <AspectRatio ratio={stills.length > 0 ? 3 : 2.35}>
@@ -95,24 +99,30 @@
             </AspectRatio>
         </label>
         {#each stills as still, i}
-            <AspectRatio
-                ratio={16 / 9}
-                class="group rounded-md overflow-clip bg-background border border-accent drop-shadow-glow-sm"
+            <div
+                class="flex md:flex-col border border-neutral-800 bg-neutral-900 rounded-md overflow-clip"
             >
-                <img
-                    src={still.path}
-                    class="object-contain w-full h-full"
-                    alt={"Still no. " + (i + 1) + " for " + video.title}
-                />
-                <Button
-                    variant="destructive"
-                    class="absolute right-2 bottom-2 lg:hidden group-hover:block transition-all"
-                    onclick={() => {
-                        deleteTarget = still.id;
-                        deleteDialogShown = true;
-                    }}><TrashIcon class="w-4 h-4" /></Button
-                >
-            </AspectRatio>
+                <AspectRatio ratio={16 / 9} class="group bg-black">
+                    <img
+                        src={still.path}
+                        class="object-contain w-full h-full"
+                        alt={"Still no. " + (i + 1) + " for " + video.title}
+                    />
+                </AspectRatio>
+                <div class="px-2 py-2 flex flex-col md:flex-row items-center">
+                    <NumberInput />
+                    <Button
+                        variant="destructive"
+                        class="transition-opacity p-2 h-fit"
+                        onclick={() => {
+                            deleteTarget = still.id;
+                            deleteDialogShown = true;
+                        }}
+                    >
+                        <TrashIcon class="w-4 h-4" />
+                    </Button>
+                </div>
+            </div>
         {/each}
     </div>
 </section>

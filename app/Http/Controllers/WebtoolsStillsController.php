@@ -19,8 +19,9 @@ class WebtoolsStillsController extends Controller
      */
     public function index(Video $video): Response
     {
-        $stills = Still::select('id', 'video_id', 'path', 'description')
+        $stills = Still::select('id', 'video_id', 'path', 'description', 'priority')
             ->where('video_id', '=', $video->id)
+            ->orderBy('priority')
             ->get()->toArray();
         $stills = array_map(function ($row) {
             return [...$row, 'path' => Storage::url($row['path'])];

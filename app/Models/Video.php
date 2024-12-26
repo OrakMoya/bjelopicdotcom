@@ -25,7 +25,7 @@ class Video extends Model
         'category',
     ];
 
-    public function encodeURLs()
+    public function encodeURLs(): void
     {
         if ($this->thumbnail_path)
             $this->attributes['thumbnail_url'] = Storage::url($this->thumbnail_path);
@@ -34,14 +34,18 @@ class Video extends Model
         if ($this->poster_path)
             $this->attributes['poster_url'] = Storage::url($this->poster_path);
     }
-
-
+    /**
+     * @return BelongsToMany<VideoRole,Video>
+     */
     public function videoRoles(): BelongsToMany
     {
         return $this->belongsToMany(VideoRole::class, 'video_videorole', 'video_id', 'videorole_id');
     }
-
-    public function stills(): HasMany{
+    /**
+     * @return HasMany<Still,Video>
+     */
+    public function stills(): HasMany
+    {
         return $this->hasMany(Still::class, 'video_id', 'id');
     }
 }

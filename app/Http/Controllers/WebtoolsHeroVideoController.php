@@ -27,7 +27,6 @@ class WebtoolsHeroVideoController extends Controller
         ]);
 
         $video = $request->video;
-
         Storage::disk('public')->putFileAs('', $video, 'hero.webm');
 
         return redirect()->back();
