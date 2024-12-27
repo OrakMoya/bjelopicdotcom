@@ -13,7 +13,7 @@
     >
     <Link
         href="/contact"
-        class="px-4 py-2  drop-shadow-md transition duration-300 text-white group text-center hover:bg-neutral-800/75"
-        >Kontaktirajte nas <ArrowRight /> </Link
+        class="px-4 py-2  drop-shadow-md transition duration-300 text-white group text-center inline-flex items-center gap-x-1"
+        >Kontaktirajte nas <ArrowRight class="group-hover:translate-x-2 transition-all duration-300" /> </Link
     >
 </div>
