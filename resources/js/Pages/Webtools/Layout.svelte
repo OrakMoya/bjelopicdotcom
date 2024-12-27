@@ -123,22 +123,22 @@
         </div>
     {:else}
         <!-- Header for left side fixed menu -->
-        <Header />
+        <Header bind:clientHeight={header_height} />
     {/if}
 
     {#if innerWidth >= screensize_xl || append_absolute}
         <!-- Disable scroll while menu is open -->
         <style>
             html {
-                overflow: hidden;
+                overflow: clip;
             }
         </style>
     {/if}
 
-    <div class="flex flex-grow bg-black text-white">
+    <div class="flex flex-grow bg-black text-white xl:overflow-hidden">
         {#if $page.props.logged_in}
             <div
-                class="min-w-72 px-8 py-6 border-r border-r-neutral-800 {innerWidth <
+                class="min-w-72 px-8 py-6 border-r border-r-neutral-800 bg-neutral-900 {innerWidth <
                 screensize_xl
                     ? 'hidden'
                     : ''}"

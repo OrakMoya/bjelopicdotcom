@@ -11,17 +11,8 @@
 </script>
 
 <div
-    class="flex w-fit items-center rounded-md bg-black px-2 py-1 gap-1 h-full {rest.class}"
+    class="flex flex-col md:flex-row w-fit items-center rounded-md bg-black px-2 py-1 gap-1 md:h-full {rest.class}"
 >
-    <button
-        onclick={() => {
-            number--;
-            onChange(number);
-        }}
-        ><ArrowDown
-            class="w-5 h-5 hover:translate-y-[2px] transition-transform"
-        /></button
-    >
     <button
         onclick={() => {
             number++;
@@ -29,6 +20,16 @@
         }}
         ><ArrowUp
             class="w-5 h-5 hover:-translate-y-[2px] transition-transform "
+        /></button
+    >
+    <div>{number}</div>
+    <button
+        onclick={() => {
+            number--;
+            onChange(number);
+        }}
+        ><ArrowDown
+            class="w-5 h-5 hover:translate-y-[2px] transition-transform"
         /></button
     >
 </div>

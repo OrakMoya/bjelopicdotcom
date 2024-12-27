@@ -7,7 +7,9 @@ use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,9 +21,9 @@ class WebtoolsStillsController extends Controller
      */
     public function index(Video $video): Response
     {
-        $stills = Still::select('id', 'video_id', 'path', 'description', 'priority')
+        $stills = Still::select('id', 'video_id', 'path', 'description', 'position')
             ->where('video_id', '=', $video->id)
-            ->orderBy('position')
+            ->orderBy('position', 'DESC')
             ->get()->toArray();
         $stills = array_map(function ($row) {
             return [...$row, 'path' => Storage::url($row['path'])];
@@ -47,16 +49,20 @@ class WebtoolsStillsController extends Controller
      */
     public function store(Video $video, Request $request): RedirectResponse
     {
+        $max = Still::where('video_id', $video->id)
+            ->max('position');
+
         $request->validate([
             'stills.*' => ['required', 'image']
         ]);
         $stills = [];
         /** @var UploadedFile $file */
-        foreach ($request->file('stills') as $file) {
+        foreach ($request->file('stills') as $i => $file) {
             $path = Storage::putFile('public/stills/' . $video->id, $file);
             array_push($stills, [
                 'video_id' => $video->id,
                 'path' => $path,
+                'position' => $max + $i,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
@@ -84,11 +90,28 @@ class WebtoolsStillsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Still $still): RedirectResponse
+    public function update(Request $request, Still $still): RedirectResponse | HttpResponse
     {
         $request->validate(['position' => ['integer', 'required']]);
-        $still->position = $request->position;
+        $position = $request->position;
+
+        // Moved position
+        if ($still->position > $position) {
+            Still::where('video_id', $still->video_id)
+                ->where('position', $position)
+                ->update(['position' => DB::raw('position+1')]);
+        } else {
+            Still::where('video_id', $still->video_id)
+                ->where('position', $position)
+                ->update(['position' => DB::raw('position-1')]);
+        }
+        $still->position = $position;
         $still->save();
+
+        if ($request->acceptsJson()) {
+            return response(status: 200);
+        }
+
         return redirect()->back();
     }
 

@@ -9,6 +9,7 @@
     import { AspectRatio } from "$lib/components/ui/aspect-ratio";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import NumberInput from "$lib/components/ui/NumberInput.svelte";
+    import axios, { AxiosHeaders } from "axios";
 
     let { video, stills } = $props();
 
@@ -55,6 +56,8 @@
                                         deleteTarget = null;
                                         deleteDialogShown = false;
                                     },
+                                    preserveState: true,
+                                    preserveScroll: true,
                                 },
                             );
                         }}
@@ -109,13 +112,19 @@
                         alt={"Still no. " + (i + 1) + " for " + video.title}
                     />
                 </AspectRatio>
-                <div class="px-2 py-2 flex flex-col md:flex-row items-center">
+                <div
+                    class="px-2 py-2 flex flex-col-reverse md:flex-row items-center justify-between"
+                >
                     <NumberInput
+                        number={still.position}
                         onChange={(number) =>
                             router.patch(
                                 "/webtools/videos/stills/" + still.id,
                                 {
                                     position: number,
+                                },
+                                {
+                                    preserveScroll: true,
                                 },
                             )}
                     />
