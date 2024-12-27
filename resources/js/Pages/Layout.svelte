@@ -10,7 +10,7 @@
 
 <div class="flex flex-col h-screen">
     <Header />
-    <div class="flex-grow bg-black text-white">
+    <div class="flex-grow bg-black text-white relative">
         {@render children?.()}
     </div>
 

@@ -56,10 +56,16 @@
 </svelte:head>
 
 <svelte:window bind:innerHeight />
-
+<!-- nisam zih
+<div class="absolute w-full h-full">
+    <div class="w-full h-full max-w-screen-xl mx-auto">
+        <div class="w-1/5 h-full bg-bjelopic-red-5 relative -translate-x-1/3"></div>
+    </div>
+</div>
+-->
 {#each by_collection as collection, i}
     <section
-        class="mx-auto px-4 relative max-w-[550px] md:max-w-none my-4"
+        class="mx-auto px-4 max-w-[550px] md:max-w-none my-4 relative"
         onclick={() => (selected_video_uuid = "")}
         role="none"
     >
@@ -243,10 +249,17 @@
                                     </div>
                                 {/each}
                                 {#if video.stillsAvailable}
-                                    <Checkmark class="bg-neutral-900 border border-neutral-500 box-border rounded-md pl-1 pr-2 text-sm lg:text-base">Stillovi</Checkmark>
+                                    <Checkmark
+                                        class="bg-neutral-900 border border-neutral-500 box-border rounded-md pl-1 pr-2 text-sm lg:text-base"
+                                        >Stillovi</Checkmark
+                                    >
                                 {/if}
                             </div>
-                            <Link class="italic underline text-neutral-500" href={"/gallery/"+video.uuid}>Pročitaj više</Link>
+                            <Link
+                                class="italic underline text-neutral-500"
+                                href={"/gallery/" + video.uuid}
+                                >Pročitaj više</Link
+                            >
                         </div>
                     </div>
                 {/each}

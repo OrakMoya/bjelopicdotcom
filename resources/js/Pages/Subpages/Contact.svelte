@@ -35,16 +35,21 @@
     }
 </script>
 
+<svelte:head>
+    <title>Kontakt - BjeloPIC</title>
+</svelte:head>
+
+
 <div class="px-8 w-full h-full relative overflow-clip">
     <div
         class="w-full h-full max-w-screen-xl flex flex-col items-center lg:items-start lg:flex-row justify-around gap-y-28 mx-auto py-28"
     >
-        <div class="relative max-w-[450px] w-full">
+        <div class="relative max-w-[450px] sm:max-w-[500px] lg:max-w-[450px] w-full">
             <MailIcon
                 class="opacity-[6%] absolute top-[200px] lg:-top-[70px] -left-[250px] lg:left-[250px] w-[600px] h-[600px] rotate-12"
             />
             <section
-                class="sm:bg-neutral-900 sm:px-8 sm:py-6 sm:rounded-xl sm:border border-neutral-800 relative"
+                class="sm:bg-neutral-900/60 sm:backdrop-blur-lg sm:px-8 sm:py-6 sm:rounded-xl sm:border border-neutral-800 relative"
             >
                 <div class="mb-5">
                     <h1
@@ -55,7 +60,7 @@
                     <h2 class="text-neutral-400">Kako Vam možemo pomoći?</h2>
                 </div>
                 <div class="flex flex-col gap-y-8 w-full">
-                    <form class="flex flex-col gap-y-4" onsubmit={handleSubmit}>
+                    <form class="flex flex-col gap-y-3" onsubmit={handleSubmit}>
                         <div>
                             <Label for="name" class="text-lg">Ime</Label>
                             <Input
@@ -125,12 +130,12 @@
         </div>
         <div class="">
             <section
-                class="mx-6 sm:max-w-[550px] lg:max-w-[450px] relative w-full"
+                class="px-6 sm:max-w-[550px] lg:max-w-[500px] relative w-full"
             >
-                <h3 class="text-xl font-bold mb-5 md:mt-3 text-bjelopic-red-1">
+                <h3 class="text-xl font-bold mb-5 lg:mt-9 text-bjelopic-red-1">
                     Kontaktne Informacije
                 </h3>
-                <div class="flex gap-x-8 flex-col md:flex-row gap-y-6">
+                <div class="flex gap-x-8 flex-col sm:flex-row gap-y-6">
                     <div class="flex flex-col gap-y-6 lg:w-full">
                         <div>
                             <h4

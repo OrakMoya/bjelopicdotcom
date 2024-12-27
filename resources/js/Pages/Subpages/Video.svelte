@@ -11,50 +11,52 @@
     >
 </svelte:head>
 
-<section class="p-4 max-w-screen-xl mx-auto mb-2">
-    <div class="mb-2">
-        <div
-            class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto md:mt-2 max-w-screen-md"
-        >
+<section class="p-4 max-w-screen-xl mx-auto mb-2 mt-10 flex flex-col gap-y-32">
+    <div>
+        <div class="mb-6">
             <div
-                class="border-b border-white w-full h-min transition-opacity duration-500"
-            ></div>
-            <span
-                class="text-center min-w-fit transition-all duration-500 text-2xl relative md:bottom-[2px] font-semibold tracking-tight"
-                >{video.title} ({new Date(
-                    video.publication_date,
-                ).getUTCFullYear()})</span
+                class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto md:mt-2 max-w-screen-md"
             >
-            <div
-                class="border-b border-white w-full h-min transition-opacity duration-500"
-            ></div>
+                <div
+                    class="border-b border-white w-full h-min transition-opacity duration-500"
+                ></div>
+                <span
+                    class="text-center min-w-fit transition-all duration-500 text-3xl relative md:bottom-[2px] font-semibold tracking-tight"
+                    >{video.title} ({new Date(
+                        video.publication_date,
+                    ).getUTCFullYear()})</span
+                >
+                <div
+                    class="border-b border-white w-full h-min transition-opacity duration-500"
+                ></div>
+            </div>
+            <div class="flex flex-col justify-center">
+                <span class="text-center text-neutral-400 italic"
+                    >By <TheBjeloPic />, for {#if video.subject === "BjeloPIC"}
+                        <TheBjeloPic />
+                    {:else}
+                        <span class="text-white">
+                            {video.subject}
+                        </span>
+                    {/if}
+                </span>
+            </div>
+            <div class="flex justify-center text-neutral-400">
+                <a class="italic underline" href={video.link}>Watch here</a>
+            </div>
         </div>
-        <div class="flex flex-col justify-center">
-            <span class="text-center text-neutral-500 italic"
-                >By <TheBjeloPic />, for {#if video.subject === "BjeloPIC"}
-                    <TheBjeloPic />
-                {:else}
-                    <span class="text-white">
-                        {video.subject}
-                    </span>
-                {/if}
-            </span>
-        </div>
-        <div class="flex justify-center">
-            <a class="italic underline" href={video.link}>Watch here</a>
-        </div>
+
+        <article class="max-w-screen-md mx-auto">
+            <div>
+                <p class="text-justify">{video.description}</p>
+            </div>
+        </article>
     </div>
 
-    <article class="max-w-screen-md mx-auto">
-        <div>
-            <p class="text-justify">{video.description}</p>
-        </div>
-    </article>
-
-    <div class="mt-16">
+    <div class="">
         <div
             id="roles"
-            class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-2 max-w-screen-md"
+            class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-6 max-w-screen-md"
         >
             <div
                 class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
@@ -78,10 +80,10 @@
         </div>
     </div>
 
-    <div class="{stills.length ? 'block' : 'hidden'} mt-16">
+    <div class={stills.length ? "block" : "hidden"}>
         <div
             id="stills"
-            class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-2 max-w-screen-md"
+            class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-8 max-w-screen-md"
         >
             <div
                 class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
@@ -94,7 +96,7 @@
                 class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
             ></div>
         </div>
-        <div class="grid grid-cols-1 gap-8">
+        <div class="grid grid-cols-1 gap-16">
             {#each stills as still}
                 <a href={still.path} target="_blank">
                     <img
