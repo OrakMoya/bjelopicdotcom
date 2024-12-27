@@ -8,6 +8,7 @@
      <link rel="icon" type="image/x-icon" href="/favicon.ico">
      <link rel="icon" type="image/x-icon" href="/favicon48.ico">
      <link rel="icon" type="image/x-icon" href="/favicon64.ico">
+    <title>BjeloPIC</title>
 
 
     @vite('resources/js/app.js')
