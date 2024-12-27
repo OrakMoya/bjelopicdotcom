@@ -44,7 +44,7 @@
                 class="opacity-[6%] absolute top-[200px] lg:-top-[70px] -left-[250px] lg:left-[250px] w-[600px] h-[600px] rotate-12"
             />
             <section
-                class="bg-neutral-900 px-8 py-6 rounded-xl border border-neutral-800 relative"
+                class="sm:bg-neutral-900 sm:px-8 sm:py-6 sm:rounded-xl sm:border border-neutral-800 relative"
             >
                 <div class="mb-5">
                     <h1
@@ -52,7 +52,7 @@
                     >
                         Kontaktirajte nas
                     </h1>
-                    <h2 class="text-neutral-400">Kako vam možemo pomoći?</h2>
+                    <h2 class="text-neutral-400">Kako Vam možemo pomoći?</h2>
                 </div>
                 <div class="flex flex-col gap-y-8 w-full">
                     <form class="flex flex-col gap-y-4" onsubmit={handleSubmit}>
@@ -142,7 +142,7 @@
                                 >info@bjelopic.com</a
                             >
                             <p class="text-neutral-400 mt-1">
-                                Izravno nam pošaljite mail i vratit ćemo Vam se
+                                Izravno nam pošaljite mail i odgovorit ćemo Vam
                                 u najkraćem mogućem roku.
                             </p>
                         </div>
