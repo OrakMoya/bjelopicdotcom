@@ -49,7 +49,7 @@
                 class="opacity-[6%] absolute top-[200px] lg:-top-[70px] -left-[250px] lg:left-[250px] w-[600px] h-[600px] rotate-12"
             />
             <section
-                class="sm:bg-neutral-900/60 sm:backdrop-blur-lg sm:px-8 sm:py-6 sm:rounded-xl sm:border border-neutral-800 relative"
+                class="sm:bg-neutral-900/60 sm:backdrop-blur-lg sm:px-8 sm:py-6 sm:rounded-md sm:border border-neutral-800 relative"
             >
                 <div class="mb-5">
                     <h1
@@ -110,7 +110,7 @@
                                 /> Pošalji mi kopiju
                             </Label>
                             <button
-                                class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold text-baseline disabled:opacity-50 transition-all"
+                                class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md font-semibold text-baseline disabled:opacity-50 transition-all"
                                 type="submit"
                                 disabled={$form.processing}
                             >

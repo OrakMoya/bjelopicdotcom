@@ -18,7 +18,7 @@ class HeroController extends Controller
         }
 
         return Inertia::render(
-            'Hero/Hero',
+            'Hero/NewHero',
             [
                 'videos' => $videos,
                 'heroUrl' =>
