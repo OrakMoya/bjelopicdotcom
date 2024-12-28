@@ -1,97 +1,109 @@
 <script module>
+    import Button from "$lib/components/ui/button/button.svelte";
+    import { Link } from "@inertiajs/svelte";
+    import Header from "../Header.svelte";
+
     export { default as layout } from "./Layout.svelte";
 </script>
 
 <script>
-    import TheBjeloPic from "$lib/components/ui/TheBjeloPIC.svelte";
-    import { ChevronDown } from "lucide-svelte";
-    import { fade } from "svelte/transition";
-    import TheSubtitle from "$lib/components/ui/TheSubtitle.svelte";
-    import HeroCarousel from "./HeroCarousel.svelte";
-    import HeroLinks from "./HeroLinks.svelte";
-    /** @import {HeroGalleryVideoProps} from "$lib/types" */
+    import BmRecord from "$lib/components/ui/BMRecord.svelte";
+    import HeroTypewriter from "$lib/components/ui/HeroTypewriter.svelte";
+    import { MoveRight } from "lucide-svelte";
 
-    /**
-     * @typedef {object} Props
-     * @prop {HeroGalleryVideoProps[]} videos
-     */
-
-    /** @type {Props} */
-    let { videos, heroUrl } = $props();
-
-    let scrollY = $state(0);
-    let window_scrolled = $state(false);
-    let arrows_shown = $state(false);
-
-    $effect(() => {
-        if (scrollY && !window_scrolled) {
-            window_scrolled = true;
-        }
-    });
-
-    setTimeout(() => (arrows_shown = true), 4000);
+    let { heroUrl } = $props();
 </script>
 
-<svelte:head>
-    <title>BjeloPIC</title>
-</svelte:head>
-
-<svelte:window bind:scrollY />
-
-<main class="max-w-screen-xl h-screen mx-auto">
-    <div
-        class="absolute top-0 left-0 overflow-clip w-screen h-full flex justify-center items-center"
-    >
-        <div class="brightness-50 w-full h-full object-cover">
-            <video class="w-full h-full object-cover" autoplay loop muted>
-                <source src={heroUrl} type="video/webm" />
-            </video>
-        </div>
+<div
+    class="absolute top-0 left-0 overflow-clip w-screen h-full flex justify-center items-center"
+>
+    <div class=" w-full h-full object-cover blur-md">
+        <video
+            class="w-full h-full object-cover brightness-50"
+            autoplay
+            loop
+            muted
+        >
+            <source src={heroUrl} type="video/webm" />
+        </video>
     </div>
-    {#if arrows_shown && !window_scrolled}
-        <div
-            class="absolute left-0 bottom-0 mx-8 my-6 hidden md:block"
-            transition:fade={{ duration: 500 }}
+</div>
+<section class="w-full h-screen relative flex flex-col">
+    <Header class="bg-transparent border-0" />
+
+    <div class="w-full h-full px-10">
+        <section
+            class="grid grid-cols-1 lg:grid-cols-5 w-full h-full max-w-[400px] sm:max-w-screen-xl mx-auto"
         >
-            <ChevronDown class="drop-shadow w-8 h-8 animate-bounce " />
-        </div>
-        <div
-            class="absolute right-0 bottom-0 mx-8 my-6 hidden md:block"
-            transition:fade={{ duration: 500 }}
-        >
-            <ChevronDown class="drop-shadow w-8 h-8 animate-bounce" />
-        </div>
-        <div
-            class="absolute left-0 bottom-0 right-0 w-8 mx-auto mb-6"
-            transition:fade={{ duration: 500 }}
-        >
-            <ChevronDown
-                class="drop-shadow w-8 h-8 animate-bounce  md:hidden"
-            />
-        </div>
-    {/if}
-    <section
-        class="w-full h-full flex flex-col justify-center items-center relative gap-y-8"
-    >
-        <div class="basis-1/3 flex place-items-end">
-            <div class="flex flex-col items-center">
-                <TheBjeloPic
-                    class="drop-shadow-lg text-7xl sm:text-8xl md:text-9xl transition-all duration-500 mb-6 sm:mb-8 text-center relative md:right-1 right-[2px]"
-                />
+            <!-- Left side -->
+            <div
+                class="flex flex-col gap-y-20 justify-center h-[90%] sm:h-full lg:h-2/3 col-span-3"
+            >
+                <div class="flex flex-col items-center sm:items-start">
+                    <div
+                        class="min-[350px]:text-5xl text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight drop-shadow-md inline-flex items-center flex-wrap lg:flex-nowrap lg:whitespace-nowrap mb-2 lg:mb-3 box-border"
+                    >
+                        <div
+                            class="flex flex-col sm:flex-row items-center basis-full lg:basis-auto h-min justify-center sm:justify-start text-center sm:text-left"
+                        >
+                            <BmRecord
+                                class="sm:mr-4 mb-2 sm:mb-0"
+                            />
+                            Treba nešto
+                            <p class="hidden sm:inline-block">&nbsp</p>
+                        </div>
+
+                        <span
+                            class="text-bjelopic-red-1 inline-flex items-center sm:items-start justify-center sm:justify-left w-full sm:w-auto"
+                        >
+                            <BmRecord
+                                class="hidden sm:flex opacity-0 lg:hidden mr-2 sm:mr-4"
+                            />
+                            <HeroTypewriter
+                                class="whitespace-nowrap"
+                                phrases={[
+                                    "snimiti?",
+                                    "režirati?",
+                                    "producirati?",
+                                    "osvjetliti?",
+                                ]}
+                            /></span
+                        >
+                    </div>
+                    <div class="inline-flex">
+                        <BmRecord
+                            class="hidden sm:flex opacity-0 lg:hidden mr-2 sm:mr-4 shrink-0"
+                        />
+                        <p
+                            class="sm:text-xl text-center sm:text-left text-neutral-400 max-w-xl"
+                        >
+                            Mi smo dobri u tome ili nešto takvo slično fakat
+                            nez. Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit.
+                        </p>
+                    </div>
+                </div>
+
                 <div
-                    class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:px-3"
+                    class="flex flex-wrap flex-row sm:text-lg justify-center sm:justify-start items-center gap-x-4 gap-y-4 max-w-[250px] sm:max-w-none mx-auto sm:mx-0"
                 >
-                    <div class="border-b border-white w-full h-min"></div>
-                    <TheSubtitle
-                        class="font-semibold  uppercase text-xs transition-all duration-500 md:text-sm w-fit whitespace-nowrap tracking-tighter"
-                    />
-                    <div class="border-b border-white w-full h-min"></div>
+                    <Link
+                        href="/gallery"
+                        class="w-full sm:w-fit font-bold rounded-md bg-bjelopic-red-2 border border-bjelopic-red-1 px-4 py-2 hover:bg-opacity-80 transition-colors text-center"
+                        >Naši radovi</Link
+                    >
+                    <Link
+                        href="/contact"
+                        class="w-full sm:w-fit justify-center px-4 py-2 inline-flex items-center gap-x-3 group text-neutral-300 hover:text-white transition-colors"
+                        >Kontaktirajte nas <MoveRight
+                            class="group-hover:translate-x-1 transition-transform"
+                        />
+                    </Link>
                 </div>
             </div>
-        </div>
 
-        <HeroLinks />
-
-        <HeroCarousel {videos} />
-    </section>
-</main>
+            <!-- Right side -->
+            <div class="hidden sm:block"></div>
+        </section>
+    </div>
+</section>

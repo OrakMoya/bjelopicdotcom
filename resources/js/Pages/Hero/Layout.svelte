@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex flex-col h-screen font-sans">
-    <div class="flex-grow bg-black text-white relative">
+    <div class="flex-grow bg-neutral-900 text-white relative">
         {@render children?.()}
     </div>
 
