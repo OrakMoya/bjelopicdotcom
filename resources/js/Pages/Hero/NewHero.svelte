@@ -72,7 +72,7 @@
                     </div>
                     <div class="inline-flex">
                         <BmRecord
-                            class="hidden sm:flex opacity-0 lg:hidden mr-2 sm:mr-4 shrink-0"
+                            class="hidden sm:flex opacity-0 mr-2 sm:mr-4 shrink-0"
                         />
                         <p
                             class="sm:text-xl text-center sm:text-left text-neutral-400 max-w-xl"
