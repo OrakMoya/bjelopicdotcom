@@ -7,9 +7,9 @@
 </script>
 
 <div
-    class="rounded-full w-min-10 w-10 h-10 h-min-10 sm:w-14 sm:w-min-14 sm:h-14 sm:h-min-14 border-2 transition-colors duration-300
+    class="rounded-full w-min-12 w-12 h-12 h-min-12 min-[350px]:w-14 min-[350px]:w-min-14 min-[350px]:h-14 min-[350px]:h-min-14 border-2 transition-colors duration-300
     {transitioned ? 'border-bjelopic-red-2' : 'border-white'}
     drop-shadow-lg bg-black/50 flex items-center justify-center {rest.class}"
 >
-    <div class="{transitioned ? 'bg-bjelopic-red-2' : 'bg-bjelopic-red-5'} rounded-full w-4 h-4 sm:w-6 sm:h-6 transition-colors duration-300"></div>
+    <div class="{transitioned ? 'bg-bjelopic-red-2' : 'bg-bjelopic-red-5'} rounded-full w-5 h-5 min-[350px]:w-6 min-[350px]:h-6 transition-colors duration-300"></div>
 </div>

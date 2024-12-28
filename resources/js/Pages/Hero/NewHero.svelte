@@ -37,17 +37,17 @@
         >
             <!-- Left side -->
             <div
-                class="flex flex-col gap-y-20 justify-center h-[90%] sm:h-full lg:h-2/3 col-span-3"
+                class="flex flex-col gap-y-14 justify-center h-[90%] sm:h-full lg:h-[80%] col-span-3"
             >
                 <div class="flex flex-col items-center sm:items-start">
                     <div
-                        class="min-[350px]:text-5xl text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight drop-shadow-md inline-flex items-center flex-wrap lg:flex-nowrap lg:whitespace-nowrap mb-2 lg:mb-3 box-border"
+                        class="min-[350px]:text-5xl text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight drop-shadow-md inline-flex items-center flex-wrap lg:whitespace-nowrap mb-2 lg:mb-3 box-border"
                     >
                         <div
-                            class="flex flex-col sm:flex-row items-center basis-full lg:basis-auto h-min justify-center sm:justify-start text-center sm:text-left"
+                            class="flex flex-col sm:flex-row items-center basis-full h-min justify-center sm:justify-start text-center sm:text-left"
                         >
                             <BmRecord class="sm:mr-4 mb-2 sm:mb-0" />
-                            Treba nešto
+                            Trebate nešto
                             <p class="hidden sm:inline-block">&nbsp</p>
                         </div>
 
@@ -55,7 +55,7 @@
                             class="text-bjelopic-red-1 inline-flex items-center sm:items-start justify-center sm:justify-left w-full sm:w-auto"
                         >
                             <BmRecord
-                                class="hidden sm:flex opacity-0 lg:hidden mr-2 sm:mr-4"
+                                class="hidden sm:flex opacity-0 mr-2 sm:mr-4"
                             />
                             <HeroTypewriter
                                 class="whitespace-nowrap"
@@ -63,7 +63,7 @@
                                     "snimiti?",
                                     "režirati?",
                                     "producirati?",
-                                    "osvjetliti?",
+                                    "osvjetliti?"
                                 ]}
                             /></span
                         >
@@ -75,9 +75,7 @@
                         <p
                             class="sm:text-xl text-center sm:text-left text-neutral-400 max-w-xl"
                         >
-                            Mi smo dobri u tome ili nešto takvo slično fakat
-                            nez. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
+                            Možemo Vam pomoći u svemu tome. Naša strast i iskustvo jamče rezultate u svim aspektima filmskog stvaralaštva.
                         </p>
                     </div>
                 </div>

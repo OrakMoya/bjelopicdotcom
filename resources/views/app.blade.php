@@ -16,7 +16,7 @@
     @inertiaHead
     @googlefonts
   </head>
-  <body class="dark overflow-x-clip">
+  <body class="dark overflow-x-clip bg-neutral-900">
     @inertia
   </body>
 </html>

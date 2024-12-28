@@ -22,7 +22,7 @@
             return;
         }
 
-        setTimeout(deleteCurrent, 3000);
+        setTimeout(deleteCurrent, 2000);
     }
 
     function deleteCurrent() {
