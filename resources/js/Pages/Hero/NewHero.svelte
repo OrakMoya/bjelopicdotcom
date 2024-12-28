@@ -46,9 +46,7 @@
                         <div
                             class="flex flex-col sm:flex-row items-center basis-full lg:basis-auto h-min justify-center sm:justify-start text-center sm:text-left"
                         >
-                            <BmRecord
-                                class="sm:mr-4 mb-2 sm:mb-0"
-                            />
+                            <BmRecord class="sm:mr-4 mb-2 sm:mb-0" />
                             Treba nešto
                             <p class="hidden sm:inline-block">&nbsp</p>
                         </div>
@@ -84,21 +82,26 @@
                     </div>
                 </div>
 
-                <div
-                    class="flex flex-wrap flex-row sm:text-lg justify-center sm:justify-start items-center gap-x-4 gap-y-4 max-w-[250px] sm:max-w-none mx-auto sm:mx-0"
-                >
-                    <Link
-                        href="/gallery"
-                        class="w-full sm:w-fit font-bold rounded-md bg-bjelopic-red-2 border border-bjelopic-red-1 px-4 py-2 hover:bg-opacity-80 transition-colors text-center"
-                        >Naši radovi</Link
+                <div class="inline-flex">
+                    <BmRecord
+                        class="hidden sm:flex opacity-0 mr-2 sm:mr-4 shrink-0"
+                    />
+                    <div
+                        class="flex flex-wrap flex-row sm:text-lg justify-center sm:justify-start items-center gap-x-4 gap-y-4 max-w-[250px] sm:max-w-none mx-auto sm:mx-0"
                     >
-                    <Link
-                        href="/contact"
-                        class="w-full sm:w-fit justify-center px-4 py-2 inline-flex items-center gap-x-3 group text-neutral-300 hover:text-white transition-colors"
-                        >Kontaktirajte nas <MoveRight
-                            class="group-hover:translate-x-1 transition-transform"
-                        />
-                    </Link>
+                        <Link
+                            href="/gallery"
+                            class="w-full sm:w-fit font-bold rounded-md bg-bjelopic-red-2 border border-bjelopic-red-1 px-4 py-2 hover:bg-opacity-80 transition-colors text-center"
+                            >Naši radovi</Link
+                        >
+                        <Link
+                            href="/contact"
+                            class="w-full sm:w-fit justify-center px-4 py-2 inline-flex items-center gap-x-3 group text-neutral-300 hover:text-white transition-colors"
+                            >Kontaktirajte nas <MoveRight
+                                class="group-hover:translate-x-1 transition-transform"
+                            />
+                        </Link>
+                    </div>
                 </div>
             </div>
 
