@@ -8,7 +8,7 @@
 >
     <Link
         href="/gallery"
-        class="px-4 py-2 rounded-md bg-bjelopic-red-2 transition duration-300 text-white hover:bg-bjelopic-red-1 drop-shadow-md text-center text-base"
+        class="px-4 py-2 rounded-md bg-bjelopic-red-2 transition duration-300 text-white hover:bg-bjelopic-red-1 drop-shadow-md text-center text-base font-semibold border border-bjelopic-red-1"
         ><span class="drop-shadow">Naši radovi</span></Link
     >
     <Link
