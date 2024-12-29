@@ -1,9 +1,6 @@
 <script module>
-    import Button from "$lib/components/ui/button/button.svelte";
     import { Link } from "@inertiajs/svelte";
-    import Header from "../Header.svelte";
-
-    export { default as layout } from "./Layout.svelte";
+    import Header from "../../Header.svelte";
 </script>
 
 <script>
@@ -15,11 +12,11 @@
 </script>
 
 <div
-    class="absolute top-0 left-0 overflow-clip w-screen h-full flex justify-center items-center"
+    class="absolute top-0 left-0 overflow-clip w-full h-screen flex justify-center items-center"
 >
     <div class=" w-full h-full object-cover blur-md">
         <video
-            class="w-full h-full object-cover brightness-50"
+            class="w-full h-full object-cover brightness-[60%]"
             autoplay
             loop
             muted
@@ -28,6 +25,13 @@
         </video>
     </div>
 </div>
+<div
+    class="absolute opacity-0 top-0 left-0 overflow-clip w-full h-screen flex justify-center items-center"
+    style="
+            background: rgba(0,0,0,0);
+            background: linear-gradient(180deg, rgba(0,0,0,0) 90%, rgba(0,0,0,1) 100%);
+    "
+></div>
 <section class="w-full h-screen relative flex flex-col">
     <Header class="bg-transparent border-0" />
 
@@ -63,7 +67,7 @@
                                     "snimiti?",
                                     "režirati?",
                                     "producirati?",
-                                    "osvijetliti?"
+                                    "osvijetliti?",
                                 ]}
                             /></span
                         >
@@ -75,7 +79,9 @@
                         <p
                             class="sm:text-xl text-center sm:text-left text-neutral-400 max-w-xl drop-shadow-md"
                         >
-                            Možemo Vam pomoći u svemu tome. Naša strast i iskustvo jamče rezultate u svim aspektima filmskog stvaralaštva.
+                            Možemo Vam pomoći u svemu tome. Naša strast i
+                            iskustvo jamče rezultate u svim aspektima filmskog
+                            stvaralaštva.
                         </p>
                     </div>
                 </div>
@@ -90,7 +96,8 @@
                         <Link
                             href="/gallery"
                             class="w-full sm:w-fit font-bold rounded-md bg-bjelopic-red-2 border border-bjelopic-red-1 px-4 py-2 hover:bg-opacity-80 transition-colors text-center drop-shadow-md"
-                            ><span class="drop-shadow-md">Naši radovi</span></Link
+                            ><span class="drop-shadow-md">Naši radovi</span
+                            ></Link
                         >
                         <Link
                             href="/contact"

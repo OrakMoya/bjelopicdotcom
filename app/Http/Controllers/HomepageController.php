@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class HeroController extends Controller
+class HomepageController extends Controller
 {
     public function show(): Response
     {
@@ -18,7 +18,7 @@ class HeroController extends Controller
         }
 
         return Inertia::render(
-            'Hero/NewHero',
+            'Hero/Home',
             [
                 'videos' => $videos,
                 'heroUrl' =>

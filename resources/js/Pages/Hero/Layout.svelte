@@ -6,8 +6,8 @@
     let { children } = $props();
 </script>
 
-<div class="flex flex-col h-screen font-sans">
-    <div class="flex-grow bg-neutral-900 text-white relative">
+<div class="font-sans min-h-screen">
+    <div class="flex-grow bg-neutral-900 text-white w-full h-full  relative">
         {@render children?.()}
     </div>
 

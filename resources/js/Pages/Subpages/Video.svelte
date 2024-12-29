@@ -11,101 +11,105 @@
     >
 </svelte:head>
 
-<section class="p-4 max-w-screen-xl mx-auto mb-2 mt-10 flex flex-col gap-y-32">
-    <div>
-        <div class="mb-6">
+<div class="bg-neutral-900 px-4 py-10">
+    <section
+        class="max-w-screen-xl mx-auto mb-2  flex flex-col gap-y-20"
+    >
+        <div>
+            <div class="mb-6">
+                <div
+                    class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto md:mt-2 max-w-screen-md"
+                >
+                    <div
+                        class="border-b border-white w-full h-min transition-opacity duration-500"
+                    ></div>
+                    <span
+                        class="text-center min-w-fit transition-all duration-500 text-3xl relative md:bottom-[2px] font-semibold tracking-tight"
+                        >{video.title} ({new Date(
+                            video.publication_date,
+                        ).getUTCFullYear()})</span
+                    >
+                    <div
+                        class="border-b border-white w-full h-min transition-opacity duration-500"
+                    ></div>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <span class="text-center text-neutral-400 italic"
+                        >By <TheBjeloPic />, for {#if video.subject === "BjeloPIC"}
+                            <TheBjeloPic />
+                        {:else}
+                            <span class="text-white">
+                                {video.subject}
+                            </span>
+                        {/if}
+                    </span>
+                </div>
+                <div class="flex justify-center text-neutral-400">
+                    <a class="italic underline" href={video.link}>Watch here</a>
+                </div>
+            </div>
+
+            <article class="max-w-screen-md mx-auto">
+                <div>
+                    <p class="text-justify">{video.description}</p>
+                </div>
+            </article>
+        </div>
+
+        <div class="">
             <div
-                class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto md:mt-2 max-w-screen-md"
+                id="roles"
+                class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-6 max-w-screen-md"
             >
                 <div
-                    class="border-b border-white w-full h-min transition-opacity duration-500"
+                    class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
                 ></div>
                 <span
-                    class="text-center min-w-fit transition-all duration-500 text-3xl relative md:bottom-[2px] font-semibold tracking-tight"
-                    >{video.title} ({new Date(
-                        video.publication_date,
-                    ).getUTCFullYear()})</span
+                    class="whitespace-nowrap text-center transition-all duration-500 text-lg sm:text-xl relative md:bottom-[2px] font-semibold tracking-tight"
+                    >Naše uloge</span
                 >
                 <div
-                    class="border-b border-white w-full h-min transition-opacity duration-500"
+                    class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
                 ></div>
             </div>
-            <div class="flex flex-col justify-center">
-                <span class="text-center text-neutral-400 italic"
-                    >By <TheBjeloPic />, for {#if video.subject === "BjeloPIC"}
-                        <TheBjeloPic />
-                    {:else}
-                        <span class="text-white">
-                            {video.subject}
-                        </span>
-                    {/if}
-                </span>
-            </div>
-            <div class="flex justify-center text-neutral-400">
-                <a class="italic underline" href={video.link}>Watch here</a>
+            <div class="flex justify-center my-2 gap-2 flex-wrap">
+                {#each video.roles as role}
+                    <div
+                        class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm sm:text-base transition-all duration-500 px-1 py-[0.5px]"
+                    >
+                        <span class="drop-shadow">{role}</span>
+                    </div>
+                {/each}
             </div>
         </div>
 
-        <article class="max-w-screen-md mx-auto">
-            <div>
-                <p class="text-justify">{video.description}</p>
-            </div>
-        </article>
-    </div>
-
-    <div class="">
-        <div
-            id="roles"
-            class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-6 max-w-screen-md"
-        >
+        <div class={stills.length ? "block" : "hidden"}>
             <div
-                class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
-            ></div>
-            <span
-                class="whitespace-nowrap text-center transition-all duration-500 text-lg sm:text-xl relative md:bottom-[2px] font-semibold tracking-tight"
-                >Naše uloge</span
+                id="stills"
+                class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-8 max-w-screen-md"
             >
-            <div
-                class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
-            ></div>
-        </div>
-        <div class="flex justify-center my-2 gap-2 flex-wrap">
-            {#each video.roles as role}
                 <div
-                    class="bg-bjelopic-neutral-1 text-black rounded-sm text-sm sm:text-base transition-all duration-500 px-1 py-[0.5px]"
+                    class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
+                ></div>
+                <span
+                    class="whitespace-nowrap text-center transition-all duration-500 text-lg sm:text-xl relative md:bottom-[2px] font-semibold tracking-tight"
+                    >Stillovi</span
                 >
-                    <span class="drop-shadow">{role}</span>
-                </div>
-            {/each}
+                <div
+                    class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
+                ></div>
+            </div>
+            <div class="grid grid-cols-1 gap-10 md:gap-16">
+                {#each stills as still}
+                    <a href={still.path} target="_blank">
+                        <img
+                            class="w-full rounded-md border border-neutral-800"
+                            src={still.path}
+                            alt="Still"
+                        />
+                    </a>
+                {/each}
+            </div>
         </div>
-    </div>
-
-    <div class={stills.length ? "block" : "hidden"}>
-        <div
-            id="stills"
-            class="flex justify-evenly items-center transition-all duration-500 align-middle w-full gap-x-2 md:gap-x-4 mx-auto mb-8 max-w-screen-md"
-        >
-            <div
-                class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
-            ></div>
-            <span
-                class="whitespace-nowrap text-center transition-all duration-500 text-lg sm:text-xl relative md:bottom-[2px] font-semibold tracking-tight"
-                >Stillovi</span
-            >
-            <div
-                class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
-            ></div>
-        </div>
-        <div class="grid grid-cols-1 gap-10 md:gap-16">
-            {#each stills as still}
-                <a href={still.path} target="_blank">
-                    <img
-                        class="w-full rounded-md drop-shadow-glow-xs"
-                        src={still.path}
-                        alt="Still"
-                    />
-                </a>
-            {/each}
-        </div>
-    </div>
-</section>
+    </section>
+</div>
