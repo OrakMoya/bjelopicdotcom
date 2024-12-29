@@ -63,7 +63,7 @@
                                     "snimiti?",
                                     "režirati?",
                                     "producirati?",
-                                    "osvjetliti?"
+                                    "osvijetliti?"
                                 ]}
                             /></span
                         >
@@ -73,7 +73,7 @@
                             class="hidden sm:flex opacity-0 mr-2 sm:mr-4 shrink-0"
                         />
                         <p
-                            class="sm:text-xl text-center sm:text-left text-neutral-400 max-w-xl"
+                            class="sm:text-xl text-center sm:text-left text-neutral-400 max-w-xl drop-shadow-md"
                         >
                             Možemo Vam pomoći u svemu tome. Naša strast i iskustvo jamče rezultate u svim aspektima filmskog stvaralaštva.
                         </p>
@@ -89,12 +89,12 @@
                     >
                         <Link
                             href="/gallery"
-                            class="w-full sm:w-fit font-bold rounded-md bg-bjelopic-red-2 border border-bjelopic-red-1 px-4 py-2 hover:bg-opacity-80 transition-colors text-center"
-                            >Naši radovi</Link
+                            class="w-full sm:w-fit font-bold rounded-md bg-bjelopic-red-2 border border-bjelopic-red-1 px-4 py-2 hover:bg-opacity-80 transition-colors text-center drop-shadow-md"
+                            ><span class="drop-shadow-md">Naši radovi</span></Link
                         >
                         <Link
                             href="/contact"
-                            class="w-full sm:w-fit justify-center px-4 py-2 inline-flex items-center gap-x-3 group text-neutral-300 hover:text-white transition-colors"
+                            class="w-full sm:w-fit justify-center px-4 py-2 inline-flex items-center gap-x-3 group text-neutral-300 hover:text-white transition-colors drop-shadow-md"
                             >Kontaktirajte nas <MoveRight
                                 class="group-hover:translate-x-1 transition-transform"
                             />

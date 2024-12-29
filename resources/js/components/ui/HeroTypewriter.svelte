@@ -1,8 +1,9 @@
 <script>
     let { phrases, ...rest } = $props();
-    let current = $state("...")
+    let current = $state("................")
     let next = ""
     let index = 0;
+    let first = true;
 
     function pick() {
         if (index >= phrases.length) {
@@ -32,10 +33,11 @@
             return;
         }
 
-        setTimeout(pick, 200);
+        setTimeout(pick, first ? 0 : 200);
+        first = false;
     }
 
-    setTimeout(deleteCurrent, 1000);
+    setTimeout(deleteCurrent, 0);
 </script>
 
 <span class={rest.class}>
