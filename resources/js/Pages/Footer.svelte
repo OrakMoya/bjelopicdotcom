@@ -58,7 +58,7 @@
                     </Accordion.Item>
                 </Accordion.Root>
             {:else}
-                <div class="w-full flex flex-col font-thin">
+                <div class="w-full flex flex-col">
                     <h2 class="text-xl font-bold">Informacije</h2>
                     <FooterInfoLinks />
                 </div>
