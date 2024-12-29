@@ -124,4 +124,18 @@ class WebtoolsStillsController extends Controller
         $still->delete();
         return redirect()->back();
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function bulkDestroy(Request $request): RedirectResponse
+    {
+        $stills = Still::select('*')
+            ->whereIn('id', $request->selectedStills)
+            ->get();
+        foreach ($stills as $still) {
+            $this->destroy($still);
+        }
+        return redirect()->back();
+    }
 }

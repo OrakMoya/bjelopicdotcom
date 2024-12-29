@@ -26,5 +26,6 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/videos/{video}/stills', [WebtoolsStillsController::class, 'index']);
     Route::post('/videos/{video}/stills', [WebtoolsStillsController::class, 'store']);
     Route::patch('/videos/stills/{still}', [WebtoolsStillsController::class, 'update']);
+    Route::delete('/videos/stills/custom', [WebtoolsStillsController::class, 'bulkDestroy']);
     Route::delete('/videos/stills/{still}', [WebtoolsStillsController::class, 'destroy']);
 });

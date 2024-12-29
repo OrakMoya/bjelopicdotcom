@@ -1,15 +1,25 @@
 <script module>
+    // @ts-nocheck
+
     export { default as layout } from "./Layout.svelte";
 </script>
 
 <script>
     import { Button } from "$lib/components/ui/button";
     import { router, useForm } from "@inertiajs/svelte";
-    import { ImagesIcon, PlusIcon, TrashIcon } from "lucide-svelte";
+    import {
+        DownloadIcon,
+        ImagesIcon,
+        PlusIcon,
+        TrashIcon,
+    } from "lucide-svelte";
     import { AspectRatio } from "$lib/components/ui/aspect-ratio";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import NumberInput from "$lib/components/ui/NumberInput.svelte";
     import axios, { AxiosHeaders } from "axios";
+    import { Checkbox } from "$lib/components/ui/checkbox";
+    import StillComponent from "./StillComponent.svelte";
+    import { Label } from "$lib/components/ui/label";
 
     let { video, stills } = $props();
 
@@ -29,6 +39,25 @@
     /** @type {Number|null} */
     let deleteTarget = null;
     let deleteDialogShown = $state(false);
+    let deleteSelectedDialogShown = $state(false);
+    let downloadSelectedDialogShown = $state(false);
+
+    /** @type {number[]} */
+    let selectedStills = $state([]);
+
+    /**
+     * @param {number} id
+     * @param {boolean} state
+     */
+    function selectStill(id, state) {
+        if (state) {
+            selectedStills = [...selectedStills, id];
+        } else {
+            selectedStills = selectedStills.filter((item) => {
+                return item !== id;
+            });
+        }
+    }
 </script>
 
 <svelte:head>
@@ -69,17 +98,108 @@
     </AlertDialog.Content>
 </AlertDialog.Root>
 
+<AlertDialog.Root bind:open={downloadSelectedDialogShown}>
+    <AlertDialog.Content>
+        <AlertDialog.Header>Nisam jos implementiro</AlertDialog.Header>
+        <AlertDialog.Footer>
+            <AlertDialog.Cancel>Jbg</AlertDialog.Cancel>
+            <AlertDialog.Action>
+                {#snippet child(props)}
+                    <Button
+                        variant="default"
+                        onclick={() => (downloadSelectedDialogShown = false)}
+                        {...props}>Jbg</Button
+                    >
+                {/snippet}
+            </AlertDialog.Action>
+        </AlertDialog.Footer>
+    </AlertDialog.Content>
+</AlertDialog.Root>
+
+<AlertDialog.Root bind:open={deleteSelectedDialogShown}>
+    <AlertDialog.Content>
+        <AlertDialog.Header>Are you sure?</AlertDialog.Header>
+        <AlertDialog.Footer>
+            <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+            <AlertDialog.Action
+                >{#snippet child(props)}
+                    <Button
+                        variant="destructive"
+                        onclick={() => {
+                            router.visit("/webtools/videos/stills/custom", {
+                                method: "delete",
+                                data: {
+                                    selectedStills:
+                                        $state.snapshot(selectedStills),
+                                },
+                                onSuccess: () => {
+                                    deleteSelectedDialogShown = false;
+                                },
+                                preserveState: true,
+                                preserveScroll: true,
+                            });
+                        }}
+                        {...props}>Delete</Button
+                    >
+                {/snippet}</AlertDialog.Action
+            >
+        </AlertDialog.Footer>
+    </AlertDialog.Content>
+</AlertDialog.Root>
+
 <section
     class="px-8 py-4 flex flex-col gap-y-2 max-w-screen-sm md:max-w-screen-xl mx-auto"
 >
-    <h1 class="text-2xl mb-2 text-center md:text-left">
-        <span>Stills of</span>
-        <span class="font-semibold"
-            >{video.title} ({new Date(
-                video.publication_date,
-            ).getUTCFullYear()})</span
-        >
-    </h1>
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
+        <h1 class="text-2xl mb-2 text-center md:text-left w-full md:w-auto">
+            <span>Stills of</span>
+            <span class="font-semibold"
+                >{video.title} ({new Date(
+                    video.publication_date,
+                ).getUTCFullYear()})</span
+            >
+        </h1>
+
+        <div class="flex items-center gap-x-2 w-full md:w-auto justify-center">
+            {#if selectedStills.length}
+                <Button
+                    variant="destructive"
+                    onclick={() => (deleteSelectedDialogShown = true)}
+                >
+                    <TrashIcon class="size-6" />
+                </Button>
+                <Button onclick={() => (downloadSelectedDialogShown = true)}>
+                    <DownloadIcon class="size-6" />
+                </Button>
+            {/if}
+            <Label
+                class="h-10 inline-flex items-center gap-x-2 hover:cursor-pointer bg-neutral-900 border border-neutral-800 px-4 py-2 rounded-md"
+                for="select-all-checkbox"
+            >
+                <Checkbox
+                    class="size-4"
+                    id="select-all-checkbox"
+                    bind:checked={() => {
+                        return (
+                            selectedStills.length === stills.length &&
+                            stills.length
+                        );
+                    },
+                    (s) => {
+                        if (s) {
+                            selectedStills = [];
+                            stills.forEach(
+                                (/** @type {{ id: number; }} */ element) => {
+                                    selectedStills.push(element.id);
+                                },
+                            );
+                        } else selectedStills = [];
+                    }}
+                />
+                All
+            </Label>
+        </div>
+    </div>
     <input
         type="file"
         class="hidden"
@@ -102,44 +222,20 @@
             </AspectRatio>
         </label>
         {#each stills as still, i}
-            <div
-                class="flex md:flex-col border border-neutral-800 bg-neutral-900 rounded-md overflow-clip"
-            >
-                <AspectRatio ratio={16 / 9} class="group bg-black">
-                    <img
-                        src={still.path}
-                        class="object-contain w-full h-full"
-                        alt={"Still no. " + (i + 1) + " for " + video.title}
-                    />
-                </AspectRatio>
-                <div
-                    class="px-2 py-2 flex flex-col-reverse md:flex-row items-center justify-between"
-                >
-                    <NumberInput
-                        number={still.position}
-                        onChange={(number) =>
-                            router.patch(
-                                "/webtools/videos/stills/" + still.id,
-                                {
-                                    position: number,
-                                },
-                                {
-                                    preserveScroll: true,
-                                },
-                            )}
-                    />
-                    <Button
-                        variant="destructive"
-                        class="transition-opacity p-2 h-fit"
-                        onclick={() => {
-                            deleteTarget = still.id;
-                            deleteDialogShown = true;
-                        }}
-                    >
-                        <TrashIcon class="w-4 h-4" />
-                    </Button>
-                </div>
-            </div>
+            <StillComponent
+                {still}
+                index={i}
+                {video}
+                onDeleteRequest={() => {
+                    deleteTarget = still.id;
+                    deleteDialogShown = true;
+                }}
+                bind:selected={() =>
+                    selectedStills.find((member) => member === still.id)
+                        ? true
+                        : false,
+                (s) => selectStill(still.id, s)}
+            />
         {/each}
     </div>
 </section>
