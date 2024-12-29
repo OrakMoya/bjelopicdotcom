@@ -65,7 +65,7 @@
 -->
 {#each by_collection as collection, i}
     <section
-        class="mx-auto px-4 max-w-[550px] md:max-w-none my-4 relative"
+        class="mx-auto sm:px-4 max-w-[550px] md:max-w-none my-4 relative"
         onclick={() => (selected_video_uuid = "")}
         role="none"
     >
@@ -75,7 +75,7 @@
             i + 1 < by_collection.length
                 ? ''
                 : ''}
-            py-4 border border-neutral-800 bg-neutral-900 rounded-md px-4"
+            py-4 border-y min-[550px]:border-x min-[550px]:border-neutral-800 bg-neutral-900 min-[550px]:rounded-md px-4"
         >
             {#if collection.videos[0].collection}
                 {@const firstVideo = collection.videos[0]}
@@ -84,19 +84,19 @@
                     class="flex w-full justify-center items-center gap-x-4 mx-auto transition-all duration-500 drop-shadow"
                 >
                     <div
-                        class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
+                        class="h-[1px] relative top-[2px] bg-white grow"
                     ></div>
                     <div
-                        class="whitespace-normal w-auto max-w-[570px] font-bold text-2xl md:text-4xl text-center"
+                        class="whitespace-normal w-max max-w-[570px] font-bold text-2xl md:text-4xl text-center"
                     >
                         {collection.collection}
                     </div>
                     <div
-                        class="h-[1px] relative top-[2px] bg-white min-w-8 grow"
+                        class="h-[1px] relative top-[2px] bg-white grow"
                     ></div>
                 </div>
                 <div
-                    class="flex justify-center mb-2 text-lg lg:text-xl font-semibold"
+                    class="flex justify-center mb-6 text-lg lg:text-xl text-neutral-500"
                 >
                     {#if firstVideo.subject === "BjeloPIC"}
                         <TheBjeloPIC />
@@ -214,26 +214,31 @@
                             />
                         </button>
                         <div
-                            class="w-full basis-2/5 flex flex-col gap-y-1 justify-center md:justify-start drop-shadow mb-2 md:mb-0"
+                            class="w-full basis-2/5 flex flex-col gap-y-4 justify-center md:justify-start drop-shadow mb-2 md:mb-0"
                         >
-                            <span class="font-semibold text-2xl lg:text-3xl">
-                                {#if video.subject === "BjeloPIC"}
-                                    <TheBjeloPIC />
-                                {:else}
-                                    {video.subject}
-                                {/if} -
-                                <span class="text-white">
-                                    {video.title}
-                                </span>
-                                ({new Date(
-                                    video.publication_date,
-                                ).getUTCFullYear()})
-                            </span>
-                            {#if video.category}
-                                <span class="lg:text-lg mb-2"
-                                    >{video.category}</span
+                            <section>
+                                <span
+                                    class="font-semibold text-2xl lg:text-3xl block"
                                 >
-                            {/if}
+                                    {#if video.subject === "BjeloPIC"}
+                                        <TheBjeloPIC />
+                                    {:else}
+                                        {video.subject}
+                                    {/if} -
+                                    <span class="text-white">
+                                        {video.title}
+                                    </span>
+                                    ({new Date(
+                                        video.publication_date,
+                                    ).getUTCFullYear()})
+                                </span>
+                                {#if video.category}
+                                    <span
+                                        class="lg:text-lg mb-2 text-neutral-500 block"
+                                        >{video.category}</span
+                                    >
+                                {/if}
+                            </section>
                             <div
                                 class="flex justify-center md:justify-start box-border {i %
                                     2 ==

@@ -37,16 +37,16 @@
         >
             <!-- Left side -->
             <div
-                class="flex flex-col gap-y-14 justify-center h-[90%] sm:h-full lg:h-[80%] col-span-3"
+                class="flex flex-col gap-y-20 sm:gap-y-16 justify-center h-[90%] sm:h-full lg:h-[80%] col-span-3"
             >
                 <div class="flex flex-col items-center sm:items-start">
                     <div
-                        class="min-[350px]:text-5xl text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight drop-shadow-md inline-flex items-center flex-wrap lg:whitespace-nowrap mb-2 lg:mb-3 box-border"
+                        class="min-[350px]:text-5xl text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight drop-shadow-md inline-flex items-center flex-wrap lg:whitespace-nowrap mb-3 lg:mb-4 box-border"
                     >
                         <div
                             class="flex flex-col sm:flex-row items-center basis-full h-min justify-center sm:justify-start text-center sm:text-left"
                         >
-                            <BmRecord class="sm:mr-4 mb-2 sm:mb-0" />
+                            <BmRecord class="sm:mr-4 mb-3 sm:mb-0" />
                             Trebate nešto
                             <p class="hidden sm:inline-block">&nbsp</p>
                         </div>

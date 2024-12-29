@@ -14,21 +14,21 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <footer
-    class="px-4 py-8 bg-neutral-900 text-white w-full border-t border-t-neutral-800"
+    class="px-4 py-8 bg-black text-white w-full border-t border-t-neutral-800"
 >
     <div
         class="max-w-screen-lg mx-auto flex flex-col gap-y-4 justify-center items-center md:items-start md:justify-between md:flex-row"
     >
         <div
-            class="flex flex-col items-center md:items-start gap-y-1 md:basis-1/2"
+            class="flex flex-col items-center md:items-start md:basis-1/2 gap-y-1"
         >
-            <Link href="/">
+            <Link href="/" class="">
                 <TheBjeloPicLogo class="w-10 h-10 md:w-8 md:h-8" />
             </Link>
-            <Link href="/" class="mb-1">
+            <Link href="/" class="">
                 <TheBjeloPic class="text-3xl md:text-2xl" />
             </Link>
-            <span class="text-lg md:text-base">Bjelovarski filmski studio</span>
+            <span class="text-neutral-400 text-base">Bjelovarski filmski studio</span>
         </div>
         <div class="w-full max-w-96 md:basis-1/2 flex">
             {#if innerWidth < screensize_md}
@@ -58,7 +58,7 @@
                     </Accordion.Item>
                 </Accordion.Root>
             {:else}
-                <div class="w-full flex flex-col">
+                <div class="w-full flex flex-col font-thin">
                     <h2 class="text-xl font-bold">Informacije</h2>
                     <FooterInfoLinks />
                 </div>
