@@ -3,7 +3,7 @@
 
     let transitioned = $state(false);
 
-    setTimeout(() => (transitioned = true), 1500);
+    setTimeout(() => (transitioned = true), 2000);
 </script>
 
 <div

@@ -96,7 +96,7 @@
                 class="border-b border-neutral-500 w-full h-min transition-opacity duration-500"
             ></div>
         </div>
-        <div class="grid grid-cols-1 gap-16">
+        <div class="grid grid-cols-1 gap-10 md:gap-16">
             {#each stills as still}
                 <a href={still.path} target="_blank">
                     <img
