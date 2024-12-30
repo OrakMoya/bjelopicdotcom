@@ -1,4 +1,4 @@
-@use('Illuminate\Support\Facades\Vite')
+@use('Illuminate\Support\Carbon')
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +31,7 @@
             margin-top: 4px;
         }
         footer{
+            font-family: 'sans';
             max-width: 450px;
             margin: 64px auto 0 auto;
             text-align: center;
@@ -91,7 +92,7 @@
             <ul class="bigger light">
                 <li class="light"><span>Name: </span>{{$name}}</li>
                 <li class="light"><span>Email: </span><a class="links" href="mailto:{{$email}}">{{$email}}</a></li>
-                <li class="light"><span>Time: </span>{{date('Y-m-d H:m:s')}}</li>
+                <li class="light"><span>Time: </span>{{Carbon::now()}}</li>
             </ul>
 
             <span class="darker smaller">The user wrote:</span>
