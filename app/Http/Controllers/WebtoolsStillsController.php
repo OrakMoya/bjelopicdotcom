@@ -133,9 +133,7 @@ class WebtoolsStillsController extends Controller
      */
     public function destroy(Still $still): RedirectResponse
     {
-        defer(function () use ($still) {
-            Storage::delete($still->path);
-        });
+        Storage::delete($still->path);
 
         $still->delete();
         return redirect()->back();
