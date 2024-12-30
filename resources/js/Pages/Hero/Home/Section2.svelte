@@ -39,10 +39,15 @@
     }
     function calcFrame() {
         frame++;
+
+        // Izgleda vise in sync ako kasni 1 frame, nez zast
+        if (frame == 0) {
+            tcFlipped = !tcFlipped;
+        }
+
         if (frame >= 25) {
             frame = 0;
             difference++;
-            tcFlipped = !tcFlipped;
             calc();
         }
         setTimeout(calcFrame, 40);
