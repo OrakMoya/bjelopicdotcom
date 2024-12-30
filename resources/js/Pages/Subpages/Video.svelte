@@ -11,7 +11,7 @@
     >
 </svelte:head>
 
-<div class="bg-neutral-900 px-4 py-10">
+<div class="bg-neutral-900 px-4 py-10 w-full h-full">
     <section
         class="max-w-screen-xl mx-auto mb-2  flex flex-col gap-y-20"
     >
