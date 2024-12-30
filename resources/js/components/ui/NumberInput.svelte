@@ -15,21 +15,20 @@
 >
     <button
         onclick={() => {
-            number++;
-            onChange(number);
-        }}
-        ><ArrowUp
-            class="w-5 h-5 hover:-translate-y-[2px] transition-transform "
-        /></button
-    >
-    <div>{number}</div>
-    <button
-        onclick={() => {
             number--;
             onChange(number);
         }}
-        ><ArrowDown
+        ><ArrowUp
             class="w-5 h-5 hover:translate-y-[2px] transition-transform"
+        /></button
+    >
+    <button
+        onclick={() => {
+            number++;
+            onChange(number);
+        }}
+        ><ArrowDown
+            class="w-5 h-5 hover:-translate-y-[2px] transition-transform "
         /></button
     >
 </div>

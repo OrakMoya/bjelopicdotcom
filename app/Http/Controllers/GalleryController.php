@@ -89,7 +89,7 @@ class GalleryController extends Controller
     {
         $stills = Still::select('video_id', 'path', 'description', 'position')
             ->where('video_id', $video->id)
-            ->orderBy('position', 'DESC')
+            ->orderBy('position', 'ASC')
             ->get()->toArray();
         $stills = array_map(function ($still) {
             return [...$still, 'path' => Storage::url($still['path'])];

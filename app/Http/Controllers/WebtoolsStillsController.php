@@ -23,7 +23,7 @@ class WebtoolsStillsController extends Controller
     {
         $stills = Still::select('id', 'video_id', 'path', 'description', 'position')
             ->where('video_id', '=', $video->id)
-            ->orderBy('position', 'DESC')
+            ->orderBy('position', 'ASC')
             ->get()->toArray();
         $stills = array_map(function ($row) {
             return [...$row, 'path' => Storage::url($row['path'])];
@@ -62,7 +62,7 @@ class WebtoolsStillsController extends Controller
         if ($request->sortByFilename) {
             usort($files, function (UploadedFile $a, UploadedFile $b) use ($request) {
                 $direction = $request->sortByFilename;
-                if ($direction == 'ASC') {
+                if ($direction == 'DESC') {
                     return strcmp($b->getClientOriginalName(), $a->getClientOriginalName());
                 }
                 return strcmp($a->getClientOriginalName(), $b->getClientOriginalName());
@@ -81,7 +81,24 @@ class WebtoolsStillsController extends Controller
             ]);
         }
         Still::insert($stills);
+
+
         return redirect()->back();
+    }
+
+    public function reorder($video_id): void
+    {
+        $stills = Still::select('*')
+            ->where('video_id', $video_id)
+            ->orderBy('position', 'ASC')
+            ->get();
+
+        foreach ($stills as $i => $still) {
+            $still->position = $i;
+            $still->save();
+        }
+
+        return;
     }
 
     /**
@@ -120,6 +137,8 @@ class WebtoolsStillsController extends Controller
         }
         $still->position = $position;
         $still->save();
+
+        $this->reorder($still->video_id);
 
         if ($request->acceptsJson()) {
             return response(status: 200);
