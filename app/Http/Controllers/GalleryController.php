@@ -87,8 +87,9 @@ class GalleryController extends Controller
 
     public function show(Video $video): Response
     {
-        $stills = Still::select('video_id', 'path', 'description')
+        $stills = Still::select('video_id', 'path', 'description', 'position')
             ->where('video_id', $video->id)
+            ->orderBy('position', 'DESC')
             ->get()->toArray();
         $stills = array_map(function ($still) {
             return [...$still, 'path' => Storage::url($still['path'])];

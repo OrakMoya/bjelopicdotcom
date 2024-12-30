@@ -26,6 +26,8 @@
     let form = useForm({
         /** @type {File[]|null} */
         stills: null,
+        /** @type {('ASC'|'DESC')|false} */
+        sortByFilename: false,
     });
 
     /**
@@ -56,6 +58,24 @@
             selectedStills = selectedStills.filter((item) => {
                 return item !== id;
             });
+        }
+    }
+
+    let fileDropping = $state(false);
+
+    /**
+     * @param {DragEvent & { currentTarget: EventTarget & HTMLDivElement; }} e
+     */
+    function handleDrop(e) {
+        e.preventDefault();
+        fileDropping = false;
+        console.log(e.dataTransfer?.files);
+        if (e.dataTransfer?.files) {
+            /**
+             * @type {File[]}
+             */
+            $form.stills = [...e.dataTransfer.files];
+            $form.post("/webtools/videos/" + video.id + "/stills");
         }
     }
 </script>
@@ -134,6 +154,7 @@
                                 },
                                 onSuccess: () => {
                                     deleteSelectedDialogShown = false;
+                                    selectedStills = [];
                                 },
                                 preserveState: true,
                                 preserveScroll: true,
@@ -147,10 +168,25 @@
     </AlertDialog.Content>
 </AlertDialog.Root>
 
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <section
-    class="px-8 py-4 flex flex-col gap-y-2 max-w-screen-sm md:max-w-screen-xl mx-auto"
+    ondragenter={(e) => {
+        e.preventDefault();
+        fileDropping = true;
+    }}
+    ondragover={(e) => {
+        e.preventDefault();
+        fileDropping = true;
+    }}
+    ondragleave={() => {
+        fileDropping = false;
+    }}
+    ondrop={handleDrop}
+    class="px-8 py-4 flex flex-col gap-y-2 max-w-screen-sm md:max-w-screen-xl mx-auto relative group h-full min-h-full"
 >
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
+    <div
+        class="flex flex-col md:flex-row items-start md:items-center justify-between"
+    >
         <h1 class="text-2xl mb-2 text-center md:text-left w-full md:w-auto">
             <span>Stills of</span>
             <span class="font-semibold"
@@ -160,44 +196,79 @@
             >
         </h1>
 
-        <div class="flex items-center gap-x-2 w-full md:w-auto justify-center">
-            {#if selectedStills.length}
-                <Button
-                    variant="destructive"
-                    onclick={() => (deleteSelectedDialogShown = true)}
+        <div
+            class="flex flex-col sm:flex-row items-center gap-x-2 gap-y-2 w-full md:w-auto justify-center"
+        >
+            <div class="inline-flex items-center gap-x-2">
+                {#if selectedStills.length}
+                    <Button
+                        variant="destructive"
+                        onclick={() => (deleteSelectedDialogShown = true)}
+                    >
+                        <TrashIcon class="size-6" />
+                    </Button>
+                    <Button
+                        onclick={() => (downloadSelectedDialogShown = true)}
+                    >
+                        <DownloadIcon class="size-6" />
+                    </Button>
+                {/if}
+                <Label
+                    class="h-10 inline-flex items-center gap-x-2 hover:cursor-pointer bg-neutral-900 border border-neutral-800 px-4 py-2 rounded-md"
+                    for="select-all-checkbox"
                 >
-                    <TrashIcon class="size-6" />
-                </Button>
-                <Button onclick={() => (downloadSelectedDialogShown = true)}>
-                    <DownloadIcon class="size-6" />
-                </Button>
-            {/if}
-            <Label
-                class="h-10 inline-flex items-center gap-x-2 hover:cursor-pointer bg-neutral-900 border border-neutral-800 px-4 py-2 rounded-md"
-                for="select-all-checkbox"
-            >
-                <Checkbox
-                    class="size-4"
-                    id="select-all-checkbox"
-                    bind:checked={() => {
-                        return (
-                            selectedStills.length === stills.length &&
-                            stills.length
-                        );
-                    },
-                    (s) => {
-                        if (s) {
-                            selectedStills = [];
-                            stills.forEach(
-                                (/** @type {{ id: number; }} */ element) => {
-                                    selectedStills.push(element.id);
-                                },
+                    <Checkbox
+                        class="size-4"
+                        id="select-all-checkbox"
+                        bind:checked={() => {
+                            return (
+                                selectedStills.length === stills.length &&
+                                stills.length
                             );
-                        } else selectedStills = [];
-                    }}
-                />
-                All
-            </Label>
+                        },
+                        (s) => {
+                            if (s) {
+                                selectedStills = [];
+                                stills.forEach(
+                                    (
+                                        /** @type {{ id: number; }} */ element,
+                                    ) => {
+                                        selectedStills.push(element.id);
+                                    },
+                                );
+                            } else selectedStills = [];
+                        }}
+                    />
+                    All
+                </Label>
+            </div>
+            <div class="inline-flex items-center gap-x-2">
+                On upload, sort by filename:
+                <div
+                    class="bg-neutral-900 rounded-md px-2 py-1 inline-flex gap-x-2"
+                >
+                    <button
+                        onclick={() => ($form.sortByFilename = false)}
+                        class="{$form.sortByFilename !== false
+                            ? ''
+                            : 'text-white bg-black'} px-2 rounded-md">/</button
+                    >
+                    <button
+                        onclick={() => ($form.sortByFilename = "ASC")}
+                        class="{$form.sortByFilename !== 'ASC'
+                            ? ''
+                            : 'text-white bg-black'} px-2 rounded-md"
+                        >ASC</button
+                    >
+                    <button
+                        onclick={() => ($form.sortByFilename = "DESC")}
+                        class="{$form.sortByFilename !== 'DESC'
+                            ? ''
+                            : 'text-white bg-black'} px-2 rounded-md"
+                        >DESC</button
+                    >
+                </div>
+            </div>
         </div>
     </div>
     <input
@@ -238,4 +309,9 @@
             />
         {/each}
     </div>
+    <div
+        class="{fileDropping
+            ? 'absolute'
+            : 'hidden'} w-full h-full left-0 top-0 pointer-events-none bg-black opacity-50 transition-opacity duration-500"
+    ></div>
 </section>

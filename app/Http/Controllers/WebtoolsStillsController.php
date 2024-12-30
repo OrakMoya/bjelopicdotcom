@@ -50,14 +50,27 @@ class WebtoolsStillsController extends Controller
     public function store(Video $video, Request $request): RedirectResponse
     {
         $max = Still::where('video_id', $video->id)
-            ->max('position');
+            ->max('position') + 1;
 
         $request->validate([
-            'stills.*' => ['required', 'image']
+            'stills.*' => ['required', 'image'],
+            'sortByFilename' => ['required']
         ]);
         $stills = [];
+        $files = $request->file('stills');
+
+        if ($request->sortByFilename) {
+            usort($files, function (UploadedFile $a, UploadedFile $b) use ($request) {
+                $direction = $request->sortByFilename;
+                if ($direction == 'ASC') {
+                    return strcmp($b->getClientOriginalName(), $a->getClientOriginalName());
+                }
+                return strcmp($a->getClientOriginalName(), $b->getClientOriginalName());
+            });
+        }
+
         /** @var UploadedFile $file */
-        foreach ($request->file('stills') as $i => $file) {
+        foreach ($files as $i => $file) {
             $path = Storage::putFile('public/stills/' . $video->id, $file);
             array_push($stills, [
                 'video_id' => $video->id,
@@ -120,7 +133,10 @@ class WebtoolsStillsController extends Controller
      */
     public function destroy(Still $still): RedirectResponse
     {
-        Storage::delete($still->path);
+        defer(function () use ($still) {
+            Storage::delete($still->path);
+        });
+
         $still->delete();
         return redirect()->back();
     }
