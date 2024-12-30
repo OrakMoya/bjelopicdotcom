@@ -36,7 +36,13 @@
     function handleInput(event) {
         let target = /** @type {HTMLInputElement}*/ (event.target);
         $form.stills = [...(target.files ?? [])];
-        $form.post("/webtools/videos/" + video.id + "/stills");
+        $form.post("/webtools/videos/" + video.id + "/stills", {
+            onSuccess: () =>
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: "smooth",
+                }),
+        });
     }
     /** @type {Number|null} */
     let deleteTarget = null;
@@ -75,7 +81,13 @@
              * @type {File[]}
              */
             $form.stills = [...e.dataTransfer.files];
-            $form.post("/webtools/videos/" + video.id + "/stills");
+            $form.post("/webtools/videos/" + video.id + "/stills", {
+                onSuccess: () =>
+                    window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: "smooth",
+                    }),
+            });
         }
     }
 </script>
@@ -310,8 +322,8 @@
         {/each}
     </div>
     <div
-        class="{fileDropping
-            ? 'absolute'
-            : 'hidden'} w-full h-full left-0 top-0 pointer-events-none bg-black opacity-50 transition-opacity duration-500"
+        class="absolute w-full h-full left-0 top-0 pointer-events-none bg-black {fileDropping
+            ? 'opacity-50'
+            : 'opacity-0'} transition-opacity duration-300"
     ></div>
 </section>

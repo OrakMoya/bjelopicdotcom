@@ -19,7 +19,7 @@
             onChange(number);
         }}
         ><ArrowUp
-            class="w-5 h-5 hover:translate-y-[2px] transition-transform"
+            class="w-5 h-5 hover:-translate-y-[2px] transition-transform"
         /></button
     >
     <button
@@ -28,7 +28,7 @@
             onChange(number);
         }}
         ><ArrowDown
-            class="w-5 h-5 hover:-translate-y-[2px] transition-transform "
+            class="w-5 h-5 hover:translate-y-[2px] transition-transform "
         /></button
     >
 </div>
