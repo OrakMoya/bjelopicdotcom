@@ -13,7 +13,7 @@
      * @prop {HeroGalleryVideoProps[]} videos
      */
 
-    /** @type {Props} */
+    /** @type {Props & {[key:string]:any}} */
     let { videos, ...rest } = $props();
 
     const autoscroll = AutoScroll({
@@ -82,7 +82,7 @@
                         <div
                             onmouseenter={() => (carousel_hovered = true)}
                             onmouseleave={() => (carousel_hovered = false)}
-                            class="p-1 w-60 md:w-[352px] bg-black overflow-visible"
+                            class="p-1 w-60 md:w-[288px] bg-black overflow-visible"
                         >
                             <div
                                 class="w-full h-full relative transition md:hover:z-10 md:hover:drop-shadow-glow-md md:hover:scale-105 {carousel_hovered

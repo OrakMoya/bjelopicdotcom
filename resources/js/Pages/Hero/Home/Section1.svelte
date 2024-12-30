@@ -5,16 +5,16 @@
 </script>
 
 <div class="relative bg-neutral-900 overflow-clip">
-    <section class="pt-48 pb-[500px] relative">
-        <div class="max-w-screen-xl mx-auto mb-12 md:mb-16">
-            <h2 class="text-center text-6xl font-bold mb-2">
-                Text ovdje nekakav
+    <section class="py-32 md:py-48 relative">
+        <div class="max-w-screen-xl mx-auto mb-8 md:mb-12 px-8">
+            <h2 class="text-center text-3xl md:text-4xl lg:text-5xl font-bold mb-2 leading-tight">
+                Vlastite produkcije, koprodukcije te suradnje
             </h2>
-            <p class="text-center text-xl text-neutral-500">
-                Subtext ovdje nekakav
+            <p class="text-center md:text-lg lg:text-xl text-neutral-500">
+                Od kreiranja promotivnih segmenta za filmske festivale do koprodukcije kratkometražnog filma za studente fakulteta, pa i kompletne produkcije vlastitog dugometražnog filma, nije nam strano ni surađivanje ni skroz vlastiti uradak.
             </p>
         </div>
 
-        <HeroCarousel {videos} />
+        <HeroCarousel class="mb-6" {videos} />
     </section>
 </div>

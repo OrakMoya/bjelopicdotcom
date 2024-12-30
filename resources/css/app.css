@@ -12,7 +12,6 @@
         font-weight: 400;
         src: url(/public/BjeloPIC-NotoBased.woff) format('woff');
     }
-
     :root {
         --background: 0 0% 100%;
         --foreground: 0 0% 3.9%;
