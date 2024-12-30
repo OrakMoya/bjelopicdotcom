@@ -126,5 +126,7 @@ return [
     'telescope_emails' => explode(',', env('TELESCOPE_EMAILS', '')),
     'sqid_alphabet' => env('SQID_ALPHABET'),
     'sqid_minimum_length' => env('SQID_MINIMUM_LENGTH'),
+    'contact_form_target' => env('MAIL_CONTACT_FORM_TARGET', 'info@bjelopic.com'),
+    'contact_form_spm' => env('MAIL_CONTACT_FORM_SPM', '1')
 
 ];
