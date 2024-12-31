@@ -214,9 +214,9 @@
                             />
                         </button>
                         <div
-                            class="w-full basis-2/5 flex flex-col gap-y-4 justify-center md:justify-start drop-shadow mb-2 md:mb-0"
+                            class="w-full basis-2/5 flex flex-col gap-y-0 justify-center md:justify-start drop-shadow mb-6 md:mb-0"
                         >
-                            <section>
+                            <section class="mb-2">
                                 <span
                                     class="font-semibold text-2xl lg:text-3xl block"
                                 >
