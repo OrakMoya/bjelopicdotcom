@@ -27,19 +27,21 @@
 </script>
 
 <div
-    class="relative group {selected
+    class="relative {selected
         ? 'scale-[104%] md:scale-[102%]'
         : ''} transition-all duration-300 z-10 md:z-0"
 >
     <div
-        class="absolute md:hidden left-0 top-0 transition-transform duration-500 group-hover:-translate-y-full bg-neutral-800 border border-b-0 border-neutral-700 overflow-clip rounded-t-md text-neutral-500 px-1 pb-[2px] text-sm italic group-hover:drop-shadow-lg"
+        class="absolute md:hidden left-0 top-0 transition-transform duration-500 bg-neutral-800 border border-b-0 border-neutral-700 overflow-clip rounded-t-md text-neutral-500 px-1 pb-[2px] text-sm italic
+        {selected ? '-translate-y-full drop-shadow-lg' : ''}
+        "
     >
         Pregled - pritisnite opet da pogledate
     </div>
     <div
         class=" w-full h-full rounded-md
         bg-neutral-800 border border-neutral-700 box-border overflow-clip
-        hover:rounded-tl-none hover:md:rounded-tl-md transition-all
+        {selected ? 'rounded-tl-none md:rounded-tl-md' : ''} transition-all
     "
     >
         <!-- alt -->
