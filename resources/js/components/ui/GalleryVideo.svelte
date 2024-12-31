@@ -21,6 +21,7 @@
         hideBottomBar = false,
         selected = false,
         showTitle = false,
+        darken = false,
         ...rest
     } = $props();
     let duration = video.preview_url ? 100 : 0;

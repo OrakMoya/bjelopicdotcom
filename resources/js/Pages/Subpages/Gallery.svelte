@@ -65,17 +65,23 @@
 -->
 {#each by_collection as collection, i}
     <section
-        class="mx-auto sm:px-4 max-w-[550px] md:max-w-none my-4 relative"
+        class="mx-auto md:px-4 my-4 md:my-6 relative
+        {collection.videos.find(
+            (video) => video.uuid === selected_video_uuid,
+        ) || !selected_video_uuid
+            ? 'delay-100'
+            : 'md:brightness-[60%] delay-500'}
+        duration-1500 transition-[filter] bg-neutral-900 border-y border-neutral-800"
         onclick={() => (selected_video_uuid = "")}
         role="none"
     >
         <div
-            class="max-w-screen-xl mx-auto
+            class="max-w-[450px] md:max-w-screen-xl mx-auto
             {!by_collection.at(i + 1)?.videos[0].collection &&
             i + 1 < by_collection.length
                 ? ''
                 : ''}
-            py-4 border-y min-[550px]:border-x min-[550px]:border-neutral-800 bg-neutral-900 min-[550px]:rounded-md px-4"
+            py-4 px-4"
         >
             {#if collection.videos[0].collection}
                 {@const firstVideo = collection.videos[0]}
@@ -83,17 +89,13 @@
                 <div
                     class="flex w-full justify-center items-center gap-x-4 mx-auto transition-all duration-500 drop-shadow"
                 >
-                    <div
-                        class="h-[1px] relative top-[2px] bg-white grow"
-                    ></div>
+                    <div class="h-[1px] relative top-[2px] bg-white grow"></div>
                     <div
                         class="whitespace-normal w-max max-w-[570px] font-bold text-2xl md:text-4xl text-center"
                     >
                         {collection.collection}
                     </div>
-                    <div
-                        class="h-[1px] relative top-[2px] bg-white grow"
-                    ></div>
+                    <div class="h-[1px] relative top-[2px] bg-white grow"></div>
                 </div>
                 <div
                     class="flex justify-center mb-6 text-lg lg:text-xl text-neutral-500"
