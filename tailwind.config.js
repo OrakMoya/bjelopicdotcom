@@ -19,6 +19,14 @@ const config = {
             }
         },
         extend: {
+            transitionDelay:{
+                '1100': '1100ms',
+                '1200': '1200ms',
+                '1300': '1300ms',
+                '1400': '1400ms',
+                '1500': '1500ms',
+                '2000': '2000ms'
+            },
             dropShadow: {
                 "glow-xs": [
                     "0 0px 15px rgba(255,255,255,0.1)",

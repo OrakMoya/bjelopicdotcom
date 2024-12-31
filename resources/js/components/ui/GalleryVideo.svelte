@@ -32,8 +32,8 @@
         : ''} transition-all duration-300 z-10 md:z-0"
 >
     <div
-        class="absolute md:hidden left-0 top-0 transition-transform duration-500 bg-neutral-800 border border-b-0 border-neutral-700 overflow-clip rounded-t-md text-neutral-500 px-1 pb-[2px] text-sm italic
-        {selected ? '-translate-y-full drop-shadow-lg' : ''}
+        class="absolute md:hidden left-0 top-0 transition-transform bg-neutral-800 border border-b-0 border-neutral-700 overflow-clip rounded-t-md text-neutral-500 px-1 pb-[2px] text-sm italic
+        {selected ? '-translate-y-full drop-shadow-lg delay-1100 duration-700' : 'duration-200'}
         "
     >
         Pregled - pritisnite opet da pogledate
@@ -41,7 +41,7 @@
     <div
         class=" w-full h-full rounded-md
         bg-neutral-800 border border-neutral-700 box-border overflow-clip
-        {selected ? 'rounded-tl-none md:rounded-tl-md' : ''} transition-all
+        {selected ? 'rounded-tl-none md:rounded-tl-md delay-1100 duration-700' : 'duration-200'} transition-all
     "
     >
         <!-- alt -->
