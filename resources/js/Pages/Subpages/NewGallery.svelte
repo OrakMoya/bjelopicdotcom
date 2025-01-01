@@ -76,7 +76,9 @@
                     />
                 </div>
                 <div class="relative md:px-8 lg:px-12 px-4 pt-12 pb-14">
-                    <section class="max-w-[550px] md:max-w-screen-lg mx-auto relative">
+                    <section
+                        class="max-w-[550px] md:max-w-screen-lg mx-auto relative"
+                    >
                         {#if video.collection}
                             <span
                                 class="text-neutral-500 text-sm sm:text-base lg:text-xl"
@@ -102,20 +104,36 @@
                             <!-- svelte-ignore a11y_mouse_events_have_key_events -->
                             <a
                                 href={video.link}
-                                onclick={(e) => {
-                                    if (hovered_uuid !== video.uuid) {
-                                        e.preventDefault();
-                                        hovered_uuid = video.uuid;
-                                    }
-                                    e.stopPropagation();
-                                }}
                                 target="_blank"
                                 class="block w-full h-full drop-shadow-md {hovered_uuid ===
                                 video.uuid
                                     ? 'scale-[103%]'
                                     : ''} transition-all duration-500"
-                                onmouseover={() => (hovered_uuid = video.uuid)}
-                                onmouseleave={() => (hovered_uuid = "")}
+                                onclick={(e) => {
+                                    e.stopPropagation();
+                                    if (hovered_uuid === video.uuid) {
+                                        return;
+                                    }
+                                    e.preventDefault();
+                                    hovered_uuid = video.uuid;
+                                }}
+                                onpointerleave={(e) => {
+                                    if (e.pointerType == "touch") return;
+                                    e.stopImmediatePropagation();
+                                    e.preventDefault();
+                                    hovered_uuid = "";
+                                }}
+                                onpointerenter={(e) => {
+                                    if (
+                                        hovered_uuid === video.uuid ||
+                                        e.pointerType == "touch"
+                                    ) {
+                                        return;
+                                    }
+                                    e.stopImmediatePropagation();
+                                    e.preventDefault();
+                                    hovered_uuid = video.uuid;
+                                }}
                             >
                                 <AspectRatio
                                     ratio={16 / 9}
