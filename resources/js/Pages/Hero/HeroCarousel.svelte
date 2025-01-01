@@ -92,7 +92,7 @@
                             >
                                 <AspectRatio.Root ratio={16 / 9}>
                                     <Link
-                                        href="/gallery?focus={video.uuid}"
+                                        href="/gallery#{video.uuid}"
                                         target="_blank"
                                     >
                                         <img

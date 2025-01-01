@@ -54,154 +54,151 @@
     </div>
 
     {#each videos as video, i}
-        {#if i < 10}
-            <!-- content here -->
-            <!-- svelte-ignore a11y_click_events_have_key_events -->
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div
-                class="relative w-full border-y border-neutral-800 my-4"
-                onclick={(e) => {
-                    e.preventDefault();
-                    hovered_uuid = "";
-                }}
-                id={video.uuid}
-            >
-                <div
-                    class="absolute w-full h-full overflow-clip brightness-[25%]"
+        <!-- content here -->
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
+        <div
+            class="relative w-full border-y border-neutral-800 my-4"
+            onclick={(e) => {
+                e.preventDefault();
+                hovered_uuid = "";
+            }}
+            id={video.uuid}
+        >
+            <div class="absolute w-full h-full overflow-clip brightness-[25%]">
+                <img
+                    src={video.thumbnail_url}
+                    class="w-full h-full object-cover scale-110 blur-lg"
+                    alt=""
+                />
+            </div>
+            <div class="relative md:px-8 lg:px-12 px-4 pt-12 pb-14">
+                <section
+                    class="max-w-[550px] md:max-w-screen-lg mx-auto relative"
                 >
-                    <img
-                        src={video.thumbnail_url}
-                        class="w-full h-full object-cover scale-110 blur-lg"
-                        alt=""
-                    />
-                </div>
-                <div class="relative md:px-8 lg:px-12 px-4 pt-12 pb-14">
-                    <section
-                        class="max-w-[550px] md:max-w-screen-lg mx-auto relative"
+                    {#if video.collection}
+                        <span
+                            class="text-neutral-500 text-sm sm:text-base lg:text-xl"
+                            >{video.collection}</span
+                        >
+                    {/if}
+                    <h2
+                        class="text-xl sm:text-3xl lg:text-4xl font-bold drop-shadow-md lg:mb-1 lg:mt-1"
                     >
-                        {#if video.collection}
-                            <span
-                                class="text-neutral-500 text-sm sm:text-base lg:text-xl"
-                                >{video.collection}</span
-                            >
-                        {/if}
-                        <h2
-                            class="text-xl sm:text-3xl lg:text-4xl font-bold drop-shadow-md lg:mb-1 lg:mt-1"
-                        >
-                            {video.subject} - {video.title} ({new Date(
-                                video.publication_date,
-                            ).getUTCFullYear()})
-                        </h2>
-                        <p
-                            class=" text-sm sm:text-base lg:text-xl text-neutral-500 drop-shadow-md mb-6 lg:mb-6"
-                        >
-                            {video.category}
-                        </p>
+                        {video.subject} - {video.title} ({new Date(
+                            video.publication_date,
+                        ).getUTCFullYear()})
+                    </h2>
+                    <p
+                        class=" text-sm sm:text-base lg:text-xl text-neutral-500 drop-shadow-md mb-6 lg:mb-6"
+                    >
+                        {video.category}
+                    </p>
 
-                        <div
-                            class="flex flex-col md:flex-row gap-x-4 gap-y-6 md:mb-2"
+                    <div
+                        class="flex flex-col md:flex-row gap-x-4 gap-y-6 md:mb-2"
+                    >
+                        <!-- svelte-ignore a11y_mouse_events_have_key_events -->
+                        <a
+                            href={video.link}
+                            target="_blank"
+                            class="block w-full h-full drop-shadow-md {hovered_uuid ===
+                            video.uuid
+                                ? 'scale-[103%]'
+                                : ''} transition-all duration-500"
+                            onclick={(e) => {
+                                e.stopPropagation();
+                                if (hovered_uuid === video.uuid) {
+                                    return;
+                                }
+                                e.preventDefault();
+                                hovered_uuid = video.uuid;
+                            }}
+                            onpointerleave={(e) => {
+                                if (e.pointerType == "touch") return;
+                                e.stopImmediatePropagation();
+                                e.preventDefault();
+                                hovered_uuid = "";
+                            }}
+                            onpointerenter={(e) => {
+                                if (
+                                    hovered_uuid === video.uuid ||
+                                    e.pointerType == "touch"
+                                ) {
+                                    return;
+                                }
+                                e.stopImmediatePropagation();
+                                e.preventDefault();
+                                hovered_uuid = video.uuid;
+                            }}
                         >
-                            <!-- svelte-ignore a11y_mouse_events_have_key_events -->
-                            <a
-                                href={video.link}
-                                target="_blank"
-                                class="block w-full h-full drop-shadow-md {hovered_uuid ===
-                                video.uuid
-                                    ? 'scale-[103%]'
-                                    : ''} transition-all duration-500"
-                                onclick={(e) => {
-                                    e.stopPropagation();
-                                    if (hovered_uuid === video.uuid) {
-                                        return;
-                                    }
-                                    e.preventDefault();
-                                    hovered_uuid = video.uuid;
-                                }}
-                                onpointerleave={(e) => {
-                                    if (e.pointerType == "touch") return;
-                                    e.stopImmediatePropagation();
-                                    e.preventDefault();
-                                    hovered_uuid = "";
-                                }}
-                                onpointerenter={(e) => {
-                                    if (
-                                        hovered_uuid === video.uuid ||
-                                        e.pointerType == "touch"
-                                    ) {
-                                        return;
-                                    }
-                                    e.stopImmediatePropagation();
-                                    e.preventDefault();
-                                    hovered_uuid = video.uuid;
-                                }}
-                            >
-                                <AspectRatio
-                                    ratio={16 / 9}
-                                    class="w-full h-full group"
-                                >
-                                    <div
-                                        class="md:hidden text-xs tracking-tighter min-[400px]:text-sm text-right absolute top-0 right-[1px]
-                                        px-2 py-[2px] bg-black/20 text-neutral-500 border-x border-t border-neutral-700 rounded-t-md
-                                            {hovered_uuid === video.uuid &&
-                                        video.preview_url
-                                            ? '-translate-y-full duration-500 delay-1100'
-                                            : 'duration-200'}
-                                        transition-transform
-                                            "
-                                    >
-                                        Pregled - pritisnite opet da pogledate
-                                    </div>
-                                    <div
-                                        class="w-full h-full border border-neutral-800 rounded-md overflow-clip relative
-                                        {hovered_uuid === video.uuid &&
-                                        video.preview_url
-                                            ? 'rounded-tr-none delay-1100 duration-500'
-                                            : 'duration-200'} md:rounded-tr-md transition-all"
-                                    >
-                                        <div
-                                            class="w-full h-full relative bg-black"
-                                        >
-                                            {#if hovered_uuid === video.uuid && video.preview_url}
-                                                <div
-                                                    in:fade={{ delay: 1000 }}
-                                                    class="w-full h-full hidden group-hover:flex justify-center items-center absolute"
-                                                >
-                                                    <LoaderCircleIcon
-                                                        class="size-8 animate-spin"
-                                                    />
-                                                </div>
-                                                <video
-                                                    muted
-                                                    autoplay
-                                                    loop
-                                                    transition:fade
-                                                    class="w-full h-full object-cover absolute"
-                                                >
-                                                    <source
-                                                        src={video.preview_url}
-                                                    />
-                                                </video>
-                                            {:else}
-                                                <img
-                                                    src={video.thumbnail_url}
-                                                    transition:fade
-                                                    alt=""
-                                                    class="absolute w-full h-full object-cover"
-                                                />
-                                            {/if}
-                                        </div>
-                                    </div>
-                                </AspectRatio>
-                            </a>
-                            <div
-                                class="basis-1/3 flex flex-col items-end md:items-start gap-y-2"
+                            <AspectRatio
+                                ratio={16 / 9}
+                                class="w-full h-full group"
                             >
                                 <div
-                                    class="flex flex-wrap justify-end md:justify-start gap-1 w-full"
+                                    class="md:hidden text-xs tracking-tighter min-[400px]:text-sm text-right absolute top-0 right-[1px]
+                                        px-2 py-[2px] bg-black/20 text-neutral-500 border-x border-t border-neutral-700 rounded-t-md
+                                            {hovered_uuid === video.uuid &&
+                                    video.preview_url
+                                        ? '-translate-y-full duration-500 delay-1100'
+                                        : 'duration-200'}
+                                        transition-transform
+                                            "
                                 >
-                                    {#each video.roles as role}
-                                        <div
-                                            class="inline-block
+                                    Pregled - pritisnite opet da pogledate
+                                </div>
+                                <div
+                                    class="w-full h-full border border-neutral-800 rounded-md overflow-clip relative
+                                        {hovered_uuid === video.uuid &&
+                                    video.preview_url
+                                        ? 'rounded-tr-none delay-1100 duration-500'
+                                        : 'duration-200'} md:rounded-tr-md transition-all"
+                                >
+                                    <div
+                                        class="w-full h-full relative bg-black"
+                                    >
+                                        {#if hovered_uuid === video.uuid && video.preview_url}
+                                            <div
+                                                in:fade={{ delay: 1000 }}
+                                                class="w-full h-full hidden group-hover:flex justify-center items-center absolute"
+                                            >
+                                                <LoaderCircleIcon
+                                                    class="size-8 animate-spin"
+                                                />
+                                            </div>
+                                            <video
+                                                muted
+                                                autoplay
+                                                loop
+                                                transition:fade
+                                                class="w-full h-full object-cover absolute"
+                                            >
+                                                <source
+                                                    src={video.preview_url}
+                                                />
+                                            </video>
+                                        {:else}
+                                            <img
+                                                src={video.thumbnail_url}
+                                                transition:fade
+                                                alt=""
+                                                class="absolute w-full h-full object-cover"
+                                            />
+                                        {/if}
+                                    </div>
+                                </div>
+                            </AspectRatio>
+                        </a>
+                        <div
+                            class="basis-1/3 flex flex-col items-end md:items-start gap-y-2"
+                        >
+                            <div
+                                class="flex flex-wrap justify-end md:justify-start gap-1 w-full"
+                            >
+                                {#each video.roles as role}
+                                    <div
+                                        class="inline-block
                                     w-fit
                                     whitespace-nowrap
                                 text-neutral-500
@@ -210,21 +207,20 @@
                                 bg-black/20 px-1 py-[2px] lg:px-2
                                 rounded-md border border-neutral-700
                                 "
-                                        >
-                                            {role}
-                                        </div>
-                                    {/each}
-                                </div>
-                                <Link
-                                    href="/gallery/{video.uuid}"
-                                    class="underline w-fit text-neutral-400 hover:text-white hover:border-neutral-700 transition-colors"
-                                    >Saznaj više</Link
-                                >
+                                    >
+                                        {role}
+                                    </div>
+                                {/each}
                             </div>
+                            <Link
+                                href="/gallery/{video.uuid}"
+                                class="underline w-fit text-neutral-400 hover:text-white hover:border-neutral-700 transition-colors"
+                                >Saznaj više</Link
+                            >
                         </div>
-                    </section>
-                </div>
+                    </div>
+                </section>
             </div>
-        {/if}
+        </div>
     {/each}
 </main>
