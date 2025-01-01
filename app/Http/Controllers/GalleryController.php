@@ -48,7 +48,7 @@ class GalleryController extends Controller
             $video->roles = $roles;
 
             $pushed = false;
-            if ($video->collection) {
+            if ($video->collection || true) {
                 foreach ($videos_by_collection as &$videos_in_collection) {
                     if ($videos_in_collection && $videos_in_collection['videos'][0]->collection == $video->collection) {
                         array_push($videos_in_collection['videos'], $video);
@@ -82,7 +82,7 @@ class GalleryController extends Controller
             return (int)($a['videos'][0]->publication_date < $b['videos'][0]->publication_date);
         });
 
-        return Inertia::render('Subpages/Gallery', ['by_collection' => $videos_by_collection]);
+        return Inertia::render('Subpages/NewGallery', ['by_collection' => $videos_by_collection, 'videos' => $videos]);
     }
 
     public function show(Video $video): Response
