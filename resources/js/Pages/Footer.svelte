@@ -6,10 +6,12 @@
     import FooterInfoLinks from "./FooterInfoLinks.svelte";
     import FooterSocials from "./FooterSocials.svelte";
 
-    let innerWidth = $state(0);
+    let innerWidth = $state(1024);
     let innerHeight = $state(0);
     const screensize_md = 768;
 </script>
+
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <footer
     class="px-4 py-8 bg-neutral-900 text-white w-full border-t border-t-neutral-800"
