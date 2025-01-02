@@ -14,7 +14,7 @@
     @vite('resources/js/app.js')
     @vite(['resources/css/app.css'])
     @php
-        if(Request::is('webtools/*')){
+        if(Request::is('webtools*')){
             $__inertiaSsrDispatched = true;
             $__inertiaSsrResponse = null;
         }
