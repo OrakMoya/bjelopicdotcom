@@ -3,6 +3,8 @@
     import { Link } from "@inertiajs/svelte";
     import { LoaderCircleIcon, LoaderIcon } from "lucide-svelte";
     import { fade } from "svelte/transition";
+    import * as Accordion from "$lib/components/ui/accordion";
+    import { onMount } from "svelte";
 
     /**
      *   @typedef {Object} Props
@@ -28,82 +30,104 @@
      * @param {string | null} str
      */
     function replace_specials(str) {
-        return (
-            str
-                ?.replaceAll(/[ćč]/g, "c")
-                .replaceAll(/[ž]/g, "z")
-                .replaceAll(/[š]/g, "s")
-                .replaceAll(/[đ]/g, "d") ?? null
-        );
+        return str
+            ?.replaceAll(/[ćč]/g, "c")
+            .replaceAll(/[ž]/g, "z")
+            .replaceAll(/[š]/g, "s")
+            .replaceAll(/[đ]/g, "d");
     }
+
+    /**
+     * @type {string[]}
+     */
+    let accordionValue = $state([]);
 </script>
 
 <main class="">
-    <section
-        class="md:px-8 bg-neutral-900 md:py-4 mt-4 md:border-y border-neutral-800"
-    >
-        <div
-            class="max-w-screen-xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-        >
-            {#each by_collection as collection}
-                <a
-                    class="relative md:rounded-md border-y md:border-x border-neutral-800 overflow-clip drop-shadow-md px-4"
-                    href="#{replace_specials(
-                        collection.collection?.toLowerCase(),
-                    )?.replaceAll(/[^0-9a-zA-Z]/g, '') ?? 'zasebni-radovi'}"
-                    onfocus={() => (hovered_collection = collection.collection)}
-                    onfocusout={() => (hovered_collection = "")}
+    <section class="md:px-8 bg-neutral-900 mt-4 border-y border-neutral-800 mb-4">
+        <Accordion.Root class="w-full max-w-none" bind:value={accordionValue}>
+            <Accordion.Item value="contents" class="w-full max-w-none border-0">
+                <Accordion.Trigger
+                    value="contents"
+                    class="text-2xl md:text-3xl px-4 md:px-0
+                    {accordionValue.at(0) !== 'contents' ||
+                    !accordionValue.at(0)
+                        ? 'text-neutral-500'
+                        : 'text-white'} font-bold w-full max-w-screen-lg mx-auto hover:no-underline hover:text-white "
+                    chevronClasses="size-8">Kolekcije</Accordion.Trigger
                 >
-                    <div class="absolute w-full h-full">
-                        <img
-                            class="w-full h-full object-cover blur brightness-[25%] scale-110"
-                            src={collection.videos[0].thumbnail_url}
-                            alt=""
-                        />
-                    </div>
+                <Accordion.Content class="w-full pb-4 md:pb-0">
                     <div
-                        class="w-full h-full relative pt-4 pb-10 max-w-[550px] md:max-w-full mx-auto"
+                        class="max-w-screen-xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-3"
                     >
-                        <h2 class="font-bold text-xl mb-3">
-                            {collection.collection ?? "Zasebni radovi"}
-                        </h2>
-                        <AspectRatio
-                            ratio={16 / 9}
-                            class="transition-all duration-500"
-                        >
-                            {@const sliced = collection.videos
-                                .slice(0, 3)
-                                .toReversed()}
-                            {#each sliced as video, i}
-                                <img
-                                    onmouseover={() =>
-                                        (hovered_collection =
-                                            collection.collection)}
-                                    onmouseleave={() =>
-                                        (hovered_collection = "")}
-                                    onfocus={() =>
-                                        (hovered_collection =
-                                            collection.collection)}
-                                    onfocusout={() => (hovered_collection = "")}
-                                    class="w-full h-full absolute rounded-md origin-bottom drop-shadow-lg transition-all duration-500"
-                                    style="
+                        {#each by_collection as collection}
+                            <a
+                                class="relative md:rounded-md border-y md:border-x border-neutral-800 overflow-clip drop-shadow-md px-4"
+                                href="#{replace_specials(
+                                    collection.collection?.toLowerCase(),
+                                )?.replaceAll(/[^0-9a-zA-Z]/g, '') ??
+                                    'zasebni-radovi'}"
+                                onfocus={() =>
+                                    (hovered_collection =
+                                        collection.collection)}
+                                onfocusout={() => (hovered_collection = "")}
+                            >
+                                <div class="absolute w-full h-full">
+                                    <img
+                                        class="w-full h-full object-cover blur brightness-[25%] scale-110"
+                                        src={collection.videos[0].thumbnail_url}
+                                        alt=""
+                                    />
+                                </div>
+                                <div
+                                    class="w-full h-full relative pt-4 pb-10 max-w-[550px] md:max-w-full mx-auto"
+                                >
+                                    <h2 class="font-bold text-xl mb-3">
+                                        {collection.collection ??
+                                            "Zasebni radovi"}
+                                    </h2>
+                                    <AspectRatio
+                                        ratio={16 / 9}
+                                        class="transition-all duration-500"
+                                    >
+                                        {@const sliced = collection.videos
+                                            .slice(0, 3)
+                                            .toReversed()}
+                                        {#each sliced as video, i}
+                                            <img
+                                                onmouseover={() =>
+                                                    (hovered_collection =
+                                                        collection.collection)}
+                                                onmouseleave={() =>
+                                                    (hovered_collection = "")}
+                                                onfocus={() =>
+                                                    (hovered_collection =
+                                                        collection.collection)}
+                                                onfocusout={() =>
+                                                    (hovered_collection = "")}
+                                                class="w-full h-full absolute rounded-md origin-bottom drop-shadow-lg transition-all duration-500"
+                                                style="
                                     top: {(sliced.length - i - 1) *
-                                        (hovered_collection ===
-                                        collection.collection
-                                            ? 16
-                                            : 8)}px;
+                                                    (hovered_collection ===
+                                                    collection.collection
+                                                        ? 16
+                                                        : 8)}px;
                                     transform: scale({100 - (3 - i - 1) * 5}%);
                                     --tw-brightness: brightness({100 -
-                                        (sliced.length - i - 1) * 20}%);"
-                                    src={video.thumbnail_url}
-                                    alt=""
-                                />
-                            {/each}
-                        </AspectRatio>
+                                                    (sliced.length - i - 1) *
+                                                        20}%);"
+                                                src={video.thumbnail_url}
+                                                alt=""
+                                            />
+                                        {/each}
+                                    </AspectRatio>
+                                </div>
+                            </a>
+                        {/each}
                     </div>
-                </a>
-            {/each}
-        </div>
+                </Accordion.Content>
+            </Accordion.Item>
+        </Accordion.Root>
     </section>
 
     {#each by_collection as collection}
@@ -113,18 +137,22 @@
                 collection.collection?.toLowerCase(),
             )?.replaceAll(/[^0-9a-zA-Z]/g, "") ?? "zasebni-radovi"}
         >
-            <div
-                class="px-8 pt-20 pb-4 w-full bg-neutral-900 border-y border-neutral-800 my-4"
-            >
-                <div class="max-w-screen-lg mx-auto w-full">
-                    {#if collection.collection}
-                        <p class=" text-neutral-500 md:text-2xl">Kolekcija</p>
-                    {/if}
-                    <p class="text-3xl md:text-6xl font-bold mx-auto">
-                        {collection.collection ?? "Zasebni radovi"}
-                    </p>
+            {#if collection.collection}
+                <div
+                    class="px-8 pt-20 pb-4 w-full bg-neutral-900 border-y border-neutral-800 my-4"
+                >
+                    <div class="max-w-screen-lg mx-auto w-full">
+                        {#if collection.collection}
+                            <p class=" text-neutral-500 md:text-2xl">
+                                Kolekcija
+                            </p>
+                        {/if}
+                        <p class="text-3xl md:text-6xl font-bold mx-auto">
+                            {collection.collection ?? "Zasebni radovi"}
+                        </p>
+                    </div>
                 </div>
-            </div>
+            {/if}
 
             <div class="flex flex-col gap-y-4">
                 {#each collection.videos as video}

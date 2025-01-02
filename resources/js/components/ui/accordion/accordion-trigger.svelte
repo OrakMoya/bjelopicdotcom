@@ -8,9 +8,11 @@
 		class: className,
 		level = 3,
 		children,
+        chevronClasses = "",
 		...restProps
 	}: WithoutChild<AccordionPrimitive.TriggerProps> & {
 		level?: AccordionPrimitive.HeaderProps["level"];
+        chevronClasses: string;
 	} = $props();
 </script>
 
@@ -24,6 +26,6 @@
 		{...restProps}
 	>
 		{@render children?.()}
-		<ChevronDown class="size-4 shrink-0 transition-transform duration-200" />
+		<ChevronDown class={cn("size-4 shrink-0 transition-transform duration-200", chevronClasses)} />
 	</AccordionPrimitive.Trigger>
 </AccordionPrimitive.Header>
