@@ -1,7 +1,9 @@
 <script>
+    import { onMount } from "svelte";
+
     let { phrases, ...rest } = $props();
-    let current = $state("................")
-    let next = ""
+    let current = $state(phrases[0]);
+    let next = "";
     let index = 0;
     let first = true;
 
@@ -38,8 +40,9 @@
     }
 
     setTimeout(deleteCurrent, 0);
+    onMount(() => (current = "................"));
 </script>
 
 <span class={rest.class}>
-    {@html current || '&nbsp;'}
+    {@html current || "&nbsp;"}
 </span>

@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build && vite build --ssr"
+        "build": "vite build && vite build --ssr",
+        "autobuild-ssr": "vite build --ssr --watch"
     },
     "devDependencies": {
         "@internationalized/date": "^3.5.6",

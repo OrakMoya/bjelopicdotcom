@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from "svelte";
     import HeroCarousel from "../HeroCarousel.svelte";
     import TcTextComponent from "../TCTextComponent.svelte";
 
@@ -50,7 +51,9 @@
     }
 
     let tcFlipped = $state(false);
+    let init = $state(false);
 
+    onMount(() => (init = true));
     calc();
     calcFrame();
 </script>
@@ -70,7 +73,9 @@
             >
                 <div
                     class="text-lg font-bold px-2 py-[2px] sm:text-base lg:text-xl rounded-sm text-black w-fit h-fit tracking-tighter mr-1 lg:mr-2
-                    {tcFlipped ? 'bg-bjelopic-red-1' : 'bg-white'}"
+                    {tcFlipped ? 'bg-bjelopic-red-1' : 'bg-white'} {init
+                        ? ''
+                        : 'animate-rec-flash-medium'}"
                 >
                     TCR
                 </div>
