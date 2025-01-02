@@ -112,7 +112,7 @@
                                                     collection.collection
                                                         ? 16
                                                         : 8)}px;
-                                    transform: scale({100 - (3 - i - 1) * 5}%);
+                                    transform: scale({100 - (sliced.length - i - 1) * 5}%);
                                     --tw-brightness: brightness({100 -
                                                     (sliced.length - i - 1) *
                                                         20}%);"
