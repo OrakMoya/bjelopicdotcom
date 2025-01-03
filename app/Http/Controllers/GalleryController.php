@@ -41,9 +41,6 @@ class GalleryController extends Controller
                 array_push($roles, $videoRole->role);
             }
 
-            $video->stillsAvailable = Still::select('id', 'video_id')
-                ->where('video_id', $video->id)->count() > 0;
-
             sort($roles);
             $video->roles = $roles;
 
