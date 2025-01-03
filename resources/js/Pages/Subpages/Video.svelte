@@ -32,30 +32,31 @@
                 >
                     {video.category} za {video.subject}
                 </span>
-                <h1 class="text-2xl md:text-4xl font-bold drop-shadow-md">
+                <h1 class="text-2xl md:text-4xl font-bold drop-shadow-md mb-2 md:mb-4">
                     {video.title} ({new Date(
                         video.publication_date,
                     ).getUTCFullYear()})
                 </h1>
-            </div>
-        </div>
-    </section>
 
-    <div class="flex max-w-screen-xl mx-auto gap-2 flex-wrap justify-center">
-        {#each video.roles as role}
-            <div
-                class="
+                <div class="flex gap-1 md:gap-2 flex-wrap justify-start w-[80%] md:w-full">
+                    {#each video.roles as role}
+                        <div
+                            class="
                 w-fit
                 whitespace-nowrap
                 text-neutral-500
                 drop-shadow-md
-                bg-neutral-900 px-1 py-[2px] lg:px-2
+                            md:text-sm text-xs
+                bg-neutral-900/75 px-1 pt-[2px] pb-1 md:px-2
                 rounded-md border border-neutral-700"
-            >
-                {role}
+                        >
+                            {role}
+                        </div>
+                    {/each}
+                </div>
             </div>
-        {/each}
-    </div>
+        </div>
+    </section>
 
     <section
         class="bg-neutral-900 border-y border-neutral-800 px-4 py-6 md:py-4"
