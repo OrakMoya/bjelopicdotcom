@@ -129,6 +129,7 @@ class GalleryController extends Controller
         foreach ($video->videoRoles as $role) {
             array_push($roles, $role->role);
         }
+        $video->roles = $roles;
 
         return Inertia::render(
             'Subpages/Video',

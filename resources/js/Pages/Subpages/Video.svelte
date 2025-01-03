@@ -27,7 +27,9 @@
                 />
             </div>
             <div class="relative">
-                <span class="text-neutral-400 md:text-neutral-500 md:text-lg drop-shadow-md">
+                <span
+                    class="text-neutral-400 md:text-neutral-500 md:text-lg drop-shadow-md"
+                >
                     {video.category} za {video.subject}
                 </span>
                 <h1 class="text-2xl md:text-4xl font-bold drop-shadow-md">
@@ -38,6 +40,22 @@
             </div>
         </div>
     </section>
+
+    <div class="flex max-w-screen-xl mx-auto gap-2 flex-wrap justify-center">
+        {#each video.roles as role}
+            <div
+                class="
+                w-fit
+                whitespace-nowrap
+                text-neutral-500
+                drop-shadow-md
+                bg-neutral-900 px-1 py-[2px] lg:px-2
+                rounded-md border border-neutral-700"
+            >
+                {role}
+            </div>
+        {/each}
+    </div>
 
     <section
         class="bg-neutral-900 border-y border-neutral-800 px-4 py-6 md:py-4"
@@ -138,7 +156,9 @@
             class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12"
         >
             <div class="max-w-screen-xl mx-auto">
-                <span class="text-neutral-500 drop-shadow-md">Radovi u kategoriji</span>
+                <span class="text-neutral-500 drop-shadow-md"
+                    >Radovi u kategoriji</span
+                >
                 <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
                     {video.category}
                 </h2>
