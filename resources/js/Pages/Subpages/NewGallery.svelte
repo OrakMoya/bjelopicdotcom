@@ -43,6 +43,10 @@
     let accordionValue = $state([]);
 </script>
 
+<svelte:head>
+    <title>Galerija - BjeloPIC</title>
+</svelte:head>
+
 <main class="">
     <section class="md:px-8 bg-neutral-900 mt-4 border-y border-neutral-800 mb-4">
         <Accordion.Root class="w-full max-w-none" bind:value={accordionValue}>

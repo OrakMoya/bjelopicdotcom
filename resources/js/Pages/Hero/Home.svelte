@@ -10,6 +10,10 @@
     let { heroUrl, videos } = $props();
 </script>
 
+<svelte:head>
+    <title>BjeloPIC</title>
+</svelte:head>
+
 <Hero {heroUrl} />
 <Section1 {videos} />
 <Section2  />
