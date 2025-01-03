@@ -32,13 +32,17 @@
                 >
                     {video.category} za {video.subject}
                 </span>
-                <h1 class="text-2xl md:text-4xl font-bold drop-shadow-md mb-2 md:mb-3">
+                <h1
+                    class="text-2xl md:text-4xl font-bold drop-shadow-md mb-2 md:mb-3"
+                >
                     {video.title} ({new Date(
                         video.publication_date,
                     ).getUTCFullYear()})
                 </h1>
 
-                <div class="flex gap-1 md:gap-2 flex-wrap justify-start w-[80%] md:w-full">
+                <div
+                    class="flex gap-1 md:gap-2 flex-wrap justify-start w-[80%] md:w-full"
+                >
                     {#each video.roles as role}
                         <div
                             class="
@@ -125,99 +129,29 @@
         </div>
     </section>
 
-    {#if in_collection.length}
-        <section
-            class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12"
-        >
-            <div class="max-w-screen-xl mx-auto">
-                <span class="text-neutral-500 drop-shadow-md"> Kolekcija</span>
-                <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
-                    {video.collection}
-                </h2>
-            </div>
-        </section>
-        <section class=" px-4 bg-neutral-900 py-4 border-y border-neutral-800">
-            <div class="max-w-screen-xl mx-auto">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {#each in_collection as col_video}
-                        <Link
-                            class="block hover:scale-105 transition-transform rounded-sm overflow-clip border border-neutral-800"
-                            href="/gallery/{col_video.uuid}"
-                        >
-                            <img src={col_video.thumbnail_url} alt="" />
-                        </Link>
-                    {/each}
-                </div>
-            </div>
-        </section>
-    {/if}
-
-    {#if in_category.length}
-        <section
-            class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12"
-        >
-            <div class="max-w-screen-xl mx-auto">
-                <span class="text-neutral-500 drop-shadow-md"
-                    >Radovi u kategoriji</span
-                >
-                <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
-                    {video.category}
-                </h2>
-            </div>
-        </section>
-        <section class=" px-4 bg-neutral-900 py-4 border-y border-neutral-800">
-            <div class="max-w-screen-xl mx-auto">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {#each in_category as cat_video}
-                        <Link
-                            class="block hover:scale-105 transition-transform rounded-sm overflow-clip border border-neutral-800"
-                            href="/gallery/{cat_video.uuid}"
-                        >
-                            <img src={cat_video.thumbnail_url} alt="" />
-                        </Link>
-                    {/each}
-                </div>
-            </div>
-        </section>
-    {/if}
-
-    {#if for_subject.length}
-        <section
-            class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12"
-        >
-            <div class="max-w-screen-xl mx-auto">
-                <span class="text-neutral-500 drop-shadow-md"
-                    >Drugi radovi za</span
-                >
-                <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
-                    {video.subject}
-                </h2>
-            </div>
-        </section>
-        <section class=" px-4 bg-neutral-900 py-4 border-y border-neutral-800">
-            <div class="max-w-screen-xl mx-auto">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {#each for_subject as subj_video}
-                        <Link
-                            class="block hover:scale-105 transition-transform rounded-sm overflow-clip border border-neutral-800"
-                            href="/gallery/{subj_video.uuid}"
-                        >
-                            <img src={subj_video.thumbnail_url} alt="" />
-                        </Link>
-                    {/each}
-                </div>
-            </div>
-        </section>
-    {/if}
-
     {#if stills.length}
+        {@const some = stills.slice(0, 10)}
         <section
-            class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12"
+            class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12 relative overflow-clip"
         >
-            <div class="max-w-screen-xl mx-auto">
-                <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
-                    Stillovi rada
-                </h2>
+            <div
+                class="flex w-full justify-between items-center max-w-screen-xl mx-auto"
+            >
+                <div class="absolute right-0 w-full md:w-1/2">
+                    <img
+                        src={some[Math.floor(Math.random() * some.length)].path}
+                        style="
+                        -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
+                        "
+                        class="object-cover w-full blur origin-right translate-y-[15%]"
+                        alt=""
+                    />
+                </div>
+                <div class="relative">
+                    <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
+                        Stillovi rada
+                    </h2>
+                </div>
             </div>
         </section>
         <section class=" px-4 bg-neutral-900 py-4 border-y border-neutral-800">
@@ -239,6 +173,135 @@
                         />
                     </a>
                 {/each}
+            </div>
+        </section>
+    {/if}
+
+    {#if in_collection.length}
+        {@const some = in_collection.slice(0, 10)}
+        <section
+            class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12 overflow-clip relative"
+        >
+            <div class="max-w-screen-xl mx-auto flex items-center">
+                <div class="absolute right-0 w-full md:w-1/2">
+                    <img
+                        src={some[Math.floor(Math.random() * some.length)]
+                            .thumbnail_url}
+                        style="
+                        -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
+                        "
+                        class="brightness-[40%] md:brightness-75 object-cover scale-110 md:scale-150 w-full blur origin-right translate-y-[20%] md:translate-y-[24%]"
+                        alt=""
+                    />
+                </div>
+                <div class="relative">
+                    <span class="text-neutral-400 md:text-neutral-500 drop-shadow-md"
+                        >Drugi radovi u kolekciji</span
+                    >
+                    <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
+                        {video.collection}
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <section class=" px-4 bg-neutral-900 py-4 border-y border-neutral-800">
+            <div class="max-w-screen-xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {#each in_collection as col_video}
+                        <Link
+                            class="block hover:scale-105 transition-transform rounded-sm overflow-clip border border-neutral-800"
+                            href="/gallery/{col_video.uuid}"
+                        >
+                            <img src={col_video.thumbnail_url} alt="" />
+                        </Link>
+                    {/each}
+                </div>
+            </div>
+        </section>
+    {/if}
+
+    {#if in_category.length}
+        {@const some = in_category.slice(0, 10)}
+        <section
+            class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12 relative overflow-clip"
+        >
+            <div class="max-w-screen-xl mx-auto flex items-center">
+                <div class="absolute right-0 w-full md:w-1/2">
+                    <img
+                        src={some[Math.floor(Math.random() * some.length)]
+                            .thumbnail_url}
+                        style="
+                        -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
+                        "
+                        class="brightness-[40%] md:brightness-75 object-cover scale-110 md:scale-150 w-full blur origin-right translate-y-[20%] md:translate-y-[24%]"
+                        alt=""
+                    />
+                </div>
+                <div class="relative">
+                    <span class="text-neutral-400 md:text-neutral-500 drop-shadow-md"
+                        >Drugi radovi u kategoriji</span
+                    >
+                    <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
+                        {video.category}
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <section class=" px-4 bg-neutral-900 py-4 border-y border-neutral-800">
+            <div class="max-w-screen-xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {#each in_category as cat_video}
+                        <Link
+                            class="block hover:scale-105 transition-transform rounded-sm overflow-clip border border-neutral-800"
+                            href="/gallery/{cat_video.uuid}"
+                        >
+                            <img src={cat_video.thumbnail_url} alt="" />
+                        </Link>
+                    {/each}
+                </div>
+            </div>
+        </section>
+    {/if}
+
+    {#if for_subject.length}
+        {@const some = for_subject.slice(0, 10)}
+        <section
+            class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12 overflow-clip relative"
+        >
+            <div class="max-w-screen-xl mx-auto flex items-center">
+                <div class="absolute right-0 w-full md:w-1/2">
+                    <img
+                        src={some[Math.floor(Math.random() * some.length)]
+                            .thumbnail_url}
+                        style="
+                        -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
+                        "
+                        class="brightness-[40%] md:brightness-75 object-cover scale-110 md:scale-150 w-full blur origin-right translate-y-[20%] md:translate-y-[24%]"
+                        alt=""
+                    />
+                </div>
+                <div class="relative">
+                    <span class="text-neutral-400 md:text-neutral-500 drop-shadow-md"
+                        >Drugi radovi za</span
+                    >
+                    <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
+                        {video.subject}
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <section class=" px-4 bg-neutral-900 py-4 border-y border-neutral-800">
+            <div class="max-w-screen-xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {#each for_subject as subj_video}
+                        <Link
+                            class="block hover:scale-105 transition-transform rounded-sm overflow-clip border border-neutral-800"
+                            href="/gallery/{subj_video.uuid}"
+                        >
+                            <img src={subj_video.thumbnail_url} alt="" />
+                        </Link>
+                    {/each}
+                </div>
             </div>
         </section>
     {/if}
