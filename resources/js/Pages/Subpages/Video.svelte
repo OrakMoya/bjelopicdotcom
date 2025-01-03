@@ -46,8 +46,8 @@
                 whitespace-nowrap
                 text-neutral-500
                 drop-shadow-md
-                            md:text-sm text-xs
-                bg-neutral-900/75 px-1 pt-[2px] pb-1 md:px-2
+                md:text-sm text-xs
+                bg-neutral-900/[65%] px-1 pt-[2px] pb-1 md:px-2
                 rounded-md border border-neutral-700"
                         >
                             {role}
