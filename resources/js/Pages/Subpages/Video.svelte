@@ -32,7 +32,7 @@
                 >
                     {video.category} za {video.subject}
                 </span>
-                <h1 class="text-2xl md:text-4xl font-bold drop-shadow-md mb-2 md:mb-4">
+                <h1 class="text-2xl md:text-4xl font-bold drop-shadow-md mb-2 md:mb-3">
                     {video.title} ({new Date(
                         video.publication_date,
                     ).getUTCFullYear()})
