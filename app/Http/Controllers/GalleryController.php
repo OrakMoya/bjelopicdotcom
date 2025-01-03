@@ -95,23 +95,50 @@ class GalleryController extends Controller
             return [...$still, 'path' => Storage::url($still['path'])];
         }, $stills);
 
+        $collection_videos = Video::select('*')
+            ->where('collection', $video->collection)
+            ->whereNotNull('collection')
+            ->where('id', '<>', $video->id)
+            ->get();
+
+        $category_videos = Video::select('*')
+            ->where('category', $video->category)
+            ->where('id', '<>', $video->id)
+            ->get();
+
+
+        $subject_videos = Video::select('*')
+            ->where('subject', $video->subject)
+            ->where('id', '<>', $video->id)
+            ->get();
+
+
+        foreach ($collection_videos as &$col_video) {
+            $col_video->encodeURLs();
+        }
+        foreach ($category_videos as &$cat_video) {
+            $cat_video->encodeURLs();
+        }
+        foreach ($subject_videos as &$subj_video) {
+            $subj_video->encodeURLs();
+        }
+
         $video->load('videoRoles');
+        $video->encodeURLs();
         $roles = [];
         foreach ($video->videoRoles as $role) {
             array_push($roles, $role->role);
         }
 
-        $video = [
-            'id' => $video->id,
-            'title' => $video->title,
-            'description' => $video->description,
-            'link' => $video->link,
-            'subject' => $video->subject,
-            'publication_date' => $video->publication_date,
-            'uuid' => $video->uuid,
-            'roles' => $roles
-        ];
-
-        return Inertia::render('Subpages/Video', ['video' => $video, 'stills' => $stills]);
+        return Inertia::render(
+            'Subpages/Video',
+            [
+                'video' => $video,
+                'stills' => $stills,
+                'in_collection' => $collection_videos,
+                'in_category' => $category_videos,
+                'for_subject' => $subject_videos
+            ]
+        );
     }
 }

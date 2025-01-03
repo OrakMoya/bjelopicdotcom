@@ -28,7 +28,7 @@
             <Link href="/" class="">
                 <TheBjeloPic class="text-3xl md:text-2xl" />
             </Link>
-            <span class="text-neutral-400 text-base"
+            <span class="text-neutral-500 text-base"
                 >Bjelovarski filmski studio</span
             >
         </div>
@@ -71,7 +71,7 @@
             {/if}
         </div>
     </div>
-    <span class="font-semibold block w-fit mx-auto my-4"
+    <span class="text-neutral-500 block w-fit mx-auto mt-8 text-sm sm:text-base"
         >&copy; BjeloPIC {new Date().getFullYear()} | Sva prava pridržana
     </span>
 </footer>

@@ -24,7 +24,7 @@ class SoloServiceProvider extends ServiceProvider
             ->addCommands([
                 EnhancedTailCommand::make('Logs', 'tail -f -n 100 ' . storage_path('logs/laravel.log')),
                 'Vite' => 'npm run dev',
-                'HTTP' => 'php artisan serve --host 192.168.0.237',
+                'HTTP' => 'php artisan serve',
                 'About' => 'php artisan solo:about'
             ])
             // Not auto-started
