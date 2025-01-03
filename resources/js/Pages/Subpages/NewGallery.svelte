@@ -92,7 +92,7 @@
                                     >
                                         {@const sliced = collection.videos
                                             .slice(0, 3)
-                                            .toReversed()}
+                                            .reverse()}
                                         {#each sliced as video, i}
                                             <img
                                                 onmouseover={() =>
