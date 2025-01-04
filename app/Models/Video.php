@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use VideoHour;
 
 class Video extends Model
 {
@@ -47,5 +48,10 @@ class Video extends Model
     public function stills(): HasMany
     {
         return $this->hasMany(Still::class, 'video_id', 'id');
+    }
+
+    public function videoHours(): HasMany
+    {
+        return $this->hasMany(VideoHour::class, 'video_id', 'id');
     }
 }
