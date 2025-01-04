@@ -22,6 +22,7 @@ export {};
  * @prop {string} link
  * @prop {string} uuid
  * @prop {string[]} roles
+ * @prop {{phase: string; amount: number; unit: string}[]} video_hours
  * @prop {string} publication_date
  * @prop {boolean} stillsAvailable
  */

@@ -129,6 +129,43 @@
         </div>
     </section>
 
+    {#if video.video_hours.length}
+        <section
+            class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12 relative overflow-clip"
+        >
+            <div
+                class="flex w-full justify-between items-center max-w-screen-xl mx-auto"
+            >
+                <div class="relative">
+                    <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
+                        Satnice
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <section class=" px-4 bg-neutral-900 py-4 border-y border-neutral-800">
+            <div
+                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-screen-xl mx-auto items-end"
+            >
+                {#each video.video_hours as video_hour}
+                    <div class="w-fit mx-auto text-center">
+                        <p
+                            class="md:w-full w-2/3 mx-auto text-neutral-500 md:text-lg"
+                        >
+                            {video_hour.phase}
+                        </p>
+                        <p class="text-7xl font-bold">
+                            {video_hour.amount}<span
+                                class="text-5xl text-neutral-500"
+                                >{video_hour.unit === "hours" ? "h" : "d"}</span
+                            >
+                        </p>
+                    </div>
+                {/each}
+            </div>
+        </section>
+    {/if}
+
     {#if stills.length}
         {@const some = stills.slice(0, 10)}
         <section
@@ -195,7 +232,8 @@
                     />
                 </div>
                 <div class="relative">
-                    <span class="text-neutral-400 md:text-neutral-500 drop-shadow-md"
+                    <span
+                        class="text-neutral-400 md:text-neutral-500 drop-shadow-md"
                         >Drugi radovi u kolekciji</span
                     >
                     <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
@@ -238,7 +276,8 @@
                     />
                 </div>
                 <div class="relative">
-                    <span class="text-neutral-400 md:text-neutral-500 drop-shadow-md"
+                    <span
+                        class="text-neutral-400 md:text-neutral-500 drop-shadow-md"
                         >Drugi radovi u kategoriji</span
                     >
                     <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
@@ -281,7 +320,8 @@
                     />
                 </div>
                 <div class="relative">
-                    <span class="text-neutral-400 md:text-neutral-500 drop-shadow-md"
+                    <span
+                        class="text-neutral-400 md:text-neutral-500 drop-shadow-md"
                         >Drugi radovi za</span
                     >
                     <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">

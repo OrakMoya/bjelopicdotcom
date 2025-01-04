@@ -1,4 +1,5 @@
 <?php
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,8 @@ class VideoHour extends Model
         'amount',
         'phase'
     ];
+
+    protected $table = 'video_hours';
 
     /**
      * @return BelongsTo<Video,VideoHour>

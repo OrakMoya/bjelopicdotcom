@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Models\Video;
+use App\Models\VideoHour;
 use App\Models\VideoRole;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -43,7 +45,10 @@ class VideoService
         }
 
         $video->save();
-        $this->setVideoRoles($video, $attributes['roles']);
+        if (isset($attributes['roles']))
+            $this->setVideoRoles($video, $attributes['roles']);
+        if (isset($attributes['video_hours']))
+            $this->setVideoHours($video, $attributes['video_hours']);
 
         return $video;
     }
@@ -85,7 +90,10 @@ class VideoService
         }
 
         $video->save();
-        $this->setVideoRoles($video, $attributes['roles']);
+        if (isset($attributes['roles']))
+            $this->setVideoRoles($video, $attributes['roles']);
+        if (isset($attributes['video_hours']))
+            $this->setVideoHours($video, $attributes['video_hours']);
 
         return $video;
     }
@@ -158,5 +166,24 @@ class VideoService
             array_push($role_ids, $videoRole->id);
         }
         $video->videoRoles()->sync($role_ids);
+    }
+
+    private function setVideoHours(Video $video, array $hours): void
+    {
+        DB::table('video_hours')->where('video_id', $video->id)->delete();
+
+        $max_id = VideoHour::max('id');
+        $to_insert = [];
+        foreach ($hours as $i => $hour) {
+            array_push($to_insert, [
+                'id' => $max_id + $i + 1,
+                'video_id' => $video->id,
+                'phase' => $hour['phase'],
+                'amount' => $hour['amount'],
+                'unit' => $hour['unit']
+            ]);
+        }
+
+        DB::table('video_hours')->insert($to_insert);
     }
 }

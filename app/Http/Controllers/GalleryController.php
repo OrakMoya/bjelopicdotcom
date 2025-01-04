@@ -29,7 +29,9 @@ class GalleryController extends Controller
                 'category',
                 'link',
             ]
-        )->with('videoRoles')->orderBy('publication_date', 'DESC')->get();
+        )->with('videoRoles')
+            ->orderBy('publication_date', 'DESC')->get();
+
 
         $videos_by_collection = [];
 
@@ -121,6 +123,7 @@ class GalleryController extends Controller
         }
 
         $video->load('videoRoles');
+        $video->load('videoHours');
         $video->encodeURLs();
         $roles = [];
         foreach ($video->videoRoles as $role) {

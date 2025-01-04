@@ -3,7 +3,13 @@
 </script>
 
 <script>
-    import { BadgeXIcon, EyeIcon, ImageIcon, PlusIcon, TrashIcon } from "lucide-svelte";
+    import {
+        BadgeXIcon,
+        EyeIcon,
+        ImageIcon,
+        PlusIcon,
+        TrashIcon,
+    } from "lucide-svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Input } from "$lib/components/ui/input";
@@ -27,6 +33,8 @@
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import { Checkbox } from "$lib/components/ui/checkbox";
     import { tick } from "svelte";
+    import ExtendableCombobox from "$lib/components/ui/extendable-combobox/ExtendableCombobox.svelte";
+    import VideoHour from "./VideoHour.svelte";
     /** @import {GalleryVideoProps} from "$lib/types" */
 
     /**
@@ -34,10 +42,12 @@
      * @property {GalleryVideoProps[]} videos
      * @property {string[]} collections
      * @property {{id: number; role: string;}[]} available_roles
+     * @property {string[]} available_production_phases
      */
 
     /** @type {Props} */
-    let { videos, collections, available_roles } = $props();
+    let { videos, collections, available_roles, available_production_phases } =
+        $props();
 
     let new_video_dialog_open = $state(false);
     let collections_open = $state(false);
@@ -49,24 +59,24 @@
     let currently_edited_video = $state(null);
     let deleteVideoDialogOpen = $state(false);
 
-    let new_video_form = useForm(
-        /** @type {GalleryVideoProps} */ {
-            /** @type {number|null} */ id: null,
-            /** @type {string|null} */ title: null,
-            /** @type {string|null} */ description: null,
-            /** @type {string|null} */ subject: null,
-            /** @type {string|null} */ poster: null,
-            /** @type {boolean} */ poster_deleted: false,
-            /** @type {string|null} */ preview: null,
-            /** @type {boolean} */ preview_deleted: false,
-            /** @type {string|null} */ thumbnail: null,
-            /** @type {string|null} */ link: null,
-            /** @type {any} */ publication_date: null,
-            /** @type {string|null} */ collection: "",
-            /** @type {string|null} */ category: null,
-            /** @type {string[]} */ roles: [],
-        },
-    );
+    let new_video_form = useForm({
+        /** @type {number|null} */ id: null,
+        /** @type {string|null} */ title: null,
+        /** @type {string|null} */ description: null,
+        /** @type {string|null} */ subject: null,
+        /** @type {string|null} */ poster: null,
+        /** @type {boolean} */ poster_deleted: false,
+        /** @type {string|null} */ preview: null,
+        /** @type {boolean} */ preview_deleted: false,
+        /** @type {string|null} */ thumbnail: null,
+        /** @type {string|null} */ link: null,
+        /** @type {any} */ publication_date: null,
+        /** @type {string|null} */ collection: "",
+        /** @type {string|null} */ category: null,
+        /** @type {string[]} */ roles: [],
+        /** @type {{phase: string|null; amount: number; unit: string}[]} */ video_hours:
+            [],
+    });
 
     const df = new DateFormatter("en-US", {
         dateStyle: "long",
@@ -121,6 +131,7 @@
      */
     function assignVideoFormValues(id) {
         $new_video_form.reset();
+        console.log(id);
         if (id) {
             let video = videos.find((element) => element.id === id) ?? null;
             if (!video) {
@@ -139,7 +150,11 @@
                 video.publication_date,
             );
             $new_video_form.collection = video.collection;
-            $new_video_form.roles = video.roles;
+            $new_video_form.roles = [...video.roles];
+            $new_video_form.video_hours = [...video.video_hours];
+            console.log($new_video_form.video_hours);
+        } else {
+            currently_edited_video = null;
         }
         $new_video_form.poster = null;
         $new_video_form.poster_deleted = false;
@@ -183,13 +198,97 @@
 
                     <!-- Dialog Tabs -->
                     <Tabs.Root>
-                        <Tabs.List class="grid grid-cols-2 w-full">
+                        <Tabs.List class="grid grid-cols-3 w-full">
                             <Tabs.Trigger value="info">Info</Tabs.Trigger>
                             <Tabs.Trigger value="media">Media</Tabs.Trigger>
+                            <Tabs.Trigger value="hours">Durations</Tabs.Trigger>
                         </Tabs.List>
+
+                        <Tabs.Content
+                            value="hours"
+                            class="overflow-y-scroll h-[450px]"
+                        >
+                            <div class="flex flex-col gap-2 mt-4">
+                                {#each $new_video_form.video_hours as _, i}
+                                    {@const banned_phases =
+                                        $new_video_form.video_hours
+                                            .map((el) => el.phase)
+                                            .filter((el) =>
+                                                el ? true : false,
+                                            )}
+                                    <div class="flex justify-between gap-2">
+                                        <VideoHour
+                                            onChange={({ phase }) => {
+                                                console.log(phase);
+                                                if (
+                                                    phase &&
+                                                    !available_production_phases.find(
+                                                        (p) => p === phase,
+                                                    )
+                                                ) {
+                                                    available_production_phases =
+                                                        [
+                                                            ...available_production_phases,
+                                                            phase,
+                                                        ];
+                                                }
+                                            }}
+                                            bind:phase={$new_video_form
+                                                .video_hours[i].phase}
+                                            bind:amount={$new_video_form
+                                                .video_hours[i].amount}
+                                            bind:unit={$new_video_form
+                                                .video_hours[i].unit}
+                                            {banned_phases}
+                                            available_phases={available_production_phases.filter(
+                                                (phase) => {
+                                                    if (
+                                                        phase ===
+                                                        $new_video_form
+                                                            .video_hours[i]
+                                                            .phase
+                                                    )
+                                                        return true;
+                                                    return !banned_phases.find(
+                                                        (banned) =>
+                                                            phase === banned,
+                                                    );
+                                                },
+                                            )}
+                                        />
+                                        <Button
+                                            variant="destructive"
+                                            onclick={() => {
+                                                $new_video_form.video_hours =
+                                                    $new_video_form.video_hours.toSpliced(
+                                                        i,
+                                                        1,
+                                                    );
+                                            }}><TrashIcon /></Button
+                                        >
+                                    </div>
+                                {/each}
+                            </div>
+                            <button
+                                class="w-full flex justify-center px-4 py-2 bg-muted/50 hover:bg-muted rounded-md mt-4 transition-all"
+                                onclick={() => {
+                                    $new_video_form.video_hours.push({
+                                        phase: null,
+                                        amount: 1,
+                                        unit: "hours",
+                                    });
+                                    $new_video_form.video_hours =
+                                        $new_video_form.video_hours;
+                                    console.log($new_video_form.video_hours);
+                                }}
+                            >
+                                <PlusIcon class="size-4 " />
+                            </button>
+                        </Tabs.Content>
+
                         <Tabs.Content
                             value="info"
-                            class="h-[450px] overflow-x-clip overflow-y-scroll"
+                            class="h-[450px] overflow-y-scroll"
                         >
                             <Label for="new-video-title">Title*</Label>
                             <Input
@@ -700,7 +799,9 @@
                                     href={"/webtools/videos/" +
                                         video.id +
                                         "/stills"}
-                                    ><ImageIcon class="w-6 h-6 text-neutral-500 hover:text-white transition" /></Link
+                                    ><ImageIcon
+                                        class="w-6 h-6 text-neutral-500 hover:text-white transition"
+                                    /></Link
                                 >
                             </div>
                         </div>
