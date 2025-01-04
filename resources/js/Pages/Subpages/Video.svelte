@@ -150,7 +150,7 @@
                 {#each video.video_hours as video_hour}
                     <div class="w-fit mx-auto text-center">
                         <p
-                            class="md:w-full w-2/3 mx-auto text-neutral-500 md:text-lg"
+                            class="md:w-full w-[80%] mx-auto text-neutral-500 md:text-lg"
                         >
                             {video_hour.phase}
                         </p>
