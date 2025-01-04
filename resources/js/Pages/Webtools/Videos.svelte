@@ -216,8 +216,14 @@
                                             .filter((el) =>
                                                 el ? true : false,
                                             )}
-                                    <div class="flex justify-between gap-2">
                                         <VideoHour
+                                            onDelete={() => {
+                                                $new_video_form.video_hours =
+                                                    $new_video_form.video_hours.toSpliced(
+                                                        i,
+                                                        1,
+                                                    );
+                                            }}
                                             onChange={({ phase }) => {
                                                 console.log(phase);
                                                 if (
@@ -256,17 +262,6 @@
                                                 },
                                             )}
                                         />
-                                        <Button
-                                            variant="destructive"
-                                            onclick={() => {
-                                                $new_video_form.video_hours =
-                                                    $new_video_form.video_hours.toSpliced(
-                                                        i,
-                                                        1,
-                                                    );
-                                            }}><TrashIcon /></Button
-                                        >
-                                    </div>
                                 {/each}
                             </div>
                             <button
