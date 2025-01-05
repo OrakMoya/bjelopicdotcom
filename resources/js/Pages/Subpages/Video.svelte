@@ -94,6 +94,7 @@
                     >
                         <a
                             href={video.link}
+                            target="_blank"
                             class=" transition-transform"
                             onmouseover={() => (hovered = true)}
                             onmouseleave={() => (hovered = false)}
