@@ -73,7 +73,9 @@
                 class="flex flex-col-reverse md:flex-row justify-between gap-y-6 gap-x-8 w-full"
             >
                 <div
-                    class="{video.poster_url ? 'w-full' : 'w-1/2'} gap-x-4 flex"
+                    class="{video.poster_url
+                        ? ''
+                        : 'md:w-1/2'} w-full gap-x-4 flex"
                 >
                     <div
                         class="w-full {video.poster_url ? 'sm:w-[71.55%]' : ''}"
@@ -98,7 +100,10 @@
                                         autoplay
                                         muted
                                     >
-                                        <source class="object-cover" src={video.preview_url} />
+                                        <source
+                                            class="object-cover"
+                                            src={video.preview_url}
+                                        />
                                     </video>
                                 {:else}
                                     <img
