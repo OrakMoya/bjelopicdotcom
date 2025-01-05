@@ -103,7 +103,7 @@
                         >
                             <AspectRatio
                                 ratio={16 / 9}
-                                class="bg-neutral-800 rounded-sm overflow-clip hover:scale-[102%] transition-transform group relative"
+                                class="bg-neutral-800 rounded-sm overflow-clip hover:scale-[102%] transition-transform group relative drop-shadow-lg border border-neutral-800"
                             >
                                 <!-- svelte-ignore a11y_media_has_caption -->
                                 {#if hovered && video.preview_url}
@@ -163,10 +163,10 @@
         </section>
         <section class=" px-4 bg-neutral-900 py-4 border-y border-neutral-800">
             <div
-                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-screen-xl mx-auto items-end"
+                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-3/4 md:w-full max-w-screen-xl mx-auto items-end"
             >
                 {#each video.video_hours as video_hour}
-                    <div class="w-fit mx-auto text-center">
+                    <div class="text-center">
                         <p
                             class="md:w-full w-[80%] mx-auto text-neutral-500 md:text-lg"
                         >
