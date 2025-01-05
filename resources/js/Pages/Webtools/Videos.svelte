@@ -5,7 +5,9 @@
 <script>
     import {
         BadgeXIcon,
+        ExternalLinkIcon,
         EyeIcon,
+        GalleryVerticalIcon,
         ImageIcon,
         PlusIcon,
         TrashIcon,
@@ -807,18 +809,26 @@
                                     video.publication_date,
                                 ).getFullYear()})</span
                             >
-                            <div class="flex gap-2 align-middle">
+                            <div class="flex gap-2 items-center mr-1">
                                 <a
                                     href={video.link}
                                     target="_blank"
                                     onclick={(e) => e.stopPropagation()}
-                                    class="mr-1"
-                                    ><EyeIcon
-                                        class="w-6 h-6 text-neutral-500 hover:text-white transition"
+                                    class=""
+                                    ><ExternalLinkIcon
+                                        class="size-5 text-neutral-600 hover:text-white transition"
                                     /></a
                                 >
                                 <Link
-                                    as="button"
+                                    onclick={(/**@type {MouseEvent} */ e) => {
+                                        e.stopPropagation();
+                                    }}
+                                    href={"/gallery/"+video.uuid}
+                                    ><GalleryVerticalIcon
+                                        class="size-5 text-neutral-600 hover:text-white transition"
+                                    /></Link
+                                >
+                                <Link
                                     onclick={(/**@type {MouseEvent} */ e) => {
                                         e.stopPropagation();
                                     }}
@@ -826,7 +836,7 @@
                                         video.id +
                                         "/stills"}
                                     ><ImageIcon
-                                        class="w-6 h-6 text-neutral-500 hover:text-white transition"
+                                        class="size-5 text-neutral-600 hover:text-white transition"
                                     /></Link
                                 >
                             </div>
