@@ -69,16 +69,28 @@
         class="bg-neutral-900 border-y border-neutral-800 px-4 py-6 md:py-4"
     >
         <div class="max-w-screen-xl mx-auto">
-            <div
-                class="flex flex-col-reverse md:flex-row justify-between gap-y-6 gap-x-8 w-full"
-            >
-                <div
-                    class="{video.poster_url
-                        ? ''
-                        : 'md:w-1/2'} w-full gap-x-4 flex"
-                >
+            <div class="flex flex-col justify-between gap-y-6 gap-x-8 w-full">
+                <div>
+                    {#if video.poster_url}
+                        <div
+                            class="sm:hidden w-[30%] rounded-md overflow-clip ml-4 mb-2 mt-2 float-right"
+                        >
+                            <AspectRatio ratio={707 / 1000}>
+                                <a href={video.poster_url} target="_blank">
+                                    <img src={video.poster_url} alt="" />
+                                </a>
+                            </AspectRatio>
+                        </div>
+                    {/if}
+                    <p class="w-full md:text-lg max-w-screen-md mx-auto text-justify">
+                        {video.description}
+                    </p>
+                </div>
+                <div class="w-full gap-x-4 flex max-w-screen-lg mx-auto">
                     <div
-                        class="w-full {video.poster_url ? 'sm:w-[71.55%]' : ''}"
+                        class="w-full {video.poster_url
+                            ? 'sm:w-[71.55%]'
+                            : 'max-w-screen-md mx-auto'}"
                     >
                         <a
                             href={video.link}
@@ -129,30 +141,7 @@
                         </div>
                     {/if}
                 </div>
-                {#if video.description || video.poster_url}
-                    <div
-                        class="flex gap-x-4 w-full md:w-1/2 lg:w-2/5 h-min mr-auto"
-                    >
-                        <p
-                            class="{video.poster_url
-                                ? 'w-2/3'
-                                : ''} sm:w-full sm:text-lg"
-                        >
-                            {video.description}
-                        </p>
-                        {#if video.poster_url}
-                            <div
-                                class="sm:hidden w-1/3 sm:w-0 rounded-sm overflow-clip"
-                            >
-                                <AspectRatio ratio={707 / 1000}>
-                                    <a href={video.poster_url} target="_blank">
-                                        <img src={video.poster_url} alt="" />
-                                    </a>
-                                </AspectRatio>
-                            </div>
-                        {/if}
-                    </div>
-                {/if}
+                {#if video.description || video.poster_url}{/if}
             </div>
         </div>
     </section>
@@ -208,7 +197,7 @@
                         style="
                         -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
                         "
-                        class="object-cover w-full blur origin-right translate-y-[15%] md:translate-y-[24%] scale-110 md:scale-150"
+                        class="object-cover w-full min-w-[430px] blur origin-right translate-y-[15%] md:translate-y-[24%] scale-110 md:scale-150"
                         alt=""
                     />
                     <div class="absolute right-0 w-full md:w-1/2">
