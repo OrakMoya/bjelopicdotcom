@@ -60,9 +60,7 @@
                 role="combobox"
                 aria-expanded={open}
             >
-                <div class=" max-w-28 overflow-clip text-ellipsis">
                     {selectedValue || "Select..."}
-                </div>
                 <ChevronsUpDown class="opacity-50" />
             </Button>
         {/snippet}

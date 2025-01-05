@@ -2,7 +2,10 @@
     import { AspectRatio } from "$lib/components/ui/aspect-ratio";
     import { Link } from "@inertiajs/svelte";
     import { ImageOffIcon } from "lucide-svelte";
+    import { fade } from "svelte/transition";
     let { video, stills, in_collection, in_category, for_subject } = $props();
+
+    let hovered = $state(false);
 </script>
 
 <svelte:head>
@@ -69,42 +72,62 @@
             <div
                 class="flex flex-col-reverse md:flex-row justify-between gap-y-6 gap-x-8 w-full"
             >
-                <div class="w-full gap-x-4 flex">
-                    <div class="w-full sm:w-[71.55%]">
-                        <a href={video.link} class=" transition-transform">
+                <div
+                    class="{video.poster_url ? 'w-full' : 'w-1/2'} gap-x-4 flex"
+                >
+                    <div
+                        class="w-full {video.poster_url ? 'sm:w-[71.55%]' : ''}"
+                    >
+                        <a
+                            href={video.link}
+                            class=" transition-transform"
+                            onmouseover={() => (hovered = true)}
+                            onmouseleave={() => (hovered = false)}
+                            onfocus={() => (hovered = true)}
+                            onfocusout={() => (hovered = false)}
+                        >
                             <AspectRatio
                                 ratio={16 / 9}
-                                class="bg-neutral-800 rounded-sm overflow-clip hover:scale-[102%] transition-transform"
+                                class="bg-neutral-800 rounded-sm overflow-clip hover:scale-[102%] transition-transform group relative"
                             >
-                                <img
-                                    src={video.thumbnail_url}
-                                    class=""
-                                    alt=""
-                                />
+                                <!-- svelte-ignore a11y_media_has_caption -->
+                                {#if hovered && video.preview_url}
+                                    <video
+                                        transition:fade
+                                        class="object-cover absolute w-full h-full left-0 top-0"
+                                        autoplay
+                                        muted
+                                    >
+                                        <source class="object-cover" src={video.preview_url} />
+                                    </video>
+                                {:else}
+                                    <img
+                                        transition:fade
+                                        src={video.thumbnail_url}
+                                        class=""
+                                        alt=""
+                                    />
+                                {/if}
                             </AspectRatio>
                         </a>
                     </div>
-                    <div class="w-[28.45%] hidden sm:block">
-                        <AspectRatio
-                            ratio={707 / 1000}
-                            class="bg-neutral-800 rounded-sm overflow-clip"
-                        >
-                            {#if video.poster_url}
+                    {#if video.poster_url}
+                        <div class="w-[28.45%] hidden sm:block">
+                            <AspectRatio
+                                ratio={707 / 1000}
+                                class="bg-neutral-800 rounded-sm overflow-clip"
+                            >
                                 <a href={video.poster_url} target="_blank">
                                     <img src={video.poster_url} alt="" />
                                 </a>
-                            {:else}
-                                <div
-                                    class="w-full h-full flex items-center justify-center"
-                                >
-                                    <ImageOffIcon class="size-8" />
-                                </div>
-                            {/if}
-                        </AspectRatio>
-                    </div>
+                            </AspectRatio>
+                        </div>
+                    {/if}
                 </div>
                 {#if video.description || video.poster_url}
-                    <div class="flex gap-x-4 w-full md:w-1/2 lg:w-2/5 h-min">
+                    <div
+                        class="flex gap-x-4 w-full md:w-1/2 lg:w-2/5 h-min mr-auto"
+                    >
                         <p
                             class="{video.poster_url
                                 ? 'w-2/3'
@@ -180,9 +203,20 @@
                         style="
                         -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
                         "
-                        class="object-cover w-full blur origin-right translate-y-[15%]"
+                        class="object-cover w-full blur origin-right translate-y-[15%] md:translate-y-[24%] scale-110 md:scale-150"
                         alt=""
                     />
+                    <div class="absolute right-0 w-full md:w-1/2">
+                        <img
+                            src={some[Math.floor(Math.random() * some.length)]
+                                .thumbnail_url}
+                            style="
+                        -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
+                        "
+                            class="brightness-[40%] md:brightness-75 object-cover scale-110 md:scale-150 w-full blur origin-right translate-y-[20%] md:translate-y-[24%]"
+                            alt=""
+                        />
+                    </div>
                 </div>
                 <div class="relative">
                     <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">

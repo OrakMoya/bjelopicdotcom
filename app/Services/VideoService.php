@@ -170,7 +170,6 @@ class VideoService
 
     private function setVideoHours(Video $video, array $hours): void
     {
-        DB::table('video_hours')->where('video_id', $video->id)->delete();
 
         $max_id = VideoHour::max('id');
         $to_insert = [];
@@ -183,7 +182,7 @@ class VideoService
                 'unit' => $hour['unit']
             ]);
         }
-
+        DB::table('video_hours')->where('video_id', $video->id)->delete();
         DB::table('video_hours')->insert($to_insert);
     }
 }

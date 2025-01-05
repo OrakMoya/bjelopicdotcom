@@ -35,6 +35,8 @@
     import { tick } from "svelte";
     import ExtendableCombobox from "$lib/components/ui/extendable-combobox/ExtendableCombobox.svelte";
     import VideoHour from "./VideoHour.svelte";
+    import { fly, slide } from "svelte/transition";
+    import { flip } from "svelte/animate";
     /** @import {GalleryVideoProps} from "$lib/types" */
 
     /**
@@ -131,7 +133,6 @@
      */
     function assignVideoFormValues(id) {
         $new_video_form.reset();
-        console.log(id);
         if (id) {
             let video = videos.find((element) => element.id === id) ?? null;
             if (!video) {
@@ -152,7 +153,6 @@
             $new_video_form.collection = video.collection;
             $new_video_form.roles = [...video.roles];
             $new_video_form.video_hours = [...video.video_hours];
-            console.log($new_video_form.video_hours);
         } else {
             currently_edited_video = null;
         }
@@ -161,6 +161,34 @@
         $new_video_form.preview = null;
         $new_video_form.preview_deleted = false;
         $new_video_form.thumbnail = null;
+    }
+
+    /**
+     * @param {number} index
+     */
+    function nudgeVideoHourUp(index) {
+        if (index < 1) return;
+        [
+            $new_video_form.video_hours[index - 1],
+            $new_video_form.video_hours[index],
+        ] = [
+            $new_video_form.video_hours[index],
+            $new_video_form.video_hours[index - 1],
+        ];
+    }
+
+    /**
+     * @param {number} index
+     */
+    function nudgeVideoHourDown(index) {
+        if (index >= $new_video_form.video_hours.length - 1) return;
+        [
+            $new_video_form.video_hours[index + 1],
+            $new_video_form.video_hours[index],
+        ] = [
+            $new_video_form.video_hours[index],
+            $new_video_form.video_hours[index + 1],
+        ];
     }
 </script>
 
@@ -208,15 +236,19 @@
                             value="hours"
                             class="overflow-y-scroll h-[450px]"
                         >
-                            <div class="flex flex-col gap-2 mt-4">
-                                {#each $new_video_form.video_hours as _, i}
+                            <div class="mt-2">
+                                {#each $new_video_form.video_hours as hour, i (hour)}
                                     {@const banned_phases =
                                         $new_video_form.video_hours
                                             .map((el) => el.phase)
                                             .filter((el) =>
                                                 el ? true : false,
                                             )}
+                                    <div transition:slide class="mb-4" animate:flip={{duration: 300, delay: 1}}>
                                         <VideoHour
+                                            onMoveUp={() => nudgeVideoHourUp(i)}
+                                            onMoveDown={() =>
+                                                nudgeVideoHourDown(i)}
                                             onDelete={() => {
                                                 $new_video_form.video_hours =
                                                     $new_video_form.video_hours.toSpliced(
@@ -225,7 +257,6 @@
                                                     );
                                             }}
                                             onChange={({ phase }) => {
-                                                console.log(phase);
                                                 if (
                                                     phase &&
                                                     !available_production_phases.find(
@@ -262,6 +293,7 @@
                                                 },
                                             )}
                                         />
+                                    </div>
                                 {/each}
                             </div>
                             <button
@@ -274,7 +306,6 @@
                                     });
                                     $new_video_form.video_hours =
                                         $new_video_form.video_hours;
-                                    console.log($new_video_form.video_hours);
                                 }}
                             >
                                 <PlusIcon class="size-4 " />

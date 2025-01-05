@@ -51,6 +51,6 @@ class Video extends Model
 
     public function videoHours(): HasMany
     {
-        return $this->hasMany(VideoHour::class, 'video_id', 'id');
+        return $this->hasMany(VideoHour::class, 'video_id', 'id')->orderBy('id');
     }
 }
