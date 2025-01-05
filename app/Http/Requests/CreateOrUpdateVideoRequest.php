@@ -38,10 +38,10 @@ class CreateOrUpdateVideoRequest extends FormRequest
             'collection' => ['nullable', 'min:3', 'max:100'],
             'category' => ['required', 'min:3', 'max:100'],
             'roles' => ['nullable', 'array'],
-            'video_hours' => ['required'],
-            'video_hours.*.phase' => ['required'],
-            'video_hours.*.unit' => ['required'],
-            'video_hours.*.amount' => ['required'],
+            'video_hours' => ['nullable'],
+            'video_hours.*.phase' => ['required_with:video_hours'],
+            'video_hours.*.unit' => ['required_with:video_hours'],
+            'video_hours.*.amount' => ['required_with:video_hours'],
         ];
     }
 }
