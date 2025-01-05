@@ -100,10 +100,12 @@
                 }))
                 .post("/webtools/videos/" + currently_edited_video.id, {
                     onSuccess: () => (new_video_dialog_open = false),
+                    preserveScroll: true,
                 });
         } else {
             $new_video_form.post("/webtools/videos", {
                 onSuccess: () => (new_video_dialog_open = false),
+                preserveScroll: true,
             });
         }
         $new_video_form.publication_date = previous_date;
@@ -246,7 +248,14 @@
                                             .filter((el) =>
                                                 el ? true : false,
                                             )}
-                                    <div transition:slide class="mb-4" animate:flip={{duration: 300, delay: 1}}>
+                                    <div
+                                        transition:slide
+                                        class="mb-4"
+                                        animate:flip={{
+                                            duration: 300,
+                                            delay: 1,
+                                        }}
+                                    >
                                         <VideoHour
                                             onMoveUp={() => nudgeVideoHourUp(i)}
                                             onMoveDown={() =>
@@ -823,7 +832,7 @@
                                     onclick={(/**@type {MouseEvent} */ e) => {
                                         e.stopPropagation();
                                     }}
-                                    href={"/gallery/"+video.uuid}
+                                    href={"/gallery/" + video.uuid}
                                     ><GalleryVerticalIcon
                                         class="size-5 text-neutral-600 hover:text-white transition"
                                     /></Link
