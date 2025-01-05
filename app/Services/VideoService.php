@@ -68,7 +68,6 @@ class VideoService
                 'publication_date' => $attributes['publication_date'],
                 'link' => $attributes['link'],
                 'user_id' => Auth::id(),
-                'uuid' => Str::uuid(),
                 'collection' => $attributes['collection'],
                 'category' => $attributes['category'],
             ]
