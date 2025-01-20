@@ -48,7 +48,9 @@
 </svelte:head>
 
 <main class="">
-    <section class="md:px-8 bg-neutral-900 mt-4 border-y border-neutral-800 mb-4">
+    <section
+        class="md:px-8 bg-neutral-900 mt-4 border-y border-neutral-800 mb-4"
+    >
         <Accordion.Root class="w-full max-w-none" bind:value={accordionValue}>
             <Accordion.Item value="contents" class="w-full max-w-none border-0">
                 <Accordion.Trigger
@@ -78,9 +80,11 @@
                             >
                                 <div class="absolute w-full h-full">
                                     <img
+                                        loading="lazy"
                                         class="w-full h-full object-cover blur brightness-[25%] scale-110"
                                         src={collection.videos[0].thumbnail_url}
-                                        alt=""
+                                        alt="{collection.videos[0]
+                                            .title} thumbnail"
                                     />
                                 </div>
                                 <div
@@ -99,6 +103,7 @@
                                             .reverse()}
                                         {#each sliced as video, i}
                                             <img
+                                                loading="lazy"
                                                 onmouseover={() =>
                                                     (hovered_collection =
                                                         collection.collection)}
@@ -116,12 +121,14 @@
                                                     collection.collection
                                                         ? 16
                                                         : 8)}px;
-                                    transform: scale({100 - (sliced.length - i - 1) * 5}%);
+                                    transform: scale({100 -
+                                                    (sliced.length - i - 1) *
+                                                        5}%);
                                     --tw-brightness: brightness({100 -
                                                     (sliced.length - i - 1) *
                                                         20}%);"
                                                 src={video.thumbnail_url}
-                                                alt=""
+                                                alt="{video.title} thumbnail"
                                             />
                                         {/each}
                                     </AspectRatio>
@@ -175,9 +182,10 @@
                             class="absolute w-full h-full overflow-clip brightness-[25%]"
                         >
                             <img
+                                loading="lazy"
                                 src={video.thumbnail_url}
                                 class="w-full h-full object-cover scale-110 blur-lg"
-                                alt=""
+                                alt="{video.title} thumbnail"
                             />
                         </div>
                         <div class="relative md:px-8 lg:px-12 px-4 pt-12 pb-14">
@@ -292,9 +300,10 @@
                                                         </video>
                                                     {:else}
                                                         <img
+                                                            loading="lazy"
                                                             src={video.thumbnail_url}
                                                             transition:fade
-                                                            alt=""
+                                                            alt="{video.title} thumbnail"
                                                             class="absolute w-full h-full object-cover"
                                                         />
                                                     {/if}

@@ -24,9 +24,10 @@
         >
             <div class="absolute right-0 w-full md:w-1/2">
                 <img
+                    loading="lazy"
                     src={video.thumbnail_url}
                     class="object-cover w-full blur-md brightness-[40%] md:brightness-[65%] scale-105 md:scale-150"
-                    alt=""
+                    alt="{video.title} thumbnail"
                 />
             </div>
             <div class="relative">
@@ -77,12 +78,18 @@
                         >
                             <AspectRatio ratio={707 / 1000}>
                                 <a href={video.poster_url} target="_blank">
-                                    <img src={video.poster_url} alt="" />
+                                    <img
+                                        loading="lazy"
+                                        src={video.poster_url}
+                                        alt="{video.title} poster"
+                                    />
                                 </a>
                             </AspectRatio>
                         </div>
                     {/if}
-                    <p class="w-full md:text-lg max-w-screen-md mx-auto text-justify">
+                    <p
+                        class="w-full md:text-lg max-w-screen-md mx-auto text-justify"
+                    >
                         {video.description}
                     </p>
                 </div>
@@ -120,10 +127,11 @@
                                     </video>
                                 {:else}
                                     <img
+                                        loading="lazy"
                                         transition:fade
                                         src={video.thumbnail_url}
                                         class=""
-                                        alt=""
+                                        alt="{video.title} thumbnail"
                                     />
                                 {/if}
                             </AspectRatio>
@@ -136,7 +144,11 @@
                                 class="bg-neutral-800 rounded-sm overflow-clip"
                             >
                                 <a href={video.poster_url} target="_blank">
-                                    <img src={video.poster_url} alt="" />
+                                    <img
+                                        loading="lazy"
+                                        src={video.poster_url}
+                                        alt="{video.title} poster"
+                                    />
                                 </a>
                             </AspectRatio>
                         </div>
@@ -186,6 +198,7 @@
 
     {#if stills.length}
         {@const some = stills.slice(0, 10)}
+        {@const rand = some[Math.floor(Math.random() * some.length)]}
         <section
             class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12 relative overflow-clip"
         >
@@ -194,24 +207,14 @@
             >
                 <div class="absolute right-0 w-full md:w-1/2">
                     <img
-                        src={some[Math.floor(Math.random() * some.length)].path}
+                        loading="lazy"
+                        src={rand.path}
                         style="
                         -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
                         "
                         class="object-cover w-full min-w-[430px] blur origin-right translate-y-[15%] md:translate-y-[24%] scale-110 md:scale-150"
-                        alt=""
+                        alt="{rand.title} thumbnail"
                     />
-                    <div class="absolute right-0 w-full md:w-1/2">
-                        <img
-                            src={some[Math.floor(Math.random() * some.length)]
-                                .thumbnail_url}
-                            style="
-                        -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
-                        "
-                            class="brightness-[40%] md:brightness-75 object-cover scale-110 md:scale-150 w-full blur origin-right translate-y-[20%] md:translate-y-[24%]"
-                            alt=""
-                        />
-                    </div>
                 </div>
                 <div class="relative">
                     <h2 class="text-xl md:text-3xl font-bold drop-shadow-md">
@@ -233,9 +236,10 @@
                             : ''} "
                     >
                         <img
+                            loading="lazy"
                             class="w-full h-full object-contain content-center"
                             src={still.path}
-                            alt=""
+                            alt="{video.title} still {i}"
                         />
                     </a>
                 {/each}
@@ -245,19 +249,20 @@
 
     {#if in_collection.length}
         {@const some = in_collection.slice(0, 10)}
+        {@const rand = some[Math.floor(Math.random() * some.length)]}
         <section
             class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12 overflow-clip relative"
         >
             <div class="max-w-screen-xl mx-auto flex items-center">
                 <div class="absolute right-0 w-full md:w-1/2">
                     <img
-                        src={some[Math.floor(Math.random() * some.length)]
-                            .thumbnail_url}
+                        loading="lazy"
+                        src={rand.thumbnail_url}
                         style="
                         -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
                         "
                         class="brightness-[40%] md:brightness-75 object-cover scale-110 md:scale-150 w-full blur origin-right translate-y-[20%] md:translate-y-[24%]"
-                        alt=""
+                        alt="{rand.title} thumbnail"
                     />
                 </div>
                 <div class="relative">
@@ -279,7 +284,11 @@
                             class="block hover:scale-105 transition-transform rounded-sm overflow-clip border border-neutral-800"
                             href="/gallery/{col_video.uuid}"
                         >
-                            <img src={col_video.thumbnail_url} alt="" />
+                            <img
+                                loading="lazy"
+                                src={col_video.thumbnail_url}
+                                alt="{col_video.title} thumbnail"
+                            />
                         </Link>
                     {/each}
                 </div>
@@ -289,19 +298,20 @@
 
     {#if in_category.length}
         {@const some = in_category.slice(0, 10)}
+        {@const rand = some[Math.floor(Math.random() * some.length)]}
         <section
             class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12 relative overflow-clip"
         >
             <div class="max-w-screen-xl mx-auto flex items-center">
                 <div class="absolute right-0 w-full md:w-1/2">
                     <img
-                        src={some[Math.floor(Math.random() * some.length)]
-                            .thumbnail_url}
+                        loading="lazy"
+                        src={rand.thumbnail_url}
                         style="
                         -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
                         "
                         class="brightness-[40%] md:brightness-75 object-cover scale-110 md:scale-150 w-full blur origin-right translate-y-[20%] md:translate-y-[24%]"
-                        alt=""
+                        alt="{rand.title} thumbnail"
                     />
                 </div>
                 <div class="relative">
@@ -323,7 +333,11 @@
                             class="block hover:scale-105 transition-transform rounded-sm overflow-clip border border-neutral-800"
                             href="/gallery/{cat_video.uuid}"
                         >
-                            <img src={cat_video.thumbnail_url} alt="" />
+                            <img
+                                loading="lazy"
+                                src={cat_video.thumbnail_url}
+                                alt="{cat_video.title} thumbnail"
+                            />
                         </Link>
                     {/each}
                 </div>
@@ -333,19 +347,20 @@
 
     {#if for_subject.length}
         {@const some = for_subject.slice(0, 10)}
+        {@const rand = some[Math.floor(Math.random() * some.length)]}
         <section
             class="bg-neutral-900 border-y border-neutral-800 px-4 pb-4 pt-12 overflow-clip relative"
         >
             <div class="max-w-screen-xl mx-auto flex items-center">
                 <div class="absolute right-0 w-full md:w-1/2">
                     <img
-                        src={some[Math.floor(Math.random() * some.length)]
-                            .thumbnail_url}
+                        loading="lazy"
+                        src={rand.thumbnail_url}
                         style="
                         -webkit-mask-image: -webkit-gradient(linear, left center, right center, color-stop(5%, rgba(0,0,0,0)), color-stop(25%, rgba(0,0,0,1)) );
                         "
                         class="brightness-[40%] md:brightness-75 object-cover scale-110 md:scale-150 w-full blur origin-right translate-y-[20%] md:translate-y-[24%]"
-                        alt=""
+                        alt="{rand.title} thumbnail"
                     />
                 </div>
                 <div class="relative">
@@ -367,7 +382,11 @@
                             class="block hover:scale-105 transition-transform rounded-sm overflow-clip border border-neutral-800"
                             href="/gallery/{subj_video.uuid}"
                         >
-                            <img src={subj_video.thumbnail_url} alt="" />
+                            <img
+                                loading="lazy"
+                                src={subj_video.thumbnail_url}
+                                alt="{subj_video.title} thumbnail"
+                            />
                         </Link>
                     {/each}
                 </div>
