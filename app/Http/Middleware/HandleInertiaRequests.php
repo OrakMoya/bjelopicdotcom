@@ -2,9 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -41,6 +42,7 @@ class HandleInertiaRequests extends Middleware
             'status' => $request->session()->get('status'),
             'show_telescope' => (Auth::check() ? in_array(Auth::user()->email, Config::get('app.telescope_emails')) : false) || Config::get('app.environment') == 'local',
             'logged_in' => Auth::check(),
+            'turnstile_sitekey' => Config::get('app.turnstile_sitekey')
         ]);
     }
 }

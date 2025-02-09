@@ -127,6 +127,9 @@ return [
     'sqid_alphabet' => env('SQID_ALPHABET'),
     'sqid_minimum_length' => env('SQID_MINIMUM_LENGTH'),
     'contact_form_target' => env('MAIL_CONTACT_FORM_TARGET', 'info@bjelopic.com'),
-    'contact_form_spm' => env('MAIL_CONTACT_FORM_SPM', '1')
+    'contact_form_spm' => env('MAIL_CONTACT_FORM_SPM', '1'),
+
+    'turnstile_sitekey' => env('TURNSTILE_SITEKEY', '1x00000000000000000000AA'),
+    'turnstile_secretkey' => env('TURNSTILE_SECRETKEY', '1x0000000000000000000000000000000AA'),
 
 ];

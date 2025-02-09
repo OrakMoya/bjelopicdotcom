@@ -6,6 +6,7 @@ use App\Mail\ContactFormSubmissionEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Inertia\Inertia;
@@ -31,14 +32,22 @@ class ContactFormController extends Controller
             'name' => ['required', 'min:2', 'max:255'],
             'email' => ['required', 'email', 'min:5', 'max:255'],
             'message' => ['required', 'min:5', 'max:1000'],
-            'sendCopy' => ['required', 'boolean']
+            'turnstile_token' => ['required', 'max:2048']
         ]);
 
-        $mailer = Mail::to(Config::get('app.contact_form_target'));
+        $turnstile_response = Http::post('https://challenges.cloudflare.com/turnstile/v0/siteverify',
+            [
+                'secret' => Config::get('app.turnstile_secretkey'),
+                'response' => $validated['turnstile_token'],
+                'remoteip' => $request->ip()
+            ]
+        )->json();
 
-        if ($validated['sendCopy']) {
-            $mailer->bcc($validated['email']);
+        if($turnstile_response['success'] != true){
+            return redirect()->back()->withErrors('Invalid turnstile result');
         }
+
+        $mailer = Mail::to(Config::get('app.contact_form_target'));
 
         $mailer->queue(
             new ContactFormSubmissionEmail(

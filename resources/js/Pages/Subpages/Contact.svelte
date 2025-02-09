@@ -3,6 +3,7 @@
     import { Input } from "$lib/components/ui/input";
     import { Label } from "$lib/components/ui/label";
     import { Textarea } from "$lib/components/ui/textarea";
+    import { turnstile } from "@svelte-put/cloudflare-turnstile";
     import { useForm } from "@inertiajs/svelte";
     import {
         ClockIcon,
@@ -13,13 +14,13 @@
     } from "lucide-svelte";
 
     /** @type {{[key: string]: any}}*/
-    let { ...rest } = $props();
+    let { turnstile_sitekey, ...rest } = $props();
 
     let form = useForm({
         name: "",
         email: "",
         message: "",
-        sendCopy: false,
+        turnstile_token: "",
     });
 
     /**
@@ -39,12 +40,13 @@
     <title>Kontakt - BjeloPIC</title>
 </svelte:head>
 
-
 <div class="px-8 w-full h-full relative overflow-clip">
     <div
         class="w-full h-full max-w-screen-xl flex flex-col items-center lg:items-start lg:flex-row justify-around gap-y-28 mx-auto py-28"
     >
-        <div class="relative max-w-[450px] sm:max-w-[500px] lg:max-w-[450px] w-full">
+        <div
+            class="relative max-w-[450px] sm:max-w-[500px] lg:max-w-[450px] w-full"
+        >
             <MailIcon
                 class="opacity-[6%] absolute top-[200px] lg:-top-[70px] -left-[250px] lg:left-[250px] w-[600px] h-[600px] rotate-12"
             />
@@ -100,19 +102,22 @@
                             </div>
                         {/if}
                         <div class="flex justify-between items-start mt-3">
-                            <Label
-                                for="send-confirmation"
-                                class="flex items-center gap-2 text-neutral-300"
-                            >
-                                <Checkbox
-                                    bind:checked={$form.sendCopy}
-                                    id="send-confirmation"
-                                /> Pošalji mi kopiju
-                            </Label>
+                            <div
+                                use:turnstile
+                                turnstile-sitekey={turnstile_sitekey}
+                                turnstile-theme="auto"
+                                turnstile-size="normal"
+                                turnstile-language="en"
+                                turnstile-response-field-name="turnstile"
+                                turnstile-response-field
+                                onturnstile={(
+                                    /** @type {{ detail: { token: string; }; }} */ e,
+                                ) => ($form.turnstile_token = e.detail.token)}
+                            ></div>
                             <button
                                 class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md font-semibold text-baseline disabled:opacity-50 transition-all"
                                 type="submit"
-                                disabled={$form.processing}
+                                disabled={$form.processing || !$form.turnstile_token}
                             >
                                 {#if $form.processing}
                                     <LoaderCircleIcon
