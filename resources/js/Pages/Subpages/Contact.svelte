@@ -101,7 +101,7 @@
                                 {rest.errors.submission}
                             </div>
                         {/if}
-                        <div class="flex justify-between flex-col sm:flex-row items-start mt-3">
+                        <div class="flex justify-between flex-col items-start gap-y-1">
                             <div
                                 use:turnstile
                                 turnstile-sitekey={turnstile_sitekey}
@@ -115,7 +115,7 @@
                                 ) => ($form.turnstile_token = e.detail.token)}
                             ></div>
                             <button
-                                class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md font-semibold text-baseline disabled:opacity-50 transition-all mt-3 sm:mt-0"
+                                class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md font-semibold text-baseline disabled:opacity-50 transition-all"
                                 type="submit"
                                 disabled={$form.processing || !$form.turnstile_token}
                             >
