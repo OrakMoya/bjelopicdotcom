@@ -27,8 +27,9 @@
     >
     <NavLink href="/webtools">Dashboard</NavLink>
     <NavLink href="/webtools/hero">Hero</NavLink>
-    <NavLink href="/webtools/videos">Videos</NavLink>
+    <NavLink href="/webtools/videos" contains="videos">Videos</NavLink>
     <NavLink href="/webtools/uploads">File Upload</NavLink>
+    <NavLink href="/webtools/people" contains="people">People</NavLink>
     {#if show_telescope}
         <NavLink xhr={false}  href="/telescope">Telescope</NavLink>
     {/if}

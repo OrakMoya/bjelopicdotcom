@@ -281,12 +281,18 @@
                                                         ];
                                                 }
                                             }}
-                                            bind:phase={$new_video_form
-                                                .video_hours[i].phase}
-                                            bind:amount={$new_video_form
-                                                .video_hours[i].amount}
-                                            bind:unit={$new_video_form
-                                                .video_hours[i].unit}
+                                            bind:phase={
+                                                $new_video_form.video_hours[i]
+                                                    .phase
+                                            }
+                                            bind:amount={
+                                                $new_video_form.video_hours[i]
+                                                    .amount
+                                            }
+                                            bind:unit={
+                                                $new_video_form.video_hours[i]
+                                                    .unit
+                                            }
                                             {banned_phases}
                                             available_phases={available_production_phases.filter(
                                                 (phase) => {
@@ -393,7 +399,9 @@
                                 <Popover.Content class="w-auto p-0">
                                     <Calendar
                                         type="single"
-                                        bind:value={$new_video_form.publication_date}
+                                        bind:value={
+                                            $new_video_form.publication_date
+                                        }
                                         initialFocus
                                     />
                                 </Popover.Content>
@@ -421,7 +429,9 @@
                                             class="flex gap-x-2 align-middle items-center"
                                         >
                                             <Popover.Root
-                                                bind:open={collectionPopoverOpen}
+                                                bind:open={
+                                                    collectionPopoverOpen
+                                                }
                                             >
                                                 <Popover.Trigger>
                                                     {#snippet child({ props })}
@@ -514,7 +524,9 @@
                                                     >
                                                         <Input
                                                             type="text"
-                                                            bind:value={new_collection_name}
+                                                            bind:value={
+                                                                new_collection_name
+                                                            }
                                                         />
                                                         <Button
                                                             type="submit"
@@ -775,7 +787,7 @@
         class="grid grid-cols-1 max-w-[450px] mx-auto md:max-w-none md:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-6 gap-y-4 md:gap-y-6 w-full"
     >
         <button
-            class="bg-bjelopic-neutral-8 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white transition-colors"
+            class="bg-neutral-950 hover:bg-neutral-900 border border-opacity-0 hover:border-opacity-100 border-neutral-800 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white transition-colors"
             onclick={() => {
                 assignVideoFormValues(null);
                 new_video_dialog_open = true;

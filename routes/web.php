@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TemporaryUploadController;
 use App\Http\Controllers\WebtoolsLoginController;
 use App\Http\Middleware\TrackVisitors;
+use App\Models\Person;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(TrackVisitors::class)->group(function () {
@@ -23,5 +24,14 @@ Route::post('/webtools/login', [LoginController::class, 'authenticate']);
 
 Route::get('/f/{sqid}', [TemporaryUploadController::class, 'show']);
 Route::get('/f/{sqid}/download', [TemporaryUploadController::class, 'download']);
+
+Route::get('/mailable', function () {
+    $person = Person::all()[0];
+
+    return new App\Mail\Birthday(
+        $person->birthday_email_text,
+        $person->first_name
+    );
+});
 
 Route::post('/contact', [ContactFormController::class, 'store']);

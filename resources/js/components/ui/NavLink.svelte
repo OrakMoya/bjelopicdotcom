@@ -4,11 +4,13 @@
         href?: string;
         method?: string;
         xhr?: boolean;
+        contains?: string;
         children?: import('svelte').Snippet;
     }
 
     let {
         href: hrefLink = "/",
+        contains = "",
         method: methodName = "get",
         xhr = true,
         children
@@ -20,7 +22,7 @@
 {#if xhr}
     <Link
         href={hrefLink}
-        class=" {$page.url.endsWith(hrefLink)
+        class=" {$page.url.endsWith(hrefLink) || (contains && $page.url.includes(contains))
             ? 'font-bold'
             : 'font-light hover:font-normal'}"
         method={methodName}>{@render children?.()}</Link
@@ -28,7 +30,7 @@
 {:else}
     <a
         href={hrefLink}
-        class=" {$page.url.endsWith(hrefLink)
+        class=" {$page.url.endsWith(hrefLink) || (contains && $page.url.includes(contains))
             ? 'font-bold'
             : 'font-light hover:font-normal'}"
         method={methodName}>{@render children?.()}</a

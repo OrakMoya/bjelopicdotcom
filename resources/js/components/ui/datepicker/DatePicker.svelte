@@ -7,7 +7,7 @@
     } from "@internationalized/date";
     import { cn } from "$lib/utils.js";
     import { Button } from "$lib/components/ui/button";
-    import { Calendar } from "$lib/components/ui/calendar";
+    import { Calendar } from "$lib/components/ui/calendar-years";
     import * as Popover from "$lib/components/ui/popover";
 
     const df = new DateFormatter("en-US", {
@@ -27,6 +27,7 @@
     <Popover.Trigger asChild >
         {#snippet children({ builder })}
                 <Button
+                id={rest.id}
                 variant="outline"
                 class="{cn(
                     "w-[280px] justify-start text-left font-normal",
