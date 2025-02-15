@@ -30,7 +30,7 @@ class ContactFormSubmissionEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Form Submitted - ' . $this->name,
+            subject: 'Contact Form Submitted - ' . $this->name . ' | BjeloPIC BŽPP',
             replyTo: $this->email
         );
     }

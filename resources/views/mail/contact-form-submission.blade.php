@@ -82,7 +82,7 @@
 <body class="body">
     <header>
         <a class="block h-full" href="https://bjelopic.com">
-            <img src="https://bjelopic.com/bjelopic_banner.png" alt="bjelopic-banner" />
+            <img src="https://bjelopic.com/bjelopic_banner_smaller.png" alt="bjelopic-banner" />
         </a>
     </header>
     <div class="main">
