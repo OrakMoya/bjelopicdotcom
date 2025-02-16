@@ -4,8 +4,9 @@
         href?: string;
         method?: string;
         xhr?: boolean;
+        hide?: boolean;
         contains?: string;
-        children?: import('svelte').Snippet;
+        children?: import("svelte").Snippet;
     }
 
     let {
@@ -13,16 +14,16 @@
         contains = "",
         method: methodName = "get",
         xhr = true,
-        children
+        hide = false,
+        children,
     }: Props = $props();
-
-
 </script>
 
 {#if xhr}
     <Link
         href={hrefLink}
-        class=" {$page.url.endsWith(hrefLink) || (contains && $page.url.includes(contains))
+        class="{hide ? 'hidden' : ''} {$page.url.endsWith(hrefLink) ||
+        (contains && $page.url.includes(contains))
             ? 'font-bold'
             : 'font-light hover:font-normal'}"
         method={methodName}>{@render children?.()}</Link
@@ -30,7 +31,8 @@
 {:else}
     <a
         href={hrefLink}
-        class=" {$page.url.endsWith(hrefLink) || (contains && $page.url.includes(contains))
+        class="{hide ? 'hidden' : ''} {$page.url.endsWith(hrefLink) ||
+        (contains && $page.url.includes(contains))
             ? 'font-bold'
             : 'font-light hover:font-normal'}"
         method={methodName}>{@render children?.()}</a

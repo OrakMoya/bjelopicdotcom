@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { run } from 'svelte/legacy';
-
     import NavLink from "$lib/components/ui/NavLink.svelte";
     import { SquareArrowOutUpRight } from "lucide-svelte";
     import {page} from '@inertiajs/svelte';
@@ -9,12 +7,6 @@
     }
 
     let { ...rest }: Props = $props();
-
-
-    let show_telescope = $state(false);
-    run(() => {
-        show_telescope = $page.props.show_telescope;
-    });
 </script>
 
 <div class="flex flex-col text-2xl gap-y-2 {rest.class} h-full">
@@ -29,8 +21,8 @@
     <NavLink href="/webtools/hero">Hero</NavLink>
     <NavLink href="/webtools/videos" contains="videos">Videos</NavLink>
     <NavLink href="/webtools/uploads">File Upload</NavLink>
-    <NavLink href="/webtools/people" contains="people">People</NavLink>
-    {#if show_telescope}
+    <NavLink href="/webtools/people" hide contains="people">People</NavLink>
+    {#if $page.props.show_telescope}
         <NavLink xhr={false}  href="/telescope">Telescope</NavLink>
     {/if}
 
