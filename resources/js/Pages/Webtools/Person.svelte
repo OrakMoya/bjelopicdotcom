@@ -60,13 +60,13 @@
             >
             <Button onclick={handleSubmit}><SaveIcon /></Button>
         </div>
-        <div class="mt-4 mb-6 flex gap-x-4">
+        <div class="mt-4 mb-6 flex gap-x-4 px-4 sm:px-0 sm:pr-2 w-full md:w-1/2">
             <Input
-                class="text-2xl sm:rounded-md border-y border-l-0 sm:border-x rounded-tl-none rounded-bl-none h-auto py-1"
+                class="text-2xl h-auto py-1 min-w-0"
                 bind:value={$form.first_name}
             />
             <Input
-                class="text-2xl sm:rounded-md border-y border-r-0 sm:border-x rounded-tr-none rounded-br-none h-auto py-1"
+                class="text-2xl h-auto py-1 min-w-0"
                 bind:value={$form.last_name}
             />
         </div>
@@ -137,9 +137,10 @@
                     </label>
                     <Textarea
                         bind:value={$form.birthday_email_text}
+                        placeholder="BjeloPIC Vam želi sretan rođendan!"
                         disabled={!$form.send_birthday_email ||
                             !birthday_present}
-                        class="mt-2 h-48"
+                        class="mt-2 h-56"
                         id="birthday-email-text"
                     />
                 </div>

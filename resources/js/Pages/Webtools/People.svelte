@@ -13,7 +13,7 @@
 </script>
 
 <div class="p-4">
-    <section class="grid grid-cols-3 gap-4 max-w-screen-xl mx-auto">
+    <section class="grid max-w-96 mx-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:max-w-screen-xl">
         <AddPersonForm />
         {#each people as person}
             <div

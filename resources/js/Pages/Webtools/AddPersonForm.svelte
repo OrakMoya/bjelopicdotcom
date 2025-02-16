@@ -52,15 +52,9 @@
 <Dialog.Root bind:open>
     <Dialog.Trigger>
         <div
-            class="w-full h-full flex items-center justify-center rounded-md bg-neutral-950 border border-neutral-800 hover:bg-neutral-900 transition group"
+            class="w-full h-full flex items-center justify-center rounded-md bg-neutral-950 border border-neutral-800 hover:bg-neutral-900 transition group min-h-24"
         >
-            <AspectRatio ratio={2.35}>
-                <div class="w-full h-full flex items-center justify-center">
-                    <PlusIcon
-                        class="group-hover:opacity-100 opacity-50 transition"
-                    />
-                </div>
-            </AspectRatio>
+            <PlusIcon class="group-hover:opacity-100 opacity-50 transition" />
         </div>
     </Dialog.Trigger>
     <Dialog.Content>
