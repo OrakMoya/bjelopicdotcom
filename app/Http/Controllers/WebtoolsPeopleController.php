@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Person;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -44,7 +45,8 @@ class WebtoolsPeopleController extends Controller
             'birthday' => ['nullable', 'date', 'before_or_equal:' . today()]
         ]);
 
-        Person::create($validated);
+        $person = Person::create($validated);
+        Log::info('Created person ' . $person->first_name . ' ' . $person->last_name . ' with id ' . $person->id);
         return redirect()->back();
     }
 
@@ -82,15 +84,19 @@ class WebtoolsPeopleController extends Controller
 
         $person->update($validated);
 
+        Log::info('Updated person ' . $person->first_name . ' ' . $person->last_name . ' with id ' . $person->id);
+
         return redirect()->back()->with('status', 'Updated!');
     }
 
     /**
      * Remove the specified resource from storage.
-     * @return void
      */
-    public function destroy(Person $person): void
+    public function destroy(Person $person): RedirectResponse
     {
-        //
+        Log::info('Deleting person ' . $person->first_name . ' ' . $person->last_name . ' with id ' . $person->id);
+        $person->delete();
+
+        return redirect()->back()->with('status', 'Deleted!');
     }
 }

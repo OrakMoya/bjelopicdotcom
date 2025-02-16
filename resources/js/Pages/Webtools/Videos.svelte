@@ -784,7 +784,7 @@
         </Dialog.Root>
     </div>
     <div
-        class="grid grid-cols-1 max-w-[450px] mx-auto md:max-w-none md:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-6 gap-y-4 md:gap-y-6 w-full"
+        class="grid grid-cols-1 max-w-[450px] mx-auto md:max-w-none md:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-6 gap-y-4 md:gap-y-6 w-full items-start"
     >
         <button
             class="bg-neutral-950 hover:bg-neutral-900 border border-opacity-0 hover:border-opacity-100 border-neutral-800 w-full h-full rounded-md overflow-clip text-neutral-500 hover:text-white transition-colors"
@@ -825,7 +825,7 @@
                         <div
                             class="flex justify-between items-center align-middle"
                         >
-                            <span class="text-neutral-500"
+                            <span class="text-neutral-500 truncate"
                                 >{video.subject} ({new Date(
                                     video.publication_date,
                                 ).getFullYear()})</span

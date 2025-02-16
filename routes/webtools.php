@@ -35,4 +35,5 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::post('/people', [WebtoolsPeopleController::class, 'store']);
     Route::get('/people/{person}', [WebtoolsPeopleController::class, 'edit']);
     Route::patch('/people/{person}', [WebtoolsPeopleController::class, 'update']);
+    Route::delete('/people/{person}', [WebtoolsPeopleController::class, 'destroy']);
 });
