@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Person;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,24 +10,24 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Birthday extends Mailable
+class BirthdayEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $paragraphs = [];
+    public array $paragraphs = [];
+    public string $name;
 
     /**
      * Create a new message instance.
      * @param string|null $birthday_text
      */
-    public function __construct(public string|null $birthday_text, public string $name)
+    public function __construct(public Person $person)
     {
-        if (!$this->birthday_text) {
-            $this->birthday_text = "Sretan rođendan!";
-        }
+        $this->name = $person->first_name . ' ' . $person->last_name;
+        $birthday_text = $person->birthday_email_text ?? "Sretan rođendan!";
 
         $this->paragraphs = array_filter(
-            explode("\n", $this->birthday_text)
+            explode("\n", $birthday_text)
         );
     }
 
@@ -36,7 +37,8 @@ class Birthday extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Srećan Rođendan '. $this->name .'! | BjeloPIC BŽPP',
+            subject: 'Srećan Rođendan ' . $this->name . '! | BjeloPIC BŽPP',
+            replyTo: 'info@bjelopic.com'
         );
     }
 

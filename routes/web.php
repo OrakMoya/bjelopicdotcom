@@ -27,11 +27,15 @@ Route::get('/f/{sqid}/download', [TemporaryUploadController::class, 'download'])
 
 Route::get('/mailable', function () {
     $person = Person::all()[0];
+    return new App\Mail\BirthdayEmail($person);
 
-    return new App\Mail\Birthday(
-        $person->birthday_email_text,
-        $person->first_name
+    /*
+    return new App\Mail\ContactFormSubmissionEmail(
+        "Mate Pušić",
+        "mate@bjelopic.com",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus dolor eros, ac gravida metus consectetur non. Pellentesque feugiat scelerisque risus, eget vulputate nisi rhoncus vel. Vivamus imperdiet felis metus, eu volutpat ligula consequat sit amet. Phasellus imperdiet aliquam felis, vitae tempus lacus efficitur eget. Curabitur rutrum egestas risus ut imperdiet. Sed egestas leo iaculis nunc elementum, sit amet volutpat metus ornare. Quisque eleifend velit justo, et varius sem finibus eget.\nUt venenatis dolor euismod, accumsan neque id, imperdiet turpis. Mauris fermentum nisi sit amet magna varius finibus. Mauris felis neque, semper quis interdum non, vulputate eu mauris."
     );
+    */
 });
 
 Route::post('/contact', [ContactFormController::class, 'store']);

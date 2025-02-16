@@ -13,6 +13,8 @@ class ContactFormSubmissionEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public array $paragraphs;
+
     /**
      * Create a new message instance.
      * @param string $name
@@ -21,7 +23,9 @@ class ContactFormSubmissionEmail extends Mailable
      */
     public function __construct(public $name, public $email, public $contents)
     {
-        //
+        $this->paragraphs = array_filter(
+            explode("\n", $this->contents)
+        );
     }
 
     /**

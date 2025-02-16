@@ -52,7 +52,7 @@
     }
 </script>
 
-<main class="sm:px-4 py-4">
+<main class="sm:px-4 py-4 mb-48">
     <div class="max-w-screen-lg mx-auto">
         <div class="flex justify-between sm:px-0 px-4">
             <Link class="" href="/webtools/people"
@@ -62,11 +62,11 @@
         </div>
         <div class="mt-4 mb-6 flex gap-x-4">
             <Input
-                class="text-3xl sm:rounded-md rounded-tl-none rounded-bl-none h-auto py-1"
+                class="text-2xl sm:rounded-md border-y border-l-0 sm:border-x rounded-tl-none rounded-bl-none h-auto py-1"
                 bind:value={$form.first_name}
             />
             <Input
-                class="text-3xl sm:rounded-md rounded-tr-none rounded-br-none h-auto py-1"
+                class="text-2xl sm:rounded-md border-y border-r-0 sm:border-x rounded-tr-none rounded-br-none h-auto py-1"
                 bind:value={$form.last_name}
             />
         </div>
@@ -125,7 +125,7 @@
                     </label>
                 </div>
                 <div
-                    class="text-lg px-4 pb-2 pt-2 mb-3 bg-neutral-900/45 backdrop-blur border-y sm:border-x border-neutral-800 sm:rounded-md transition-all relative {!$form.send_birthday_email
+                    class="text-lg px-4 pb-2 pt-2 mb-3 bg-neutral-900/45 backdrop-blur border-y sm:border-x border-neutral-800 sm:rounded-md transition-all relative {!$form.send_birthday_email || !birthday_present
                         ? 'opacity-50 pointer-events-none'
                         : ''}"
                 >
@@ -139,7 +139,7 @@
                         bind:value={$form.birthday_email_text}
                         disabled={!$form.send_birthday_email ||
                             !birthday_present}
-                        class="mt-2"
+                        class="mt-2 h-48"
                         id="birthday-email-text"
                     />
                 </div>

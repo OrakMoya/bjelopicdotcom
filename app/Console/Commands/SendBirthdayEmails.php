@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\Birthday;
+use App\Mail\BirthdayEmail;
 use App\Models\Person;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -39,9 +39,8 @@ class SendBirthdayEmails extends Command
         foreach ($people as $person) {
             Mail::to($person->email)
                 ->send(
-                    new Birthday(
-                        $person->birthday_email_text,
-                        $person->first_name . ' ' . $person->last_name
+                    new BirthdayEmail(
+                        $person
                     )
                 );
         }
