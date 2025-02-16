@@ -28,7 +28,7 @@
         getLocalTimeZone,
         parseDate,
     } from "@internationalized/date";
-    import { Calendar } from "$lib/components/ui/calendar";
+    import { Calendar } from "$lib/components/ui/calendar-years";
     import { AspectRatio } from "bits-ui";
     import * as Accordion from "$lib/components/ui/accordion";
     import * as Command from "$lib/components/ui/command";
